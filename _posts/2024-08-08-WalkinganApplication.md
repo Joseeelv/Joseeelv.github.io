@@ -78,7 +78,8 @@ Podemos hacer uso de *Breakpoints* para forzar al navegador que se pare antes de
 
 ### Herramientas para desarrolladores - Red
 
-Desde la pestaña de red ‘N*etwork’* podemos hacer un seguimiento de las peticiones / solicitudes que realiza la página web. Si hacemos click en la pestaña de Red y seguidamente actualizamos la página web, veremos todos los archivos que solicita la misma.
+Desde la pestaña de red ‘*Network*’ podemos hacer un seguimiento de las peticiones / solicitudes que realiza la página web. Si hacemos click en la pestaña de Red y seguidamente actualizamos la página web, veremos todos los archivos que solicita la misma.
 
 AJAX es un método para enviar y recibir datos de red en un fondo de aplicación web sin interferir cambiando la página web actual
+
 ---

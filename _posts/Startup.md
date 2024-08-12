@@ -1,13 +1,15 @@
-# Startup
-
-Created: December 13, 2023 6:02 PM
-Etiquetas: Enumeración, Reverse_shell, Wireshark
-Dificultad: Fácil
-Enlace:: https://tryhackme.com/room/startup
-Hecho : Jose Luis 
-Status: Done
-
-En esta room vamos a proceder a obtener las flags *user.txt* y *root.txt* mediante varias técnicas que vamos a ver a continuación.
+---
+title: Start-up
+layout: post
+post-image: "../assets/images/Rooms/Startup/startup.png"
+description: Abuse traditional vulnerabilities via untraditional means.
+difficulty: Fácil
+enlace: https://tryhackme.com/r/room/startup
+tags:
+- Enumeración
+- Reverse shell
+- Wireshark
+---
 
 # User.txt
 
@@ -15,144 +17,184 @@ En esta room vamos a proceder a obtener las flags *user.txt* y *root.txt* median
 
 Vamos a realizar un escaneo de puertos con `nmap -p- -v <ip_maquina>`  y vemos que solo tenemos abierto el puerto 21, 22, 80.
 
-![Tenemos una conexión ftp, ssh y una pagina web habilitadas.](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled.png)
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-Tenemos una conexión ftp, ssh y una pagina web habilitadas.
+> Tenemos los servicios ftp , ssh y una pagina web habilitadas.
 
-Vamos a realizar una conexión ftp mediante el user Anonymous.
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td style="vertical-align:top;">
+        Vamos a realizar una conexión ftp mediante el user Anonymous, ya que este permite conexiones anónimas:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      </td>
+      <td style="vertical-align:top;  width:50%">
+        Estamos dentro y vamos a realizar un listado de archivos para ver que contiene el directorio en el que estamos:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+        Encontramos un directorio y dos archivos (Nada relevante), los cuales podemos descargar mediante el comando <code>get nombre_archivo</code> y abrilos en nuestra máquina.
+      </td>
+    <tr>
+  </table>
+</div>
 
-![Untitled](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%201.png)
+Como no hemos encontrado nada en el servidor vamos a acceder a la pagina web → `http://<ip_maquina>`
 
-Estamos dentro y vamos a realizar un listado de archivos.
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-![Untitled](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%202.png)
+Resultado al acceder a la pagina web de la maquina, nada interesante a simple vista, pero mediante **fuzzing** podemos enumerar los directorios de la misma, yo haré uso de **gobuster** → `gobuster dir --url ip_maquina_victima -w ruta_wordlist`:
 
-Encontramos un directorio y dos archivos (Nada relevante).
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-Ahora accedemos a la pagina web → `http://<ip_maquina>`
+Como bien sabemos tenemos activo un servicio *FTP* (al que accedimos antes), pero esta vez vamos a usarlo para subir archivos, estos archivos se encuentran en el directorio `/files`. Este archivo que vamos a subir será una reverse shell, la cual al ejecutarla desde el servidor, este se conectará a nuestra máquina y tendremos acceso a ella:
+En Github podemos buscar algún script el cual realice una reverse shell → [pentestmonkey/php-reverse-shell](https://github.com/pentestmonkey/php-reverse-shell)
 
-![Resultado al acceder a la pagina web de la maquina (Nada interesante)](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%203.png)
 
-Resultado al acceder a la pagina web de la maquina (Nada interesante)
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+      Dentro del script debemos de modificar los campos <strong>$ip</strong> y <strong>$port</strong> introduciendo la ip de nuestra máquina y el puerto habilitado para la escucha con netcat, respectivamente.
+      <div style="text-align:center; ">
+        <img src="../assets/images/Rooms/Startup/a.png" alt="Untitled" onclick="openModal(this.src)"/>
+      </div>
+      </td>
+      <td style="vertical-align:top; width:50%">
+        Mediante <strong>netcat</strong> habilitamos el puerto de escucha para la reverse shell, este caso el puerto 444:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
 
-Si volvemos a la conexión ftp encontramos un directorio ‘/ftp’ donde podemos subir mediante el comando `put` una reverse-shell vía php:
+Si nos volvemos a conectar al servidor *FTP* y realizamos un `put script_reverse_shell.php` veremos que se realiza la conexión y estamos dentro del servidor (como se puede ver en la figura anterior).
 
-[https://github.com/pentestmonkey/php-reverse-shell](https://github.com/pentestmonkey/php-reverse-shell)
+Vemos que somos el usuario **www-data** al hacer uso del comando `ls -la`, y vamos a proceder a la búsqueda de las flags. Para ello, lo más intuitivo es realizar una búsqueda de los ficheros que hay en el servidor -> `find -type f -name nombre_fichero.txt 2>/dev/null`, donde `-type` es el tipo del archivo (fichero), `-name` nombre del fichero a buscar y `2>/dev/null` devuelve los errores al null. Como resultado no encontramos nada, por lo que hay que seguir buscando.
 
-Modificamos la ip (nuestra_ip) y puerto de escucha con netcat:
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+        Si realizamos un listado de archivos y directorios podemos ver que hay un directorio llamado `/incidents` al cual podemos acceder. Si accedemos a él y volvemos a listar, encontramos un par de archivos:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      </td>
+      <td style="vertical-align:top; width:50%">
+       En este directorio vemos que hay un archivo con extensión '*.pcap*' (una captura de tráfico de red), y lo vamos a copiar en el directorio <code>/var/www/html/files/ftp</code> para poder descargarlo en nuestra máquina para analizarlo posteriormente:
+         <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div> 
+      </td>
+    </tr>
+  </table>
+</div>
 
-![Introducimos la ip de nuestra máquina y el puerto de escucha.](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/a.png)
+Por ejemplo, desde la página web podemos ver si se ha copiado o no el archivo:
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-Introducimos la ip de nuestra máquina y el puerto de escucha.
+Ahora podemos descargarlo ya sea pinchando en él o haciendo un wget → `wget ip_maquina:/files/ftp/suspicious.pcapng`.
+Esta captura del tráfico de red la podemos analizar mediante la herramienta **Wireshark**:
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+        <div style="text-align:center; ">
+        Hemos accedido a la captura del tráfico de red:
+          <img src="../assets/images/Rooms/Startup/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      </td>
+      <td style="vertical-align:top; width:50%">
+         <div style="text-align:center; ">
+           Seguimos el flujo de tráfico:
+          <img src="../assets/images/Rooms/Startup/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div> 
+      </td>
+    </tr>
+  </table>
+</div>
 
-Accedemos al script desde la url → ip_maquina/files/ftp y tenemos respuesta de netcat.
+Vamos a seguir el flujo de tráfico TCP para poder encontrar información:
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/a1.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-![Untitled](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%204.png)
+Hemos encontrado información acerca de un directorio llamado */home/lennie*, por tanto, este directorio pertenece a un usuario, además tenemos su contraseña por lo que no tendríamos que realizar ningún ataque de fuerza bruta para obtenerla.
 
-Hacemos un ls -la  para ver los archivos y directorios y a quien pertenecen.
-
-Como queremos encontrar el *user.txt* vamos a tirar un `find / -type f -name 'user.txt'` . Como resultado → Nada. Vamos a buscar otra manera de encontrar la flag.
-
-Investigando un poco en el servidor, he encontrado dos archivo llamado ‘incidents’ y ‘recipe.txt’ los cuales pertenecen al servidor web.
-
-Nos vamos a centrar en el archivo ‘incidents’ el cual contiene un archivo con extensión ‘.pcap’ (una captura de tráfico de red).
-
-![Untitled](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%205.png)
-
-![‘.’ indica el directorio actual → /var/www/html/files/ftp](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%206.png)
-
-‘.’ indica el directorio actual → /var/www/html/files/ftp
-
-Para poder descargarlo, vamos a copiar el archivo ‘suspicuous.pcapng’  en la pagina web (/var/www/html) desde la reverse-shell
-
-![Aquí podemos comprobar que hemos copiado el archivo en dicha ruta y pinchando en él podemos descargarlo.](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%207.png)
-
-Aquí podemos comprobar que hemos copiado el archivo en dicha ruta y pinchando en él podemos descargarlo.
-
-Abrimos Wireshark (una herramienta que nos permite ver las capturas de tráfico de red) para poder analizar los paquetes.
-
-![Hemos accedido a la captura del tráfico de red](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%208.png)
-
-Hemos accedido a la captura del tráfico de red
-
-![Seguimos el flujo de tráfico](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%209.png)
-
-Seguimos el flujo de tráfico
-
-Vamos a seguir el flujo de tráfico TCP para poder encontrar información.
-
-![a1.png](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/a1.png)
-
-![c4ntg](../../../Startup%20b82f8a7be3d340a58e482c82c4e65441/Untitled.png)
-
-c4ntg
-
-En el reconocimiento de puertos (NMAP) encontramos que permitía una conexión ssh, por tanto, vamos a proceder a realizarla mediante estas credenciales:
-
-![Untitled](../../../Startup%20b82f8a7be3d340a58e482c82c4e65441/Untitled%201.png)
-
-Estamos dentro, vamos a tirar un ‘ls’ para poder ver los directorios de la ruta en la que nos encontramos.
-
-En el reconocimiento de puertos (NMAP) encontramos que permitía una conexión ssh, por tanto, vamos a proceder a realizarla mediante estas credenciales:
-
-![Untitled](../../../Startup%20b82f8a7be3d340a58e482c82c4e65441/Untitled%201.png)
-
-Estamos dentro, vamos a tirar un ‘ls’ para poder ver los directorios de la ruta en la que nos encontramos.
-
-Si tiramos un bash tendremos una consola (mejor que por defecto).
-
-![a3.png](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/a3.png)
-
-Tenemos la flag (user.txt).
-
-![c4ntg](../../../Startup%20b82f8a7be3d340a58e482c82c4e65441/Untitled.png)
-
-c4ntg
-
-En el reconocimiento de puertos (NMAP) encontramos que permitía una conexión ssh, por tanto, vamos a proceder a realizarla mediante estas credenciales:
-
-![Untitled](../../../Startup%20b82f8a7be3d340a58e482c82c4e65441/Untitled%201.png)
-
-Estamos dentro, vamos a tirar un ‘ls’ para poder ver los directorios de la ruta en la que nos encontramos.
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+      Si volvemos al escaneo de puertos realizado en primera instancia vemos que hay un servicion *SSH* corriendo por el puerto 22, asi que vamos a iniciar sesión mediante esas credenciales para acceder al servidor:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      </td>
+      <td style="width:50%">
+      Estamos dentro, vamos a tirar un `ls` para poder ver los archivos y directorios que hay en este.<br><br>
+      Hemos encontrado un fichero llamado <em>user.txt</em>, por lo que si le hacemos un <code>cat user.txt</code>, tendremos la flag:
+      <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/a3.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
 
 # Root.txt
 
----
+Para poder obtener la flag ‘Root.txt’ tenemos que buscar una manera de poder escalar privilegios, ya que solo podremos acceder a ella mediante dichos privilegios.
+Podemos escalar privilegios de muchas maneras, por lo que primero de todo vamos a comprobar que comandos puede ejecutar como root el usuario *lennie*:
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-Para poder obtener la flag ‘Root.txt’ tenemos que buscar una manera de poder escalar privilegios ya que solo la podemos abrir con permisos sudo.
+Como vemos, no podemos ejecutar ningún comando como root, por lo que vamos a buscar otra manera:
 
-![Comprobamos si puede ejecutar comandos sudo.](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%2010.png)
+En la búsqueda de la *user.txt* vimos que había un directorio llamado `/scripts`, vamos acceder a él para ver que encontramos:
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-Comprobamos si puede ejecutar comandos sudo.
+En el directorio hemos encontrado un archivo *planner.sh*, que es un script bash que contiene `cat planner.sh`:
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)"/>
+</div>
 
-![En el directorio hemos encontrado un archivo ‘planner.sh’](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%2011.png)
+Vemos que llama a un archivo *print.sh* el cual si puede ejecutarlo, por tanto, podemos colar una reverse shell en el fichero para que se pueda ejecutar. Si hacemos un `cat /etc/crontabs` podemos ver que el archivo *planner.sh* y *startup_list.txt* pertenecen al root, por lo que estas se ejecutarán como root.
 
-En el directorio hemos encontrado un archivo ‘planner.sh’
-
-Vamos a ver que contiene mediante el comando `cat nombre_archivo`
-
-![Untitled](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%2012.png)
-
-Vemos que llama a un archivo ‘print.sh’ el cual si puede ejecutarlo por tanto, una de las maneras de poder entrar es realizando una reverse_shell para tener acceso a la maquina.
-
-Si accedemos a la web [https://www.revshells.com/](https://www.revshells.com/) podemos crear reverse-shells.
-
-![Paso 1 (modificamos archivo con la reverse_shell).](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%2013.png)
-
-Paso 1 (modificamos archivo con la reverse_shell).
-
-Lo guardamos en el archivo ‘/etc/print.sh’
-
-![Paso 3 (ejecutamos la reverse_shell).](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/Untitled%2014.png)
-
-Paso 3 (ejecutamos la reverse_shell).
-
-![Paso 2 (creamos con netcat la escucha)
-Paso 4.(obtenemos la flag).](Startup%20efcf639a77ec4ddd9752b898b6bbc1bf/b.png)
-
-Paso 2 (creamos con netcat la escucha)
-Paso 4.(obtenemos la flag).
-
-Reverse_shell realizada y hemos obtenido la flag.
+Si accedemos a la web [Revshells](https://www.revshells.com/) podemos crear una reverse shell que luego introduciremos en dicho fichero:
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+      1. Modificamos el archivo <em>/etc/print.sh</em> introduciendo la reverse shell
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      Si esperamos un poco vemos que la conexión se realiza con éxito. Podemos ver que somos el usuario root por lo que ya podremos acceder a la flag la cual se encuentra en <code>/root/root.txt</code>. (como podemos ver en la imagen de la derecha).
+      </td>
+      <td style="vertical-align:top; width:50%">
+      2. Habilitamos un puerto de escucha para que el servidor se conecte a nuestra máquina:
+      <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/b.png" alt="Untitled" onclick="openModal(this.src)"/>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---

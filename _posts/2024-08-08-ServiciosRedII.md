@@ -65,17 +65,17 @@ Una vez montado los directorios compartidos que queremos en nuestro propio equip
       <td style="vertical-align:top;">
       2. Vamos a nuestro directorio <code>/tmp</code> y creamos una nueva montura:
         <div style="text-align:center; width:500px;">
-          <img src="../assets/images/Labs/ServiciosRedII/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)"/>
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
         </div><br>
       4. Vemos que hay un directorio llamado <code>/.ssh</code> si accedemos a él encontramos los ficheros <strong>id_rsa</strong> y <strong>id_rsa.pub</strong>:
       <div style="text-align:center; ">
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
       </td>
       <td>
       3. La montamos en nuetra máquina la montura que está compartiendo la máquina víctima, luego nos cambiamos al directorio que tiene dentro la montura, listamos directorios y vemos algunos archivos:
       <div style="text-align:center; ">
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
       </td>
     </tr>
@@ -84,7 +84,7 @@ Una vez montado los directorios compartidos que queremos en nuestro propio equip
 
 5. Ahora podemos realizar la copia de ambos ficheros en nuestra máquina para poder visualizar su contenido, por ejemplo, visualizamos el contenido de **id_rsa.pub** y vemos que *cappucino* es el usuario del fichero *id_rsa*.
 <div style="text-align:center; ">
-  <img src="../assets/images/Labs/ServiciosRedII/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)"/>
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
 </div>
 
 <div style="text-align:left; ">
@@ -93,11 +93,11 @@ Una vez montado los directorios compartidos que queremos en nuestro propio equip
       <td style="vertical-align:top; width:600px">
       6. Tenemos el usuario <em>cappucino</em> y su <strong>id_rsa</strong>, por tanto, podemos realizar la conexión ssh:
       <div style="text-align:center; ">
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
       7. Ya dentro del servidor podemos ver los recursos que comparte:
       <div style="text-align:center; ">
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
       Código en C del exploit:
       <pre>int main(){
@@ -110,7 +110,7 @@ Una vez montado los directorios compartidos que queremos en nuestro propio equip
       <td>
       8. Y vemos que el directorio <code>/home</code> tiene activado el <strong>no_root_squash</strong>, por tanto, si metemos en dicho directorio un script que se ejecute con privilegios root, al no tener dicha configuración activa, si lo ejecutamos seremos un usuario con privilegios root y no uno normal.
       <div style="text-align:center; ">
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
       </td>
     </tr>
@@ -262,13 +262,13 @@ Los mensajes en SMTP se envían en texto plano, pero la conexión puede estar ci
       <td style="vertical-align:top; width:650px">
         <div style="text-align:center;">
         2.1 Mediante <code>search nombre_modulo</code> realizamos una búsqueda de los exploits:
-          <img src="../assets/images/Labs/ServiciosRedII/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)"/>
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
         </div>
       </td>
       <td style="vertical-align:top;">
       <div style="text-align:center; ">
       2.2 Mediante <code>options modulo</code> podemos listar las opciones que tiene el exploit:
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
       </td>
     </tr>
@@ -292,13 +292,13 @@ Vemos que el MTA de *polosmtp.home* es Postfix.
       <td style="vertical-align:top; width:650px">
         <div style="text-align:center; ">
         3.1 Vemos las opciones que tiene el exploit:
-          <img src="../assets/images/Labs/ServiciosRedII/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)"/>
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
         </div>
       </td>
       <td style="vertical-align:top;">
       <div style="text-align:center; ">
         3.2 Añadimos las opciones necesarias para que se pueda ejecutar:
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
       Ahora tenemos que especificar tanto el <code>RHOST</code> (igual que antes) como <code>USER_FILE</code> (diccionario con usernames).<br>
       Si no tienes el diccionario instalado, haz → <code>sudo apt install seclists -y</code>.<br>Añadimos el diccionario y ejecutamos.<br>
@@ -319,13 +319,13 @@ Vemos que el MTA de *polosmtp.home* es Postfix.
     <td style="vertical-align:top; width:600px">
       <div style="text-align:center; ">
       5. Conseguimos la contraseña y realizamos la conexión ssh con las credenciales:
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)"/>
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px"/>
       </div>
     </td>
     <td style="width:550px; text-align:center;">
       <div style="text-align:center;">
       6. Dentro del servidor buscamos la flag:
-        <img src="../assets/images/Labs/ServiciosRedII/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" style="max-width:1000px" />
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
       </div>
     </td>
   </tr>

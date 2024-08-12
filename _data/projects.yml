@@ -60,7 +60,7 @@
   description: Este módulo es el tercer y último introductorio de Windows. En este laboratorio, exploramos diversas herramientas integradas en Windows diseñadas para proteger y asegurar los equipos. La seguridad en Windows se gestiona a través de varias aplicaciones y configuraciones clave.
 
 - name: Descubrir Contenidos Web
-  link: https://joseeelv.github.io//blog Descubrimientodecontenidos
+  link: https://joseeelv.github.io//blog/Descubrimientodecontenidos
   image: "../assets/images/Labs/DC/hacking.png"
   description: Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.
 
