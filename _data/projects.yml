@@ -68,3 +68,8 @@
   link: https://joseeelv.github.io//blog/WalkinganApplication
   image: "../assets/images/Labs/RecorrerSolicitud/console.png"
   description: Este laboratorio se centra en la revisión manual de una aplicación web para detectar problemas de seguridad utilizando solo las herramientas integradas del navegador. Estas herramientas son esenciales porque a menudo pueden revelar vulnerabilidades que las herramientas automáticas pasan por alto.
+
+- name: Sistemas de Nombres de Dominio
+  link: https://joseeelv.github.io//blog/DNS
+  image: "../assets/images/Labs/DNS/dns.png"
+  description: En este módulo vamos a conocer como funciona el DNS y como nos ayuda a la hora de acceder a cualquier dirección IP mediante dominios.
