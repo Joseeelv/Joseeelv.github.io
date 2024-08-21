@@ -16,11 +16,21 @@ Primero de todo, vamos a realizar un escaneo de los puertos de la dirección ip 
 <div style="text-align: left;">
   <table>
     <tr>
-      <td>
+      <td style="vertical-align: top;">
+        <div style="text-align: center;">
+          <img src="../assets/images/Rooms/ChillHack/image.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;">
+        </div>
       </td>
-      <td>
+      <td style="vertical-align: top;">
+        <div style="text-align: center;">
+          <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;">
+        </div>
       </td>
-      <td>
+      <td style="vertical-align: top;">
+        <div style="text-align: center;">
+        
+          <img src="../assets/images/Rooms/ChillHack/image 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;">
+        </div>
       </td>
     </tr>
   </table>
