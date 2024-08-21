@@ -26,13 +26,12 @@ Primero de todo, vamos a realizar un escaneo de los puertos de la dirección ip 
           <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;">
         </div>
       </td>
-      <td style="vertical-align: top;">
-        <div style="text-align: center;">
-          <img src="../assets/images/Rooms/ChillHack/image 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
-        </div>
-      </td>
     </tr>
   </table>
+</div>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
 </div>
 Vemos que tiene abierto los puertos **21** (conexión servicio FTP), **22** (conexión servicio SSH) y **80** (página web no encriptada "http").
 
