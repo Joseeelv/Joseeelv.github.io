@@ -73,7 +73,7 @@ Hemos hecho un bypass del comando `ls -la` escapando la s, por lo que podemos ll
   <tr>
     <td style="vertical-align:top">
       <div style="text-align: center;">
-      <img src="../assets/images/Rooms/ChillHack/image 10_1.png" alt="Untitled" onclick="openModal(this.src)"style="width:100%; max-width:800px">
+      <img src="../assets/images/Rooms/ChillHack/image 10_1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
       </div>
     </td>
     <td style="vertical-align:top; width:55%">
@@ -280,4 +280,5 @@ Podemos buscar en [GTFObins/Docker](https://gtfobins.github.io/gtfobins/docker/#
   <img src="../assets/images/Rooms/ChillHack/image 35.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
 </div>
 Hemos obtenido la root flag, por lo que hemos terminado el CTF.
+
 ___
