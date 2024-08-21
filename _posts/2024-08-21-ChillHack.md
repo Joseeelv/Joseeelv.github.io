@@ -18,29 +18,29 @@ Primero de todo, vamos a realizar un escaneo de los puertos de la dirección ip 
     <tr>
       <td style="vertical-align: top;">
         <div style="text-align: center;">
-          <img src="../assets/images/Rooms/ChillHack/image.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;">
+          <img src="../assets/images/Rooms/ChillHack/image.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;">
         </div>
       </td>
       <td style="vertical-align: top;">
         <div style="text-align: center;">
-          <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;">
+          <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;">
         </div>
       </td>
       <td style="vertical-align: top;">
         <div style="text-align: center;">
-        
-          <img src="../assets/images/Rooms/ChillHack/image 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;">
+          <img src="../assets/images/Rooms/ChillHack/image 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
         </div>
       </td>
     </tr>
   </table>
 </div>
-![[image 1.png]]
-![[image 2.png]]
 Vemos que tiene abierto los puertos **21** (conexión servicio FTP), **22** (conexión servicio SSH) y **80** (página web no encriptada "http").
 
 Primero, vamos a iniciar una conexión anónima en el servidor *FTP*, debido a que permite dicho tipos de conexiones:
-![[image 3.png]]
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
+</div>
+
 Vemos que al iniciar sesión, y realizar un listado de los archivos encontramos un fichero **note.txt** que podemos descargar en nuestra máquina mediante el comando `get`.
 ![[image 4.png]]
 Vemos que el fichero contiene dos usuarios **Anurodh** y **Apaar**.
