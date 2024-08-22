@@ -142,13 +142,19 @@ Si ejecutamos el comando especificando el usuario `-u apaar` y en el mensaje esc
     </td>
     <td style="vertical-align:top; width:50% ">
       Tratamiento de la tty (para poder tener una CLI más amigable):
-    <div style="text-align: left;">
-      <pre><code>  python3 -c 'import pty; pty.spawn("/bin/bash")'
-      (ctrl + Z)
-      stty raw -echo;fg
-      stty rows 29 columns 126
-      export TERM=screen</code></pre>
-    </div>
+    <div style="text-align:left;">
+      <div class="code-container">
+          <div class="code-header">
+            Bash
+            <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+          </div>
+          <pre><code class="language-bash" >python3 -c 'import pty; pty.spawn("/bin/bash)'
+(ctrl + Z)
+stty raw -echo;fg
+stty rows 29 columns 126
+export TERM=screen</code></pre>
+        </div>
+      </div>
   </td>
   </tr>
 </table>
@@ -182,22 +188,29 @@ Encontramos un panel de login, que puede cuadrar con el servicio *SSH* que hay c
 
 Pero primero, vamos a volver a hacer *fuzzing web* a esta web:
 <div style="text-align:center;">
-<pre><code>gobuster dir -u ip_maquina:9001 -w /ruta_wordlist</code></pre>
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >gobuster dir -u ip_maquina:9001 -w /ruta_wordlist</code></pre>
+  </div>
 </div>
-
 y vemos que tenemos un directorio llamado `/images`, si accedemos a él encontramos dos archivos, el que nos interesa es el '.jpg'.
 <div style="text-align:center;">
   <img src="../assets/images/Rooms/ChillHack/image 28.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
 </div>
 
 Ahora nos descargamos el archivo:
-
 <div style="text-align:center;">
-  <pre><code>
-wget hacker-with-laptop_23-2147985341.jpg
-  </code></pre>
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >wget hacker-with-laptop_23-2147985341.jpg</code></pre>
+  </div>
 </div>
-
 Como tenemos una imagen con extensión '.jpg' podemos hacer uso de `steghide` para poder encontrar información oculta en la imagen:
 <div style="text-align:center;">
   <img src="../assets/images/Rooms/ChillHack/image 29.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
@@ -209,26 +222,43 @@ Y esto no da un archivo llamado 'backup.zip', el cual si queremos descomprimir n
 
 Tenemos la contraseña del '.zip', vamos a abrirlo:
 <div style="text-align:center;">
-<pre><code>unzip backup.zip
-nano source_code.php
-</code></pre>
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >unzip backup.zip
+nano source_code.php</code></pre>
+  </div>
 </div>
+
+
 
 <div style="text-align:center;">
   <img src="../assets/images/Rooms/ChillHack/image 31.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
 </div>
 
 Encontramos la contraseña del otro usuario <strong>Anurodh</strong>, la cual está encriptada en base64, la desencriptamos y nos la guardamos:
-<div style="text-align: center;">
-<pre><code>echo -e "contraseña_base64" | base64 -d</code></pre>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >echo -e "contraseña_base64" | base64 -d</code></pre>
+  </div>
 </div>
 
 Ahora sí, vamos a proceder a obtener las claves *id_rsa* del usuario <strong>apaar</strong>, para ello vamos al directorio donde estas se almacenan:
-
-<div style="text-align: center;">
-<pre><code> cd /home/apaar/.shh</code></pre>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >cd /home/apaar/.shh</code></pre>
+  </div>
 </div>
-
 <div style="text-align:center;">
   <img src="../assets/images/Rooms/ChillHack/image 20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
 </div>
