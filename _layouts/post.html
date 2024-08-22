@@ -105,6 +105,7 @@
       margin-top: 20px;
       border: 1px solid #ddd;
       border-radius: 8px;
+      width: 100%;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       width: auto;
@@ -132,11 +133,12 @@
       border-radius: 0 0 8px 8px;
       font-size: 14px;
       overflow-x: auto;
+      word-wrap: break-word; /* Asegura que las líneas largas se ajusten */
     }
 
     /* Estilos para el botón de copiar */
     .copy-button {
-      background-color: #4CAF50;
+      background-color: #373e37;
       color: white;
       padding: 5px 10px;
       border: none;
@@ -146,7 +148,7 @@
     }
 
     .copy-button:hover {
-      background-color: #45a049;
+      background-color: #1c201c;
     }
   </style>
 </head>
@@ -222,7 +224,7 @@
 
   <script>
       function copyToClipboard() {
-      const code = document.querySelector('.code-container code').innerText;
+      const code = document.querySelector('code').innerText;
       navigator.clipboard.writeText(code).then(() => {
         alert("Código copiado al portapapeles!");
       });
