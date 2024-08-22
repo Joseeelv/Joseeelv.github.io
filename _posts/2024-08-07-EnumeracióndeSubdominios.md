@@ -55,7 +55,7 @@ Viene preinstalada en el sistema operativo Kali Linux, y se utiliza en la termin
 <div style="text-align:center;">
   <pre><code>
 dnsrecon -d [dominio.com](http://dominio.com/) -D ruta_de_la_wordlist_subdominios -t std -xml ouput.xml
-  </pre></code>
+</code></pre>
 </div>
 
 
@@ -71,7 +71,7 @@ Ejemplo de búsqueda de subdominios de Kali.org
 <div style="text-align:center;">
   <pre><code>
 sublist3r -d [kali.org](http://kali.org/) -t 3 -e google
-  </pre></code>
+</code></pre>
 </div>
  
 
@@ -90,7 +90,7 @@ Ejemplo de uso de **ffuf**:
 <div style="text-align:center;">
   <pre><code>
 ffuf -w ruta_de_la_wordlist -H cabecera -u ip_maquina -fs filtro_salida
-  </pre></code>
+</code></pre>
 </div>
 
 

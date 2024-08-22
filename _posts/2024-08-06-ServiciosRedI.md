@@ -46,7 +46,7 @@ Una vez establecida la conexión, el cliente puede mandarle comandos (SMB) al se
 <div style="text-align:center;">
   <pre><code>
 nmap -p 445 parametros ip-objetivo
-  </pre></code>
+</code></pre>
 </div>
 
 Si encontramos que el puerto 445 `SMB` está abierto, podemos seguir haciendo uso de Nmap con algunos scripts específicos para listar el servidor SMB:
@@ -54,7 +54,7 @@ Si encontramos que el puerto 445 `SMB` está abierto, podemos seguir haciendo us
 <div style="text-align:center;">
   <pre><code>
 nmap -p 445 --script smb-protocols <ip-objetivo>
-  </pre></code>
+</code></pre>
 </div>
     
     
@@ -79,7 +79,7 @@ Mediante:
 
 <div style="text-align:center;">
   <pre><code>
-sudo nmap -p- -open -sC -sS -sV -n -Pn -vvv --min-rate 5000 ip-objetivo  </pre></code>
+sudo nmap -p- -open -sC -sS -sV -n -Pn -vvv --min-rate 5000 ip-objetivo</code></pre>
 </div>
 
 
@@ -223,7 +223,7 @@ Mediante **Nmap** podemos encontrar si el puerto 21 está abierto o no.
 <div style="text-align:center;">
   <pre><code>
 smap -p 21 <parametros> <ip-objetivo>
-  </pre></code>
+</code></pre>
 </div>
 
 

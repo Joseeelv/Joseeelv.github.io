@@ -206,7 +206,7 @@ nmap -p 25 --script smtp-enum <ip-servidor>
 <div style="text-align:center;">
   <pre><code>
 smtp-user-enum -M VRFY -U listausuario.txt -t <ip-servidor>
-  </pre></code>
+  </code></pre>
 </div>
 <ul>
     <li><code>-M VRFT</code>: Usamos el comando `VRFY` para enumerar servicios.</li>
