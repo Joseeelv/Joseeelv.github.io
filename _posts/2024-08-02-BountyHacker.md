@@ -16,9 +16,10 @@ tags:
 # User.txt
 Mediante `nmap` vamos a realizar un escaneo de los puertos de la maquina objetivo:
 
-```bash 
-nmap -sC -sV -p- <ip_maquina_objetivo>
-```
+<div style="text-align:center;">
+    <pre><code>nmap -sC -sV -p- <ip_maquina_objetivo></code></pre>
+</div>
+
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BountyHacker/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />

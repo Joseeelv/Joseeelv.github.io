@@ -42,17 +42,23 @@ Una vez establecida la conexión, el cliente puede mandarle comandos (SMB) al se
     
     Esto lo podemos ver en la room [kenobi de THM](https://joseeelv.github.io//blog/Kenobi).
     
-    ```bash
-    nmap -p 445 <parametros> <ip-objetivo>
-    ```
     
-    Si encontramos que el puerto 445 `SMB` está abierto, podemos seguir haciendo uso de Nmap con algunos scripts específicos para listar el servidor SMB:
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 445 parametros ip-objetivo
+  </pre></code>
+</div>
+
+Si encontramos que el puerto 445 `SMB` está abierto, podemos seguir haciendo uso de Nmap con algunos scripts específicos para listar el servidor SMB:
     
-    ```bash
-    nmap -p 445 --script smb-protocols <ip-objetivo>
-    ```
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 445 --script smb-protocols <ip-objetivo>
+  </pre></code>
+</div>
     
-2. **Uso de herramienta Enum4Linux:**
+    
+1. **Uso de herramienta Enum4Linux:**
     
     También podemos hacer uso de la herramienta **Enum4Linux** con la sintaxis → `enum4linux [opc] <ip_target>`
     
@@ -71,9 +77,11 @@ También podemos intentar acceder al servidor remotamente mediante una conexión
 
 Mediante:
 
-```bash
-sudo nmap -p- -open -sC -sS -sV -n -Pn -vvv --min-rate 5000 <ip-objetivo>
-```
+<div style="text-align:center;">
+  <pre><code>
+sudo nmap -p- -open -sC -sS -sV -n -Pn -vvv --min-rate 5000 ip-objetivo  </pre></code>
+</div>
+
 
 Obtenemos los siguientes puertos y servicios:
 
@@ -212,9 +220,12 @@ Hay 2 tipos de conexión FTP:
 
 Mediante **Nmap** podemos encontrar si el puerto 21 está abierto o no.
 
-```bash
-nmap -p 21 <parametros> <ip-objetivo>
-```
+<div style="text-align:center;">
+  <pre><code>
+smap -p 21 <parametros> <ip-objetivo>
+  </pre></code>
+</div>
+
 
 ## Como explotar el protocolo FTP
 
@@ -227,15 +238,16 @@ También podemos realizar una conexión al servidor con las credenciales predete
 
 ```bash
 ftp> open <target-IP>
-Name (<target-IP>:<username>): anonymous
+Name (<target-IP>:username>): anonymous
 Password: <anonymous>
 ```
+
 
 Una vez autorizados podemos navegar sobre el servidor FTP, en busca de información.
 
 1. **Ataque de fuerza bruta:**
 Si esto falla, podemos realizar un ataque de fuerza bruta con `hydra` con el fin de encontrar usuarios para acceder al servidor.
-2. **Transferencia de archivos maliciosos**
+1. **Transferencia de archivos maliciosos**
 Como este protocolo permite la carga y descarga de archivos, podemos subir un fichero malicioso al servidor que puede contener una **web shell** (una terminal remota donde podemos ejecutar comandos a través de una interfaz web) o una **reverse shell** (El servidor se conecta a nuestro equipo proporcionando acceso remoto a la línea de comando)
 
 ### Ejemplo práctico:

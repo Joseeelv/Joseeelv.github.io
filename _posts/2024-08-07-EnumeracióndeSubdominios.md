@@ -52,9 +52,13 @@ Hay herramientas potentes para automatizar este proceso:
 Es una herramienta que nos ayuda a automatizar el proceso de enumeración de DNS mediante fuerza bruta.
 Viene preinstalada en el sistema operativo Kali Linux, y se utiliza en la terminal escribiendo dnsrecon.
 
-```bash
+<div style="text-align:center;">
+  <pre><code>
 dnsrecon -d [dominio.com](http://dominio.com/) -D ruta_de_la_wordlist_subdominios -t std -xml ouput.xml
-```
+  </pre></code>
+</div>
+
+
 
 Donde encontramos que dnsrecon escanea un dominio (-d dominio.com), usa una wordlist con subdominios (-D ruta_de_la_wordlist_subdominios), especifica el tipo estándar (-t std) y guarda el resultado en un archivo .xml (-xml output.xml).
 
@@ -64,9 +68,13 @@ Aquí hacemos uso de hilos y de motores de búsqueda, además no viene preinstal
 
 Ejemplo de búsqueda de subdominios de Kali.org
 
-```bash 
+<div style="text-align:center;">
+  <pre><code>
 sublist3r -d [kali.org](http://kali.org/) -t 3 -e google
-```
+  </pre></code>
+</div>
+ 
+
 
 Vemos que hacer una búsqueda de los subdominios del dominio (-d kali.org), usando el motor de búsqueda de Google (-e google) con 3 hilos (-t 3).
 
@@ -79,7 +87,11 @@ Con la herramienta ffuf podemos automatizar el proceso de monitorización de la 
 Esta herramienta la vimos anteriormente en [Herramientas Automatizadas de Descubrimiento de contenidos](https://www.notion.so/Descubrimiento-de-contenidos-f2a85e0fdf1d4e8da374a923740d8eb4?pvs=21)
 
 Ejemplo de uso de **ffuf**: 
-```bash
+<div style="text-align:center;">
+  <pre><code>
 ffuf -w ruta_de_la_wordlist -H cabecera -u ip_maquina -fs filtro_salida
-```
+  </pre></code>
+</div>
+
+
 ---

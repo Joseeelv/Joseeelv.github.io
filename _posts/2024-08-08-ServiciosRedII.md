@@ -167,51 +167,55 @@ Los mensajes en SMTP se envían en texto plano, pero la conexión puede estar ci
 1. <strong>Conexión Telnet manual:</strong>
     
     Primero realizamos una conexión mediante Telnet:
-    
-    ```bash
-    telnet <ip-servidor> 25
-    telnet <ip-servidor> 587 //si es con autenticación
-    ```
-    
+<div style="text-align:center;">
+  <pre><code>
+telnet ip-servidor 25
+telnet ip-servidor 587 //si es con autenticación
+  </code></pre>
+</div>
     Luego, podemos enviar comandos SMTP:
     
-    ```bash
-    EHLO ejemplo.com
-    VRFY user@example.com
-    EXPN list@example.com
-    QUIT
-    ```
+<div style="text-align:left;">
+  <pre><code>
+EHLO ejemplo.com
+VRFY user@example.com
+EXPN list@example.com
+QUIT
+  </code></pre>
+</div>
     
-2. <strong>Uso de la herramienta Nmap con scripts SMTP:</strong>
-    
+1. <strong>Uso de la herramienta Nmap con scripts SMTP:</strong>
+
     Como hemos hecho en otros protocolos, podemos hacer uso de:
-    
-    ```bash
-    nmap -p 25 --script smtp-enum <ip-servidor>
-    ```
-    
-    <strong>Scripts Útiles de Nmap para SMTP:</strong>
-    
-    - <strong>smtp-enum</strong>: Enumera los usuarios y dominios disponibles.
-    - <strong>smtp-commands</strong>: Enumera los comandos soportados por el servidor SMTP.
-    - <strong>smtp-vrfy</strong>: Verifica si el servidor acepta la verificación de usuarios.
-    - <strong>smtp-open-relay</strong>: Comprueba si el servidor es un relay abierto.
-3. <strong>Uso del comando smtp-user-enum:</strong>
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 25 --script smtp-enum <ip-servidor>
+  </code></pre>
+</div>
+    <strong>Scripts Útiles de Nmap para SMTP:</strong><br>
+  <ul>
+  <li><strong>smtp-enum</strong>: Enumera los usuarios y dominios disponibles.</li>
+  <li><strong>smtp-commands</strong>: Enumera los comandos soportados por el servidor SMTP.</li>
+  <li><strong>smtp-vrfy</strong>: Verifica si el servidor acepta la verificación de usuarios.</li>
+  <li><strong>smtp-open-relay</strong>: Comprueba si el servidor es un relay abierto.</li>
+</ul>
+1. <strong>Uso del comando smtp-user-enum:</strong>
     
     `smtp-user-enum` es una herramienta diseñada para enumerar usuarios en servidores SMTP, para ello podemos hacer uso de:
     
-    ```bash
-    smtp-user-enum -M VRFY -U listausuario.txt -t <ip-servidor>
-    ```
-    
-    - `-M VRFT`: Usamos el comando `VRFY` para enumerar servicios.
-    - `-U listausuario.txt`: Especifica el archivo de texto que contiene la lista de usuarios a probar.
-    - `-t <ip-servidor>`: Especifica la ip del servidor SMTP.
-4. <strong>Uso de Metasploit framework:</strong>
-    
+<div style="text-align:center;">
+  <pre><code>
+smtp-user-enum -M VRFY -U listausuario.txt -t <ip-servidor>
+  </pre></code>
+</div>
+<ul>
+    <li><code>-M VRFT</code>: Usamos el comando `VRFY` para enumerar servicios.</li>
+    <li><code>-U listausuario.txt</code>: Especifica el archivo de texto que contiene la lista de usuarios a probar.</li>
+    <li><code>-t ip-servidor</code>: Especifica la ip del servidor SMTP.</li>
+</ul>
+1. <strong>Uso de Metasploit framework:</strong>
     Metasploit Framework incluye módulos para enumerar y explotar servicios SMTP.
-    
-5. <strong>Uso de smtp-cli:</strong>
+2. <strong>Uso de smtp-cli:</strong>
     
     `smtp-cli`: es una herramienta de línea de comandos para probar servidores SMTP y enviar correos electrónicos desde una línea de comando.
     
@@ -220,19 +224,20 @@ Los mensajes en SMTP se envían en texto plano, pero la conexión puede estar ci
 
 1. <strong>Ataque de fuerza bruta:</strong>
     
-    Mediante `hydra` podemos realizar una ataque de fuerza bruta si contamos con el *username* de un usuario y un diccionario; por ejemplo *rockyou.txt*.
-    
-    ```bash
-    hydra -t 16 -l <username> -P <ruta_diccionario> -vV <ip-servidor> [protocolo]
-    ```
-    
-    - `-t 16`: número de conexiones paralelas por objetivo, en este caso 16.
-    - `-l <username>`: Nombre de usuario a atacar.
-    - `-P <ruta_diccionario>`: Ruta del diccionario, por ejemplo /usr/share/wordlists/rockyou.txt.
-    - `-vV`: Pone el verbose a *very verbose* mostrando login+pass cada vez que realiza un intento.
-    - `<ip-servidor>`: Indica la dirección IP del servidor.
-    - `[protocolo]`: Añade el protocolo, por ejemplo ssh.
-
+    Mediante `hydra` podemos realizar una ataque de fuerza bruta si contamos con el *username* de un usuario y un diccionario; por ejemplo *rockyou.txt*.  
+<div style="text-align:center;">
+  <pre><code>
+hydra -t 16 -l <username> -P <ruta_diccionario> -vV <ip-servidor> [protocolo]
+  </code></pre>
+</div>
+<ul>  
+  <li><code>-t 16</code>: número de conexiones paralelas por objetivo, en este caso 16.</li>
+  <li><code>-l username</code>: Nombre de usuario a atacar.</li>
+  <li><code>-P ruta_diccionario</code>: Ruta del diccionario, por ejemplo /usr/share/wordlists/rockyou.txt.</li>
+  <li><code>-vV</code>: Pone el verbose a *very verbose* mostrando login+pass cada vez que realiza un intento.</li>
+  <li><code>ip-servidor</code>: Indica la dirección IP del servidor.</li>
+  <li><code>[protocolo]</code>: Añade el protocolo, por ejemplo ssh.</li>
+</ul>
 ### Ejemplo práctico:
 
 1. Realizamos un escaneo de los puertos de la red para ver cuales están abiertos y que servicios están corriendo:
@@ -349,12 +354,12 @@ Aquí podemos encontrar más información sobre [SQL](https://dev.mysql.com/doc/
 
 1. <strong>Uso de la herramienta Nmap:</strong>
     
-    ```bash
-    nmap -p 3306 --script=mysql-info <target>
-    ```
-    
-    Este comando escanea el puerto 3306 (puerto predeterminado para MySQL) e intenta identificar información sobre el servicio MySQL.
-    
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 3306 --script=mysql-info <target>
+  </code></pre>
+</div>
+Este comando escanea el puerto 3306 (puerto predeterminado para MySQL) e intenta identificar información sobre el servicio MySQL.    
 
 ## Como explotar MySQL
 
@@ -368,23 +373,24 @@ Aquí podemos encontrar más información sobre [SQL](https://dev.mysql.com/doc/
     
     Podemos comprobar si el servidor MySQL está configurado sin una contraseña para el usuario root:
     
-    ```bash
-    mysql -u root
-    ```
-    
+<div style="text-align:center;">
+  <pre><code>
+mysql -u root
+  </code></pre>
+</div> 
     También podemos comprobar si un usuario tiene privilegios elevados sin necesidad, si este puede realizar consultas privilegiadas:
     
-    ```sql
-    GRANT ALL PRIVILEGES ON *.* TO 'usuario'@'localhost' WITH GRANT OPTION;
-    ```
-    
+<div style="text-align:center;">
+  <pre><code>
+GRANT ALL PRIVILEGES ON *.* TO 'usuario'@'localhost' WITH GRANT OPTION;
+  </code></pre>
+</div>
+
 3. <strong>Explotación de Vulnerabilidades Conocidas</strong>
     
     Podemos hacer uso de vulnerabilidades conocidas <strong>CVEs</strong> si el servidor no ha sido actualizado.
-    
     También algunos plugins de MySQL pueden contener vulnerabilidades que pueden ser explotadas si el servidor MySQL está mal configurado.
     
-
 ### Ejemplo práctico:
 
 1. Realizamos un escaneo de la red:<br>

