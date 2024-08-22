@@ -148,7 +148,6 @@
     .copy-button:hover {
       background-color: #45a049;
     }
-
   </style>
 </head>
 
@@ -223,7 +222,7 @@
 
   <script>
       function copyToClipboard() {
-      const code = document.querySelector('code').innerText;
+      const code = document.querySelector('.code-container code').innerText;
       navigator.clipboard.writeText(code).then(() => {
         alert("Código copiado al portapapeles!");
       });
