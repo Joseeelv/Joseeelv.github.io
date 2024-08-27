@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | Descubrimiento de Contenidos Web</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | Descubrimiento de Contenidos Web">
+<meta name="og:description" content="Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.">
+<meta name="og:image" content="../assets/images/Labs/DC/hacking.png">
+<meta name="og:image:alt" content="CyberWiki | Descubrimiento de Contenidos Web">
+<meta name="og:url" content="http://localhost:4000/blog/Descubrimientodecontenidos">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | Descubrimiento de Contenidos Web">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | Descubrimiento de Contenidos Web">
+<meta name="twitter:description" content="Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Labs/DC/hacking.png">
+<!-- Search Engine -->
+<meta name="description" content="Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.">
+<meta name="image" content="../assets/images/Labs/DC/hacking.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | Descubrimiento de Contenidos Web">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.">
+<meta itemprop="image" content="../assets/images/Labs/DC/hacking.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/Descubrimientodecontenidos" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Descubrimiento de Contenidos Web</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Labs/DC/hacking.png" alt="Descubrimiento de Contenidos Web" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/room/contentdiscovery" target="page.enlace">Descubrimiento de Contenidos Web</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Fácil</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 08, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">LAB</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                4 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><p>Para un pentester el contenido que se puede descubrir son cosas que no se presentan de inmediato y que no siempre fueron destinadas al acceso público.</p>
+
+<p>Este contenido puede ser: versiones anteriores de la página web, archivos de backup (copias de seguridad), archivos de configuración, etc.</p>
+
+<p>Existen tres formas para poder descubrir contenido en un sitio web:</p>
+
+<h1 id="descubrimiento-manual">Descubrimiento manual</h1>
+
+<h2 id="robotstxt">Robots.txt</h2>
+
+<p>El archivo <em>Robots.txt</em> es un documento de texto que le dice a los motores de búsqueda qué páginas pueden y no pueden mostrar en los resultados de su motor de búsqueda o prohíben determinados motores de búsqueda que rastreen el sitio web por completo.</p>
+
+<p>Este archivo nos puede dar una gran lista de ubicaciones en el sitio web que los propietarios no quieren que descubramos como pentester.</p>
+
+<p>Para acceder a él —&gt; <em>https://nombre_pagina_web/robots.txt</em></p>
+
+<h2 id="favicon">Favicon</h2>
+
+<p>Favicon es una pequeño icono que muestra la barra de direcciones del navegador o en la pestaña utilizada para marcar un sitio web.</p>
+
+<p>En el caso de Google sería:</p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/DC/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
+
+<p>Al construir una página web, si el desarrollador no reemplaza este icono por uno personalizado, en este caso el de Google, podemos saber que framework se está utilizando.</p>
+
+<p>OWASP contiene una base de datos con todos los iconos usados:
+<a href="https://wiki.owasp.org/index.php/OWASP_favicon_database">Favicon-DB</a></p>
+
+<p>Si un sitio web no usa un icono personalizado, en el código fuente de la página web podemos encontrar como se llama el favicon, pudiendo así descargarlo y obtener el MD5 hash y cotejarlo con la base de datos de OWASP.</p>
+
+<p>Ejemplo en consola de Linux —&gt; <code class="language-plaintext highlighter-rouge">curl [https://pagina_web/nombre_archivo.ico](https://pagina_web/nombre_archivo.ico) | md5sum</code></p>
+
+<h2 id="sitemapxml">Sitemap.xml</h2>
+
+<p>Este archivo ofrecen una lista de todos los archivos que el propietario del sitio web desea que aparezcan en un motor de búsqueda, a diferencia de robots.txt que restringe quien puede verlos.</p>
+
+<p>Accedemos de igual manera que robots.txt —&gt;  <em>https://nombre_pagina_web/sitemap.xml</em></p>
+
+<h2 id="encabezados-http">Encabezados HTTP</h2>
+
+<p>Cuando hacemos peticiones al servidor web, este devuelve varios encabezamos HTTP. En estos encabezados podemos encontrar información sobre el software del servidor web, el lenguaje de programación o scripts en uso.</p>
+
+<p>Con esto podemos buscar vulnerabilidades o versiones vulnerables del software empleado.</p>
+
+<p>Al hacer un <code class="language-plaintext highlighter-rouge">curl direccion_pagina_web -v</code> , donde “-v” habilita el modo detallado y que generará los encabezados.</p>
+
+<h2 id="framework-stack">Framework Stack</h2>
+
+<p>Una vez obtenido el marco del sitio web ( ya sea a través del favicon o buscando pistas en el código fuente del sitio web), podemos localizar el sitio web del marco. De esta manera podemos buscar información sobre el software del marco ó más información sobre el mismo.</p>
+
+<h1 id="osint-open-source-intelligence">OSINT (Open-Source Intelligence)</h1>
+
+<h2 id="google-hacking--dorking">Google Hacking / Dorking</h2>
+
+<p>OSINT son recursos externos de libre acceso que nos ayuda a descubrir información sobre un sitio web.</p>
+
+<p>Google Hacking / Dorking hace uso de funciones avanzadas del motor de búsqueda de Google, permitiendo filtrar contenido personalizado.</p>
+
+<p>Por ejemplo, puedes buscar información en un dominio concreto con <em>site:nombre_dominio criterio_a_buscar</em></p>
+
+<h2 id="wappalyzer">Wappalyzer</h2>
+
+<p>Wappalyzer es una herramienta en línea y una extensión del navegador que ayuda a identificar que tecnologías usa una página web (marcos, procesadores de pago ,etc..).</p>
+
+<h2 id="wayback-machine">Wayback Machine</h2>
+
+<p>Wayback Machine es un archivo histórico de sitios web que se remonta a finales de los años 90. Puedes buscar un nombre de dominio y mostrará todas las veces que se guardó el contenido de la página web.</p>
+
+<h2 id="github">GitHub</h2>
+
+<p>GitHub hace uso del control de versiones de Git para alojar proyectos. 
+Encontramos repositorios públicos o privados donde hay proyectos que contienen código fuente, contraseñas y otro contenido que puede ser sensible para las empresas.</p>
+
+<h2 id="s3-buckets">S3 Buckets</h2>
+
+<p>Es un servicio de almacenamiento proporcionado por Amazon AWS, que permite guardar archivos e incluso contenido estático del sitio web que son accesibles mediante HTTP y HTTPS.</p>
+
+<p>El propietario de los archivos puede establecer permisos de acceso haciendo que los archivos sean públicos, privados e incluso de escritura.</p>
+
+<p>A veces estos permisos se establecen incorrectamente y permiten inadvertidamente el acceso a archivos que no deberían ser públicos.</p>
+
+<p>Los S3 Buckets pueden detectarse de diversas formas ( encontrando URLs en el código fuente de la página web, en repositorios de GitHub o automatizando el proceso ).</p>
+
+<h1 id="descubrimiento-automatizado">Descubrimiento Automatizado</h1>
+
+<p>El descubrimiento automatizado es el proceso de hacer uso de herramientas con el fin de descubrir contenido sin hacerlo de manera manual.</p>
+
+<p>Hacemos uso de las llamadas ‘wordlists’, que son ficheros de texto que contienen una gran cantidad de credenciales. Las wordlist más comunes contienen contraseñas y nombres de usuarios.</p>
+
+<h2 id="herramientas-automatizadas">Herramientas Automatizadas</h2>
+
+<p>Podemos hacer uso de estás herramientas junto con las wordlist para poder descubrir contenido. Hay muchísimas herramientas disponibles pero nos centraremos en estas tres, ya que vienen preinstaladas con el sistema.</p>
+
+<h3 id="ffuf">FFUF</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ffuf -w ruta_de_la_wordlist -u http://ip_maquina/FUZZ</code></p>
+
+<h3 id="dirb">DIRB</h3>
+
+<p><code class="language-plaintext highlighter-rouge">dirb http://ip_maquina/ ruta_de_la_wordlist</code></p>
+
+<h3 id="gobuster">GOBUSTER</h3>
+
+<p><code class="language-plaintext highlighter-rouge">gobuster dir --url http://ip_maquina/ -w ruta_de_la_wordlist</code></p>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

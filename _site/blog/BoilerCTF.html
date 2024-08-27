@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | Boiler CTF</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | Boiler CTF">
+<meta name="og:description" content="Boiler CTF es un CTF de nivel intermedio que requiere enumeración para avanzar. Se realiza un escaneo de puertos y se descubre una página web con directorios ocultos. Se encuentra un archivo descifrado que indica que la enumeración es clave. Se encuentra un archivo robots.txt con una cadena en base64 y MD5 que resulta ser una distracción. Se descubre un directorio oculto en la página web y se encuentra un exploit para sar2html. Se obtiene acceso como el usuario "basterd" y se encuentra la contraseña de otro usuario. Se accede como ese usuario y se encuentra la flag de usuario. Se intenta escalar privilegios mediante sudo, pero no se tiene éxito. Finalmente, se encuentra un binario con SUID activado y se ejecuta un exploit para obtener acceso como root y encontrar la flag de root.">
+<meta name="og:image" content="../assets/images/Rooms/BoilerCTF/boiler.png">
+<meta name="og:image:alt" content="CyberWiki | Boiler CTF">
+<meta name="og:url" content="http://localhost:4000/blog/BoilerCTF">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | Boiler CTF">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | Boiler CTF">
+<meta name="twitter:description" content="Boiler CTF es un CTF de nivel intermedio que requiere enumeración para avanzar. Se realiza un escaneo de puertos y se descubre una página web con directorios ocultos. Se encuentra un archivo descifrado que indica que la enumeración es clave. Se encuentra un archivo robots.txt con una cadena en base64 y MD5 que resulta ser una distracción. Se descubre un directorio oculto en la página web y se encuentra un exploit para sar2html. Se obtiene acceso como el usuario "basterd" y se encuentra la contraseña de otro usuario. Se accede como ese usuario y se encuentra la flag de usuario. Se intenta escalar privilegios mediante sudo, pero no se tiene éxito. Finalmente, se encuentra un binario con SUID activado y se ejecuta un exploit para obtener acceso como root y encontrar la flag de root.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Rooms/BoilerCTF/boiler.png">
+<!-- Search Engine -->
+<meta name="description" content="Boiler CTF es un CTF de nivel intermedio que requiere enumeración para avanzar. Se realiza un escaneo de puertos y se descubre una página web con directorios ocultos. Se encuentra un archivo descifrado que indica que la enumeración es clave. Se encuentra un archivo robots.txt con una cadena en base64 y MD5 que resulta ser una distracción. Se descubre un directorio oculto en la página web y se encuentra un exploit para sar2html. Se obtiene acceso como el usuario "basterd" y se encuentra la contraseña de otro usuario. Se accede como ese usuario y se encuentra la flag de usuario. Se intenta escalar privilegios mediante sudo, pero no se tiene éxito. Finalmente, se encuentra un binario con SUID activado y se ejecuta un exploit para obtener acceso como root y encontrar la flag de root.">
+<meta name="image" content="../assets/images/Rooms/BoilerCTF/boiler.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | Boiler CTF">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Boiler CTF es un CTF de nivel intermedio que requiere enumeración para avanzar. Se realiza un escaneo de puertos y se descubre una página web con directorios ocultos. Se encuentra un archivo descifrado que indica que la enumeración es clave. Se encuentra un archivo robots.txt con una cadena en base64 y MD5 que resulta ser una distracción. Se descubre un directorio oculto en la página web y se encuentra un exploit para sar2html. Se obtiene acceso como el usuario "basterd" y se encuentra la contraseña de otro usuario. Se accede como ese usuario y se encuentra la flag de usuario. Se intenta escalar privilegios mediante sudo, pero no se tiene éxito. Finalmente, se encuentra un binario con SUID activado y se ejecuta un exploit para obtener acceso como root y encontrar la flag de root.">
+<meta itemprop="image" content="../assets/images/Rooms/BoilerCTF/boiler.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/BoilerCTF" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Boiler CTF</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Rooms/BoilerCTF/boiler.png" alt="Boiler CTF" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Boiler CTF es un CTF de nivel intermedio que requiere enumeración para avanzar. Se realiza un escaneo de puertos y se descubre una página web con directorios ocultos. Se encuentra un archivo descifrado que indica que la enumeración es clave. Se encuentra un archivo robots.txt con una cadena en base64 y MD5 que resulta ser una distracción. Se descubre un directorio oculto en la página web y se encuentra un exploit para sar2html. Se obtiene acceso como el usuario "basterd" y se encuentra la contraseña de otro usuario. Se accede como ese usuario y se encuentra la flag de usuario. Se intenta escalar privilegios mediante sudo, pero no se tiene éxito. Finalmente, se encuentra un binario con SUID activado y se ejecuta un exploit para obtener acceso como root y encontrar la flag de root.
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/r/room/boilerctf2" target="page.enlace">Boiler CTF</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Media</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 04, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">Enumeración</span>
+              
+              
+              <span class="tag is-link">Privilege Escalation</span>
+              
+              
+              <span class="tag is-link">Web</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                3 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><p>Primero de todo vamos a realizar un escaneo de la red, para ver que puertos tiene abierto:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vamos a ver que es esa web:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que es una página default de un servicio apache, por tanto, vamos a comprobar si existen directorios ocultos.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ya que no hay nada en los directorios ocultos, vamos a intentar iniciar sesión en el servidor ftp, poniendo como <em>username</em> A<em>nonymous:</em></p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Lo descargamos y lo abrimos:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que es ilegible, por lo que vamos a hacerlo legible descifrándolo.</p>
+
+<p>Como resultado tenemos: <em>Just wanted to see if you find it. Lol. Remember: Enumeration is the key!</em></p>
+
+<p>Vamos a mirar en el directorio “/robots.txt”:</p>
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos encontrado una serie de números ascii que si los pasamos a base64 y MD5 obtenemos la cadena <em>kidding</em> (Una pérdida de tiempo vamos..).</p>
+
+<p>Vamos a seguir comprobando cosas:</p>
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<p>En el directorio “/joomla”, no hay nada relevante a simple vista, pero podemos fuzzear la web para buscar directorios ocultos en la misma.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>En efecto, encontramos una gran cantidad de directorios ocultos dentro del directorio “/joomla”.</p>
+
+<p>Vemos que hay un directorio llamado “/_tests”, vamos a echarle un ojo:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Si buscamos sobre sar2html en Google vamos a encontrar algún exploit en exploit-db que se pueda usar en contra de él. → <a href="https://www.exploit-db.com/exploits/47204">exploit-db/Sar2HTML</a> (aquí está el exploit).</p>
+
+<p>El exploit nos dice que podemos hacer una ejecución remota de comandos en la barra de navegación debido a <code class="language-plaintext highlighter-rouge">*plot=*</code>, así que vamos a testearlo:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Si hacemos uso de<code class="language-plaintext highlighter-rouge">whoami</code> , vemos que nos dice que somos www-data (al ser un servidor es correcto), por tanto, vamos a tirar un listado de archivos y ficheros a ver qué encontramos:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Encontramos varios archivos, pero el más interesante es log.txt, que si hacemos <code class="language-plaintext highlighter-rouge">plot=;cat log.txt</code> vamos a obtener historial de logins:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Por tanto, el usuario es <em>basterd</em> y la password es <em>superduperp@$$</em>, ahora sí podemos realizar una conexión ssh con dichas credenciales:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Al entrar vemos un archivo <a href="http://backup.sh">backup.sh</a>, si lo abrimos, encontramos el <em>user</em> y <em>password</em> de otro usuario, vamos a pivotar de usuario haciendo <code class="language-plaintext highlighter-rouge">su stoner</code> y poniendo su contraseña <code class="language-plaintext highlighter-rouge">superduperp@$$no1knows</code>, ahora si hacemos cd .. , vemos su directorio y podemos acceder a él.</p>
+
+<p>Ya tenemos la user_flag:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Suponemos que la flag está en el root, por tanto, vamos a escalar privilegios.</p>
+
+<p>Vamos a comprobar si stoner puede ejecutar algún binario mediante <code class="language-plaintext highlighter-rouge">sudo -l</code> :</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Fuimos engañados otra vez, así que ahora vamos a comprobar si algún binario tiene el SUID activado:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que el binario a usar es el <em>/find</em> buscamos en Google de ejecutar el exploit y ganamos acceso:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/BoilerCTF/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Listo hemos encontrado la root_flag así que hemos acabado el reto.</p>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

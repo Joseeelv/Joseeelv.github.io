@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | Servicios de red I</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | Servicios de red I">
+<meta name="og:description" content="En este laboratorio vamos a aprender sobre como enumerar y explotar una variedad de servicios red como son los protocolos SMB, FTP, Telnet, entre otros.">
+<meta name="og:image" content="../assets/images/Labs/ServiciosRedI/srIpng.png">
+<meta name="og:image:alt" content="CyberWiki | Servicios de red I">
+<meta name="og:url" content="http://localhost:4000/blog/ServiciosRedI">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | Servicios de red I">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | Servicios de red I">
+<meta name="twitter:description" content="En este laboratorio vamos a aprender sobre como enumerar y explotar una variedad de servicios red como son los protocolos SMB, FTP, Telnet, entre otros.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Labs/ServiciosRedI/srIpng.png">
+<!-- Search Engine -->
+<meta name="description" content="En este laboratorio vamos a aprender sobre como enumerar y explotar una variedad de servicios red como son los protocolos SMB, FTP, Telnet, entre otros.">
+<meta name="image" content="../assets/images/Labs/ServiciosRedI/srIpng.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | Servicios de red I">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="En este laboratorio vamos a aprender sobre como enumerar y explotar una variedad de servicios red como son los protocolos SMB, FTP, Telnet, entre otros.">
+<meta itemprop="image" content="../assets/images/Labs/ServiciosRedI/srIpng.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/ServiciosRedI" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Servicios de red I</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Labs/ServiciosRedI/srIpng.png" alt="Servicios de red I" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              En este laboratorio vamos a aprender sobre como enumerar y explotar una variedad de servicios red como son los protocolos SMB, FTP, Telnet, entre otros.
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/r/room/networkservices" target="page.enlace">Servicios de red I</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Fácil</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 06, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">LAB</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                9 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><h1 id="protocolo-smb">Protocolo SMB</h1>
+
+<p>El <em>protocolo SMB</em>  o <em>Server Message Block protocol</em> es un protocolo de comunicación cliente - servidor.</p>
+
+<p>Este es usado para compartir acceso a archivos, impresoras, puertos serie y otros recursos en una red.</p>
+
+<p>Los servidores crean archivos del sistema y otros recursos (por ejemplo, impresoras, APIs,..) que están disponibles para los clientes en esa red.</p>
+
+<p>Este protocolo es conocido como <strong>response-request protocol</strong> (protocolo de solicitud-respuesta), el cual transmite múltiples mensajes entre el cliente y el servidor para establecer la conexión.</p>
+
+<p>Hace uso del puerto <code class="language-plaintext highlighter-rouge">TCP 445</code>, pero también puede hacer uso de los puerto  <code class="language-plaintext highlighter-rouge">TCP 139</code> y <code class="language-plaintext highlighter-rouge">UDP 137-138</code>.</p>
+
+<h2 id="como-funciona-smb">Como funciona SMB:</h2>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/XMnru12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Los clientes se conectan a los servidores mediante <strong>TCP/IP.</strong></p>
+
+<p>Una vez establecida la conexión, el cliente puede mandarle comandos (SMB) al servidor para que este le permita el acceso a los archivos (lectura, escritura, abrir,..), como si de un sistema de archivos se tratara pero en la red.</p>
+
+<h2 id="que-corre-smb">Que corre SMB:</h2>
+
+<p><strong>Samba</strong> (lanzado por Unix), es un servidor <em>open-source</em> que hace uso del protocolo SMB.</p>
+
+<h2 id="como-enumerar-el-protocolo-smb">Como enumerar el protocolo SMB</h2>
+
+<ol>
+  <li>
+    <p><strong>Uso de herramienta Nmap:</strong></p>
+
+    <p>Podemos realizarlo mediante el uso de la herramienta <strong>Nmap</strong>, el cual si realizamos un escaneo de los puertos de la red, podemos encontrar que el puerto 445 está abierto y se ejecuta un servicio Samba.</p>
+
+    <p>Esto lo podemos ver en la room <a href="https://joseeelv.github.io//blog/Kenobi">kenobi de THM</a>.</p>
+  </li>
+</ol>
+
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 445 parametros ip-objetivo
+</code></pre>
+</div>
+
+<p>Si encontramos que el puerto 445 <code class="language-plaintext highlighter-rouge">SMB</code> está abierto, podemos seguir haciendo uso de Nmap con algunos scripts específicos para listar el servidor SMB:</p>
+
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 445 --script smb-protocols <ip-objetivo>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+    
+    
+1. **Uso de herramienta Enum4Linux:**
+    
+    También podemos hacer uso de la herramienta **Enum4Linux** con la sintaxis → `enum4linux [opc] <ip_target>`
+    
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+## Como explotar el protocolo SMB
+
+Dependiendo de la versión del protocolo podemos encontrar CVEs que nos puedan dar acceso a la ejecución remota de comandos → [CVE-2017-7494](https://www.cvedetails.com/cve/CVE-2017-7494/)
+
+También podemos intentar acceder al servidor remotamente mediante una conexión anónima con la herramienta `smbclient //[ip_target]/[directorio] -[opc]`, haciendo uso de la opción `-N`(que hace uso de una *Null Session*). Esto puede ser muy útil si el servidor no tiene un método de autorización configurado.
+
+### Ejemplo práctico SMB:
+
+Mediante:
+
+<div style="text-align:center;">
+  <pre><code>
+sudo nmap -p- -open -sC -sS -sV -n -Pn -vvv --min-rate 5000 ip-objetivo</code></pre>
+</div>
+
+
+Obtenemos los siguientes puertos y servicios:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+Tenemos los puertos 22 (servicio ssh), 139 y 445 (servicio smb).
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+Aquí podemos ver información acerca del servicio smb de los puertos 139 y 445.
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Ahora vamos a explotar el protocolo:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Como accedemos como Anonymous, ponemos cualquier contraseña ya que no realiza autenticación.
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Ahora, tras haber descargado el **id_rsa** y **id_rsa.pub** vamos a iniciar sesión mediante ssh.
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Encontramos que el usuario es **cactus**
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+Tenemos la flag.
+
+# Protocolo Telnet
+
+*Telnet* es un protocolo de aplicación (*application protocol*) que proporciona una comunicación bidireccional interactiva basada en texto entre dos dispositivos a través de una red, generalmente IP.
+
+Por defecto hace uso del puerto `TCP 23`.
+
+Con el uso de un cliente Telnet, podemos conectarnos y ejecutar comandos en una máquina remota la cual hostea el servidor Telnet.
+
+Cuando se realiza la conexión con el servidor Telnet, el cliente se convierte en una terminal virtual que puede interactuar con el host remoto.
+
+En muchas de las implementaciones, Telnet ha sido reemplazado por **SSH**, debido a que **SSH** cifra toda la información transmitida entre el cliente y servidor.
+
+## Como funciona Telnet
+
+Mediante el comando `telnet [ip] [puerto]` nos conectamos al servidor Telnet. Entonces el cliente ejecuta los comandos en el servidor usando una *prompt* del protocolo.
+
+## Como enumerar el protocolo Telnet
+
+Al igual que todos los protocolos, si realizamos un escaneo de los puertos de la red con **Nmap**, podemos encontrar que el puerto 23 está siendo usado y está abierto.
+
+## Como explotar el protocolo Telnet
+
+Telnet, al ser un protocolo no encriptado (la información que se transmite entre el cliente y el servidor se encuentra en texto plano) podemos encontrar CVEs tanto para el cliente como servidor Telnet.
+
+### Maneras de explotar el protocolo Telnet sin CVE:
+
+Sin embargo, podemos encontrar alguna versión de Telnet que no tienen un CVE, por lo que podemos buscar otras maneras de explotarlo como buscar una configuración errónea ya sea en la forma que se ha configurado o ejecutando.
+
+También podemos interceptar credenciales (**Sniffing**) → ya sea con `wireshark` o `tcpdump` donde podemos encontrar credenciales en texto plano.
+
+Otra forma es mediante un ataque de fuerza brutal → mediante `hydra` podemos intentar encontrar un usuario y contraseña para realizar la conexión.
+
+Aunque parezca una tontería, tenemos que tener en cuenta que algunos servicios pueden usar credenciales por defecto, por ejemplo → *admin/admin*.
+
+### Ejemplo práctico:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Si escaneamos los primeros 1000 puertos, vemos que no hay ninguno abierto.
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Si realizamos la conexión Telnet vemos:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Es decir, se ha modificado el puerto para hacer uso de un backdoor que pertenece a un tal *Skidy*.
+
+Vamos a crear un payload que contenga una reverse_shell para poder acceder al servidor:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Iniciamos la reverse shell en nuestra máquina:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Copiamos el payload en la sesion Telnet:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Vemos que ha funcionado y estamos dentro:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+# Protocolo FTP
+
+El *protocolo FTP* o *File Transport Protocol*, es ,como su nombre indica, un protocolo que realiza el transporte de archivos a través de la red TCP/IP.
+
+Usa un modelo cliente-servidor para hacer lo anteriormente comentado (cargar y descargar archivos en el servidor).
+
+Contiene una autenticación, por tanto, para acceder a él necesitamos una credenciales (usuario y contraseña), una vez autorizados podemos ejecutar comandos como → `LIST`, `RETR`, `STOR`, `DELE`, etc.
+
+El protocolo FTP hace uso del puerto `TCP 20` y `TCP 21`.
+
+Hay 2 tipos de conexión FTP:
+
+- Conexión FTP activa→ El cliente abre un puerto de escucha, el servidor se tiene que conectar a el cliente de manera activa.
+- Conexión FTP pasiva → El servidor abre un puerto de escucha, donde espera que un cliente se conecte.
+
+## Como enumerar el protocolo FTP
+
+Mediante **Nmap** podemos encontrar si el puerto 21 está abierto o no.
+
+<div style="text-align:center;">
+  <pre><code>
+smap -p 21 <parametros> <ip-objetivo>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+## Como explotar el protocolo FTP
+
+1. **Uso de CVE y vulnerabilidades:**
+Dependiendo de la versión del protocolo podemos encontrar CVEs (mediante el comando `searchsploit` o en Mitre), como es en el caso de la máquina → [kenobi de THM](https://joseeelv.github.io//blog/Kenobi), donde explotamos una vulnerabilidad de ProFTPD (tipo de servidor FTP).
+
+También podemos hacer uso de `metasploit` para ejecutar vulnerabilidades conocidas.
+2. **Iniciar Sesión de forma anónima:**
+También podemos realizar una conexión al servidor con las credenciales predeterminadas o anónimas (Anonymous):
+
+```bash
+ftp&gt; open <target-IP>
+Name (<target-IP>:username&gt;): anonymous
+Password: <anonymous>
+```
+
+
+Una vez autorizados podemos navegar sobre el servidor FTP, en busca de información.
+
+1. **Ataque de fuerza bruta:**
+Si esto falla, podemos realizar un ataque de fuerza bruta con `hydra` con el fin de encontrar usuarios para acceder al servidor.
+1. **Transferencia de archivos maliciosos**
+Como este protocolo permite la carga y descarga de archivos, podemos subir un fichero malicioso al servidor que puede contener una **web shell** (una terminal remota donde podemos ejecutar comandos a través de una interfaz web) o una **reverse shell** (El servidor se conecta a nuestro equipo proporcionando acceso remoto a la línea de comando)
+
+### Ejemplo práctico:
+
+Realizamos un escaneo de la ip dada:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+Puertos y servicios abiertos de la máquina víctima:
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Vemos que está corriendo un servicio *vsftpd* en el puerto 21. Como es un servicio del protocolo FTP y este permite conexiones anónimas, vamos a iniciar sesión:
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Perfecto, estamos dentro y vemos que tenemos un archivo de texto, que mediante el comando `get` podemos descargar:
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Lo tenemos descargado en el directorio donde estabamos previamente de iniciar sesión en el servidor *FTP* y haciendo uso de `cat` podemos ver su contenido:
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 19.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Tenemos un usuario, vamos a sacar su contraseña con un ataque de fuerza bruta con `hydra` en el servicio `ftp` que tenemos abierto:
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Como resultado tenemos al usuario *mike* (previamente obtenido) con su contraseña descifrada.
+Ahora podemos iniciar sesión en el servidor *FTP* como Mike y no como anonimo.
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Finalmente, iniciamos sesión y vemos que tenemos en el servidor un fichero llamado **ftp.txt**, para obtenerlo en nuestra máquina hacemos lo mismo; con el comando `get` lo descargamos y con `cat` lo abrimos y tenemos nuestra flag:
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/ServiciosRedI/Untitled 22.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+---
+</anonymous></target-IP></target-IP></ip-objetivo></parametros></code></pre></div></ip_target></ip-objetivo></code></pre></div>
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

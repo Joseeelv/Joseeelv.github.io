@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | Anonymous</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | Anonymous">
+<meta name="og:description" content="Try to get the two flags! Root the machine and prove your understanding of the fundamentals! This is a virtual machine meant for beginners. Acquiring both flags will require some basic knowledge of Linux and privilege escalation methods.">
+<meta name="og:image" content="../assets/images/Rooms/Anonymous/Anonymous.png">
+<meta name="og:image:alt" content="CyberWiki | Anonymous">
+<meta name="og:url" content="http://localhost:4000/blog/Anonymous">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | Anonymous">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | Anonymous">
+<meta name="twitter:description" content="Try to get the two flags! Root the machine and prove your understanding of the fundamentals! This is a virtual machine meant for beginners. Acquiring both flags will require some basic knowledge of Linux and privilege escalation methods.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Rooms/Anonymous/Anonymous.png">
+<!-- Search Engine -->
+<meta name="description" content="Try to get the two flags! Root the machine and prove your understanding of the fundamentals! This is a virtual machine meant for beginners. Acquiring both flags will require some basic knowledge of Linux and privilege escalation methods.">
+<meta name="image" content="../assets/images/Rooms/Anonymous/Anonymous.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | Anonymous">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Try to get the two flags! Root the machine and prove your understanding of the fundamentals! This is a virtual machine meant for beginners. Acquiring both flags will require some basic knowledge of Linux and privilege escalation methods.">
+<meta itemprop="image" content="../assets/images/Rooms/Anonymous/Anonymous.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/Anonymous" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Anonymous</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Rooms/Anonymous/Anonymous.png" alt="Anonymous" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Try to get the two flags! Root the machine and prove your understanding of the fundamentals! This is a virtual machine meant for beginners. Acquiring both flags will require some basic knowledge of Linux and privilege escalation methods.
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/r/room/anonymous" target="page.enlace">Anonymous</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Media</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 03, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">Enumeración</span>
+              
+              
+              <span class="tag is-link">FTP</span>
+              
+              
+              <span class="tag is-link">Reverse Shell</span>
+              
+              
+              <span class="tag is-link">Exploit</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                3 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">sudo nmap -p- -open -sS -sV -sC .n -Pn -vvv --min-rate 5000 ip_victima -oN escaneo</code></pre>
+  </div>
+</div>
+
+<blockquote>
+  <p>Si quieres puedes guardar el resultado del análisis (opción <code class="language-plaintext highlighter-rouge">-oN</code>) en un fichero para poder consultar la información y poder limpiar la terminal.</p>
+</blockquote>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Encontramos que tenemos los puertos <strong>21</strong> (ftp), <strong>22</strong> (ssh), <strong>139</strong> y <strong>445</strong> (smb) ambos.</p>
+
+<p>Primero, vamos a ver que comparte ese protocolo smb, para ello, mediante el comando <code class="language-plaintext highlighter-rouge">smbclient</code> podemos ver que recursos comparte:</p>
+
+<p>Primero vamos a incluir la ip en el directorio <strong>/etc/hosts</strong> → <code class="language-plaintext highlighter-rouge">sudo echo '&lt;ip-objetivo anonymous.thm&gt;' &gt;&gt; /etc/hosts</code> y luego hacemos:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos realizado una consulta de los recursos que comparte el servidor (” necesario para responder algunas preguntas de la room“).</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>También podemos realizar una conexión smb a los directorios que hemos encontrado anteriormente, pero no servirá de nada, ya que por aquí no van los tiros.</p>
+
+<p>A continuación vamos a iniciar la búsqueda de información del servidor ftp, mediante una conexión anónima:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Encontramos un directorio llamado <code class="language-plaintext highlighter-rouge">/scripts</code> el cual contiene un binario llamado <code class="language-plaintext highlighter-rouge">clean.sh</code>.</p>
+
+<p>Por eso, descargamos los ficheros y en el anteriormente comentado vamos a realizar una modificación del mismo.</p>
+
+<p>Vemos que podemos descargar los ficheros que se encuentran en el servidor y como sabemos que es FTP pues podemos tanto descargar como cargar archivos.</p>
+
+<p>Por tanto, le podemos meter una reverse shell al servidor mediante la ejecución de uno de los scripts anteriormente descargados, y el elegido será <code class="language-plaintext highlighter-rouge">clean.sh</code>.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que mediante el comando <code class="language-plaintext highlighter-rouge">echo</code> estamos incluyendo en el fichero <code class="language-plaintext highlighter-rouge">clean.sh</code> una reverse shell para poder acceder al servidor y buscar información.</p>
+
+<p>Con <strong>netcat</strong> vamos a poner nuestra máquina en escucha para acceder al servidor cuando se active la reverse shell:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/4.1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Subimos el fichero modificado mediante el comando <code class="language-plaintext highlighter-rouge">put</code> en el servidor FTP:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Y si esperamos un poco se habrá ejecutado la reverse shell y podemos obtener la <strong><em>user_flag</em></strong>.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/4.2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahora, tenemos que buscar la otra flag, por tanto, vamos a buscar una manera de escalar privilegios en el servidor para poder hacer lo que queramos en el mismo:</p>
+
+<p>Primero, vamos a intentar saber si el usuario puede ejecutar algún comando como root → <code class="language-plaintext highlighter-rouge">sudo -l</code> pero no hay suerte, así que vamos a buscar si hay algún binario extraño que tiene el bit SUID activad</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">find / -perm -4000 -type f -ls 2&gt;/dev/null</code></pre>
+  </div>
+</div>
+
+<p>Vamos a obtener una lista enorme de binarios, pero el que destaca por su extraña aparición es:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/5.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos encontrado que el binario <code class="language-plaintext highlighter-rouge">/usr/bin/env</code> tiene el bit SUID activado, por ello, vamos a buscar como ejecutar el exploit → <a href="https://gtfobins.github.io/gtfobins/env/#suid">GTFOBins/env</a>.</p>
+
+<p>Ahora lo ejecutamos y, voila! tenemos privilegios root y buscamos la <strong><em>root_flag</em></strong>.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/Anonymous/6.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

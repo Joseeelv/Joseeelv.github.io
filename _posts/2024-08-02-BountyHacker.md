@@ -17,9 +17,14 @@ tags:
 Mediante `nmap` vamos a realizar un escaneo de los puertos de la maquina objetivo:
 
 <div style="text-align:center;">
-    <pre><code>nmap -sC -sV -p- <ip_maquina_objetivo></code></pre>
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >nmap -sC -sV -p- ip_victima</code></pre>
+  </div>
 </div>
-
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BountyHacker/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />

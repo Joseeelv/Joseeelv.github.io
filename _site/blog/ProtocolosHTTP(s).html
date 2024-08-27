@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>CyberWiki | Protocolos HTTP y HTTPS</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="CyberWiki | Protocolos HTTP y HTTPS">
+<meta name="og:description" content="En este módulo se exploran los fundamentos de los protocolos HTTP y HTTPS, incluyendo su funcionamiento y diferencias. Se explica cómo las peticiones y respuestas entre navegadores y servidores se estructuran y procesan. Los participantes aprenden sobre la composición de una URL, desglosando sus componentes clave como el esquema, dominio, puerto, ruta, query string y fragmento.">
+<meta name="og:image" content="../assets/images/Labs/HTTP/http.png">
+<meta name="og:image:alt" content="CyberWiki | Protocolos HTTP y HTTPS">
+<meta name="og:url" content="http://localhost:4000/blog/ProtocolosHTTP(s)">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="CyberWiki | Protocolos HTTP y HTTPS">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CyberWiki | Protocolos HTTP y HTTPS">
+<meta name="twitter:description" content="En este módulo se exploran los fundamentos de los protocolos HTTP y HTTPS, incluyendo su funcionamiento y diferencias. Se explica cómo las peticiones y respuestas entre navegadores y servidores se estructuran y procesan. Los participantes aprenden sobre la composición de una URL, desglosando sus componentes clave como el esquema, dominio, puerto, ruta, query string y fragmento.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Labs/HTTP/http.png">
+<!-- Search Engine -->
+<meta name="description" content="En este módulo se exploran los fundamentos de los protocolos HTTP y HTTPS, incluyendo su funcionamiento y diferencias. Se explica cómo las peticiones y respuestas entre navegadores y servidores se estructuran y procesan. Los participantes aprenden sobre la composición de una URL, desglosando sus componentes clave como el esquema, dominio, puerto, ruta, query string y fragmento.">
+<meta name="image" content="../assets/images/Labs/HTTP/http.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="CyberWiki | Protocolos HTTP y HTTPS">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="En este módulo se exploran los fundamentos de los protocolos HTTP y HTTPS, incluyendo su funcionamiento y diferencias. Se explica cómo las peticiones y respuestas entre navegadores y servidores se estructuran y procesan. Los participantes aprenden sobre la composición de una URL, desglosando sus componentes clave como el esquema, dominio, puerto, ruta, query string y fragmento.">
+<meta itemprop="image" content="../assets/images/Labs/HTTP/http.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>CyberWiki</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+            href="http://localhost:4000/">
+            <img src="/assets/images/favicon.png" alt="Site Icon" style="width: 24px; height: 24px; vertical-align: middle;">
+                <i class="/assest/images/favicon.png"></i> <!-- Icono  -->
+                <strong>CyberWiki</strong>
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">ABOUT</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">WRITE-UPs</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/project">LABS</a>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        MORE
+    </a>
+    <div class="navbar-dropdown has-background-black is-left">
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="http://localhost:4000/project"
+            class="navbar-item has-text-grey-light ">
+            Projects
+        </a>
+        
+        
+        
+        <a href="http://localhost:4000/test-page"
+            class="navbar-item has-text-grey-light ">
+            Test Page
+        </a>
+        
+         -->
+        <!-- <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a> -->
+    <!-- </div>
+</div> -->
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/ProtocolosHTTP(s)" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Protocolos HTTP y HTTPS</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center; ">
+              <img src="../assets/images/Labs/HTTP/http.png" alt="Protocolos HTTP y HTTPS" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              En este módulo se exploran los fundamentos de los protocolos HTTP y HTTPS, incluyendo su funcionamiento y diferencias. Se explica cómo las peticiones y respuestas entre navegadores y servidores se estructuran y procesan. Los participantes aprenden sobre la composición de una URL, desglosando sus componentes clave como el esquema, dominio, puerto, ruta, query string y fragmento.
+              <!-- Enlace añadido aquí -->
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+                <b><a href="https://tryhackme.com/r/room/httpindetail" target="page.enlace">Protocolos HTTP y HTTPS</a></b>
+              </p>
+                
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+                <b>Fácil</b>
+              </p>
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+              <b>August 07, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
+              </a>
+            </p><p class="subtitle is-uppercase">
+              <i class="fas fa-tags"></i>
+              
+              
+              <span class="tag is-link">LAB</span>
+              
+              
+            </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
+                5 min
+              </b>READ</p> --></div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><h1 id="qué-es-https">¿Qué es HTTP(s)?</h1>
+
+<blockquote>
+  <p>El protocolo HTTP(S) ‘HyperText Transfer Protocol’ es el conjunto de reglas que se usan para comunicarse con servidores web para la transmisión de datos de la página web (HTML, imágenes, vídeos, …).</p>
+</blockquote>
+
+<p>Encontramos dos tipos → <strong><em>HTTP</em></strong> (no seguro) y <strong><em>HTTPS</em></strong> (es la versión segura de HTTP, donde los datos están encriptados).</p>
+
+<p>Que los datos estén encriptados nos permite un nivel de seguridad mayor, debido a que las personas no pueden ver los datos que están siendo enviados y recibidos.</p>
+
+<p>Cuando se hace uso del protocolo HTTP, la barra de navegación junto con la URL encontramos el símbolo de un candado tachado.</p>
+
+<h1 id="peticiones-y-respuestas">Peticiones y respuestas</h1>
+
+<p>Como hemos dicho anteriormente, al acceder a una página web, nuestro buscador hará una petición al servidor web con el fin de obtener los archivos HTML, imágenes, videos, etc..</p>
+
+<p>Para poder realizar esto, debemos de realizar una petición a una página web mediante una URL.</p>
+
+<h2 id="url">URL</h2>
+
+<blockquote>
+  <p>Una URL ‘Uniform Resource Locator’ nos permite acceder a un recurso en internet.</p>
+</blockquote>
+
+<p>Consta de varias funciones, pero no todas aparecen en cada peticiones / solicitudes.</p>
+
+<p>Sea una URL de la forma → <code class="language-plaintext highlighter-rouge">http://user:password@cyberwiki.com:80/networking?id=1#task3</code></p>
+
+<ul>
+  <li><strong><em>Esquema (http)</em></strong> → Indica que protocolo se ha usado (<em>HTTP</em> ó <em>HTTPS</em>).</li>
+  <li><strong><em>Usuario (user:password)</em></strong> → Como algunos necesitan la autenticación de login, puedes poner tu usuario para hacer login en la web.</li>
+  <li><strong><em>Dominio (cyberwiki.com)</em></strong> → Nombre del <a href="https://joseeelv.github.io//blog/Enumeraci%C3%B3ndeSubdominios">dominio</a> o dirección IP a la que queremos acceder.</li>
+  <li><strong><em>Puertos</em></strong> → Puerto al que nos vamos a conectar. HTTP (80) y HTTPS (443) normalmente.</li>
+  <li><strong><em>Ruta (networking)</em></strong> → Es el nombre del archivo ó recursos al que estamos accediendo.</li>
+  <li><strong><em>Query string (?id=1)</em></strong> → Bits adicionales que le podemos enviar a la ruta solicitada, indicando que queremos recibir el recurso cuyo id = 1.</li>
+  <li><strong><em>Fragmento (#task3)</em></strong> → Se usa comúnmente para webs con contenido extenso. Hace referencia a una ubicación de la página real solicitada.</li>
+</ul>
+
+<h2 id="realizar-la-petición--solicitud">Realizar la petición / solicitud.</h2>
+
+<blockquote>
+  <p>Una petición HTTP(s) se realiza mediante MetodoPetición/VersionProtocolo.</p>
+</blockquote>
+
+<p>Por ejemplo, podemos realizar una petición HTTP → <code class="language-plaintext highlighter-rouge">GET /HTTP/1.1</code>, estocrealiza una petición mandando el método GET, haciendo uso de la versión 1.1 del protocolo HTTP.</p>
+
+<p>Estas peticiones pueden tener varios <strong>métodos</strong>.</p>
+
+<p>Después de haber realiza la petición anterior, HTTP nos devolverá una respuesta con un <strong>estado</strong> indicando si la conexión ha sido exitosa o no.</p>
+
+<p>Estas respuestas será diferentes dependiendo del resultado de la petición.</p>
+
+<h1 id="métodos-del-protocolo-https">Métodos del protocolo HTTP(S)</h1>
+
+<blockquote>
+  <p>Como hemos comentado anteriormente, las peticiones HTTP(S) se pueden realizar mediante un método, cada método tiene un fin particular en la petición.</p>
+</blockquote>
+
+<p>Encontramos varios métodos para las peticiones HTTP(S):</p>
+
+<ul>
+  <li>Petición <strong><em>GET</em></strong> → Se usa para obtener información sobre el servidor web.</li>
+  <li>Petición <strong><em>POST</em></strong> → Se usa para enviar datos al servidor web, creando nuevos registros.</li>
+  <li>Petición <strong><em>PUT</em></strong> → Se usa para enviar datos al servidor web, actualizando la información.</li>
+  <li>Petición <strong><em>DELETE</em></strong>  → Se usa para eliminar información o registros del servidor web.</li>
+</ul>
+
+<h1 id="estados-de-la-respuesta-https">Estados de la respuesta HTTP(S)</h1>
+
+<blockquote>
+  <p>Al realizar una petición HTTP(S), el protocolo usado envía una respuesta especificando el estado de la petición.</p>
+</blockquote>
+
+<p>Encontramos varios estados de las respuestas HTTP(S):</p>
+
+<ul>
+  <li><em><strong>100 - 199 (Información de la respuesta)</strong></em> → Le dicen al cliente que la primera parte de la petición es correcta y que puede continuar con la misma (No es muy común).</li>
+  <li><em><strong>200 - 299 (Éxito)</strong></em> → Nos informa de que la petición ha sido exitosa: </li>
+    <ul>
+      <li><em>200 ‘OK’</em>: Petición completamente exitosa.</li>
+      <li><em>201 ‘Created’</em>: Se ha creado un recurso nuevo.</li>
+    </ul>
+  <li><em><strong>300 - 399 (Redirección)</strong></em> → Redireccionan al cliente a otro recurso (página web diferente o sitio web).</li>
+  <li><em><strong>400-499 (Error del cliente)</strong></em> → Informan al cliente los errores que se producen:</li>
+    <ul>
+      <li><em>401 ‘Not Authorised’</em>: Informa que necesitamos ser autorizados para realizar la petición (login con permisos en el servidor).</li>
+      <li><em>403 ‘Forbidden’</em>: NO tenemos permisos para acceder al recurso.</li>
+      <li><em>404 ‘Not Found’</em>: La página o recurso no existe.</li>
+      <li><em>405 ‘Not Allowed’</em>: Cuando le mandamos al servidor un método que no entiende o no puede soportar para ese método.</li>
+    </ul>
+  <li><em><strong>500-599 (Error del servidor)</strong></em> → Están reservados para los errores que ocurren en la parte del servidor web:</li>
+    <ul>
+      <li><em>500 ‘Internal Error’</em>: El servidor ha encontrado un error en la petición.</li>
+      <li><em>503 ‘Service Unavailable’</em>: El servidor no está disponible (ya sea por mantenimiento u otros motivos).</li>
+    </ul>
+</ul>
+
+<h1 id="cabeceras">Cabeceras</h1>
+
+<blockquote>
+  <p>Las cabeceras son bits de datos adicionales que podemos enviar a los servidores web cuando realizamos una petición a la misma.</p>
+</blockquote>
+
+<h2 id="cabeceras-comunes-de-las-peticiones">Cabeceras comunes de las peticiones</h2>
+
+<p>Estas cabeceras son enviadas desde el cliente al servidor, específicamente desde el buscador.</p>
+
+<ul>
+  <li><strong><em>Host / dominio</em></strong> → Los servidores webs contienen muchas páginas webs, asi que especificamos el host o el dominio de la misma para acceder a ella, de lo contrario nos devuelve la página web por defecto.</li>
+  <li><strong><em>User-Agent</em></strong> → Es la versión y el software de nuestro buscador.</li>
+  <li><strong><em>Content-Length</em></strong> → Le dice al servidor cuantos datos espera en la petición.</li>
+  <li><strong><em>Accept-Encoding</em></strong> → Informa al servidor web los tipos de compresión que el buscador soporta (.zip, tar.gz,etc).</li>
+  <li><strong><em>Cookie</em></strong> → Datos enviados al servidor web que ayuda a recordar la información.</li>
+</ul>
+
+<h2 id="cabeceras-comunes-de-las-respuestas">Cabeceras comunes de las respuestas</h2>
+
+<p>Estas cabeceras son recibidas desde el servidor web en respuesta a las peticiones.</p>
+
+<ul>
+  <li><em><strong>Set-Cookie</strong> →</em> Es la información a guardar la cual será enviada de nuevo al servidor web en cada petición.</li>
+  <li><strong><em>Cache-Control</em></strong> → Nos dice cuanto de largo es el contenido de la respuesta que se ha almacenado en la caché del servidor.</li>
+  <li><strong><em>Content-Type</em></strong> → Informa al cliente cual es el tipo de los datos que va a devolver (HTML, CSS, videos, imágenes, etc.).</li>
+  <li><strong><em>Content-Encoding</em></strong> → Indica que método de compresión va a ser usado para la compresión de los datos que van a ser enviados a través de internet.</li>
+</ul>
+
+<h1 id="cookies">Cookies</h1>
+
+<blockquote>
+  <p>Las Cookies son datos que se almacenan en nuestras computadoras. Contienen información de los sitios webs a los que hemos accedidos, además ayuda al servidor web a recordar ‘quien eres’.</p>
+</blockquote>
+
+<p>Cuando las Cookies son almacenadas en nuestros equipos, recibimos una cabecera <strong>Set-Cookie</strong> del servidor web.</p>
+
+<p>Tienen muchos usos, pero comúnmente son usadas para autenticación. Nunca son una cadena de texto clara donde podemos leer las contraseñas, si no que son un token (código único y secreto que no puede ser rastreado con facilidad).</p>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!--Link Section-->
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                
+                <!-- <li>
+                    <a href="http://localhost:4000/test-page">Test Page</a>
+                </li> -->
+                
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div>
+
+            <!--Blog-post Section-->
+            <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/ChillHack">ChillHack</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/DNS">Sistema de Nombres de Dominio "DNS"</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Startup">Start-up</a>
+                </li>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | <a href="https://github.com/thedevslot/WhatATheme" target="_blank" rel="noopener noreferrer">WhatATheme</a> - A Theme made with <i class="fas fa-heart has-text-danger"></i> by <a href="https://www.twitter.com/thedevslot" target="_blank" rel="noopener noreferrer">TheDevsLot</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div> -->
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+ <!-- Prism.js Script -->
+
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(button) {
+    const codeBlock = button.closest('.code-container').querySelector('code');
+    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        button.textContent = 'Copiado';
+        setTimeout(() => {
+            button.textContent = 'Copiar';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+    });
+}
+
+     function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -11,14 +11,15 @@ tags:
 - Reverse Shell
 - Exploit
 ---
-
-
 <div style="text-align:center;">
-  <pre><code>
-  sudo nmap -p- -open -sS -sV -sC -n -Pn -vvv --min-rate 5000 <ip-victima> -oN escaneo
-  </pre></code>
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >sudo nmap -p- -open -sS -sV -sC .n -Pn -vvv --min-rate 5000 ip_victima -oN escaneo</code></pre>
+  </div>
 </div>
-
 
 > Si quieres puedes guardar el resultado del análisis (opción `-oN`) en un fichero para poder consultar la información y poder limpiar la terminal.
 
@@ -91,11 +92,14 @@ Ahora, tenemos que buscar la otra flag, por tanto, vamos a buscar una manera de 
 
 Primero, vamos a intentar saber si el usuario puede ejecutar algún comando como root → `sudo -l` pero no hay suerte, así que vamos a buscar si hay algún binario extraño que tiene el bit SUID activad
 
-
 <div style="text-align:center;">
-  <pre><code>
-find / -perm -4000 -type f -ls 2>/dev/null
-  </pre></code>
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >find / -perm -4000 -type f -ls 2>/dev/null</code></pre>
+  </div>
 </div>
 
 Vamos a obtener una lista enorme de binarios, pero el que destaca por su extraña aparición es:
@@ -104,7 +108,7 @@ Vamos a obtener una lista enorme de binarios, pero el que destaca por su extrañ
     <img src="../assets/images/Rooms/Anonymous/5.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Hemos encontrado que el binario `/usr/bin/env` tiene el bit SUID activado, por ello, vamos a buscar como ejecutar el exploit → [env|GTFOBins](https://gtfobins.github.io/gtfobins/env/#suid)
+Hemos encontrado que el binario `/usr/bin/env` tiene el bit SUID activado, por ello, vamos a buscar como ejecutar el exploit → [GTFOBins/env](https://gtfobins.github.io/gtfobins/env/#suid).
 
 Ahora lo ejecutamos y, voila! tenemos privilegios root y buscamos la ***root_flag***.
 

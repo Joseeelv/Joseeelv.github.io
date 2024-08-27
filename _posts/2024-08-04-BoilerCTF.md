@@ -125,4 +125,5 @@ Vemos que el binario a usar es el */find* buscamos en Google de ejecutar el expl
 </div>
 
 Listo hemos encontrado la root_flag así que hemos acabado el reto.
+
 ---

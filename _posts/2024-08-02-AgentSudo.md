@@ -28,7 +28,7 @@ Mediante el comando → `nmap -p- -v <ip_maquina>` obtenemos todos los puertos q
 Ahora haremos uso del comando → `nmap -sC -sV -p<Puertos_obtenidos> <ip_maquina>`
 
 <div style="text-align: center; ">
-    <img src="../assets/images/Rooms/AgentSudo/Untitled.png" alt="Untitled" onclick="openModal(this.src )"onclick="openModal(this.src)" />
+    <img src="../assets/images/Rooms/AgentSudo/Untitled.png" alt="Untitled" onclick="openModal(this.src )" />
 </div>
 
 Obtenemos información sobre los puertos abiertos → servicios, versión, estado…
@@ -84,7 +84,13 @@ Si juntamos eso con que tenemos un nombre de usuario, podremos realizar una cone
 Al realizar la conexión *ftp* nos pide una contraseña. Haremos uso de la herramienta Hydra la cual mediante fuerza bruta y a partir de un diccionario podremos obtener la contraseña del usuario.
 
 <div style="text-align:center;">
-    <pre><code>hydra -l chris -p /ruta_wordlist ftp://ip_máquina</code></pre>
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash" >hydra -l chris -p /ruta_wordlist ftp:://ip_máquina</code></pre>
+  </div>
 </div>
 
 <div style="text-align: center;">

