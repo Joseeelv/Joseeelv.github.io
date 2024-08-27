@@ -20,7 +20,7 @@ Mediante `nmap` vamos a realizar un escaneo de los puertos de la maquina objetiv
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >nmap -sC -sV -p- ip_victima</code></pre>
   </div>

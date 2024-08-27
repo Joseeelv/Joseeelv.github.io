@@ -19,7 +19,7 @@ Vamos a realizar un escaneo de puertos desde la maquina atacante:
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >sudo nmap -p- -open -sV -sC -sS --min-rate 5000 -n -Pn -vvv ip_victima</code></pre>
   </div>

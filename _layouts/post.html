@@ -218,22 +218,42 @@
     <img class="modal-content" id="img01">
   </div>
  <!-- Prism.js Script -->
-
   <script src="../prism.js"></script>
   <script>
-    function copyToClipboard(button) {
-    const codeBlock = button.closest('.code-container').querySelector('code');
-    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
-        button.textContent = 'Copiado';
+    function copyToClipboard(event) {
+    // Obtén el botón que fue clickeado
+    const button = event.target;
+
+    // Encuentra el bloque de código asociado al botón
+    const codeContainer = button.closest('.code-container');
+    const codeElement = codeContainer.querySelector('code');
+    
+    if (!codeElement) {
+        console.error('No se encontró el elemento <code> para copiar.');
+        return;
+    }
+
+    const code = codeElement.textContent;
+
+    // Usa la API moderna de Clipboard para copiar el texto
+    navigator.clipboard.writeText(code).then(() => {
+        // Cambia el texto del botón a 'Copiado'
+        button.textContent = 'Copiado!';
+
+        // Opcional: Restaura el texto del botón después de un breve período
         setTimeout(() => {
             button.textContent = 'Copiar';
-        }, 2000);
+        }, 2000); // 2000 ms = 2 segundos
+
     }).catch(err => {
-        console.error('Error al copiar el texto: ', err);
+        // Maneja errores (opcional)
+        console.error('Error al copiar al portapapeles: ', err);
     });
 }
-
-     function openModal(imgSrc) {
+        document.querySelectorAll('.copy-button').forEach(button => {
+          button.addEventListener('click', copyToClipboard);
+        });
+      function openModal(imgSrc) {
       var modal = document.getElementById("myModal");
       var modalImg = document.getElementById("img01");
 

