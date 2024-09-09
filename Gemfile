@@ -5,7 +5,6 @@ gem "bugsnag", "~> 6.22"
 gem "listen", "~> 3.7.0"
 gem 'jekyll', '~> 4.3.3'
 gem 'rake', '~> 13.0.6'
-gem 'google-protobuf', '~> 4.26'
 gem 'sass-embedded', '~> 1.77.8'
 gem 'jekyll-admin', '~> 0.11'
 gem 'jekyll-feed', '~> 0.15'

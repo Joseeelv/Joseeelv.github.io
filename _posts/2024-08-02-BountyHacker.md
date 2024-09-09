@@ -2,109 +2,79 @@
 title: Bounty Hacker
 layout: post
 post-image: "../assets/images/Rooms/BountyHacker/BH.png"
-description: En esta room de TryHackMe, se muestra cómo obtener las flags "user.txt" y "root.txt" mediante técnicas como el escaneo de puertos con nmap, acceso a una página web sin seguridad, búsqueda de directorios ocultos con gobuster, acceso a un servidor FTP anónimo, fuerza bruta con hydra, conexión SSH, búsqueda del archivo "user.txt" y escalada de privilegios utilizando un exploit en el comando "tar" para obtener acceso root y encontrar el archivo "root.txt".
-difficulty: Fácil
+description: You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker!
+difficulty: Easy
 enlace: https://tryhackme.com/r/room/cowboyhacker
 tags:
-- Enumeración
+- Enumeration
 - Privilege Escalation
 - Fuzzing
 - Web
 ---
-> En esta room vamos a proceder a obtener las flags *user.txt* y *root.txt* mediante varias técnicas que vamos a ver a continuación.
 
 # User.txt
-Mediante `nmap` vamos a realizar un escaneo de los puertos de la maquina objetivo:
+Using `nmap`, we will scan the ports of the target machine:
 
-<div style="text-align:center;">
- <div class="code-container">
-    <div class="code-header">
-      Bash
-      <button class="copy-button" data-code="bash">Copiar</button>
-    </div>
-    <pre><code class="language-bash" >nmap -sC -sV -p- ip_victima</code></pre>
-  </div>
-</div>
+<div style="text-align:center;"> <div class="code-container"> <div class="code-header"> Bash <button class="copy-button" data-code="bash">Copy</button> </div> <pre><code class="language-bash">nmap -sC -sV -p- target_ip</code></pre> </div> </div> <div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+We have found several open ports → 21 (FTP service), 22 (SSH service), and 80 (web page).
 
-Hemos encontrado varios puertos abiertos → 21 (servicio FTP), 22 (servicio ssh) y 80 (página web).
+Let's check what's on port 80, which is the web page:
 
-Vamos a ver que hay en el puerto 80, es decir la página web:
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-Como vemos no encontramos gran cosa, pero podemos intentar buscar directorios ocultos en esta web mediante ***gobuster***.
+As we can see, we didn't find much, but we can try searching for hidden directories on this website using **gobuster**.
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-No encontramos nada imporante, solamente un directorio "/images" que no contiene nada relevante.
+We didn't find anything important, just a directory "/images" which does not contain anything relevant.
 
-Si recordamos tenemos abierto el puerto 21 (FTP), este es un servidor que donde podemos cargar y descargar archivos. Podemos ver que este servicio ofrece una conexión anónima, por lo que vamos a aprovecharnos de eso:
- 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+Remember, we have port 21 (FTP) open, which is a server where we can upload and download files. We can see that this service offers anonymous access, so we'll take advantage of that:
 
-Si listamos los ficheros que hay en el servidor encontramos un par de ellos que mediante el comando `get <nombre_fichero>` podemos descargarlos en nuestra máquina:
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-El archivo ***locks.txt*** contiene muchas contraseñas y el archivo ***tasks.txt*** contiene un texto y el nombre de quien lo ha escrito.
+If we list the files on the server, we find a couple of them that we can download to our machine using the `get <filename>` command:
 
-Como tenemos el nombre y una serie de contraseñas vamos a realizar una conexión vía ssh para poder entrar en el sistema:
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-- Primero creamos un archivo ‘users.txt’ que contenga todos los nombres que hemos obtenidos en la la pagina web anterior.
-- Realizamos un ataque de fuerza bruta con `hydra`para poder encontrar un usuario y contraseña compatibles.
+The file *locks.txt* contains many passwords, and the file tasks.txt contains some text and the name of the author.
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/a1.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+Since we have the name and a series of passwords, we'll perform an SSH connection to access the system:
 
-Ahora procedemos a realizar la conexión `ssh` .
+- First, we create a file 'users.txt' containing all the usernames we obtained from the previous web page.
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+- We perform a brute force attack using `hydra` to find a matching username and password.
 
-Ahora vamos a tirar el comando `find`para poder buscar el archivo ***User.txt*** que es nuestra flag a buscar → `find / -type f -name 'user.txt'` . 
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/a1.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-Donde ***-type*** (tipo de archivo), ***-name*** (nombre del archivo).
+Now we proceed to make the `SSH` connection.
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
----
+Next, we use the find command to search for the User.txt file, which is our flag to find → `find / -type f -name 'user.txt'`.
+
+Where `-type` (file type), `-name` (file name).
+
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
 # Root.txt
 
-Ahora para poder obtener el archivo ***Root.txt*** debemos de escalar privilegios ya que si realizamos la búsqueda anterior de ***find*** nos dirá que no tenemos acceso al directorio /root.
+To obtain the ***Root.txt*** file, we need to escalate privileges since the previous *find* search tells us that we don't have access to the /root directory.
 
-Para ello, vamos a buscar una manera de poder adquirir permisos root.
+To do this, we need to find a way to acquire root permissions.
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-Vemos que lin puede ejecutar comandos tar, por tanto, vamos a buscar un exploit.
+We see that the user*Lin* can execute tar commands, so we need to find an exploit.
 
-Buscamos el exploit en gtfobins → [GTFOBins](https://gtfobins.github.io/) , buscamos tar y vamos al apartado **Sudo**.
+We search for the exploit on gtfobins → [GTFOBins-Tar](https://gtfobins.github.io/gtfobins/tar/#sudo), look for tar, and go to the **Sudo** section.
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-Si tiramos ese comando en el bash de la maquina a atacar tendremos acceso root y podemos realizar la búsqueda del archivo.
+If we run that command on the target machine, we will have root access and can search for the file.
 
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/BountyHacker/b.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
+<div style="text-align: center; "> <img src="../assets/images/Rooms/BountyHacker/b.png" alt="Untitled" onclick="openModal(this.src)" /> </div>
 
-Hemos encontrado la flag de root.txt.
+We have found the root.txt flag.
+
+---

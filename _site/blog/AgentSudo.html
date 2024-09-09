@@ -13,27 +13,27 @@
 
 <!-- Open Graph general (Facebook, Pinterest & Google+) -->
 <meta name="og:title" content="CyberWiki | Agent Sudo">
-<meta name="og:description" content="El laboratorio "Agent Sudo" de Tryhackme es un desafío de pentesting en el que se utilizan herramientas como Nmap, Hydra y más. Se realiza una enumeración de la máquina para obtener información importante, se busca en la página web y se encuentra un nombre de usuario y una contraseña débil. Se realiza un ataque de fuerza bruta en el servicio FTP y se obtiene acceso. Se descargan archivos y se encuentran pistas para descifrar una imagen y un archivo ZIP. Se obtiene la contraseña del archivo ZIP y se encuentra una contraseña SSH en un archivo de imagen. Se accede al servicio SSH y se encuentra la flag de usuario. Se verifica que el usuario tenga permisos de root y se encuentra un exploit para elevar privilegios. Se ejecuta el exploit y se obtiene acceso root, encontrando la flag final.">
+<meta name="og:description" content="You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.">
 <meta name="og:image" content="../assets/images/Rooms/AgentSudo/agentsudo.png">
 <meta name="og:image:alt" content="CyberWiki | Agent Sudo">
-<meta name="og:url" content="http://localhost:4000/blog/AgentSudoES-copy">
+<meta name="og:url" content="http://localhost:4000/blog/AgentSudo">
 <meta name="article:author" content="https://www.facebook.com/">
 <meta name="og:site_name" content="CyberWiki | Agent Sudo">
 <meta name="og:type" content="website">
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="CyberWiki | Agent Sudo">
-<meta name="twitter:description" content="El laboratorio "Agent Sudo" de Tryhackme es un desafío de pentesting en el que se utilizan herramientas como Nmap, Hydra y más. Se realiza una enumeración de la máquina para obtener información importante, se busca en la página web y se encuentra un nombre de usuario y una contraseña débil. Se realiza un ataque de fuerza bruta en el servicio FTP y se obtiene acceso. Se descargan archivos y se encuentran pistas para descifrar una imagen y un archivo ZIP. Se obtiene la contraseña del archivo ZIP y se encuentra una contraseña SSH en un archivo de imagen. Se accede al servicio SSH y se encuentra la flag de usuario. Se verifica que el usuario tenga permisos de root y se encuentra un exploit para elevar privilegios. Se ejecuta el exploit y se obtiene acceso root, encontrando la flag final.">
+<meta name="twitter:description" content="You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.">
 <meta name="twitter:site" content="@">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:image:src" content="../assets/images/Rooms/AgentSudo/agentsudo.png">
 <!-- Search Engine -->
-<meta name="description" content="El laboratorio "Agent Sudo" de Tryhackme es un desafío de pentesting en el que se utilizan herramientas como Nmap, Hydra y más. Se realiza una enumeración de la máquina para obtener información importante, se busca en la página web y se encuentra un nombre de usuario y una contraseña débil. Se realiza un ataque de fuerza bruta en el servicio FTP y se obtiene acceso. Se descargan archivos y se encuentran pistas para descifrar una imagen y un archivo ZIP. Se obtiene la contraseña del archivo ZIP y se encuentra una contraseña SSH en un archivo de imagen. Se accede al servicio SSH y se encuentra la flag de usuario. Se verifica que el usuario tenga permisos de root y se encuentra un exploit para elevar privilegios. Se ejecuta el exploit y se obtiene acceso root, encontrando la flag final.">
+<meta name="description" content="You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.">
 <meta name="image" content="../assets/images/Rooms/AgentSudo/agentsudo.png">
 <!-- Schema.org for Google -->
 <meta itemprop="name" content="CyberWiki | Agent Sudo">
 <meta name="author" content="Jose Luis Venega"/>
-<meta itemprop="description" content="El laboratorio "Agent Sudo" de Tryhackme es un desafío de pentesting en el que se utilizan herramientas como Nmap, Hydra y más. Se realiza una enumeración de la máquina para obtener información importante, se busca en la página web y se encuentra un nombre de usuario y una contraseña débil. Se realiza un ataque de fuerza bruta en el servicio FTP y se obtiene acceso. Se descargan archivos y se encuentran pistas para descifrar una imagen y un archivo ZIP. Se obtiene la contraseña del archivo ZIP y se encuentra una contraseña SSH en un archivo de imagen. Se accede al servicio SSH y se encuentra la flag de usuario. Se verifica que el usuario tenga permisos de root y se encuentra un exploit para elevar privilegios. Se ejecuta el exploit y se obtiene acceso root, encontrando la flag final.">
+<meta itemprop="description" content="You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.">
 <meta itemprop="image" content="../assets/images/Rooms/AgentSudo/agentsudo.png">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -62,157 +62,12 @@
         });
     </script>
 </head>
-  <style>
-    /* Estilos para el modal */
-  .modal {
-      display: flex;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      display: flex; /* Usamos flexbox para centrar el contenido */
-      align-items: center; /* Centra verticalmente */
-      justify-content: center; /* Centra horizontalmente */
-    }
-    
-    /* Clase que muestra el modal */
-    .modal.show {
-      opacity: 1;
-    }
-    
-    /* Estilos para el contenido del modal */
-    .modal-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
-      max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
-      background: #cccccc63;
-      border-radius: 8px;
-      animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
-      padding: 5px;
-    }
-    /* Animación para el zoom-in del contenido del modal */
-    @keyframes zoomIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.8); /* Comienza escalado desde el centro */
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1); /* Termina en el tamaño final desde el centro */
-      }
-    
-    }
-    
-    /* Estilos para el botón de cerrar */
-    .close {
-      position: absolute;
-      top: 0%;
-      right: 0%;
-      left: -70%;
-      color: #ccc;
-      font-size: 40px;
-      font-weight: bold;
-      transition: color 0.3s ease;
-      cursor: pointer;
-    }
-    
-    .close:hover,
-    .close:focus {
-      color: #bbb;
-      text-decoration: none;
-    }
-    
-    /* Estilos responsivos para pantallas pequeñas */
-    @media only screen and (max-width: 700px) {
-      .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 45%;
-        right: 45%;
-        width: 100%;
-        max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
-        max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
-        background: #cccccc63;
-        border-radius: 8px;
-        animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
-        padding: 5px;
-      }
-    
-      .close {
-        top: 25%;
-        right: 45%;
-        left: 45%;
-        font-size: 35px; /* Reduce el tamaño del botón de cerrar en pantallas pequeñas */
-      }
-    }
-    
-     /* Estilo para el contenedor principal */
-     .code-container {
-          display: inline-block;
-          text-align: left;
-          margin-top: 20px;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          width: 100%;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          overflow: hidden;
-        }
-    
-        /* Estilo para el encabezado del código */
-        .code-header {
-          background-color: #2d2d2d;
-          color: #ffffff;
-          padding: 10px 15px;
-          font-size: 14px;
-          font-weight: bold;
-          border-bottom: 1px solid #ddd;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-    
-        /* Estilo para el bloque de código*/ 
-        pre {
-          text-align: center;
-          padding: 15px;
-          background-color: #f5f2f0;
-          color: #f5f2f0;
-          border-radius: 0 0 8px 8px;
-          font-size: 14px;
-          overflow-x: auto;
-          word-wrap: break-word; /* Asegura que las líneas largas se ajusten*/
-        }
-    
-        /* Estilos para el botón de copiar */
-        .copy-button {
-          background-color: #ffffff;
-          color: rgb(0, 0, 0);
-          padding: 5px 10px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 14px;
-        }
-    
-        .copy-button:hover {
-          background-color: #8f8f8f;
-        }
-  </style>
 </head>
 
 
 
 <body>
-  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+  <nav class="navbar is-black is-fixed-top" role="navigation" aria-label="main navigation" id="navbar">
     <div class="container">
 
         <!-- logo or branding image on left side -->
@@ -307,7 +162,7 @@
   <section class="hero is-fullheight has-text-centered" id="post">
     <div class="hero-body">
       <div class="container">
-        <a href="/blog/AgentSudoES-copy" class="has-text-black" id="title">
+        <a href="/blog/AgentSudo" class="has-text-black" id="title">
           <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Agent Sudo</h1>
         </a>
         <hr class="has-background-black">
@@ -320,104 +175,102 @@
           <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
             
             <p id="description" class="content is-small has-text-weight-medium is-uppercase">
-              El laboratorio "Agent Sudo" de Tryhackme es un desafío de pentesting en el que se utilizan herramientas como Nmap, Hydra y más. Se realiza una enumeración de la máquina para obtener información importante, se busca en la página web y se encuentra un nombre de usuario y una contraseña débil. Se realiza un ataque de fuerza bruta en el servicio FTP y se obtiene acceso. Se descargan archivos y se encuentran pistas para descifrar una imagen y un archivo ZIP. Se obtiene la contraseña del archivo ZIP y se encuentra una contraseña SSH en un archivo de imagen. Se accede al servicio SSH y se encuentra la flag de usuario. Se verifica que el usuario tenga permisos de root y se encuentra un exploit para elevar privilegios. Se ejecuta el exploit y se obtiene acceso root, encontrando la flag final.
+              You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.
               <!-- Enlace añadido aquí -->
-              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
                 <b><a href="https://tryhackme.com/room/agentsudoctf" target="page.enlace">Agent Sudo</a></b>
               </p>
                 
-              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
-                <b>Fácil</b>
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">LAB difficulty: 
+                <b>Easy</b>
               </p>
-            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Published on
               <b>August 02, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
               </a>
             </p><p class="subtitle is-uppercase">
               <i class="fas fa-tags"></i>
               
               
-              <span class="tag is-link">Enumeración</span>
+              <span class="tag is-link">Enumeration</span>
               
               
               <span class="tag is-link">Exploit</span>
               
               
-              <span class="tag is-link">Fuerza-bruta</span>
+              <span class="tag is-link">Brute-Force</span>
               
               
               <span class="tag is-link">Hash cracking</span>
               
               
             </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
-                4 min
+                5 min
               </b>READ</p> --></div>
         </div>
         <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
           <p><h1 id="task-1-author-note">Task 1: Author note</h1>
-
-<p>En la tarea 1 solo nos dice que iniciemos la máquina.</p>
+<p>Task 1 only tells us to deploy the machine</p>
 
 <h1 id="task-2-enumerate">Task 2: Enumerate</h1>
 
-<p>Esta tarea consiste en recoger información importante sobre la máquina.</p>
+<p>This taks is about gathering important information from the machine.</p>
 
-<p>Para ello, primeramente vamos a realizar un escaneo de los puertos de la máquina para ver cuales están abiertos y que protocolos está usando (muy importante más adelante).</p>
+<p>To do this, we will first perform a scan of the machine`s ports in order to see which ones are open and which protocols are using them (very important later on).</p>
 
-<p>Mediante el comando → <code class="language-plaintext highlighter-rouge">nmap -p- -v &lt;ip_maquina&gt;</code> obtenemos todos los puertos que están abiertos.</p>
+<p>Using the following command  → <code class="language-plaintext highlighter-rouge">nmap -p- -v &lt;ip_target&gt;</code> we get all the ports that are open.</p>
 
-<p>Ahora haremos uso del comando → <code class="language-plaintext highlighter-rouge">nmap -sC -sV -p&lt;Puertos_obtenidos&gt; &lt;ip_maquina&gt;</code></p>
+<p>Now, we will use the following command → <code class="language-plaintext highlighter-rouge">nmap -sC -sV -p&lt;ports&gt; &lt;ip_target&gt;</code></p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/AgentSudo/Untitled.png" alt="Untitled" onclick="openModal(this.src )" />
 </div>
 
-<p>Obtenemos información sobre los puertos abiertos → servicios, versión, estado…</p>
+<p>As you can see, we get information about open ports → services, version, status…</p>
 
-<p>Como conclusión hemos sacado que hay <strong>3 puertos abiertos (21,22,80).</strong></p>
+<p>As a conclusion we have found that there are <strong>3 open ports (21, 22, 80).</strong></p>
 
-<p>Al tener abierto el puerto 80 significa que está haciendo uso del protocolo <em>HTTP</em> por tanto, vamos a realizar la petición <code class="language-plaintext highlighter-rouge">http://&lt;ip_maquina&gt;</code> .</p>
+<p>Having port 80 open means that it is using <em>HTTP</em> protocol, so we are going to make the request <code class="language-plaintext highlighter-rouge">http://&lt;ip_target&gt;</code>.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Hmm, hemos encontrado una pagina web.. ¿Qué contendrá?</p>
+<p>Hmm, we have found a web page.. What will it contain?</p>
 
-<p>Al haber accedido a una página web podemos realizar una búsqueda de directorios en ella. Para ello, lo realizamos mediante el comando → <code class="language-plaintext highlighter-rouge">gobuster dir --url &lt;ip_maquina&gt; -w /directorio_wordlist</code></p>
+<p>Having accessed a web page , we can perform a directory search on it. To do this, let’s do <em>web fuzzing</em> using the following command  → <code class="language-plaintext highlighter-rouge">gobuster dir --url &lt;ip_target&gt; -w /path_wordlist</code>.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>No ha habido suerte, no hay ningún directorio oculto…</p>
+<p>NO luck, there are no hidden directories.</p>
 
-<p>Sin embargo, si volvemos a la página web nos da información sobre nuestro codename el cual es <strong>user-agent.</strong></p>
+<p>However, if we go back to the web page, we see information about our <em>codename</em> which is <strong>user-agent</strong>.</p>
 
-<p>Pero esto no solo queda aquí, nosotros podemos averiguar quien es ese tal <em>Agent R</em>, vamos a probar a realizar un ‘spoofing’ con el comando curl, donde -A es el ‘user-agent y -L sigue cualquier redirección.</p>
+<p>But that’s not all, we can find out who this <em>Agent R</em> is, let’s try spoofing with the <code class="language-plaintext highlighter-rouge">curl</code> command, where <code class="language-plaintext highlighter-rouge">-A</code> will be the <em>user-agent</em> and <code class="language-plaintext highlighter-rouge">-L</code> follows any redirection.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Nos dice que hay 25 empleados, vamos a seguir comprobando para B,C, etc. Así hasta que encontremos algo diferente pero válido</p>
+<p>It tell us that there are 25 employees, so let’s keep cheking for B, C, so on, until we find something different but still valid.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled4.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Uiuiuiu, una contraseña débil, vamos a buscarla jejeje.</p>
+<p>Uiuiuiui, a weak password, let’s look for it.</p>
 
-<p>Cuando llegamos al user-agent ‘C’, encontramos un mensaje diferente, donde nos dice Atención <strong>Chris</strong>.</p>
-
-<p>Perfecto, ahora tenemos un nombre de usuario cuya contraseña es débil.</p>
+<p>When we got the <em>user-agent</em> ‘C’. we find a different message, where it says <em>Attention chris</em>.
+Great, now we have an username (<strong>Chris</strong>) whose password is weak.</p>
 
 <h1 id="task-3-hash-cracking-and-brute-force">Task 3: Hash cracking and brute-force</h1>
 
-<p>Si nos acordamos, anteriormente obtuvimos varios servicios que está usando la máquina.</p>
+<p>If we remember, erlier we got several services that the machine is using.</p>
 
-<p>Si juntamos eso con que tenemos un nombre de usuario, podremos realizar una conexión en uno de los servicios.</p>
+<p>If we combine that with the fact that we have an username, we can make a connection to one of the services.</p>
 
-<p>Al realizar la conexión <em>ftp</em> nos pide una contraseña. Haremos uso de la herramienta Hydra la cual mediante fuerza bruta y a partir de un diccionario podremos obtener la contraseña del usuario.</p>
+<p>When we make a <em>FTP</em> connection it asks for a password. So, if we have the username, and using the tool called <code class="language-plaintext highlighter-rouge">Hydra</code> together with a <code class="language-plaintext highlighter-rouge">wordlist</code>, we will obtenain the username password by brute force.</p>
 
 <div style="text-align:center;">
  <div class="code-container">
@@ -425,109 +278,116 @@
       Bash
       <button class="copy-button" data-code="bash">Copiar</button>
     </div>
-    <pre><code class="language-bash">hydra -l chris -p /ruta_wordlist ftp:://ip_máquina</code></pre>
+    <pre><code class="language-bash">hydra -l chris -P /ruta_wordlist ftp:://ip_máquina</code></pre>
   </div>
 </div>
+
+<p>The parametres of the above command are → <code class="language-plaintext highlighter-rouge">-l</code> (Login name), <code class="language-plaintext highlighter-rouge">-P</code> (password or list), <code class="language-plaintext highlighter-rouge">ftp</code> (service to crack).</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/a.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Bingo, mediante el diccionario rockyou.txt hemos obtenido la contraseña del usuario chris.</p>
+<p>Bingo, using the rockyou wordlist we got the password of the user chris.</p>
 
-<p>Gracias a esto, podemos realizar la conexión <em>ftp</em> del usuario y su contraseña.</p>
+<p>Thanks to this, we can perform the <em>FTP</em> connection.</p>
 
-<p>Realizamos un listado de los archivos:</p>
+<p>Now that we are inside, we m list the files with the command → <code class="language-plaintext highlighter-rouge">ls</code>; if we use <code class="language-plaintext highlighter-rouge">ls -la</code> we can see hidden directories:</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled5.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Vemos que hay 3 archivos, que podremos hacer con ellos..?</p>
+<p>There are 3 files, what we can do with them?</p>
 
-<p>Mediante el comando <code class="language-plaintext highlighter-rouge">mget *</code> de ftp podemos descargar los archivos.</p>
+<p><em>FTP</em> protocol offers us a way to download files and it is by using the command <code class="language-plaintext highlighter-rouge">mget </code>, where <code class="language-plaintext highlighter-rouge">*</code> means all files.</p>
 
-<p>Al encontrar donde se han descargado los archivos, procedemos abrir el fichero ‘<em>.txt</em>’ y vemos que nos indica que en las imágenes contienen una contraseña escondida.</p>
+<p>These files will be downloaded to our current directory, so lest’s open the ‘.txt’ file and we will see that it indicates that the images contain an hidden password.</p>
 
-<p>Para poder extraer una imagen con extensión ‘<em>.png</em>’ → <code class="language-plaintext highlighter-rouge">binwalk -e</code>, si es ‘<em>.jpg</em>’ → <code class="language-plaintext highlighter-rouge">steghide</code>.</p>
+<p>To extract hidden information from an image we can use two tools, if the file extension is ‘<em>.png</em>’  → <code class="language-plaintext highlighter-rouge">binwalk -e</code>, it it is ‘<em>.jpg</em>’ → <code class="language-plaintext highlighter-rouge">steghide</code>.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled6.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Perfecto, tenemos un .zip para extraer.</p>
+<p>Great, we have an .zip to extract.</p>
 
-<p>Como bien sabemos, el .<em>zip</em> obtenido está encriptado, haremos uso de las herramientas de <em>John The Ripper</em> para poder obtener la contraseña.</p>
+<p>As we know, the .zip obteined is encrypted, we will make use of the tools of <em>John The Ripper</em> in order to get the password.</p>
 
-<p>Comandos → <code class="language-plaintext highlighter-rouge">zip2john</code> y <code class="language-plaintext highlighter-rouge">john</code></p>
+<p>Commands to use → <code class="language-plaintext highlighter-rouge">zip2john</code> y <code class="language-plaintext highlighter-rouge">john</code></p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/b.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Voilá, ya tenemos la contraseña del archivo .zip</p>
+<p>Voilá, we now have the passowrd for ‘.zip’ file.</p>
 
-<p>Encontraremos un <em>archivo.txt</em> dentro del <em>.zip,</em> procedemos a abrirlo.</p>
+<p>We will found an ‘.txt’ file inside the ‘.zip’, so we proced to open it.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/c.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Nos dice que la imagen se la enviemos a un usuario, pero está encriptado. Para descifrarlo, vamos a utilizar la herramienta <a href="https://gchq.github.io/CyberChef/">CyberChef</a>.</p>
+<p>It tell us to send the image to a user, but it is encrypted. To decrypt it, we will use a tool from internet: <a href="https://gchq.github.io/CyberChef/">CyberChef</a>.</p>
 
-<p>Ahora nos centramos en el archivos cuya extensión es ‘<em>.jpg</em>’.</p>
+<p>Now, we focus on the ‘.jpg’ file.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/d.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Leemos el .txt que nos devuelve el archivo .jpg y encontramos una contraseña ssh.</p>
+<p>We read  the ‘.txt’ returned by the ‘.jpg’ file and found an <strong>ssh pasword</strong>.</p>
 
 <h1 id="task-4-capture-the-user-flag">Task 4: Capture the user flag</h1>
 
-<p>Ahora tenemos un usuario y una contraseña ambos los podemos usar en el servicio <em>ssh</em> del que hace uso la máquina.</p>
-
-<p>Procedemos a realizar el login → <code class="language-plaintext highlighter-rouge">ssh usuario@ip_maquina</code>.</p>
+<p>Now that we have both the username and password, we can perform an <em>ssh</em> connection with those credentials → <code class="language-plaintext highlighter-rouge">ssh username@ip_target</code>.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/f.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Listamos directorios y BOOM, encontramos la flag.</p>
-
-<p>PD: Podemos buscar información de la imagen en internet.</p>
+<p>Inside the machine, we list the directories, and BOOM we get the user flag.</p>
 
 <h1 id="task-5-privilege-escalation">Task 5: Privilege escalation</h1>
 
-<p>Por último, podemos comprobar si el usuario James tiene permisos de root → <code class="language-plaintext highlighter-rouge">sudo -l</code> .</p>
+<p>As we already have the user flag, we will now look for the root flag. For this we will have to perform a privilege escalation.</p>
+
+<p>First of all, we will check the commands that James can execute as root using the command → <code class="language-plaintext highlighter-rouge">sudo -l</code>.</p>
+
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled7.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Efectivamente, los tiene.</p>
-
-<p>Si tenemos permisos root, podemos comprobar que exploits tiene el comando que puede ejecutar <em>(ALL, !root) /bin/bash</em></p>
+<p>Indeed, it has: <em>(ALL, !root) /bin/bash</em>.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled8.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Encontramos información sobre el exploit (CVE,version,etc.), buscando en Internet.</p>
+<p>If we search on internet information about the exploit (CVE, version, ..) we will find a way to execute the exploit, but usually by running the command as such, in our case <code class="language-plaintext highlighter-rouge">sudo -u root /bin/bash</code>, it will execute without problems.</p>
 
-<p>Procedemos a comprobar si la versión de sudo permite el exploit.</p>
-<div style="text-align: center;">
-    <img src="../assets/images/Rooms/AgentSudo/Untitled9.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-<p>En efecto, por tanto, buscamos información de como ejecutar el exploit.</p>
-<div style="text-align: center;">
-    <img src="../assets/images/Rooms/AgentSudo/Untitled10.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-<p>Procedemos a ser roots, con lo que nos da libertad para navegar entre directorios.</p>
+<table>
+  <tr>
+    <td style="vertical-align:top">
+      <div style="text-align: center;">
+          <img src="../assets/images/Rooms/AgentSudo/Untitled9.png" alt="Untitled" onclick="openModal(this.src)" />
+      </div>
+    </td>
+    <td style="vertical-align:top">
+      <div style="text-align: center;">
+          <img src="../assets/images/Rooms/AgentSudo/Untitled10.png" alt="Untitled" onclick="openModal(this.src)" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>We get root privileges, which give us the freedom to navigate between directories.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/g.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
-<p>Finalmente, en el directorio root encontramos un archivo llamado <em>root.txt</em> que contiene la flag final y el nombre del usuario.</p>
+
+<p>Finally, in the root directory there is a file called <em>root.txt</em> which contain the flag.ç</p>
 
 <hr />
 </p>
@@ -565,20 +425,14 @@
                 </a>
             </div>
 
-            <!--Link Section-->
+            <!--Link Section
             <div class="column has-text-white">
                 <h3>More Links</h3>
-                
-                
-                <!-- <li>
-                    <a href="http://localhost:4000/test-page">Test Page</a>
-                </li> -->
-                
                 
                 <li>
                     <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
                 </li>
-            </div>
+            </div> -->
 
             <!--Blog-post Section-->
             <div class="column has-text-white">
@@ -630,11 +484,11 @@
     // Usa la API moderna de Clipboard para copiar el texto
     navigator.clipboard.writeText(code).then(() => {
         // Cambia el texto del botón a 'Copiado'
-        button.textContent = 'Copiado!';
+        button.textContent = 'Copied!';
 
         // Opcional: Restaura el texto del botón después de un breve período
         setTimeout(() => {
-            button.textContent = 'Copiar';
+            button.textContent = 'Copy';
         }, 2000); // 2000 ms = 2 segundos
 
     }).catch(err => {

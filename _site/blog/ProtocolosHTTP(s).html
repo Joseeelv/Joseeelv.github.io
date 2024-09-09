@@ -62,157 +62,12 @@
         });
     </script>
 </head>
-  <style>
-    /* Estilos para el modal */
-  .modal {
-      display: flex;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      display: flex; /* Usamos flexbox para centrar el contenido */
-      align-items: center; /* Centra verticalmente */
-      justify-content: center; /* Centra horizontalmente */
-    }
-    
-    /* Clase que muestra el modal */
-    .modal.show {
-      opacity: 1;
-    }
-    
-    /* Estilos para el contenido del modal */
-    .modal-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
-      max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
-      background: #cccccc63;
-      border-radius: 8px;
-      animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
-      padding: 5px;
-    }
-    /* Animación para el zoom-in del contenido del modal */
-    @keyframes zoomIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.8); /* Comienza escalado desde el centro */
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1); /* Termina en el tamaño final desde el centro */
-      }
-    
-    }
-    
-    /* Estilos para el botón de cerrar */
-    .close {
-      position: absolute;
-      top: 0%;
-      right: 0%;
-      left: -70%;
-      color: #ccc;
-      font-size: 40px;
-      font-weight: bold;
-      transition: color 0.3s ease;
-      cursor: pointer;
-    }
-    
-    .close:hover,
-    .close:focus {
-      color: #bbb;
-      text-decoration: none;
-    }
-    
-    /* Estilos responsivos para pantallas pequeñas */
-    @media only screen and (max-width: 700px) {
-      .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 45%;
-        right: 45%;
-        width: 100%;
-        max-width: 1000px; /* Limita el ancho máximo para el contenido del modal */
-        max-height: 80vh; /* Limita la altura máxima para evitar que el modal sea demasiado alto */
-        background: #cccccc63;
-        border-radius: 8px;
-        animation: zoomIn 0.3s ease forwards; /* Animación con el estado final */
-        padding: 5px;
-      }
-    
-      .close {
-        top: 25%;
-        right: 45%;
-        left: 45%;
-        font-size: 35px; /* Reduce el tamaño del botón de cerrar en pantallas pequeñas */
-      }
-    }
-    
-     /* Estilo para el contenedor principal */
-     .code-container {
-          display: inline-block;
-          text-align: left;
-          margin-top: 20px;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          width: 100%;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          overflow: hidden;
-        }
-    
-        /* Estilo para el encabezado del código */
-        .code-header {
-          background-color: #2d2d2d;
-          color: #ffffff;
-          padding: 10px 15px;
-          font-size: 14px;
-          font-weight: bold;
-          border-bottom: 1px solid #ddd;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-    
-        /* Estilo para el bloque de código*/ 
-        pre {
-          text-align: center;
-          padding: 15px;
-          background-color: #f5f2f0;
-          color: #f5f2f0;
-          border-radius: 0 0 8px 8px;
-          font-size: 14px;
-          overflow-x: auto;
-          word-wrap: break-word; /* Asegura que las líneas largas se ajusten*/
-        }
-    
-        /* Estilos para el botón de copiar */
-        .copy-button {
-          background-color: #ffffff;
-          color: rgb(0, 0, 0);
-          padding: 5px 10px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 14px;
-        }
-    
-        .copy-button:hover {
-          background-color: #8f8f8f;
-        }
-  </style>
 </head>
 
 
 
 <body>
-  <nav class="navbar is-black is-fixed-top is-rounded" role="navigation" aria-label="main navigation" id="navbar">
+  <nav class="navbar is-black is-fixed-top" role="navigation" aria-label="main navigation" id="navbar">
     <div class="container">
 
         <!-- logo or branding image on left side -->
@@ -322,14 +177,14 @@
             <p id="description" class="content is-small has-text-weight-medium is-uppercase">
               En este módulo se exploran los fundamentos de los protocolos HTTP y HTTPS, incluyendo su funcionamiento y diferencias. Se explica cómo las peticiones y respuestas entre navegadores y servidores se estructuran y procesan. Los participantes aprenden sobre la composición de una URL, desglosando sus componentes clave como el esquema, dominio, puerto, ruta, query string y fragmento.
               <!-- Enlace añadido aquí -->
-              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">Enlace de la room: 
+              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
                 <b><a href="https://tryhackme.com/r/room/httpindetail" target="page.enlace">Protocolos HTTP y HTTPS</a></b>
               </p>
                 
-              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Dificultad de la room: 
+              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">LAB difficulty: 
                 <b>Fácil</b>
               </p>
-            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Publicado en
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Published on
               <b>August 07, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
               </a>
             </p><p class="subtitle is-uppercase">
@@ -516,20 +371,14 @@
                 </a>
             </div>
 
-            <!--Link Section-->
+            <!--Link Section
             <div class="column has-text-white">
                 <h3>More Links</h3>
-                
-                
-                <!-- <li>
-                    <a href="http://localhost:4000/test-page">Test Page</a>
-                </li> -->
-                
                 
                 <li>
                     <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
                 </li>
-            </div>
+            </div> -->
 
             <!--Blog-post Section-->
             <div class="column has-text-white">
@@ -581,11 +430,11 @@
     // Usa la API moderna de Clipboard para copiar el texto
     navigator.clipboard.writeText(code).then(() => {
         // Cambia el texto del botón a 'Copiado'
-        button.textContent = 'Copiado!';
+        button.textContent = 'Copied!';
 
         // Opcional: Restaura el texto del botón después de un breve período
         setTimeout(() => {
-            button.textContent = 'Copiar';
+            button.textContent = 'Copy';
         }, 2000); // 2000 ms = 2 segundos
 
     }).catch(err => {

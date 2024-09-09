@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="enes"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="enes" /><updated>2024-09-07T15:06:05+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CyberWiki</title><subtitle>Welcome to my hacking website</subtitle><entry><title type="html">ChillHack</title><link href="http://localhost:4000/blog/ChillHack" rel="alternate" type="text/html" title="ChillHack" /><published>2024-08-21T00:00:00+02:00</published><updated>2024-08-21T00:00:00+02:00</updated><id>http://localhost:4000/blog/ChillHack</id><content type="html" xml:base="http://localhost:4000/blog/ChillHack"><![CDATA[<p>Primero de todo, vamos a realizar un escaneo de los puertos de la dirección ip de la máquina víctima:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="enes"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="enes" /><updated>2024-09-09T19:34:38+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CyberWiki</title><subtitle>Welcome to my hacking website</subtitle><entry><title type="html">ChillHack</title><link href="http://localhost:4000/blog/ChillHack" rel="alternate" type="text/html" title="ChillHack" /><published>2024-08-21T00:00:00+02:00</published><updated>2024-08-21T00:00:00+02:00</updated><id>http://localhost:4000/blog/ChillHack</id><content type="html" xml:base="http://localhost:4000/blog/ChillHack"><![CDATA[<p>Primero de todo, vamos a realizar un escaneo de los puertos de la dirección ip de la máquina víctima:</p>
 <div style="text-align: left;">
   <table>
     <tr>
@@ -557,271 +557,114 @@ Podemos escalar privilegios de muchas maneras, por lo que primero de todo vamos 
   </table>
 </div>
 
-<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Reverse shell" /><category term="Wireshark" /><summary type="html"><![CDATA[Abuse traditional vulnerabilities via untraditional means.]]></summary></entry><entry><title type="html">Aspectos Básicos de Windows III</title><link href="http://localhost:4000/blog/WindowsIII" rel="alternate" type="text/html" title="Aspectos Básicos de Windows III" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/WindowsIII</id><content type="html" xml:base="http://localhost:4000/blog/WindowsIII"><![CDATA[<blockquote>
-  <p>En la última parte veremos herramientas integradas en Windows para mantener los equipos seguros como Windows Update, Seguridad de Windows, BitLocker y más.</p>
-</blockquote>
+<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Reverse shell" /><category term="Wireshark" /><summary type="html"><![CDATA[Abuse traditional vulnerabilities via untraditional means.]]></summary></entry><entry><title type="html">Descubrimiento de Contenidos Web</title><link href="http://localhost:4000/blog/Descubrimientodecontenidos" rel="alternate" type="text/html" title="Descubrimiento de Contenidos Web" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/Descubrimientodecontenidos</id><content type="html" xml:base="http://localhost:4000/blog/Descubrimientodecontenidos"><![CDATA[<p>Para un pentester el contenido que se puede descubrir son cosas que no se presentan de inmediato y que no siempre fueron destinadas al acceso público.</p>
 
-<h1 id="windows-update">Windows Update</h1>
+<p>Este contenido puede ser: versiones anteriores de la página web, archivos de backup (copias de seguridad), archivos de configuración, etc.</p>
 
-<p>Windows Update es un servicio proporcionado por Microsoft que nos permite instalar actualizaciones de seguridad, nuevas características en los equipos con Windows instalado.</p>
+<p>Existen tres formas para poder descubrir contenido en un sitio web:</p>
 
-<p>Podemos acceder a Windows Update de dos formas:</p>
-<table>
-  <tr>
-    <td style="text-align:left; vertical-align:top; width:700px"><ol>
-        <li>En Configuración en la sección <em>Actualización y seguridad</em>.</li>
-        <li>Haciendo uso del uso del comando: <code>control /name Microsoft.WindowsUpdate</code> ya sea en el <code>cmd</code> (<a href="https://joseeelv.github.io//blog/WindowsII">Símbolo del sistema</a>) de la combinación de teclas de Ejecutar `Windows + R` que nos llevará a la Configuración de Windows (arriba).</li>
-      </ol>
-      <div style="text-align:left;">
-        <img src="../assets/images/Labs/WindowsIII/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:400px" />
-      </div>
-    </td>
-    <td style="vertical-align:top;">
-      <div style="text-align:center; ">
-        <img src="../assets/images/Labs/WindowsIII/image-20230922102018818.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px" />
-      </div>
-    </td>
-  </tr>
-</table>
+<h1 id="descubrimiento-manual">Descubrimiento manual</h1>
 
-<h1 id="seguridad-de-windows">Seguridad de Windows</h1>
+<h2 id="robotstxt">Robots.txt</h2>
 
-<p>La Seguridad de Windows nos ayuda a administrar las herramientas que protegen el equipo y sus datos.
-También está disponible en <em>Configuración &gt; Actualización y seguridad</em>.</p>
+<p>El archivo <em>Robots.txt</em> es un documento de texto que le dice a los motores de búsqueda qué páginas pueden y no pueden mostrar en los resultados de su motor de búsqueda o prohíben determinados motores de búsqueda que rastreen el sitio web por completo.</p>
 
-<div style="text-align:left; ">
-  <img src="../assets/images/Labs/WindowsIII/image-20230922102616439.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
-</div>
+<p>Este archivo nos puede dar una gran lista de ubicaciones en el sitio web que los propietarios no quieren que descubramos como pentester.</p>
 
-<p>Se usa para realizar escaneos de archivos en la computadora a la hora de comprobar si nuestro equipo contiene malware y más.
-Encontramos varias áreas de protección:</p>
-<ul>
-  <li>Protección contra virus y amenazas.</li>
-  <li>Firewall y protección de red.</li>
-  <li>Control de aplicaciones y navegadores.</li>
-  <li>Seguridad del dispositivo.</li>
-</ul>
-<p>Además encontraremos varios colores indicadores dependiendo del estado en que se encuentre el equipo, <strong>verde</strong> (equipo protegido), <strong>amarillo</strong> (se sugiere revisar la seguridad del equipo) y <strong>rojo</strong> (equipo necesita atención inmediata).<br /><br />
-En esta sección de <em>Seguridad de Windows</em> podemos realizar escaneos/análisis de los archivos que contiene el sistema para comprobar que el equipo está seguro y ningún archivo es malicioso.</p>
+<p>Para acceder a él —&gt; <em>https://nombre_pagina_web/robots.txt</em></p>
 
-<table>
-  <tr>
-    <td style="text-align:left; vertical-align:top; width:800px">
-      <h2>Tipos de análisis</h2>
-      <ul>
-        <li><strong>Análisis / escaneo rápido</strong>: comprueba las carpetas donde se pueden encontrar comúnmente las amenazas.</li>
-        <li><strong>Análisis / escaneo completo</strong>: se comprueba todas las carpetas, archivos y programas en ejecución que se encuentran en el equipo, este es un análisis mucho más lento pero más seguro.</li>
-        <li><strong>Análisis / escaneo personalizado</strong>: el usuario es libre de personalizar el análisis (los archivos o carpetas que se desean verificar).</li>
-      </ul>
-      <h2>Historial de protección</h2>
-      Contiene todas las acciones que <em>Windows Defender</em> ha tomado a la hora de haberse realizado un análisis.<br />
-      Si el antivirus encuentra/detecta un fragmento de malware, este los registrará en el historial de protección.<br /><br />
-      <strong>Amenazas en cuarentena</strong>: estas amenazas se han aislado del sistema y se ha impedido la ejecución en el equipo. Serán eliminadas periódicamente.<br /><br />
-      También podemos realizar las acciones de <strong>quitar</strong> (elimina la amenaza del dispositivo) ó <strong>restaurar</strong> (vuelve a colocar el archivo en la carpeta donde se encontraba y el antivirus lo volverá a detectar como una amenaza).<br /><br />
-      <strong>Amenazas permitidas</strong>: son elementos identificados como amenazas pero se les permite la ejecución en el equipo.
-      <h2>Configuración de protección contra virus y amenazas</h2>
-      Aquí podemos administrar la configuración de la protección del equipo:
-      <ul>
-        <li><strong>Protección en tiempo real</strong>: localiza y evita que se ejecute malware en el equipo.</li>
-        <li><strong>Protección entregada en la nube</strong>: ofrece una mayor protección y más rápida debido a que el equipo tiene acceso a las definiciones (contenida en la nube) más actualizadas de las amenazas. El equipo no obstante debe de tener conexión a internet para poder acceder a dicha nube.</li>
-        <li><strong>Envío automático de muestras</strong>: si el equipo está conectado a la nube, podemos hacer que 'Defender' envíe automáticamente archivos sospechosos a Windows para comprobar si hay amenazas potenciales.</li>
-        <li><strong>Acceso controlado a carpetas</strong>: podemos proteger archivos, carpetas, espacios de memoria del equipo de cambios no autorizados provocado por aplicaciones de terceros.</li>
-        <li><strong>Exclusiones</strong>: podemos indicarle a 'Defender' una serie de carpetas de confianza las cuales no analizará.</li>
-        <li><strong>Notificaciones</strong>: 'Defender' nos enviará notificaciones cuando encuentre alguna amenaza en el sistema para que se realice una acción frente a ella y del estado del equipo.</li>
-      </ul>
-      <h2>Protección frente a ransomware</h2>
-      <blockquote>
-        <p><em>Un ransomware es un tipo de malware dedicado a la encriptación de carpetas, archivos o equipos al completo con el fin de obtener los datos del usuario infectado.</em></p>
-      </blockquote>
-      Para ello, <em>Windows Defender</em> nos permite configurar el acceso a carpetas de forma controlada:<br /><br />
-      <strong>Acceso controlado a carpetas</strong>: para que el equipo esté protegido contra ransomware se requiere que esta función esté habilitada, además de la protección a tiempo real.
-    </td>
-    <td>
-      <div style="text-align:center; ">
-        <img src="../assets/images/Labs/WindowsIII/Untitled 1.png" alt="Untitled" style="width:100%; max-width:800px" />
-      </div>
-    </td>
-  </tr>
-</table>
+<h2 id="favicon">Favicon</h2>
 
-<h1 id="firewall-y-protección-de-red">Firewall y protección de red</h1>
+<p>Favicon es una pequeño icono que muestra la barra de direcciones del navegador o en la pestaña utilizada para marcar un sitio web.</p>
 
-<blockquote>
-  <p>Un firewall controla el tráfico de red que fluye dentro y fuera de los dispositivos a través de los puertos</p>
-</blockquote>
-
-<p>Podemos acceder mediante el comando <code class="language-plaintext highlighter-rouge">WF.msc</code> en Ejecutar.</p>
-
-<p>Nos ofrece una vista de las redes a las que está conectado el equipo, se puede activar / desactivar y podemos acceder a las opciones avanzadas para los siguientes tipos de red:</p>
-
-<ul>
-  <li><strong>Redes de dominio</strong>: redes donde el sistema host puede autenticarse en un controlador de dominio.</li>
-  <li><strong>Redes privadas</strong>: son las redes reconocibles, el usuario asigna esta red y se utiliza para redes domésticas.</li>
-  <li><strong>Redes públicas</strong>: son las redes no reconocibles, es el predeterminado que se utiliza para designar redes públicas como puntos de acceso Wi-Fi en ubicaciones públicas.</li>
-</ul>
-
-<h2 id="permitir-una-aplicación-a-través-del-firewall">Permitir una aplicación a través del firewall</h2>
-
-<table>
-  <tr>
-    <td style="vertical-align:top; text-align:left; width:50%">
-    Podemos agregar una excepción para la aplicación que está siendo bloqueada por el firewall o también podemos asignar un puerto específico.<br /><br />
-    Podemos ver la configuración actual de cualquier perfil de firewall, si es privado y/o público y en la opción ‘Detalles’ podemos ver el nombre y una breve descripción sobre el perfil.
-    <div style="text-align:center;">
-      <img src="../assets/images/Labs/WindowsIII/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
-    </div>
-    </td>
-    <td>
-    <div style="text-align:left; vertical-align:top;">
-      <img src="../assets/images/Labs/WindowsIII/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
-    </div>
-    </td>
-  </tr>
-</table>
-
-<h2 id="configuración-avanzada">Configuración avanzada</h2>
-
-<p>Está orientado a usuarios avanzados de Windows.</p>
-
-<p>Podemos crear reglas de entradas/salidas, reglas de seguridad de conexión y ver registros de supervisión para el firewall, si no se tiene un buen conocimiento sobre estas opciones podemos hacer que el equipo sea más vulnerable o que algunas aplicaciones dejen de funcionar.</p>
-
-<h1 id="control-de-explorador-y-aplicaciones">Control de explorador y aplicaciones</h1>
-
-<blockquote>
-  <p>Microsoft Defender SmartScreen nos protege de phishing o aplicaciones de malware y de la descarga de archivos maliciosos.</p>
-</blockquote>
-
-<p>Gracias al control del explorador y de las aplicaciones podemos bloquear o realizar advertencias sobre aplicaciones, archivos, descargas y contenido de webs maliciosas, también podemos desactivar tanto el bloqueo como las advertencias, algo <strong>NO</strong> recomendable.</p>
-
-<h2 id="protección-contra-vulnerabilidades">Protección contra vulnerabilidades</h2>
-
-<p>Esta protección viene integrada en Windows lo que hace que proteja al equipo desde el momento en que se inicia el sistema operativo. Esta configuración se puede personalizar (tanto el equipo como aplicaciones), pero <strong>NO</strong> es recomendable si no se está seguro de lo que se hace.</p>
-
-<p>Se puede compartir la configuración en los dispositivos que estén interconectados (por ejemplo una organización).</p>
-
-<h1 id="seguridad-del-dispositivo">Seguridad del dispositivo</h1>
-
-<p>Ofrece opciones de seguridad integradas que ayudan a proteger de malware.</p>
-
-<h2 id="aislamiento-del-núcleo">Aislamiento del núcleo</h2>
-
-<p>Nos aporta protección adicional contra malware y otros ataques al aislar los procesos del equipo del sistema operativo y del dispositivo.</p>
-
-<p>En la sección de ‘<em>Detalles de aislamiento del núcleo</em>’ podemos habilitar / deshabilitar y cambiar la configuración del mismo.</p>
-
-<h3 id="integridad-de-la-memoria">Integridad de la memoria</h3>
-
-<p>Es una característica del aislamiento del núcleo, donde al activarlo evita que el malware tenga acceso a los procesos de alta seguridad en caso de un ataque.</p>
-
-<h2 id="procesador-de-seguridad">Procesador de seguridad</h2>
-
-<p>Ofrece un cifrado adicional para el dispositivo.</p>
-
-<p>Si accedemos a la sección `<em>Detalles del procesador de seguridad</em>’ encontramos información sobre el fabricante, la versión, el TPM y más.</p>
-
-<blockquote>
-  <p>Trusted Plataform Module (TPM) es una tecnología diseñada por Microsoft para ofrecer funciones basadas en hardware y relacionadas con la seguridad.
-Un chip TPM es un criptoprocesador seguro diseñado para realizar operaciones de criptografía. Este chip incluye múltiples mecanismos físicos de seguridad para hacerlo resistente frente a la manipulación y para que el malware no pueda manipular las funciones de seguridad del TPM.</p>
-</blockquote>
-
-<h1 id="bitlocker">BitLocker</h1>
-
-<blockquote>
-  <p>BitLocker Drive Encryption es una función de protección de datos que se integra con el sistema operativo y que hace frente a las amenazas de robo y exposición de datos.</p>
-</blockquote>
-
-<p>Los equipos que tienen instalado TPM, BitLocker ofrece una mejor protección.</p>
-
-<p>Según Microsoft, BitLocker ofrece la mejor protección cuando se utiliza con un TPM cuya versión es la 1.2 o superior.</p>
-
-<p>Los equipos más nuevos ya contienen un TPM instalado por el fabricante del equipo.</p>
-
-<h1 id="servicio-de-copia-de-seguridad-de-discos">Servicio de copia de seguridad de discos</h1>
-
-<blockquote>
-  <p>El servicio de copias de seguridad de discos (VSS) coordina las acciones necesarias para la creación de snapshots (instantáneas) coherentes de los datos que se va a realizar la copia de seguridad.</p>
-</blockquote>
-
-<p>Estas snapshots se almacenan en la carpeta de información de cada disco que tiene habilitada dicha protección.</p>
-
-<p>Si VSS está habilitado podemos realizar varias tareas como <strong>Crear un punto de restauración</strong>, <strong>Restaurar el sistema</strong>, <strong>Configurar las opciones de restauración</strong>, <strong>Eliminar puntos de restauración.</strong></p>
-
-<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este módulo es el tercer y último introductorio de Windows. En este laboratorio, exploramos diversas herramientas integradas en Windows diseñadas para proteger y asegurar los equipos. La seguridad en Windows se gestiona a través de varias aplicaciones y configuraciones clave.]]></summary></entry><entry><title type="html">Recorrido de una Aplicación web</title><link href="http://localhost:4000/blog/WalkinganApplication" rel="alternate" type="text/html" title="Recorrido de una Aplicación web" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/WalkinganApplication</id><content type="html" xml:base="http://localhost:4000/blog/WalkinganApplication"><![CDATA[<p>Vamos a aprender a revisar manualmente una aplicación web para poder detectar problemas de seguridad haciendo solo de las herramientas integradas del buscador.</p>
-
-<p>Ya que los scripts y herramientas de seguridad pasarán por alto muchas vulnerabilidades.</p>
-
-<p>Encontramos herramientas como:</p>
-
-<ul>
-  <li>Ver el <em>código fuente</em> de la página web.</li>
-  <li><em>Inspector</em>: inspeccionar los elementos de una página web y realizar cambios en contenido generalmente bloqueado.</li>
-  <li><em>Depurador</em>: inspecciona y controla el flujo JavaScript de una página web.</li>
-  <li><em>Red</em>: ver todas las solicitudes de red que realiza una página web.</li>
-</ul>
-
-<p>Ver el código fuente de una página web puede ayudarnos a descubrir más información sobre la aplicación web.</p>
-
-<p>El código devuelto se compone de HTML, CSS y JavaScript.</p>
-
-<p>Para acceder al código fuente de la página web —&gt; <em>view-source:URL_pagina_web</em>.</p>
-
-<h3 id="ejemplo-con-la-página-web-de-google">Ejemplo con la página web de Google</h3>
-
+<p>En el caso de Google sería:</p>
 <div style="text-align:center; ">
-  <img src="../assets/images/Labs/RecorrerSolicitud/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+  <img src="../assets/images/Labs/DC/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
 </div>
 
-<p>Pequeño extracto del código fuente de la web de <a href="https://Google.com">Google</a>:</p>
+<p>Al construir una página web, si el desarrollador no reemplaza este icono por uno personalizado, en este caso el de Google, podemos saber que framework se está utilizando.</p>
 
-<div style="text-align:center; ">
-  <img src="../assets/images/Labs/RecorrerSolicitud/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;" />
-</div>
+<p>OWASP contiene una base de datos con todos los iconos usados:
+<a href="https://wiki.owasp.org/index.php/OWASP_favicon_database">Favicon-DB</a></p>
 
-<p>En el código fuente de la página web podemos encontrar comentarios realizados por el desarrollador del sitio web, estos comentarios vienen dados por <code class="language-plaintext highlighter-rouge">&lt;! -- comentario --&gt;</code></p>
+<p>Si un sitio web no usa un icono personalizado, en el código fuente de la página web podemos encontrar como se llama el favicon, pudiendo así descargarlo y obtener el MD5 hash y cotejarlo con la base de datos de OWASP.</p>
 
-<p>También podemos encontrar enlaces a diferentes páginas HTML <code class="language-plaintext highlighter-rouge">&lt;a href="/pagina_web"</code> , también podemos encontrar enlaces ocultos en una página web <code class="language-plaintext highlighter-rouge">serc</code> donde se puede encontrar alguna área privada utilizada por la empresa/organización para almacenar información sobre clientes, personal o de la propia empresa.</p>
+<p>Ejemplo en consola de Linux —&gt; <code class="language-plaintext highlighter-rouge">curl [https://pagina_web/nombre_archivo.ico](https://pagina_web/nombre_archivo.ico) | md5sum</code></p>
 
-<p>Los archivos CSS, JavaScript e imágenes pueden ser incluidos mediante código HTML, estos archivos se pueden almacenar en el mismo directorio y si este directorio aparece en el navegador encontramos un error de configuración.</p>
+<h2 id="sitemapxml">Sitemap.xml</h2>
 
-<p>Hoy en día las páginas webs están realizadas a través de un marco(código prefabricado), este marco si no está actualizado y contiene vulnerabilidades públicas para esa versión y el sitio web estaría en peligro.</p>
+<p>Este archivo ofrecen una lista de todos los archivos que el propietario del sitio web desea que aparezcan en un motor de búsqueda, a diferencia de robots.txt que restringe quien puede verlos.</p>
 
-<p>La versión del marco utilizado se encuentra en un comentario al final del código fuente.</p>
+<p>Accedemos de igual manera que robots.txt —&gt;  <em>https://nombre_pagina_web/sitemap.xml</em></p>
 
-<h2 id="herramientas-para-desarrolladores">Herramientas para desarrolladores</h2>
+<h2 id="encabezados-http">Encabezados HTTP</h2>
 
-<p>Cada navegador incluye herramientas para desarrolladores para depurar aplicaciones web.</p>
+<p>Cuando hacemos peticiones al servidor web, este devuelve varios encabezamos HTTP. En estos encabezados podemos encontrar información sobre el software del servidor web, el lenguaje de programación o scripts en uso.</p>
 
-<p>Como pentester podemos aprovechar estas herramientas para proporcionarnos una compresión mucho más profunda y mejor sobre el sitio web.</p>
+<p>Con esto podemos buscar vulnerabilidades o versiones vulnerables del software empleado.</p>
 
-<p>Nos centraremos en las características: <em>Inspector</em>, <em>Debugger</em> y <em>Red</em>.</p>
+<p>Al hacer un <code class="language-plaintext highlighter-rouge">curl direccion_pagina_web -v</code> , donde “-v” habilita el modo detallado y que generará los encabezados.</p>
 
-<h3 id="herramientas-para-desarrolladores---inspección">Herramientas para desarrolladores - Inspección</h3>
+<h2 id="framework-stack">Framework Stack</h2>
 
-<p><em>Element inspector</em> nos ayuda mostrándonos una representación en directo del contenido del sitio web, pudiendo editar e interactuar con los elementos de la página web.</p>
+<p>Una vez obtenido el marco del sitio web ( ya sea a través del favicon o buscando pistas en el código fuente del sitio web), podemos localizar el sitio web del marco. De esta manera podemos buscar información sobre el software del marco ó más información sobre el mismo.</p>
 
-<p>Con esto podemos acceder a lugares que previamente estaban bloqueados modificando así el valor que no nos permitía acceder.</p>
+<h1 id="osint-open-source-intelligence">OSINT (Open-Source Intelligence)</h1>
 
-<h3 id="herramientas-para-desarrolladores---depuración">Herramientas para desarrolladores - Depuración</h3>
+<h2 id="google-hacking--dorking">Google Hacking / Dorking</h2>
 
-<p>La depuración está destinada a código JavaScript y nos es muy útil a la hora de averiguar si algo no está funcionando correctamente.</p>
+<p>OSINT son recursos externos de libre acceso que nos ayuda a descubrir información sobre un sitio web.</p>
 
-<p>Como pentester nos da la oportunidad de poder profundizar en el código JavaScript de la página web.</p>
+<p>Google Hacking / Dorking hace uso de funciones avanzadas del motor de búsqueda de Google, permitiendo filtrar contenido personalizado.</p>
 
-<p>Cuando estamos en la sección de depurador ‘<em>Debugger’</em> , en la parte de la izquierda encontramos todos los recursos que utiliza la página web actual.</p>
+<p>Por ejemplo, puedes buscar información en un dominio concreto con <em>site:nombre_dominio criterio_a_buscar</em></p>
 
-<p>El código JavaScript se ve en una única línea ya que se ha ofuscado( ilegible ) para que sea complicado de leer.</p>
+<h2 id="wappalyzer">Wappalyzer</h2>
 
-<p>Usando la opción <em>Pretty Print</em> ‘{ }’ del debugger podemos mostrar el código JS de manera más legible.</p>
+<p>Wappalyzer es una herramienta en línea y una extensión del navegador que ayuda a identificar que tecnologías usa una página web (marcos, procesadores de pago ,etc..).</p>
 
-<p>Podemos hacer uso de <em>Breakpoints</em> para forzar al navegador que se pare antes de ejecutar una parte del código JS. Si hacemos click en el numero de la línea del código, se pondrá automáticamente un breakpoint.</p>
+<h2 id="wayback-machine">Wayback Machine</h2>
 
-<h3 id="herramientas-para-desarrolladores---red">Herramientas para desarrolladores - Red</h3>
+<p>Wayback Machine es un archivo histórico de sitios web que se remonta a finales de los años 90. Puedes buscar un nombre de dominio y mostrará todas las veces que se guardó el contenido de la página web.</p>
 
-<p>Desde la pestaña de red ‘<em>Network</em>’ podemos hacer un seguimiento de las peticiones / solicitudes que realiza la página web. Si hacemos click en la pestaña de Red y seguidamente actualizamos la página web, veremos todos los archivos que solicita la misma.</p>
+<h2 id="github">GitHub</h2>
 
-<p>AJAX es un método para enviar y recibir datos de red en un fondo de aplicación web sin interferir cambiando la página web actual</p>
+<p>GitHub hace uso del control de versiones de Git para alojar proyectos. 
+Encontramos repositorios públicos o privados donde hay proyectos que contienen código fuente, contraseñas y otro contenido que puede ser sensible para las empresas.</p>
 
-<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este laboratorio se centra en la revisión manual de una aplicación web para detectar problemas de seguridad utilizando solo las herramientas integradas del navegador. Estas herramientas son esenciales porque a menudo pueden revelar vulnerabilidades que las herramientas automáticas pasan por alto.]]></summary></entry><entry><title type="html">Servicios de red II</title><link href="http://localhost:4000/blog/ServiciosRedII" rel="alternate" type="text/html" title="Servicios de red II" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/ServiciosRedII</id><content type="html" xml:base="http://localhost:4000/blog/ServiciosRedII"><![CDATA[<h1 id="protocolo-nfs">Protocolo NFS</h1>
+<h2 id="s3-buckets">S3 Buckets</h2>
+
+<p>Es un servicio de almacenamiento proporcionado por Amazon AWS, que permite guardar archivos e incluso contenido estático del sitio web que son accesibles mediante HTTP y HTTPS.</p>
+
+<p>El propietario de los archivos puede establecer permisos de acceso haciendo que los archivos sean públicos, privados e incluso de escritura.</p>
+
+<p>A veces estos permisos se establecen incorrectamente y permiten inadvertidamente el acceso a archivos que no deberían ser públicos.</p>
+
+<p>Los S3 Buckets pueden detectarse de diversas formas ( encontrando URLs en el código fuente de la página web, en repositorios de GitHub o automatizando el proceso ).</p>
+
+<h1 id="descubrimiento-automatizado">Descubrimiento Automatizado</h1>
+
+<p>El descubrimiento automatizado es el proceso de hacer uso de herramientas con el fin de descubrir contenido sin hacerlo de manera manual.</p>
+
+<p>Hacemos uso de las llamadas ‘wordlists’, que son ficheros de texto que contienen una gran cantidad de credenciales. Las wordlist más comunes contienen contraseñas y nombres de usuarios.</p>
+
+<h2 id="herramientas-automatizadas">Herramientas Automatizadas</h2>
+
+<p>Podemos hacer uso de estás herramientas junto con las wordlist para poder descubrir contenido. Hay muchísimas herramientas disponibles pero nos centraremos en estas tres, ya que vienen preinstaladas con el sistema.</p>
+
+<h3 id="ffuf">FFUF</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ffuf -w ruta_de_la_wordlist -u http://ip_maquina/FUZZ</code></p>
+
+<h3 id="dirb">DIRB</h3>
+
+<p><code class="language-plaintext highlighter-rouge">dirb http://ip_maquina/ ruta_de_la_wordlist</code></p>
+
+<h3 id="gobuster">GOBUSTER</h3>
+
+<p><code class="language-plaintext highlighter-rouge">gobuster dir --url http://ip_maquina/ -w ruta_de_la_wordlist</code></p>
+
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.]]></summary></entry><entry><title type="html">Servicios de red II</title><link href="http://localhost:4000/blog/ServiciosRedII" rel="alternate" type="text/html" title="Servicios de red II" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/ServiciosRedII</id><content type="html" xml:base="http://localhost:4000/blog/ServiciosRedII"><![CDATA[<h1 id="protocolo-nfs">Protocolo NFS</h1>
 
 <p><em>Network File System</em> o <em>NFS</em> es un protocolo de red que permite a los sistemas acceder a los archivos de una red, de una manera similar a como acceden a los archivos que tienen en su propio sistema de archivo.</p>
 
@@ -1317,114 +1160,271 @@ Finalmente, buscando entre los directorios encontramos la flag.
 </div>
 
 ---
-</target></code></pre></div></ip-servidor></ruta_diccionario></username></code></pre></div></ip-servidor></code></pre></div></ip-servidor></code></pre></div>]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[El laboratorio tiene como objetivo enseñar la enumeración y explotación de tres protocolos de red; NFS (Network File System), SMTP (Simple Mail Transfer Protocol) y MySQL. Los participantes aprenderán a identificar vulnerabilidades y realizar ataques utilizando herramientas comunes en pruebas de penetración y administración de sistemas.]]></summary></entry><entry><title type="html">Descubrimiento de Contenidos Web</title><link href="http://localhost:4000/blog/Descubrimientodecontenidos" rel="alternate" type="text/html" title="Descubrimiento de Contenidos Web" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/Descubrimientodecontenidos</id><content type="html" xml:base="http://localhost:4000/blog/Descubrimientodecontenidos"><![CDATA[<p>Para un pentester el contenido que se puede descubrir son cosas que no se presentan de inmediato y que no siempre fueron destinadas al acceso público.</p>
+</target></code></pre></div></ip-servidor></ruta_diccionario></username></code></pre></div></ip-servidor></code></pre></div></ip-servidor></code></pre></div>]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[El laboratorio tiene como objetivo enseñar la enumeración y explotación de tres protocolos de red; NFS (Network File System), SMTP (Simple Mail Transfer Protocol) y MySQL. Los participantes aprenderán a identificar vulnerabilidades y realizar ataques utilizando herramientas comunes en pruebas de penetración y administración de sistemas.]]></summary></entry><entry><title type="html">Recorrido de una Aplicación web</title><link href="http://localhost:4000/blog/WalkinganApplication" rel="alternate" type="text/html" title="Recorrido de una Aplicación web" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/WalkinganApplication</id><content type="html" xml:base="http://localhost:4000/blog/WalkinganApplication"><![CDATA[<p>Vamos a aprender a revisar manualmente una aplicación web para poder detectar problemas de seguridad haciendo solo de las herramientas integradas del buscador.</p>
 
-<p>Este contenido puede ser: versiones anteriores de la página web, archivos de backup (copias de seguridad), archivos de configuración, etc.</p>
+<p>Ya que los scripts y herramientas de seguridad pasarán por alto muchas vulnerabilidades.</p>
 
-<p>Existen tres formas para poder descubrir contenido en un sitio web:</p>
+<p>Encontramos herramientas como:</p>
 
-<h1 id="descubrimiento-manual">Descubrimiento manual</h1>
+<ul>
+  <li>Ver el <em>código fuente</em> de la página web.</li>
+  <li><em>Inspector</em>: inspeccionar los elementos de una página web y realizar cambios en contenido generalmente bloqueado.</li>
+  <li><em>Depurador</em>: inspecciona y controla el flujo JavaScript de una página web.</li>
+  <li><em>Red</em>: ver todas las solicitudes de red que realiza una página web.</li>
+</ul>
 
-<h2 id="robotstxt">Robots.txt</h2>
+<p>Ver el código fuente de una página web puede ayudarnos a descubrir más información sobre la aplicación web.</p>
 
-<p>El archivo <em>Robots.txt</em> es un documento de texto que le dice a los motores de búsqueda qué páginas pueden y no pueden mostrar en los resultados de su motor de búsqueda o prohíben determinados motores de búsqueda que rastreen el sitio web por completo.</p>
+<p>El código devuelto se compone de HTML, CSS y JavaScript.</p>
 
-<p>Este archivo nos puede dar una gran lista de ubicaciones en el sitio web que los propietarios no quieren que descubramos como pentester.</p>
+<p>Para acceder al código fuente de la página web —&gt; <em>view-source:URL_pagina_web</em>.</p>
 
-<p>Para acceder a él —&gt; <em>https://nombre_pagina_web/robots.txt</em></p>
+<h3 id="ejemplo-con-la-página-web-de-google">Ejemplo con la página web de Google</h3>
 
-<h2 id="favicon">Favicon</h2>
-
-<p>Favicon es una pequeño icono que muestra la barra de direcciones del navegador o en la pestaña utilizada para marcar un sitio web.</p>
-
-<p>En el caso de Google sería:</p>
 <div style="text-align:center; ">
-  <img src="../assets/images/Labs/DC/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+  <img src="../assets/images/Labs/RecorrerSolicitud/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
 </div>
 
-<p>Al construir una página web, si el desarrollador no reemplaza este icono por uno personalizado, en este caso el de Google, podemos saber que framework se está utilizando.</p>
+<p>Pequeño extracto del código fuente de la web de <a href="https://Google.com">Google</a>:</p>
 
-<p>OWASP contiene una base de datos con todos los iconos usados:
-<a href="https://wiki.owasp.org/index.php/OWASP_favicon_database">Favicon-DB</a></p>
+<div style="text-align:center; ">
+  <img src="../assets/images/Labs/RecorrerSolicitud/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%;" />
+</div>
 
-<p>Si un sitio web no usa un icono personalizado, en el código fuente de la página web podemos encontrar como se llama el favicon, pudiendo así descargarlo y obtener el MD5 hash y cotejarlo con la base de datos de OWASP.</p>
+<p>En el código fuente de la página web podemos encontrar comentarios realizados por el desarrollador del sitio web, estos comentarios vienen dados por <code class="language-plaintext highlighter-rouge">&lt;! -- comentario --&gt;</code></p>
 
-<p>Ejemplo en consola de Linux —&gt; <code class="language-plaintext highlighter-rouge">curl [https://pagina_web/nombre_archivo.ico](https://pagina_web/nombre_archivo.ico) | md5sum</code></p>
+<p>También podemos encontrar enlaces a diferentes páginas HTML <code class="language-plaintext highlighter-rouge">&lt;a href="/pagina_web"</code> , también podemos encontrar enlaces ocultos en una página web <code class="language-plaintext highlighter-rouge">serc</code> donde se puede encontrar alguna área privada utilizada por la empresa/organización para almacenar información sobre clientes, personal o de la propia empresa.</p>
 
-<h2 id="sitemapxml">Sitemap.xml</h2>
+<p>Los archivos CSS, JavaScript e imágenes pueden ser incluidos mediante código HTML, estos archivos se pueden almacenar en el mismo directorio y si este directorio aparece en el navegador encontramos un error de configuración.</p>
 
-<p>Este archivo ofrecen una lista de todos los archivos que el propietario del sitio web desea que aparezcan en un motor de búsqueda, a diferencia de robots.txt que restringe quien puede verlos.</p>
+<p>Hoy en día las páginas webs están realizadas a través de un marco(código prefabricado), este marco si no está actualizado y contiene vulnerabilidades públicas para esa versión y el sitio web estaría en peligro.</p>
 
-<p>Accedemos de igual manera que robots.txt —&gt;  <em>https://nombre_pagina_web/sitemap.xml</em></p>
+<p>La versión del marco utilizado se encuentra en un comentario al final del código fuente.</p>
 
-<h2 id="encabezados-http">Encabezados HTTP</h2>
+<h2 id="herramientas-para-desarrolladores">Herramientas para desarrolladores</h2>
 
-<p>Cuando hacemos peticiones al servidor web, este devuelve varios encabezamos HTTP. En estos encabezados podemos encontrar información sobre el software del servidor web, el lenguaje de programación o scripts en uso.</p>
+<p>Cada navegador incluye herramientas para desarrolladores para depurar aplicaciones web.</p>
 
-<p>Con esto podemos buscar vulnerabilidades o versiones vulnerables del software empleado.</p>
+<p>Como pentester podemos aprovechar estas herramientas para proporcionarnos una compresión mucho más profunda y mejor sobre el sitio web.</p>
 
-<p>Al hacer un <code class="language-plaintext highlighter-rouge">curl direccion_pagina_web -v</code> , donde “-v” habilita el modo detallado y que generará los encabezados.</p>
+<p>Nos centraremos en las características: <em>Inspector</em>, <em>Debugger</em> y <em>Red</em>.</p>
 
-<h2 id="framework-stack">Framework Stack</h2>
+<h3 id="herramientas-para-desarrolladores---inspección">Herramientas para desarrolladores - Inspección</h3>
 
-<p>Una vez obtenido el marco del sitio web ( ya sea a través del favicon o buscando pistas en el código fuente del sitio web), podemos localizar el sitio web del marco. De esta manera podemos buscar información sobre el software del marco ó más información sobre el mismo.</p>
+<p><em>Element inspector</em> nos ayuda mostrándonos una representación en directo del contenido del sitio web, pudiendo editar e interactuar con los elementos de la página web.</p>
 
-<h1 id="osint-open-source-intelligence">OSINT (Open-Source Intelligence)</h1>
+<p>Con esto podemos acceder a lugares que previamente estaban bloqueados modificando así el valor que no nos permitía acceder.</p>
 
-<h2 id="google-hacking--dorking">Google Hacking / Dorking</h2>
+<h3 id="herramientas-para-desarrolladores---depuración">Herramientas para desarrolladores - Depuración</h3>
 
-<p>OSINT son recursos externos de libre acceso que nos ayuda a descubrir información sobre un sitio web.</p>
+<p>La depuración está destinada a código JavaScript y nos es muy útil a la hora de averiguar si algo no está funcionando correctamente.</p>
 
-<p>Google Hacking / Dorking hace uso de funciones avanzadas del motor de búsqueda de Google, permitiendo filtrar contenido personalizado.</p>
+<p>Como pentester nos da la oportunidad de poder profundizar en el código JavaScript de la página web.</p>
 
-<p>Por ejemplo, puedes buscar información en un dominio concreto con <em>site:nombre_dominio criterio_a_buscar</em></p>
+<p>Cuando estamos en la sección de depurador ‘<em>Debugger’</em> , en la parte de la izquierda encontramos todos los recursos que utiliza la página web actual.</p>
 
-<h2 id="wappalyzer">Wappalyzer</h2>
+<p>El código JavaScript se ve en una única línea ya que se ha ofuscado( ilegible ) para que sea complicado de leer.</p>
 
-<p>Wappalyzer es una herramienta en línea y una extensión del navegador que ayuda a identificar que tecnologías usa una página web (marcos, procesadores de pago ,etc..).</p>
+<p>Usando la opción <em>Pretty Print</em> ‘{ }’ del debugger podemos mostrar el código JS de manera más legible.</p>
 
-<h2 id="wayback-machine">Wayback Machine</h2>
+<p>Podemos hacer uso de <em>Breakpoints</em> para forzar al navegador que se pare antes de ejecutar una parte del código JS. Si hacemos click en el numero de la línea del código, se pondrá automáticamente un breakpoint.</p>
 
-<p>Wayback Machine es un archivo histórico de sitios web que se remonta a finales de los años 90. Puedes buscar un nombre de dominio y mostrará todas las veces que se guardó el contenido de la página web.</p>
+<h3 id="herramientas-para-desarrolladores---red">Herramientas para desarrolladores - Red</h3>
 
-<h2 id="github">GitHub</h2>
+<p>Desde la pestaña de red ‘<em>Network</em>’ podemos hacer un seguimiento de las peticiones / solicitudes que realiza la página web. Si hacemos click en la pestaña de Red y seguidamente actualizamos la página web, veremos todos los archivos que solicita la misma.</p>
 
-<p>GitHub hace uso del control de versiones de Git para alojar proyectos. 
-Encontramos repositorios públicos o privados donde hay proyectos que contienen código fuente, contraseñas y otro contenido que puede ser sensible para las empresas.</p>
+<p>AJAX es un método para enviar y recibir datos de red en un fondo de aplicación web sin interferir cambiando la página web actual</p>
 
-<h2 id="s3-buckets">S3 Buckets</h2>
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este laboratorio se centra en la revisión manual de una aplicación web para detectar problemas de seguridad utilizando solo las herramientas integradas del navegador. Estas herramientas son esenciales porque a menudo pueden revelar vulnerabilidades que las herramientas automáticas pasan por alto.]]></summary></entry><entry><title type="html">Aspectos Básicos de Windows III</title><link href="http://localhost:4000/blog/WindowsIII" rel="alternate" type="text/html" title="Aspectos Básicos de Windows III" /><published>2024-08-08T00:00:00+02:00</published><updated>2024-08-08T00:00:00+02:00</updated><id>http://localhost:4000/blog/WindowsIII</id><content type="html" xml:base="http://localhost:4000/blog/WindowsIII"><![CDATA[<blockquote>
+  <p>En la última parte veremos herramientas integradas en Windows para mantener los equipos seguros como Windows Update, Seguridad de Windows, BitLocker y más.</p>
+</blockquote>
 
-<p>Es un servicio de almacenamiento proporcionado por Amazon AWS, que permite guardar archivos e incluso contenido estático del sitio web que son accesibles mediante HTTP y HTTPS.</p>
+<h1 id="windows-update">Windows Update</h1>
 
-<p>El propietario de los archivos puede establecer permisos de acceso haciendo que los archivos sean públicos, privados e incluso de escritura.</p>
+<p>Windows Update es un servicio proporcionado por Microsoft que nos permite instalar actualizaciones de seguridad, nuevas características en los equipos con Windows instalado.</p>
 
-<p>A veces estos permisos se establecen incorrectamente y permiten inadvertidamente el acceso a archivos que no deberían ser públicos.</p>
+<p>Podemos acceder a Windows Update de dos formas:</p>
+<table>
+  <tr>
+    <td style="text-align:left; vertical-align:top; width:700px"><ol>
+        <li>En Configuración en la sección <em>Actualización y seguridad</em>.</li>
+        <li>Haciendo uso del uso del comando: <code>control /name Microsoft.WindowsUpdate</code> ya sea en el <code>cmd</code> (<a href="https://joseeelv.github.io//blog/WindowsII">Símbolo del sistema</a>) de la combinación de teclas de Ejecutar `Windows + R` que nos llevará a la Configuración de Windows (arriba).</li>
+      </ol>
+      <div style="text-align:left;">
+        <img src="../assets/images/Labs/WindowsIII/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:400px" />
+      </div>
+    </td>
+    <td style="vertical-align:top;">
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/WindowsIII/image-20230922102018818.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:500px" />
+      </div>
+    </td>
+  </tr>
+</table>
 
-<p>Los S3 Buckets pueden detectarse de diversas formas ( encontrando URLs en el código fuente de la página web, en repositorios de GitHub o automatizando el proceso ).</p>
+<h1 id="seguridad-de-windows">Seguridad de Windows</h1>
 
-<h1 id="descubrimiento-automatizado">Descubrimiento Automatizado</h1>
+<p>La Seguridad de Windows nos ayuda a administrar las herramientas que protegen el equipo y sus datos.
+También está disponible en <em>Configuración &gt; Actualización y seguridad</em>.</p>
 
-<p>El descubrimiento automatizado es el proceso de hacer uso de herramientas con el fin de descubrir contenido sin hacerlo de manera manual.</p>
+<div style="text-align:left; ">
+  <img src="../assets/images/Labs/WindowsIII/image-20230922102616439.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
 
-<p>Hacemos uso de las llamadas ‘wordlists’, que son ficheros de texto que contienen una gran cantidad de credenciales. Las wordlist más comunes contienen contraseñas y nombres de usuarios.</p>
+<p>Se usa para realizar escaneos de archivos en la computadora a la hora de comprobar si nuestro equipo contiene malware y más.
+Encontramos varias áreas de protección:</p>
+<ul>
+  <li>Protección contra virus y amenazas.</li>
+  <li>Firewall y protección de red.</li>
+  <li>Control de aplicaciones y navegadores.</li>
+  <li>Seguridad del dispositivo.</li>
+</ul>
+<p>Además encontraremos varios colores indicadores dependiendo del estado en que se encuentre el equipo, <strong>verde</strong> (equipo protegido), <strong>amarillo</strong> (se sugiere revisar la seguridad del equipo) y <strong>rojo</strong> (equipo necesita atención inmediata).<br /><br />
+En esta sección de <em>Seguridad de Windows</em> podemos realizar escaneos/análisis de los archivos que contiene el sistema para comprobar que el equipo está seguro y ningún archivo es malicioso.</p>
 
-<h2 id="herramientas-automatizadas">Herramientas Automatizadas</h2>
+<table>
+  <tr>
+    <td style="text-align:left; vertical-align:top; width:800px">
+      <h2>Tipos de análisis</h2>
+      <ul>
+        <li><strong>Análisis / escaneo rápido</strong>: comprueba las carpetas donde se pueden encontrar comúnmente las amenazas.</li>
+        <li><strong>Análisis / escaneo completo</strong>: se comprueba todas las carpetas, archivos y programas en ejecución que se encuentran en el equipo, este es un análisis mucho más lento pero más seguro.</li>
+        <li><strong>Análisis / escaneo personalizado</strong>: el usuario es libre de personalizar el análisis (los archivos o carpetas que se desean verificar).</li>
+      </ul>
+      <h2>Historial de protección</h2>
+      Contiene todas las acciones que <em>Windows Defender</em> ha tomado a la hora de haberse realizado un análisis.<br />
+      Si el antivirus encuentra/detecta un fragmento de malware, este los registrará en el historial de protección.<br /><br />
+      <strong>Amenazas en cuarentena</strong>: estas amenazas se han aislado del sistema y se ha impedido la ejecución en el equipo. Serán eliminadas periódicamente.<br /><br />
+      También podemos realizar las acciones de <strong>quitar</strong> (elimina la amenaza del dispositivo) ó <strong>restaurar</strong> (vuelve a colocar el archivo en la carpeta donde se encontraba y el antivirus lo volverá a detectar como una amenaza).<br /><br />
+      <strong>Amenazas permitidas</strong>: son elementos identificados como amenazas pero se les permite la ejecución en el equipo.
+      <h2>Configuración de protección contra virus y amenazas</h2>
+      Aquí podemos administrar la configuración de la protección del equipo:
+      <ul>
+        <li><strong>Protección en tiempo real</strong>: localiza y evita que se ejecute malware en el equipo.</li>
+        <li><strong>Protección entregada en la nube</strong>: ofrece una mayor protección y más rápida debido a que el equipo tiene acceso a las definiciones (contenida en la nube) más actualizadas de las amenazas. El equipo no obstante debe de tener conexión a internet para poder acceder a dicha nube.</li>
+        <li><strong>Envío automático de muestras</strong>: si el equipo está conectado a la nube, podemos hacer que 'Defender' envíe automáticamente archivos sospechosos a Windows para comprobar si hay amenazas potenciales.</li>
+        <li><strong>Acceso controlado a carpetas</strong>: podemos proteger archivos, carpetas, espacios de memoria del equipo de cambios no autorizados provocado por aplicaciones de terceros.</li>
+        <li><strong>Exclusiones</strong>: podemos indicarle a 'Defender' una serie de carpetas de confianza las cuales no analizará.</li>
+        <li><strong>Notificaciones</strong>: 'Defender' nos enviará notificaciones cuando encuentre alguna amenaza en el sistema para que se realice una acción frente a ella y del estado del equipo.</li>
+      </ul>
+      <h2>Protección frente a ransomware</h2>
+      <blockquote>
+        <p><em>Un ransomware es un tipo de malware dedicado a la encriptación de carpetas, archivos o equipos al completo con el fin de obtener los datos del usuario infectado.</em></p>
+      </blockquote>
+      Para ello, <em>Windows Defender</em> nos permite configurar el acceso a carpetas de forma controlada:<br /><br />
+      <strong>Acceso controlado a carpetas</strong>: para que el equipo esté protegido contra ransomware se requiere que esta función esté habilitada, además de la protección a tiempo real.
+    </td>
+    <td>
+      <div style="text-align:center; ">
+        <img src="../assets/images/Labs/WindowsIII/Untitled 1.png" alt="Untitled" style="width:100%; max-width:800px" />
+      </div>
+    </td>
+  </tr>
+</table>
 
-<p>Podemos hacer uso de estás herramientas junto con las wordlist para poder descubrir contenido. Hay muchísimas herramientas disponibles pero nos centraremos en estas tres, ya que vienen preinstaladas con el sistema.</p>
+<h1 id="firewall-y-protección-de-red">Firewall y protección de red</h1>
 
-<h3 id="ffuf">FFUF</h3>
+<blockquote>
+  <p>Un firewall controla el tráfico de red que fluye dentro y fuera de los dispositivos a través de los puertos</p>
+</blockquote>
 
-<p><code class="language-plaintext highlighter-rouge">ffuf -w ruta_de_la_wordlist -u http://ip_maquina/FUZZ</code></p>
+<p>Podemos acceder mediante el comando <code class="language-plaintext highlighter-rouge">WF.msc</code> en Ejecutar.</p>
 
-<h3 id="dirb">DIRB</h3>
+<p>Nos ofrece una vista de las redes a las que está conectado el equipo, se puede activar / desactivar y podemos acceder a las opciones avanzadas para los siguientes tipos de red:</p>
 
-<p><code class="language-plaintext highlighter-rouge">dirb http://ip_maquina/ ruta_de_la_wordlist</code></p>
+<ul>
+  <li><strong>Redes de dominio</strong>: redes donde el sistema host puede autenticarse en un controlador de dominio.</li>
+  <li><strong>Redes privadas</strong>: son las redes reconocibles, el usuario asigna esta red y se utiliza para redes domésticas.</li>
+  <li><strong>Redes públicas</strong>: son las redes no reconocibles, es el predeterminado que se utiliza para designar redes públicas como puntos de acceso Wi-Fi en ubicaciones públicas.</li>
+</ul>
 
-<h3 id="gobuster">GOBUSTER</h3>
+<h2 id="permitir-una-aplicación-a-través-del-firewall">Permitir una aplicación a través del firewall</h2>
 
-<p><code class="language-plaintext highlighter-rouge">gobuster dir --url http://ip_maquina/ -w ruta_de_la_wordlist</code></p>
+<table>
+  <tr>
+    <td style="vertical-align:top; text-align:left; width:50%">
+    Podemos agregar una excepción para la aplicación que está siendo bloqueada por el firewall o también podemos asignar un puerto específico.<br /><br />
+    Podemos ver la configuración actual de cualquier perfil de firewall, si es privado y/o público y en la opción ‘Detalles’ podemos ver el nombre y una breve descripción sobre el perfil.
+    <div style="text-align:center;">
+      <img src="../assets/images/Labs/WindowsIII/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+    </div>
+    </td>
+    <td>
+    <div style="text-align:left; vertical-align:top;">
+      <img src="../assets/images/Labs/WindowsIII/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px" />
+    </div>
+    </td>
+  </tr>
+</table>
 
-<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este laboratorio se centra en la exploración y descubrimiento de contenido oculto o no destinado al acceso público en sitios web, un proceso crucial para pentesters.]]></summary></entry><entry><title type="html">Enumeración de Subdominios</title><link href="http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios" rel="alternate" type="text/html" title="Enumeración de Subdominios" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios</id><content type="html" xml:base="http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios"><![CDATA[<p>La enumeración de subdominios es el proceso de descubrir los subdominios válidos de un dominio.
+<h2 id="configuración-avanzada">Configuración avanzada</h2>
+
+<p>Está orientado a usuarios avanzados de Windows.</p>
+
+<p>Podemos crear reglas de entradas/salidas, reglas de seguridad de conexión y ver registros de supervisión para el firewall, si no se tiene un buen conocimiento sobre estas opciones podemos hacer que el equipo sea más vulnerable o que algunas aplicaciones dejen de funcionar.</p>
+
+<h1 id="control-de-explorador-y-aplicaciones">Control de explorador y aplicaciones</h1>
+
+<blockquote>
+  <p>Microsoft Defender SmartScreen nos protege de phishing o aplicaciones de malware y de la descarga de archivos maliciosos.</p>
+</blockquote>
+
+<p>Gracias al control del explorador y de las aplicaciones podemos bloquear o realizar advertencias sobre aplicaciones, archivos, descargas y contenido de webs maliciosas, también podemos desactivar tanto el bloqueo como las advertencias, algo <strong>NO</strong> recomendable.</p>
+
+<h2 id="protección-contra-vulnerabilidades">Protección contra vulnerabilidades</h2>
+
+<p>Esta protección viene integrada en Windows lo que hace que proteja al equipo desde el momento en que se inicia el sistema operativo. Esta configuración se puede personalizar (tanto el equipo como aplicaciones), pero <strong>NO</strong> es recomendable si no se está seguro de lo que se hace.</p>
+
+<p>Se puede compartir la configuración en los dispositivos que estén interconectados (por ejemplo una organización).</p>
+
+<h1 id="seguridad-del-dispositivo">Seguridad del dispositivo</h1>
+
+<p>Ofrece opciones de seguridad integradas que ayudan a proteger de malware.</p>
+
+<h2 id="aislamiento-del-núcleo">Aislamiento del núcleo</h2>
+
+<p>Nos aporta protección adicional contra malware y otros ataques al aislar los procesos del equipo del sistema operativo y del dispositivo.</p>
+
+<p>En la sección de ‘<em>Detalles de aislamiento del núcleo</em>’ podemos habilitar / deshabilitar y cambiar la configuración del mismo.</p>
+
+<h3 id="integridad-de-la-memoria">Integridad de la memoria</h3>
+
+<p>Es una característica del aislamiento del núcleo, donde al activarlo evita que el malware tenga acceso a los procesos de alta seguridad en caso de un ataque.</p>
+
+<h2 id="procesador-de-seguridad">Procesador de seguridad</h2>
+
+<p>Ofrece un cifrado adicional para el dispositivo.</p>
+
+<p>Si accedemos a la sección `<em>Detalles del procesador de seguridad</em>’ encontramos información sobre el fabricante, la versión, el TPM y más.</p>
+
+<blockquote>
+  <p>Trusted Plataform Module (TPM) es una tecnología diseñada por Microsoft para ofrecer funciones basadas en hardware y relacionadas con la seguridad.
+Un chip TPM es un criptoprocesador seguro diseñado para realizar operaciones de criptografía. Este chip incluye múltiples mecanismos físicos de seguridad para hacerlo resistente frente a la manipulación y para que el malware no pueda manipular las funciones de seguridad del TPM.</p>
+</blockquote>
+
+<h1 id="bitlocker">BitLocker</h1>
+
+<blockquote>
+  <p>BitLocker Drive Encryption es una función de protección de datos que se integra con el sistema operativo y que hace frente a las amenazas de robo y exposición de datos.</p>
+</blockquote>
+
+<p>Los equipos que tienen instalado TPM, BitLocker ofrece una mejor protección.</p>
+
+<p>Según Microsoft, BitLocker ofrece la mejor protección cuando se utiliza con un TPM cuya versión es la 1.2 o superior.</p>
+
+<p>Los equipos más nuevos ya contienen un TPM instalado por el fabricante del equipo.</p>
+
+<h1 id="servicio-de-copia-de-seguridad-de-discos">Servicio de copia de seguridad de discos</h1>
+
+<blockquote>
+  <p>El servicio de copias de seguridad de discos (VSS) coordina las acciones necesarias para la creación de snapshots (instantáneas) coherentes de los datos que se va a realizar la copia de seguridad.</p>
+</blockquote>
+
+<p>Estas snapshots se almacenan en la carpeta de información de cada disco que tiene habilitada dicha protección.</p>
+
+<p>Si VSS está habilitado podemos realizar varias tareas como <strong>Crear un punto de restauración</strong>, <strong>Restaurar el sistema</strong>, <strong>Configurar las opciones de restauración</strong>, <strong>Eliminar puntos de restauración.</strong></p>
+
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[Este módulo es el tercer y último introductorio de Windows. En este laboratorio, exploramos diversas herramientas integradas en Windows diseñadas para proteger y asegurar los equipos. La seguridad en Windows se gestiona a través de varias aplicaciones y configuraciones clave.]]></summary></entry><entry><title type="html">Enumeración de Subdominios</title><link href="http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios" rel="alternate" type="text/html" title="Enumeración de Subdominios" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios</id><content type="html" xml:base="http://localhost:4000/blog/Enumeraci%C3%B3ndeSubdominios"><![CDATA[<p>La enumeración de subdominios es el proceso de descubrir los subdominios válidos de un dominio.
 Pero primero vamos a refrescar que es un dominio.</p>
 
 <p>Un dominio es un nombre que identifica a una página web en concreto. Es la ‘traducción’ de la dirección ip de un sitio web a una palabra fácil de recordar.</p>
@@ -1506,7 +1506,208 @@ ffuf -w ruta_de_la_wordlist -H cabecera -u ip_maquina -fs filtro_salida
 </code></pre>
 </div>
 
-<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[En este laboratorio, se exploran varias técnicas y herramientas para descubrir subdominios válidos de un dominio. Se refresca qué es un dominio y cómo los subdominios forman parte de la estructura de una URL.]]></summary></entry><entry><title type="html">Overpass</title><link href="http://localhost:4000/blog/Overpass" rel="alternate" type="text/html" title="Overpass" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/Overpass</id><content type="html" xml:base="http://localhost:4000/blog/Overpass"><![CDATA[<p>Primero de todo vamos a realizar un escaneo de los puertos para ver que servicios tiene abiertos para aprovecharnos de eso.</p>
+<hr />]]></content><author><name></name></author><category term="LAB" /><summary type="html"><![CDATA[En este laboratorio, se exploran varias técnicas y herramientas para descubrir subdominios válidos de un dominio. Se refresca qué es un dominio y cómo los subdominios forman parte de la estructura de una URL.]]></summary></entry><entry><title type="html">New York Flankees</title><link href="http://localhost:4000/blog/NYF" rel="alternate" type="text/html" title="New York Flankees" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/NYF</id><content type="html" xml:base="http://localhost:4000/blog/NYF"><![CDATA[<p>Primero de todo vamos a realizar un escaneo de la dirección ip de la máquina:</p>
+<div style="text-align: center; ">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/NYF/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/NYF/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Vemos que tenemos abierto los puertos 22 y 8080. Vamos a centrarnos en este último, el cual es una página web de un blog.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_18.16.42_(2).png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>No hay gran cosa en la página principal pero si vamos a la sección que pone <em>Stefan</em> vamos a encontrar un par de errores:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/NYF/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Estos errores están relacionados con el padding de la web y de autenticación, si miramos el código fuente de la página encontramos un script de autenticación:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/NYF/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que en la línea 69 del script encontramos varios tipos de payloads (AES, CBC, PKCS), por tanto ya sabemos que tenemos que realizar un ataque <em>AES-CBC padding oracle</em></p>
+
+<p>En la línea 71 vemos que se realiza una petición GET (url + datos en hexadecimal), si realizamos dicha consulta con la ip de la maquina y los datos hexadecimales, tenemos:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Rooms/NYF/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<blockquote>
+  <p>⚠️ Si modificamos dicha consulta mediante la herramienta BurpSuite, vemos que nos salta un error → <em>Decryption error</em></p>
+</blockquote>
+
+<div style="text-align: center;">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/NYF/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:650px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; ">
+          <img src="../assets/images/Rooms/NYF/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Vemos que la ruta del script de autenticación es <code class="language-plaintext highlighter-rouge">ip_maquina/api/debug/&lt;codigo_hex&gt;</code>, por tanto, en dicha ruta se autentica el usuario y si desciframos dicho trozo de dato, podremos saber las credenciales del usuario:</p>
+
+<p><strong>Información sobre los <em>ataques de padding a oracle</em></strong></p>
+<blockquote>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AES (Advanced Encryption Standard) is a symmetric encryption algorithm widely used for securing data.
+</code></pre></div>  </div>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CBC (Cipher Block Chaining) is a mode of operation for block ciphers. 
+In CBC mode, each block of plaintext is XORed with the previous ciphertext block before being encrypted.
+This mode ensures that identical plaintext blocks will produce different ciphertext blocks.
+
+PKCS (Public Key Cryptography Standards) #7 padding is a scheme used to ensure that the plaintext's length is a multiple of the block size required by the cipher.
+If the plaintext is not a multiple of the block size, it is padded with bytes, all of which are the same value as the number of padding bytes added.
+
+A Padding Oracle Attack is an attack that uses information from the padding validation process to decrypt ciphertext.
+In this context, a Padding Oracle is a system that leaks information about the correctness of the padding of decrypted ciphertexts.
+
+Steps of a Padding Oracle Attack:
+  1. Craft a Ciphertext: The attacker intercepts a ciphertext and crafts a new ciphertext by manipulating it.
+  2. Send to Oracle: The manipulated ciphertext is sent to the padding oracle.
+  3. Analyze Response: The oracle will respond indicating whether the padding is correct or incorrect.
+  4. Iterate: Based on the oracle's response, the attacker iterates over the possible byte values to guess the original plaintext.
+
+Chosen Ciphertext Attack (CCA)
+
+In a CCA, the attacker can choose arbitrary ciphertexts and submit them to the decryption oracle (which in practice might be some server or application)to get the corresponding
+plaintexts. 
+The attacker's goal is to use this ability to decrypt other ciphertexts or to gain information that would otherwise be unattainable.
+</code></pre></div></div>
+
+<p>Yo he hecho uso de la herramienta <code class="language-plaintext highlighter-rouge">padbuster</code> para poder descifrar el código hexadecimal, pero hay que tener en cuenta que es un proceso lento:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Como resultado, obtenemos los datos descifrados:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_19.42.04.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+<p>Ahora que tenemos las credenciales del admin, iniciamos sesión y obtenemos la <em>admin_flag</em>:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Debajo de la flag encontramos que podemos ejecutar comandos de forma remota, vamos a probar esto con el comando <code class="language-plaintext highlighter-rouge">whoami</code> y vemos que nos indica que todo salió bien mediante el mensaje <em>OK</em>.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Esto es una vulnerabilidad que podemos explotar, una manera sencilla es realizar una reverse_shell mediante un script para poder ganar acceso al servidor:</p>
+
+<p>Creamos un archivo llamado <strong>shell.sh</strong> en nuestro directorio <code class="language-plaintext highlighter-rouge">/tmp</code>, donde incluimos lo siguiente:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahora vamos a abrir un servidor para poder subir dicho archivo y recuperarlo mediante la ejecución de comandos de la web</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahora hacemos uso del comando <code class="language-plaintext highlighter-rouge">curl</code> para obtener dicho archivo que contiene la reverse_shell:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Y le cambiamos los permisos para poder ejecutarlo:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.23.40.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>y finalmente lo ejecutamos:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.24.01.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>y como vemos, hemos ganado acceso mediante la reverse_shell que hemos creado.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.24.16.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahora vamos  a buscar las flags que nos quedan, para ello siempre es bueno hacer un listado de los archivos ocultos, pero primero vamos a tratar la tty:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.27.57.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.29.36.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que tenemos un archivo <em>.dockerenv</em>, esto nos dice que estamos dentro de un contenedor Docker.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.29.53.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Si vamos al directorio <em>/app</em> vamos a encontrar algunos ficheros del Docker, el que nos interesa es <em>docker-compose.yml</em> así que le hacemos un <code class="language-plaintext highlighter-rouge">cat</code> :</p>
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.34.12.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Como resultado, tenemos la segunda flag, ahora nos queda solamente encontrar la última flag.</p>
+
+<p>Como hemos comentado anteriormente nos encontramos dentro de un contenedor Docker, por tanto, podemos ver los sockets que pueden ser explotados:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Nos dice que sí, entonces vamos a buscarlo y lo haremos mediante el comando <code class="language-plaintext highlighter-rouge">find</code> y además vamos a ver que imágenes tiene montado el Docker.</p>
+
+<p>Mediante <a href="https://book.hacktricks.xyz/linux-hardening/privilege-escalation/docker-security/docker-breakout-privilege-escalation#mounted-docker-socket-escape">esta web</a> vamos a encontrar información de como escalar privilegios en un contenedor Docker:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Screenshot_2024-07-26_at_20.43.40.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Finalmente, hacemos uso de algunos de los comandos encontrados en la web anteriormente mencionada y escalamos privilegios, y si listamos encontramos un fichero llamado <em>flag.txt</em>, estamos ante la última flag del ejercicio:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/NYF/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Docker" /><category term="Privilege Escalation" /><category term="Reverse shell" /><category term="Exploit" /><summary type="html"><![CDATA[Can you, the rogue adventurer, break through Stefan's defences to take control of his blog?]]></summary></entry><entry><title type="html">Overpass</title><link href="http://localhost:4000/blog/Overpass" rel="alternate" type="text/html" title="Overpass" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/Overpass</id><content type="html" xml:base="http://localhost:4000/blog/Overpass"><![CDATA[<p>Primero de todo vamos a realizar un escaneo de los puertos para ver que servicios tiene abiertos para aprovecharnos de eso.</p>
 
 <div style="text-align: center; ">
   <table>
@@ -1698,128 +1899,4 @@ Para ello vamos:</p>
   <img src="../assets/images/Rooms/Overpass/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Privilege Escalation" /><category term="Cron" /><category term="Security" /><summary type="html"><![CDATA[Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).]]></summary></entry><entry><title type="html">Pickle Rick</title><link href="http://localhost:4000/blog/PickleRick" rel="alternate" type="text/html" title="Pickle Rick" /><published>2024-08-07T00:00:00+02:00</published><updated>2024-08-07T00:00:00+02:00</updated><id>http://localhost:4000/blog/PickleRick</id><content type="html" xml:base="http://localhost:4000/blog/PickleRick"><![CDATA[<h1 id="task-1-ingrediente-1">Task 1: Ingrediente 1</h1>
-
-<p>Como hemos leido en la introducción, esta máquina consiste en obtener los tres ingredientes de la poción de Rick.</p>
-
-<p>Primero, vamos a iniciar la máquina y gracias a eso vamos a obtener la IP de la máquina.Para empezar con este laboratorio vamos a hacer uso de la herramienta → <strong><em>Nmap.</em></strong>
-Gracias a ella vamos a obtener los puertos que la máquina tiene abiertos para ver si podemos aprovecharnos de eso.</p>
-<div style="text-align:left;">
-  <table>
-    <tr>
-      <td>
-        <div style="text-align:center;">
-          <img src="../assets/images/Rooms/PickleRick/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
-        </div>
-      </td>
-      <td>
-        <div style="text-align:center;">
-          <img src="../assets/images/Rooms/PickleRick/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<p>Perfecto, como vemos, tenemos un puerto 80 <em>http</em> (pagina web) y puerto 22 un servicio <em>ssh</em>. Como no tenemos ninguna credencial para realizar la conexión via <em>SSH</em>, vamos a ver que hay en la página web:</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>De momento no encontramos información relevante sobre la página web, pero podemos ver el código fuente de la misma para poder encontrar información.</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/a.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>Bingo, tenemos un Username en un comentario. Ahora podemos proceder a realizar un escaneo de directorios de la página web. Mediante <code class="language-plaintext highlighter-rouge">gobuster</code> podemos realizar una búsqueda de directorios, donde podemos encontrar información.</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>Hemos encontrado el directorio <code class="language-plaintext highlighter-rouge">/assets</code> y <code class="language-plaintext highlighter-rouge">/robots.txt</code>. Vamos a acceder a ambos:</p>
-<div sytle="text-align:left;">
-  <table>
-    <tr>
-      <td>
-        <div>
-          <img src="../assets/images/Rooms/PickleRick/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
-        </div>
-      </td>
-      <td>
-        <div>
-          <img src="../assets/images/Rooms/PickleRick/b.png" alt="Untitled" onclick="openModal(this.src)" style="width:200%; max-width:800px;" />
-        </div>
-        Contenido del directorio /robots.
-      </td>
-    </tr>
-  </table>
-</div>
-
-<p>En robots.txt hemos encontrado una cadena de caracteres, no sabemos si puede ser un nuevo usuario o una contraseña.</p>
-
-<p>Si tenemos un username y una supuesta contraseña, podemos escribir <em>ip_maquina/login.php</em> para verificar si hay un login ya que existe un servicio <em>SSH</em> corriendo y podemos iniciar sesión con las credenciales obtenidas.</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>En efecto, hemos podido iniciar sesión con las credeciales. Ahora encontramos como una consola donde podemos introducir comandos; tenemos un RCE (Ejecución Remota de Comandos), por ejemplo, vamos a tirar un listado de los archivos del directorio en el que nos encontramos actualmente mediante <code class="language-plaintext highlighter-rouge">ls -l</code>:</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>Como vemos al listar los archivos encontramos uno llamado <em>Sup3rS3cretPickl3Ingred.txt</em>, por tanto si accedemos a la ruta <code class="language-plaintext highlighter-rouge">&lt;ip_maquina&gt;/nombre_archivo.txt</code> encontramos la primera flag:</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/c.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<h1 id="task-2-ingrediente-2">Task 2: Ingrediente 2</h1>
-
-<p>El segundo ingrediente no está en este directorio (como es de esperar),por tanto, debemos de navegar por los demás directorios del servidor en busca de ella.</p>
-
-<p>Vamos a ver si nos podemos cambiar de directorios, con <code class="language-plaintext highlighter-rouge">cd ../../../../</code>, listamos otra vez y vemos que encontramos más directorios, por tanto, tenemos un <strong>path traversal</strong> en el servidor.</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>Hemos encontrado el directorio <code class="language-plaintext highlighter-rouge">/home</code>, <code class="language-plaintext highlighter-rouge">/root</code> entre otros, pero estos dos son los más importantes. Vamos a acceder primeramente al directorio <code class="language-plaintext highlighter-rouge">/home</code> en busca del siguiente ingrediente.</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>WOW, hemos encontrado otros dos directorios, <code class="language-plaintext highlighter-rouge">/rick</code> y <code class="language-plaintext highlighter-rouge">/ubuntu</code>. Si accedemos al directorio <code class="language-plaintext highlighter-rouge">/rick</code>, vemos que hay un archivo que se llama <em>second ingredients</em></p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>Perfecto, hemos obtenido el segundo ingrediente de la poción de Rick.</p>
-
-<h1 id="task-3-ingrediente-3">Task 3: Ingrediente 3</h1>
-
-<p>Por último, para poder buscar el tercer ingrediente, debemos de buscar en la carpeta ‘root’ que se encuentra en el directorio donde también se encuentra ‘home’, como he comentado antes.</p>
-
-<p>Pero hay un problema, solo puede acceder a ella usuario que tengan permisos de root, por lo que tendremos que buscar una manera de escalar privilegios para poder acceder a dicho directorio. Si hacemos uso del comando <code class="language-plaintext highlighter-rouge">sudo -l</code> podemos ver si el usuario actual puede ejecutar algún comando como sudo:</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>Vemos que el usuario actual (www-data) tiene permisos para ejecutar todos los comandos como root → <code class="language-plaintext highlighter-rouge">(ALL) NOPASSWD: ALL</code>.</p>
-
-<p>Una cosa interesante es que haciendo <code class="language-plaintext highlighter-rouge">sudo su</code>no hacemos nada, si no que tenemos que realizar una lectura del archivo con privilegios root.</p>
-
-<div style="text-align:center;">
-  <img src="../assets/images/Rooms/PickleRick/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
-</div>
-
-<p>Finalmente encontramos el archivo que contiene el tercer ingrediente llamado <em>3rd.txt</em>, donde ejecutamos el comando → <code class="language-plaintext highlighter-rouge">sudo less /root/"3rd.txt"</code>, podremos ver su contenido debido a que ese comando se ejecuta con privilegios root.</p>
-
-<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="RCE" /><category term="Web" /><summary type="html"><![CDATA[Pickle Rick es una máquina de Tryhackme, con ambientación en la serie animada Rick and Morty. En esta máquina debemos obtener los tres ingredientes para que Rick pueda realizar su poción. Haremos uso de una máquina con Linux, conocimientos sobre comandos de Linux y uso de herramientas y conocimientos sobre páginas web.]]></summary></entry></feed>
+<hr />]]></content><author><name></name></author><category term="Enumeración" /><category term="Privilege Escalation" /><category term="Cron" /><category term="Security" /><summary type="html"><![CDATA[Vamos a realizar la maquina Overpass de THM, donde debemos de entrar en una máquina con el fin de encontrar información (flags).]]></summary></entry></feed>
