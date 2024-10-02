@@ -18,7 +18,7 @@ Task 1 only tells us to deploy the machine
 
 # Task 2: Enumerate
 
-This taks is about gathering important information from the machine.
+This task is about gathering important information from the machine.
 
 To do this, we will first perform a scan of the machine`s ports in order to see which ones are open and which protocols are using them (very important later on). 
 
@@ -59,36 +59,36 @@ But that's not all, we can find out who this *Agent R* is, let's try spoofing wi
     <img src="../assets/images/Rooms/AgentSudo/Untitled3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-It tell us that there are 25 employees, so let's keep cheking for B, C, so on, until we find something different but still valid.
+It tell us that there are 25 employees, so let's keep checking for B, C, so on, until we find something different but still valid.
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled4.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Uiuiuiui, a weak password, let's look for it.
+Wow a weak password, let's look for it.
 
 When we got the *user-agent* 'C'. we find a different message, where it says *Attention chris*.
 Great, now we have an username (**Chris**) whose password is weak.
 
 # Task 3: Hash cracking and brute-force
 
-If we remember, erlier we got several services that the machine is using.
+If we remember, earlier we got several services that the machine is using.
 
 If we combine that with the fact that we have an username, we can make a connection to one of the services.
 
-When we make a *FTP* connection it asks for a password. So, if we have the username, and using the tool called `Hydra` together with a `wordlist`, we will obtenain the username password by brute force.
+When we make a *FTP* connection it asks for a password. So, if we have the username, and using the tool called `Hydra` together with a `wordlist`, we will obtain the username password by brute force.
 
 <div style="text-align:center;">
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" data-code="bash">Copiar</button>
+      <button class="copy-button" data-code="bash">Copy</button>
     </div>
-    <pre><code class="language-bash" >hydra -l chris -P /ruta_wordlist ftp:://ip_máquina</code></pre>
+    <pre><code class="language-bash" >hydra -l chris -P /path_to_wordlist ftp:://machine_IP</code></pre>
   </div>
 </div>
 
-The parametres of the above command are → `-l` (Login name), `-P` (password or list), `ftp` (service to crack).
+The parameters of the above command are → `-l` (Login name), `-P` (password or list), `ftp` (service to crack).
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/a.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -119,7 +119,7 @@ To extract hidden information from an image we can use two tools, if the file ex
 
 Great, we have an .zip to extract.
 
-As we know, the .zip obteined is encrypted, we will make use of the tools of *John The Ripper* in order to get the password. 
+As we know, the .zip obtained is encrypted, we will make use of the tools of *John The Ripper* in order to get the password. 
 
 Commands to use → `zip2john` y `john`
 
@@ -127,9 +127,9 @@ Commands to use → `zip2john` y `john`
     <img src="../assets/images/Rooms/AgentSudo/b.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Voilá, we now have the passowrd for '.zip' file.
+Voila, we now have the password for '.zip' file.
 
-We will found an '.txt' file inside the '.zip', so we proced to open it.
+We will found an '.txt' file inside the '.zip', so we proceed to open it.
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/c.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -143,7 +143,7 @@ Now, we focus on the '.jpg' file.
     <img src="../assets/images/Rooms/AgentSudo/d.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-We read  the '.txt' returned by the '.jpg' file and found an **ssh pasword**.
+We read  the '.txt' returned by the '.jpg' file and found an **ssh password**.
 
 
 # Task 4: Capture the user flag

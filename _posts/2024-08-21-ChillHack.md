@@ -3,10 +3,10 @@ title: ChillHack
 layout: post
 post-image: "../assets/images/Rooms/ChillHack/chillhack.png"
 description: Easy level CTF. Capture the flags and have fun!
-difficulty: Fácil
+difficulty: Easy
 enlace: https://tryhackme.com/r/room/chillhack
 tags:
-- Enumeración
+- Enumeration
 - Web
 - Reverse shell
 - Privilege Escalation

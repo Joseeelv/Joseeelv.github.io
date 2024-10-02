@@ -2,97 +2,109 @@
 title: Mr Robot CTF
 layout: post
 post-image: "../assets/images/Rooms/MrRobotCTF/mr.png"
-description: Esta room se basa en la serie de Mr. Robot. Se realiza un escaneo de puertos, se descubren directorios ocultos, se encuentra una clave en el archivo robots.txt, se obtienen credenciales de acceso a un panel de login de WordPress, se realiza una revershell PHP para obtener acceso remoto, se encuentran y se obtienen claves adicionales, se descifra una contraseña encriptada, se escalan privilegios a root y se encuentra la última clave para completar el ejercicio.
-difficulty: Media
+description: Based on the Mr. Robot show, can you root this box?
+difficulty: Medium
 enlace: https://tryhackme.com/r/room/mrrobot
 tags:
-- Enumeración
+- Enumeration
 - Exploit
-- Fuerza-bruta
+- Brute force
 - Hash cracking
 - Web
 ---
-# Proceso para conseguir la user.txt:
-Vamos a realizar un escaneo de puertos desde la maquina atacante:
+
+# Process to obtain the user.txt:
+
+We are going to perform an port scan from the attacking machine:
+ 
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy
+      </button>
+    </div>
+    <pre><code class="language-bash" >sudo nmap -p- -open -sV -sC -sS --min-rate 5000 -n -Pn -vvv target_IP</code></pre>
+  </div>
+</div>
+
+We have obtained:
+<div style="text-align: center; ">
+    <img src="../assets/images/Rooms/MrRobotCTF/Untitled1.png" alt="Untitled" onclick="openModal(this.src)"/>
+  </div>
+
+As we can see, we have two open ports: Http (80) and Https(443), we can access them entering the IP address into the address bar of our browser.
+
+Let's check for hidden directories by fuzzing the website with Gobuster:
 
 <div style="text-align:center;">
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" data-code="bash">Copiar</button>
+      <button class="copy-button" data-code="bash">Copy</button>
     </div>
-    <pre><code class="language-bash" >sudo nmap -p- -open -sV -sC -sS --min-rate 5000 -n -Pn -vvv ip_victima</code></pre>
+    <pre><code class="language-bash" >gobuster dir --url target_IP -w path_to_wordlist</code></pre>
   </div>
 </div>
-
-Hemos obtenido:
-
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/MrRobotCTF/Untitled1.png" alt="Untitled" onclick="openModal(this.src)"/>
-  </div>
-
-Tenemos dos protocolos http (80) y https(443), podemos acceder a ella introduciendo la ip en la barra del buscador de nuestro navegador.
-
-Vamos ver si hay directorios ocultos, mediante fuzzing con gobuster:
-
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/MrRobotCTF/Untitled2.png" alt="Untitled" onclick="openModal(this.src)"/>
-  </div>
-
-Y vamos a ver que directorios escondidos tiene la pagina web:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled3.png" alt="Untitled" onclick="openModal(this.src)"/>
   </div>
 
-Primero de todo, toda página web contiene el directorio */robots.txt* por tanto vamos a echarle un ojo:
+First of all, every website may contain a directory called */robots.txt*, so let's check it out:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Encontramos la primera key, que la podemos ver accediendo desde la barra de navegación o haciendo un curl desde la consola:
+Great, we found the first key, which we can view its content by accessing it from the navigator bar `target_IP/key.txt` or by using the command `curl target_IP/key.txt` from the terminal:
+
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Hemos encontrado un directorio */dashboard* que en verdad es el directorio admin de un wordpress */wp-admin* vamos a hacerle un curl a ver que enconrtamos:
+As we can see above, we found a directory called */dashboard*, which belongs to a WordPress admin (*/wp-admin*).
+
+If we access this directory, we obtain the following result:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Encontramos un panel de login, para ello necesitamos obtener un user y contraseña.
+We are facing a login panel, which means that we need credentials (username and password) to access the resource.
 
-También hemos encontrado un directorio *license* que si accedemos a el vamos a encontrar al final del todo una contraseña, hacemos un curl a dicho directorio y obtenemos el user y la contraseña:
+In addition, we found a directory called */license* that, if we access it, will lead us to a password at the end. If we perform a `curl` on this directory, we will obtain the username and password:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Está en base64 , por tanto, vamos a convertirlo y obtenemos la contraseña y el usuario
+It is encrypted in base64, so let's convert it and obtain the content:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Ahí tenemos las credenciales, vamos a iniciar sesión:
+As we can see, we obtain a username and his password.
+
+We are going to use these credentials in the login panel obtained earlier to access the content of the */wp-admin* directory.
 
 <div style="text-align: center; ">
-    <img src="../assets/images/Rooms/MrRobotCTF/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)"/>
+    <img src="../assets/images/Rooms/MrRobotCTF/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Estamos dentro, ahora vamos a proceder a buscar las demás keys.
+We are in, so now we will proceed to search the other keys.
 
-Como sabemos wordpress corre bajo php, por tanto, vamos a realizar una revershell php para poder acceder y tener ejecución remota de comandos, mediante un script encontrado en github [Pentestmonkey-php-reverse-shell](https://github.com/pentestmonkey/php-reverse-shell)
+As we know, WordPress runs on *PHP*; therefore, we are going to create a PHP reverse shell to gain access and achieve remote command execution (RCE), using a script found on GitHub → [Pentestmonkey-php-reverse-shell](https://github.com/pentestmonkey/php-reverse-shell).
 
-Ahora pegamos el script encontrado en github en la seccion Appearance → editor →archive:
+
+Now, we paste the script in the Appearance section → Editor → Archives:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Ahora abrimos un puerto para realizar la escucha mediante netcat y modificamos el script introducido anteriormente con nuestra IP y el puerto seleccionado para realizar la escucha:
+Next, we open a port to listen using `netcat`. To do this, we need to modify the script obtained earlier by entering our IP address and the listening port:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)"/>
@@ -103,94 +115,90 @@ Ahora abrimos un puerto para realizar la escucha mediante netcat y modificamos e
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
+We perform the reverse shell and we are in.
 
-Realizamos la revershell y estamos dentro.
-
-Ahora vamos a buscar las demás keys, vamos a comprobar que una de ellas sea del tipo .txt, por tanto vamos a buscarla.
+Now, we are going to look for other keys, these are usually written in plain text files with a '.txt'.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-
-Buscamos todos los archivos que terminen en la extensión .txt, y vemos que en el directorio */home* encontramos la segunda key.
+We search for all files that end with the '.txt' extension, and we see that the second key is located in the directory */home*.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-
-Hacemos un cat para obtenerla, pero nos dice que no tenemos permisos y en efecto, solamente tiene permiso de lectura el root.
+Through the command `cat filename`, we can display the content of the flag; however, it tells us that we do not have the required permissions, so we need to find a way to escalate privileges.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-
-Además de la key, el home encontramos otro fichero, que es una password:
+In addition to the key, in the */home* directory we found another file which is a password, but it is encrypted.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-
+We will use the following website to decrypt the file with the extension '.md5'.
 [Crackstation](https://crackstation.net/):
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
+There is our password, which will help us escalate privileges.
 
-Ahí tenemos nuestra contraseña, para poder escalar de privilegios a root.
+First, we handle the tty to be able to type the `su` command in the terminal and escalate privileges.
 
-Ahora hacemos sudo su y ponemos la password.
-
-<div style="text-align: center; ">
-    <img src="../assets/images/Rooms/MrRobotCTF/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)"/>
-</div>  
-
-
-Primero hacemos un tratamiento de la tty, para poder escribir el comando su, para escalar privilegios.
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash" >python -c "import pty;pty.spawn("/bin/bash")"</code></pre>
+  </div>
+</div>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 19.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-
-ahora somos robot y podemos acceder a la segunda key.
+Now, we are the user robot and we have the required permissions to access to the second key.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
+To find the last key, we first perform a search using the `find` command with the same parameters as before, but we do not obtain anything.
 
-Ahora para encontrar la tercera y ultima key, lo que vamos a hacer es tirar otro find donde el nombre sea key-3-of-3.txt, para ver donde se ubica y nos aparece nada, por tanto vamos a buscar binarios:
+So we need to find a way to discover where the flag is located. We can look for some binaries with the SUID bit set, which allows us to execute a script as root:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-
-Y encontramos uno que es muy raro que es el de nmap y buscamos una vulnerabilidad en gtfobins de nmap Sudo, para poder hacernos root:
+Great!, we found one binary that is quite unusual, which is */usr/local/bin/nmap*. If we look at [GTFOBins-Nmap](https://gtfobins.github.io/gtfobins/nmap/#sudo), we can obtain information about how to run the exploit. In this case, we focus on the sudo type since we want to become root user:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled22.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
 
-Vamos a hacer uso de la ocpión b:
+Let's run the exploit:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled23.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-
-Y ya tenemos permisos root, para poder acceder a la tercera y última key, que se encuentra en /root/key-3-of-3.txt
+We have escalated privileges to root. Now, we are able to access the last key, which is located, as expected, in the root directory.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/MrRobotCTF/Untitled24.png" alt="Untitled" onclick="openModal(this.src)"/>
 </div>  
 
-Listo, tenemos el ejercicio completado.
+Done! If we use the `cat` command, we will display the content of the flag.
 
 ---

@@ -213,7 +213,7 @@
 
 <h1 id="task-2-enumerate">Task 2: Enumerate</h1>
 
-<p>This taks is about gathering important information from the machine.</p>
+<p>This task is about gathering important information from the machine.</p>
 
 <p>To do this, we will first perform a scan of the machine`s ports in order to see which ones are open and which protocols are using them (very important later on).</p>
 
@@ -253,36 +253,36 @@
     <img src="../assets/images/Rooms/AgentSudo/Untitled3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>It tell us that there are 25 employees, so let’s keep cheking for B, C, so on, until we find something different but still valid.</p>
+<p>It tell us that there are 25 employees, so let’s keep checking for B, C, so on, until we find something different but still valid.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/Untitled4.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Uiuiuiui, a weak password, let’s look for it.</p>
+<p>Wow a weak password, let’s look for it.</p>
 
 <p>When we got the <em>user-agent</em> ‘C’. we find a different message, where it says <em>Attention chris</em>.
 Great, now we have an username (<strong>Chris</strong>) whose password is weak.</p>
 
 <h1 id="task-3-hash-cracking-and-brute-force">Task 3: Hash cracking and brute-force</h1>
 
-<p>If we remember, erlier we got several services that the machine is using.</p>
+<p>If we remember, earlier we got several services that the machine is using.</p>
 
 <p>If we combine that with the fact that we have an username, we can make a connection to one of the services.</p>
 
-<p>When we make a <em>FTP</em> connection it asks for a password. So, if we have the username, and using the tool called <code class="language-plaintext highlighter-rouge">Hydra</code> together with a <code class="language-plaintext highlighter-rouge">wordlist</code>, we will obtenain the username password by brute force.</p>
+<p>When we make a <em>FTP</em> connection it asks for a password. So, if we have the username, and using the tool called <code class="language-plaintext highlighter-rouge">Hydra</code> together with a <code class="language-plaintext highlighter-rouge">wordlist</code>, we will obtain the username password by brute force.</p>
 
 <div style="text-align:center;">
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" data-code="bash">Copiar</button>
+      <button class="copy-button" data-code="bash">Copy</button>
     </div>
-    <pre><code class="language-bash">hydra -l chris -P /ruta_wordlist ftp:://ip_máquina</code></pre>
+    <pre><code class="language-bash">hydra -l chris -P /path_to_wordlist ftp:://machine_IP</code></pre>
   </div>
 </div>
 
-<p>The parametres of the above command are → <code class="language-plaintext highlighter-rouge">-l</code> (Login name), <code class="language-plaintext highlighter-rouge">-P</code> (password or list), <code class="language-plaintext highlighter-rouge">ftp</code> (service to crack).</p>
+<p>The parameters of the above command are → <code class="language-plaintext highlighter-rouge">-l</code> (Login name), <code class="language-plaintext highlighter-rouge">-P</code> (password or list), <code class="language-plaintext highlighter-rouge">ftp</code> (service to crack).</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/a.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -312,7 +312,7 @@ Great, now we have an username (<strong>Chris</strong>) whose password is weak.<
 
 <p>Great, we have an .zip to extract.</p>
 
-<p>As we know, the .zip obteined is encrypted, we will make use of the tools of <em>John The Ripper</em> in order to get the password.</p>
+<p>As we know, the .zip obtained is encrypted, we will make use of the tools of <em>John The Ripper</em> in order to get the password.</p>
 
 <p>Commands to use → <code class="language-plaintext highlighter-rouge">zip2john</code> y <code class="language-plaintext highlighter-rouge">john</code></p>
 
@@ -320,9 +320,9 @@ Great, now we have an username (<strong>Chris</strong>) whose password is weak.<
     <img src="../assets/images/Rooms/AgentSudo/b.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Voilá, we now have the passowrd for ‘.zip’ file.</p>
+<p>Voila, we now have the password for ‘.zip’ file.</p>
 
-<p>We will found an ‘.txt’ file inside the ‘.zip’, so we proced to open it.</p>
+<p>We will found an ‘.txt’ file inside the ‘.zip’, so we proceed to open it.</p>
 
 <div style="text-align: center;">
     <img src="../assets/images/Rooms/AgentSudo/c.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -336,7 +336,7 @@ Great, now we have an username (<strong>Chris</strong>) whose password is weak.<
     <img src="../assets/images/Rooms/AgentSudo/d.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>We read  the ‘.txt’ returned by the ‘.jpg’ file and found an <strong>ssh pasword</strong>.</p>
+<p>We read  the ‘.txt’ returned by the ‘.jpg’ file and found an <strong>ssh password</strong>.</p>
 
 <h1 id="task-4-capture-the-user-flag">Task 4: Capture the user flag</h1>
 
