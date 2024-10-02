@@ -1,8 +1,8 @@
-- name: Escalar Privilegios en Linux
+- name: Linux Privilege Escalation
   link: https://joseeelv.github.io//blog/EPL
   image: "../assets/images/Labs/EPL/p.png"
-  description: Módulo sobre las diferentes formas de escalar privilegios en un sistema Linux.
-
+  description: This Lab covers different ways to escalate privilege on Linux Systems.
+  
 - name: ¿Qué es Networking?
   link: https://joseeelv.github.io//blog/Nw
   image: "../assets/images/Labs/QueEsNetw/nw.png"
@@ -12,7 +12,6 @@
   link: https://joseeelv.github.io//blog/IntroNW
   image: "../assets/images/Labs/IntroNetw/nw.png"
   description: En este módulo veremos una introducción sobre la teoría de los modelos OSI y TCP / IP y fundamentos básicos de algunas herramientas básicas de networking.
-
   
 - name: Introducción a las redes LAN
   link: https://joseeelv.github.io//blog/IntroLAN
