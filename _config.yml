@@ -27,7 +27,7 @@ heroimage: "/assets/images/banner.png"
 # If you don't want to use any icon, you can leave them blank.
 email: jose.venegasan@gmail.com
 # twitter_username: thedevslot
-# instagram_username: thedevslot
+instagram_username: joseelv_
 # linkedin_username: 
 github_username: Joseeelv
 # youtube_channel_id: UCk_93NXYP-U_AOB5GfWlOow
@@ -47,8 +47,9 @@ author-name: Jose Luis Venega
 # URL for the Image of the Author
 author-image: "/assets/images/me.png"
 # 60 Words About the Author
-author-about: Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering at the University of Cádiz, and I am passionate about the field of Cybersecurity.
+author-about: Hello, I am Jose Luis Venega Sánchez, a student of Computer Science at the University of Cadiz, and I am passionate about the field of Cybersecurity.
 # author-about: Hola, soy Jose Luis Venega Sánchez, estudiante del grado de Ingeniería Informática en la Universidad de Cádiz y soy un apasionado del mundo de la Ciberseguridad.
+
 # URL to the Author's Profile (i.e., Github, Twitter, Stackoverflow, etc)
 author-url: https://github.com/Joseeelv
 
