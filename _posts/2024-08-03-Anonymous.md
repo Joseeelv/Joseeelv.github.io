@@ -2,27 +2,31 @@
 title: Anonymous
 layout: post
 post-image: "../assets/images/Rooms/Anonymous/Anonymous.png"
-description: Try to get the two flags! Root the machine and prove your understanding of the fundamentals! This is a virtual machine meant for beginners. Acquiring both flags will require some basic knowledge of Linux and privilege escalation methods.
-difficulty: Media
+description: Not the hacking group
+difficulty: Medium
 enlace: https://tryhackme.com/r/room/anonymous
 tags:
-- Enumeración
+- Enumeration
 - FTP
 - Reverse Shell
 - Exploit
 ---
+
+First of all, we are going to perform a port scan to find out which ports are open and which services are running on them:
+
 <div style="text-align:center;">
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" data-code="bash">Copiar</button>
+      <button class="copy-button" data-code="bash">Copy</button>
     </div>
-    <pre><code class="language-bash" >sudo nmap -p- -open -sS -sV -sC .n -Pn -vvv --min-rate 5000 ip_victima -oN escaneo</code></pre>
+    <pre><code class="language-bash" >sudo nmap -p- -open -sS -sV -sC .n -Pn -vvv --min-rate 5000 target_IP -oN filename</code></pre>
   </div>
 </div>
 
-> Si quieres puedes guardar el resultado del análisis (opción `-oN`) en un fichero para poder consultar la información y poder limpiar la terminal.
+> If you wish, you can save the result of the scan using the option `-oN` and specify the filename. This is very useful because later, we can review the information and keep terminal as clean as possible.
 
+We perform the scanning:
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
@@ -32,85 +36,86 @@ tags:
     <img src="../assets/images/Rooms/Anonymous/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Encontramos que tenemos los puertos **21** (ftp), **22** (ssh), **139** y **445** (smb) ambos.
+As we can see above, we have the following ports → **21** (ftp), **22** (ssh),and both **139** y **445** (smb).
 
-Primero, vamos a ver que comparte ese protocolo smb, para ello, mediante el comando `smbclient` podemos ver que recursos comparte:
 
-Primero vamos a incluir la ip en el directorio **/etc/hosts** → `sudo echo '<ip-objetivo anonymous.thm>' >> /etc/hosts` y luego hacemos:
+First, let's see what the SMB protocol shares. To do this, we can use the `smbclient` command to know what resources are being shared.
+
+Before that, we need to include the IP address into the  **/etc/hosts** file → `sudo echo '<<target_IP> anonymous.thm>' >> /etc/hosts`, and then we do:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Hemos realizado una consulta de los recursos que comparte el servidor (” necesario para responder algunas preguntas de la room“).
+We have queried the resources shared by the server ("necessary to answer some questions from the room).
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-También podemos realizar una conexión smb a los directorios que hemos encontrado anteriormente, pero no servirá de nada, ya que por aquí no van los tiros.
+We can also make a *SMB* connection to the directories we found earlier, but it won't do anything, as this is not the right direction.
 
-A continuación vamos a iniciar la búsqueda de información del servidor ftp, mediante una conexión anónima:
+Next, we will begin searching for information in the *FTP* server, using an anonymous connection:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Encontramos un directorio llamado `/scripts` el cual contiene un binario llamado `clean.sh`.
+We found a the `/scripts` directory, which contains the binary called `clean.sh`.
 
-Por eso, descargamos los ficheros y en el anteriormente comentado vamos a realizar una modificación del mismo.
+Therefore, we downloaded the files, and we are going to make a modification to the one we mentioned earlier.
 
-Vemos que podemos descargar los ficheros que se encuentran en el servidor y como sabemos que es FTP pues podemos tanto descargar como cargar archivos.
+We see that we can download the files that are located on the server, and since we know it is *FTP*, we can both upload and download files.
 
-Por tanto, le podemos meter una reverse shell al servidor mediante la ejecución de uno de los scripts anteriormente descargados, y el elegido será `clean.sh`.   
+Therefore, we can insert a *reverse shell* into the server by executing one of the previously scripts downloaded, and the chosen one will be `clean.sh`.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Vemos que mediante el comando `echo` estamos incluyendo en el fichero `clean.sh` una reverse shell para poder acceder al servidor y buscar información.
+We see that using the `echo` command, we are including a reverse shell into the `clean.sh` file to access the server and search information on it.
 
-Con **netcat** vamos a poner nuestra máquina en escucha para acceder al servidor cuando se active la reverse shell:
+With **netcat**, we are going to put our machine in listening mode to access to the server when the reverse shell is activated:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/4.1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Subimos el fichero modificado mediante el comando `put` en el servidor FTP:
+We upload the modified file using the `put` command to the *FTP* server:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Y si esperamos un poco se habrá ejecutado la reverse shell y podemos obtener la ***user_flag***.
+And if we wait a little, the reverse shell will have executed and we can obtain the ***user_flag***.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/4.2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Ahora, tenemos que buscar la otra flag, por tanto, vamos a buscar una manera de escalar privilegios en el servidor para poder hacer lo que queramos en el mismo:
+Now, we have to look for the other flag, so, we need to find a way to escalate privileges on the server in order to do whatever we want on it.
 
-Primero, vamos a intentar saber si el usuario puede ejecutar algún comando como root → `sudo -l` pero no hay suerte, así que vamos a buscar si hay algún binario extraño que tiene el bit SUID activad
+To do this, first, we are going to try to find out if the user can execute any command as root → `sudo -l`, but no luck. So, we are going to look for any unusual binary on the system that has the SUID bit set.
 
 <div style="text-align:center;">
  <div class="code-container">
     <div class="code-header">
       Bash
-      <button class="copy-button" data-code="bash">Copiar</button>
+      <button class="copy-button" data-code="bash">Copy</button>
     </div>
     <pre><code class="language-bash" >find / -perm -4000 -type f -ls 2>/dev/null</code></pre>
   </div>
 </div>
 
-Vamos a obtener una lista enorme de binarios, pero el que destaca por su extraña aparición es:
+We obtain an huge list of binaries, but one that stands out due to its unusual appearance is:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/5.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Hemos encontrado que el binario `/usr/bin/env` tiene el bit SUID activado, por ello, vamos a buscar como ejecutar el exploit → [GTFOBins/env](https://gtfobins.github.io/gtfobins/env/#suid).
+We found the binary `/usr/bin/env`. This one has the SUID bit set, so we are going to look for information about how to execute the exploit → [GTFOBins/env](https://gtfobins.github.io/gtfobins/env/#suid).
 
-Ahora lo ejecutamos y, voila! tenemos privilegios root y buscamos la ***root_flag***.
+Finally, we execute the exploit and voila! We have root privileges and we proceed to find the ***root_flag***.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/6.png" alt="Untitled" onclick="openModal(this.src)" />

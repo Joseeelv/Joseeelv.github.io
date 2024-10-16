@@ -6,6 +6,7 @@
     "gobuster",
     "GTFO",
     "gtfobins",
+    "joomla",
     "LFILE",
     "mget",
     "nestat",
@@ -17,6 +18,7 @@
     "rockyou",
     "setgid",
     "setuid",
+    "smbclient",
     "steghide",
     "unshadow",
     "wordlist"

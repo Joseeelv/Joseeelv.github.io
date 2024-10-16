@@ -2,75 +2,76 @@
 title: Boiler CTF
 layout: post
 post-image: "../assets/images/Rooms/BoilerCTF/boiler.png"
-description: Boiler CTF es un CTF de nivel intermedio que requiere enumeración para avanzar. Se realiza un escaneo de puertos y se descubre una página web con directorios ocultos. Se encuentra un archivo descifrado que indica que la enumeración es clave. Se encuentra un archivo robots.txt con una cadena en base64 y MD5 que resulta ser una distracción. Se descubre un directorio oculto en la página web y se encuentra un exploit para sar2html. Se obtiene acceso como el usuario "basterd" y se encuentra la contraseña de otro usuario. Se accede como ese usuario y se encuentra la flag de usuario. Se intenta escalar privilegios mediante sudo, pero no se tiene éxito. Finalmente, se encuentra un binario con SUID activado y se ejecuta un exploit para obtener acceso como root y encontrar la flag de root.
-difficulty: Media
+description: Intermediate level CTF exploit para obtener acceso como root y encontrar la flag de root.
+difficulty: Medium
 enlace: https://tryhackme.com/r/room/boilerctf2
 tags:
-- Enumeración
+- Enumeration
 - Privilege Escalation
 - Web
 ---
 
-Primero de todo vamos a realizar un escaneo de la red, para ver que puertos tiene abierto:
+First of all, we are going to perform a network scanning, to see what ports are open:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Vamos a ver que es esa web:
+Let's check the website:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Vemos que es una página default de un servicio apache, por tanto, vamos a comprobar si existen directorios ocultos.
+We see that it is a website of a default Apache service, so , we are going to check if there are hidden directories on this domain:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Ya que no hay nada en los directorios ocultos, vamos a intentar iniciar sesión en el servidor ftp, poniendo como *username* A*nonymous:*
+Since there's nothing in the hidden directories, we are going to log in to the *FTP* server, using username *Anonymous*:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Lo descargamos y lo abrimos:
+We download the file and we open it:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Vemos que es ilegible, por lo que vamos a hacerlo legible descifrándolo.
+We see that is readable, so we are going to decrypt it.
 
-Como resultado tenemos: *Just wanted to see if you find it. Lol. Remember: Enumeration is the key!*
+As a result, we have the phrase: *Just wanted to see if you find it. Lol. Remember: Enumeration is the key!*
 
-Vamos a mirar en el directorio "/robots.txt":
+Now, we are going to check the directory `/robots.txt`:
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Hemos encontrado una serie de números ascii que si los pasamos a base64 y MD5 obtenemos la cadena *kidding* (Una pérdida de tiempo vamos..).
+We found a series of ASCII numbers that, if we turn to a base64 and MD5, we obtain the string *kidding* (A waste of time..).
 
-Vamos a seguir comprobando cosas:
+Let's keep checking stuff:
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
-En el directorio "/joomla", no hay nada relevante a simple vista, pero podemos fuzzear la web para buscar directorios ocultos en la misma.
+
+In the directory `/joomla`, this nothing relevant at first glance, but we can fuzz the website to find hidden directories within it.
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-En efecto, encontramos una gran cantidad de directorios ocultos dentro del directorio "/joomla".
+Indeed, we found a large number of hidden directories within the directory `/joomla`.
 
-Vemos que hay un directorio llamado "/_tests", vamos a echarle un ojo:
+We see there is a directory called `/_tests`, so let's check it out:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Si buscamos sobre sar2html en Google vamos a encontrar algún exploit en exploit-db que se pueda usar en contra de él. → [exploit-db/Sar2HTML](https://www.exploit-db.com/exploits/47204) (aquí está el exploit).
+If we search about sar2html on Google, we will find an exploit on exploit-db that can be used against him  → [exploit-db/Sar2HTML](https://www.exploit-db.com/exploits/47204) (here is the exploit).
 
 El exploit nos dice que podemos hacer una ejecución remota de comandos en la barra de navegación debido a `*plot=*`, así que vamos a testearlo:
 
