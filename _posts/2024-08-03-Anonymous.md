@@ -20,7 +20,7 @@ First of all, we are going to perform a port scan to find out which ports are op
       Bash
       <button class="copy-button" data-code="bash">Copy</button>
     </div>
-    <pre><code class="language-bash" >sudo nmap -p- -open -sS -sV -sC .n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN filename</code></pre>
+    <pre><code class="language-bash" >sudo nmap -p- -open -sS -sV -sC -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN filename</code></pre>
   </div>
 </div>
 

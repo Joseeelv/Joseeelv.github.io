@@ -8,7 +8,7 @@ enlace: https://tryhackme.com/room/agentsudoctf
 tags:
 - Enumeration
 - Exploit
-- Brute-Force
+- Brute force
 - Hash cracking
 ---
 
@@ -195,6 +195,6 @@ We get root privileges, which give us the freedom to navigate between directorie
     <img src="../assets/images/Rooms/AgentSudo/g.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Finally, in the root directory there is a file called *root.txt* which contain the flag.ç
+Finally, in the root directory there is a file called *root.txt* which contain the flag.
 
 ---

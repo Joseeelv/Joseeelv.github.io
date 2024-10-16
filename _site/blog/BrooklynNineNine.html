@@ -13,7 +13,7 @@
 
 <!-- Open Graph general (Facebook, Pinterest & Google+) -->
 <meta name="og:title" content="CyberWiki | Brooklyn Nine Nine">
-<meta name="og:description" content="En esta room se realiza una enumeración de puertos, se realiza un ataque de fuerza bruta para obtener la contraseña de la conexión SSH y se inicia sesión. Luego, se busca y se encuentra el archivo "user.txt". También se muestra cómo obtener acceso de root utilizando una vulnerabilidad en el comando "less".">
+<meta name="og:description" content="This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.">
 <meta name="og:image" content="../assets/images/Rooms/BNN/bnn.png">
 <meta name="og:image:alt" content="CyberWiki | Brooklyn Nine Nine">
 <meta name="og:url" content="http://localhost:4000/blog/BrooklynNineNine">
@@ -23,17 +23,17 @@
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="CyberWiki | Brooklyn Nine Nine">
-<meta name="twitter:description" content="En esta room se realiza una enumeración de puertos, se realiza un ataque de fuerza bruta para obtener la contraseña de la conexión SSH y se inicia sesión. Luego, se busca y se encuentra el archivo "user.txt". También se muestra cómo obtener acceso de root utilizando una vulnerabilidad en el comando "less".">
+<meta name="twitter:description" content="This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.">
 <meta name="twitter:site" content="@">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:image:src" content="../assets/images/Rooms/BNN/bnn.png">
 <!-- Search Engine -->
-<meta name="description" content="En esta room se realiza una enumeración de puertos, se realiza un ataque de fuerza bruta para obtener la contraseña de la conexión SSH y se inicia sesión. Luego, se busca y se encuentra el archivo "user.txt". También se muestra cómo obtener acceso de root utilizando una vulnerabilidad en el comando "less".">
+<meta name="description" content="This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.">
 <meta name="image" content="../assets/images/Rooms/BNN/bnn.png">
 <!-- Schema.org for Google -->
 <meta itemprop="name" content="CyberWiki | Brooklyn Nine Nine">
 <meta name="author" content="Jose Luis Venega"/>
-<meta itemprop="description" content="En esta room se realiza una enumeración de puertos, se realiza un ataque de fuerza bruta para obtener la contraseña de la conexión SSH y se inicia sesión. Luego, se busca y se encuentra el archivo "user.txt". También se muestra cómo obtener acceso de root utilizando una vulnerabilidad en el comando "less".">
+<meta itemprop="description" content="This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.">
 <meta itemprop="image" content="../assets/images/Rooms/BNN/bnn.png">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -175,14 +175,14 @@
           <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
             
             <p id="description" class="content is-small has-text-weight-medium is-uppercase">
-              En esta room se realiza una enumeración de puertos, se realiza un ataque de fuerza bruta para obtener la contraseña de la conexión SSH y se inicia sesión. Luego, se busca y se encuentra el archivo "user.txt". También se muestra cómo obtener acceso de root utilizando una vulnerabilidad en el comando "less".
+              This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.
               <!-- Enlace añadido aquí -->
               <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
                 <b><a href="https://tryhackme.com/r/room/brooklynninenine" target="page.enlace">Brooklyn Nine Nine</a></b>
               </p>
                 
               <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">LAB difficulty: 
-                <b>Fácil</b>
+                <b>Easy</b>
               </p>
             <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Published on
               <b>August 04, 2024</b> by <a href="https://github.com/Joseeelv" target="_blank"><b class="has-text-link"><u>Jose Luis Venega</u></b>
@@ -191,7 +191,7 @@
               <i class="fas fa-tags"></i>
               
               
-              <span class="tag is-link">Enumeración</span>
+              <span class="tag is-link">Enumeration</span>
               
               
               <span class="tag is-link">FTP</span>
@@ -200,53 +200,75 @@
               <span class="tag is-link">Privilege Escalation</span>
               
               
-              <span class="tag is-link">Fuerza-Bruta</span>
+              <span class="tag is-link">Brute force</span>
               
               
               <span class="tag is-link">Exploit</span>
               
               
             </p><!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
-                1 min
+                2 min
               </b>READ</p> --></div>
         </div>
         <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
           <p><h1 id="usertxt">User.txt</h1>
 
-<p>Vamosa proceder a escanear los primeros 1024 puertos para enumerarlos:</p>
+<p>First, we are going to scan the first 1024 ports:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">nmap -sC -sV -p0-1023 &lt;target_IP&gt;</code></pre>
+  </div>
+</div>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Escaneamos la pagina web → no hay nada</p>
+<p>We have the following ports open: 21 ‘<em>FTP</em>’, 22 ‘<em>SSH</em>’, 80 ‘<em>HTTP</em>’, and others..</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Descargamos el archivo y lo abrimos</p>
+<p>Success. Once inside, we can see a file called <em>note_to_jake.txt</em>. Using the command <code class="language-plaintext highlighter-rouge">get &lt;filename&gt;</code> we can download the file to our machine.</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
+<p>After download the file, we open it using the <code class="language-plaintext highlighter-rouge">cat &lt;filename&gt;</code> command:</p>
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
-<p>Hacemos un ataque de fuerza bruta con el user jake a la conexion shh y sacamos la contraseña:</p>
+
+<p>After reading the file, we obtain the username <em>jake</em>.
+Through the tool Hydra, we can perform a brute force attack with that username and a wordlist:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">hydra -l &lt;username&gt; -P /&lt;path_to_wordlist&gt; &lt;Protocol&gt;::&lt;//target_IP&gt;</code></pre>
+  </div>
+</div>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Iniciamos sesión en ssh</p>
+<p>After obtaining the password for that user, we can establish a connection via <em>SSH</em>:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Estamos dentro y buscamos la user.txt</p>
+<p>We are in, so let’s look for the <em>user.txt</em>:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -254,25 +276,31 @@
 
 <h1 id="roottxt">Root.txt</h1>
 
-<p>Vamos a sacar vulnerabilidades de root</p>
+<p>We already have the user flag, as we can see in the image above.</p>
+
+<p>Now, we will proceed to obtain the root flag. For this, we need to escalate privileges, since this flag can only be read by a root user.</p>
+
+<p>First of all, we check if <em>jake</em> can execute binaries using <code class="language-plaintext highlighter-rouge">sudo -l</code>:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Vemos que tiene permiso para ejecutar comando con less, buscamos un exploit</p>
+<p>Cool! The user <em>jake</em> can execute the <code class="language-plaintext highlighter-rouge">less</code> command with root permissions.</p>
+
+<p>Since this is a sudo binary, we can run the exploit in the following way → <a href="https://gtfobins.github.io/gtfobins/less/#sudo">GTFObins-less</a>:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>y escribimos <code class="language-plaintext highlighter-rouge">!/bin/sh</code> y somos root</p>
+<p>And if we type <code class="language-plaintext highlighter-rouge">!/bin/sh</code>, we become root user:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Listo:</p>
+<p>Done, we find the <em>root.txt</em> and obtain the flag:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BNN/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -307,7 +335,7 @@
                         <div class="column is-marginless">
                             <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
                             <div class="content has-text-grey">
-                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Science at t...</p>
                             </div>
                         </div>
                     </div>

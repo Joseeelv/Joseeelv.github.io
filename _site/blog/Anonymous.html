@@ -216,7 +216,7 @@
       Bash
       <button class="copy-button" data-code="bash">Copy</button>
     </div>
-    <pre><code class="language-bash">sudo nmap -p- -open -sS -sV -sC .n -Pn -vvv --min-rate 5000 target_IP -oN filename</code></pre>
+    <pre><code class="language-bash">sudo nmap -p- -open -sS -sV -sC -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN filename</code></pre>
   </div>
 </div>
 
@@ -243,55 +243,55 @@
     <img src="../assets/images/Rooms/Anonymous/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Hemos realizado una consulta de los recursos que comparte el servidor (” necesario para responder algunas preguntas de la room“).</p>
+<p>We have queried the resources shared by the server (“necessary to answer some questions from the room).</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>También podemos realizar una conexión smb a los directorios que hemos encontrado anteriormente, pero no servirá de nada, ya que por aquí no van los tiros.</p>
+<p>We can also make a <em>SMB</em> connection to the directories we found earlier, but it won’t do anything, as this is not the right direction.</p>
 
-<p>A continuación vamos a iniciar la búsqueda de información del servidor ftp, mediante una conexión anónima:</p>
+<p>Next, we will begin searching for information in the <em>FTP</em> server, using an anonymous connection:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Encontramos un directorio llamado <code class="language-plaintext highlighter-rouge">/scripts</code> el cual contiene un binario llamado <code class="language-plaintext highlighter-rouge">clean.sh</code>.</p>
+<p>We found a the <code class="language-plaintext highlighter-rouge">/scripts</code> directory, which contains the binary called <code class="language-plaintext highlighter-rouge">clean.sh</code>.</p>
 
-<p>Por eso, descargamos los ficheros y en el anteriormente comentado vamos a realizar una modificación del mismo.</p>
+<p>Therefore, we downloaded the files, and we are going to make a modification to the one we mentioned earlier.</p>
 
-<p>Vemos que podemos descargar los ficheros que se encuentran en el servidor y como sabemos que es FTP pues podemos tanto descargar como cargar archivos.</p>
+<p>We see that we can download the files that are located on the server, and since we know it is <em>FTP</em>, we can both upload and download files.</p>
 
-<p>Por tanto, le podemos meter una reverse shell al servidor mediante la ejecución de uno de los scripts anteriormente descargados, y el elegido será <code class="language-plaintext highlighter-rouge">clean.sh</code>.</p>
+<p>Therefore, we can insert a <em>reverse shell</em> into the server by executing one of the previously scripts downloaded, and the chosen one will be <code class="language-plaintext highlighter-rouge">clean.sh</code>.</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Vemos que mediante el comando <code class="language-plaintext highlighter-rouge">echo</code> estamos incluyendo en el fichero <code class="language-plaintext highlighter-rouge">clean.sh</code> una reverse shell para poder acceder al servidor y buscar información.</p>
+<p>We see that using the <code class="language-plaintext highlighter-rouge">echo</code> command, we are including a reverse shell into the <code class="language-plaintext highlighter-rouge">clean.sh</code> file to access the server and search information on it.</p>
 
-<p>Con <strong>netcat</strong> vamos a poner nuestra máquina en escucha para acceder al servidor cuando se active la reverse shell:</p>
+<p>With <strong>netcat</strong>, we are going to put our machine in listening mode to access to the server when the reverse shell is activated:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/4.1.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Subimos el fichero modificado mediante el comando <code class="language-plaintext highlighter-rouge">put</code> en el servidor FTP:</p>
+<p>We upload the modified file using the <code class="language-plaintext highlighter-rouge">put</code> command to the <em>FTP</em> server:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Y si esperamos un poco se habrá ejecutado la reverse shell y podemos obtener la <strong><em>user_flag</em></strong>.</p>
+<p>And if we wait a little, the reverse shell will have executed and we can obtain the <strong><em>user_flag</em></strong>.</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/4.2.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Ahora, tenemos que buscar la otra flag, por tanto, vamos a buscar una manera de escalar privilegios en el servidor para poder hacer lo que queramos en el mismo:</p>
+<p>Now, we have to look for the other flag, so, we need to find a way to escalate privileges on the server in order to do whatever we want on it.</p>
 
-<p>Primero, vamos a intentar saber si el usuario puede ejecutar algún comando como root → <code class="language-plaintext highlighter-rouge">sudo -l</code> pero no hay suerte, así que vamos a buscar si hay algún binario extraño que tiene el bit SUID activad</p>
+<p>To do this, first, we are going to try to find out if the user can execute any command as root → <code class="language-plaintext highlighter-rouge">sudo -l</code>, but no luck. So, we are going to look for any unusual binary on the system that has the SUID bit set.</p>
 
 <div style="text-align:center;">
  <div class="code-container">
@@ -303,15 +303,15 @@
   </div>
 </div>
 
-<p>Vamos a obtener una lista enorme de binarios, pero el que destaca por su extraña aparición es:</p>
+<p>We obtain an huge list of binaries, but one that stands out due to its unusual appearance is:</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/5.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-<p>Hemos encontrado que el binario <code class="language-plaintext highlighter-rouge">/usr/bin/env</code> tiene el bit SUID activado, por ello, vamos a buscar como ejecutar el exploit → <a href="https://gtfobins.github.io/gtfobins/env/#suid">GTFOBins/env</a>.</p>
+<p>We found the binary <code class="language-plaintext highlighter-rouge">/usr/bin/env</code>. This one has the SUID bit set, so we are going to look for information about how to execute the exploit → <a href="https://gtfobins.github.io/gtfobins/env/#suid">GTFOBins/env</a>.</p>
 
-<p>Ahora lo ejecutamos y, voila! tenemos privilegios root y buscamos la <strong><em>root_flag</em></strong>.</p>
+<p>Finally, we execute the exploit and voila! We have root privileges and we proceed to find the <strong><em>root_flag</em></strong>.</p>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/Anonymous/6.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -346,7 +346,7 @@
                         <div class="column is-marginless">
                             <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
                             <div class="content has-text-grey">
-                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Engineering ...</p>
+                                <p>Hello, I am Jose Luis Venega Sánchez, a student of Computer Science at t...</p>
                             </div>
                         </div>
                     </div>
