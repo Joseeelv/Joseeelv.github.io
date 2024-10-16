@@ -2,7 +2,7 @@
 title: Boiler CTF
 layout: post
 post-image: "../assets/images/Rooms/BoilerCTF/boiler.png"
-description: Intermediate level CTF exploit para obtener acceso como root y encontrar la flag de root.
+description: Intermediate level CTF
 difficulty: Medium
 enlace: https://tryhackme.com/r/room/boilerctf2
 tags:
@@ -12,6 +12,17 @@ tags:
 ---
 
 First of all, we are going to perform a network scanning, to see what ports are open:
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash" >sudo nmap -p- -open -sC -sV -sS -n --min-rate 5000 -Pn -vvv &lt;target_IP&gt; </code></pre>
+  </div>
+</div>
+
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -24,6 +35,16 @@ Let's check the website:
 </div>
 
 We see that it is a website of a default Apache service, so , we are going to check if there are hidden directories on this domain:
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash" >fuzz -w &lt;path_to_wordlist&gt; -u &lt;target_IP&gt;/FUZZ </code></pre>
+  </div>
+</div>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
@@ -71,60 +92,73 @@ We see there is a directory called `/_tests`, so let's check it out:
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-If we search about sar2html on Google, we will find an exploit on exploit-db that can be used against him  → [exploit-db/Sar2HTML](https://www.exploit-db.com/exploits/47204) (here is the exploit).
+If we search for *sar2html* on Google, we will find an exploit on Exploit-DB that can be used against it  → [exploit-db/Sar2HTML](https://www.exploit-db.com/exploits/47204) (here is the exploit).
 
-El exploit nos dice que podemos hacer una ejecución remota de comandos en la barra de navegación debido a `*plot=*`, así que vamos a testearlo:
+The exploit tell us that we can perform a remote command execution 'RCE' in the navigation bar due to `*plot=*`, so let's test it:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Si hacemos uso de`whoami` , vemos que nos dice que somos www-data (al ser un servidor es correcto), por tanto, vamos a tirar un listado de archivos y ficheros a ver qué encontramos:
+If we use `whoami`, we see that it tell us we are the user **www-data**, so let's list the files and directories to see what we can find:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Encontramos varios archivos, pero el más interesante es log.txt, que si hacemos `plot=;cat log.txt` vamos a obtener historial de logins:
+As we can see, we found several files, the most interesting one is *log.txt*. If we use `plot=;cat log.txt` we will obtain a login history:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
-
-Por tanto, el usuario es *basterd* y la password es *superduperp@$$*, ahora sí podemos realizar una conexión ssh con dichas credenciales:
+*
+After doing that, we can see a username *basterd* and his password *superduperp@$$*. Thanks to these credentials, we are able to perform a *SSH* connection:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Al entrar vemos un archivo [backup.sh](http://backup.sh), si lo abrimos, encontramos el *user* y *password* de otro usuario, vamos a pivotar de usuario haciendo `su stoner` y poniendo su contraseña `superduperp@$$no1knows`, ahora si hacemos cd .. , vemos su directorio y podemos acceder a él.
+Once inside, we see a file called `backup.sh`. If we open it, we found the directory `/home/stoner`, which contains the username and his password.
 
-Ya tenemos la user_flag:
+Let's pivot to that user using `su stoner` and typing the following password: `superduperp@$$no1knows`. Now, if we navigate though directories, we find his directory and of course, we can access it.
+
+As a result, we obtain the flag:
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Suponemos que la flag está en el root, por tanto, vamos a escalar privilegios.
+Now, we want to find the root flag, which needs root privileges, so we need to find a way to escalate privileges.
 
-Vamos a comprobar si stoner puede ejecutar algún binario mediante `sudo -l` :
+To achieve this, first, let's check if the user *stoner* can execute binaries using `sudo -l` :
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Fuimos engañados otra vez, así que ahora vamos a comprobar si algún binario tiene el SUID activado:
+No luck, so let's find another way to escalate privileges such as checking the binaries with the SUID bit set:
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash" >find / -perm -4000 -type f -ls 2>/dev/null</code></pre>
+  </div>
+</div>
 
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Vemos que el binario a usar es el */find* buscamos en Google de ejecutar el exploit y ganamos acceso:
+As a result of the search, we can see that the binary is `/find`, so if we go to the following website [GTFObins-find](https://gtfobins.github.io/gtfobins/find/#suid), we found information on how to run the exploit.
 
+After that, we become a root user, and we have access to that file:
 <div style="text-align: center; ">
     <img src="../assets/images/Rooms/BoilerCTF/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" />
 </div>
 
-Listo hemos encontrado la root_flag así que hemos acabado el reto.
+Done, we have found the *root_flag*. And the challenge is solved.
 
 ---
