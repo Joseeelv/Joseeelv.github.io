@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>Jose's Portfolio | Pickle Rick</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Jose's Portfolio | Pickle Rick">
+<meta name="og:description" content="Pickle Rick es una máquina de Tryhackme, con ambientación en la serie animada Rick and Morty. En esta máquina debemos obtener los tres ingredientes para que Rick pueda realizar su poción. Haremos uso de una máquina con Linux, conocimientos sobre comandos de Linux y uso de herramientas y conocimientos sobre páginas web.">
+<meta name="og:image" content="../assets/images/Rooms/PickleRick/pickle.jpeg">
+<meta name="og:image:alt" content="Jose's Portfolio | Pickle Rick">
+<meta name="og:url" content="http://localhost:4000/temp/2024-08-07-PickleRick">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="Jose's Portfolio | Pickle Rick">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Jose's Portfolio | Pickle Rick">
+<meta name="twitter:description" content="Pickle Rick es una máquina de Tryhackme, con ambientación en la serie animada Rick and Morty. En esta máquina debemos obtener los tres ingredientes para que Rick pueda realizar su poción. Haremos uso de una máquina con Linux, conocimientos sobre comandos de Linux y uso de herramientas y conocimientos sobre páginas web.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Rooms/PickleRick/pickle.jpeg">
+<!-- Search Engine -->
+<meta name="description" content="Pickle Rick es una máquina de Tryhackme, con ambientación en la serie animada Rick and Morty. En esta máquina debemos obtener los tres ingredientes para que Rick pueda realizar su poción. Haremos uso de una máquina con Linux, conocimientos sobre comandos de Linux y uso de herramientas y conocimientos sobre páginas web.">
+<meta name="image" content="../assets/images/Rooms/PickleRick/pickle.jpeg">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Jose's Portfolio | Pickle Rick">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Pickle Rick es una máquina de Tryhackme, con ambientación en la serie animada Rick and Morty. En esta máquina debemos obtener los tres ingredientes para que Rick pueda realizar su poción. Haremos uso de una máquina con Linux, conocimientos sobre comandos de Linux y uso de herramientas y conocimientos sobre páginas web.">
+<meta itemprop="image" content="../assets/images/Rooms/PickleRick/pickle.jpeg">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>Jose's Portfolio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+                href="http://localhost:4000/">
+                    <img src="/assets/images/favicon.png" 
+                        alt="Site Icon" 
+                        style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                    <i class="/assest/images/favicon.png"></i>
+                    <strong>Jose's Portfolio</strong>
+                </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">WHOAMI</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">MACHINES</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/temp/2024-08-07-PickleRick" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Pickle Rick</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center;">
+              <img src="../assets/images/Rooms/PickleRick/pickle.jpeg" alt="Pickle Rick" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Pickle Rick es una máquina de Tryhackme, con ambientación en la serie animada Rick and Morty. En esta máquina debemos obtener los tres ingredientes para que Rick pueda realizar su poción. Haremos uso de una máquina con Linux, conocimientos sobre comandos de Linux y uso de herramientas y conocimientos sobre páginas web.
+            </p>
+            <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
+              <b><a href="https://tryhackme.com/r/room/picklerick" target="page.enlace">Pickle Rick</a></b>
+            </p>
+            
+            <!-- Dificultad -->
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Difficulty: 
+              <b>
+                <span class="tag difficulty fácil">
+                  Fácil
+                </span>
+              </b>
+            </p>
+
+            <!-- Sistema Operativo -->
+            
+
+            <!-- Skills -->
+            
+          </div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><h1 id="task-1-ingrediente-1">Task 1: Ingrediente 1</h1>
+
+<p>Como hemos leido en la introducción, esta máquina consiste en obtener los tres ingredientes de la poción de Rick.</p>
+
+<p>Primero, vamos a iniciar la máquina y gracias a eso vamos a obtener la IP de la máquina.Para empezar con este laboratorio vamos a hacer uso de la herramienta → <strong><em>Nmap.</em></strong>
+Gracias a ella vamos a obtener los puertos que la máquina tiene abiertos para ver si podemos aprovecharnos de eso.</p>
+<div style="text-align:left;">
+  <table>
+    <tr>
+      <td>
+        <div style="text-align:center;">
+          <img src="../assets/images/Rooms/PickleRick/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+        </div>
+      </td>
+      <td>
+        <div style="text-align:center;">
+          <img src="../assets/images/Rooms/PickleRick/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Perfecto, como vemos, tenemos un puerto 80 <em>http</em> (pagina web) y puerto 22 un servicio <em>ssh</em>. Como no tenemos ninguna credencial para realizar la conexión via <em>SSH</em>, vamos a ver que hay en la página web:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>De momento no encontramos información relevante sobre la página web, pero podemos ver el código fuente de la misma para poder encontrar información.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/a.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Bingo, tenemos un Username en un comentario. Ahora podemos proceder a realizar un escaneo de directorios de la página web. Mediante <code class="language-plaintext highlighter-rouge">gobuster</code> podemos realizar una búsqueda de directorios, donde podemos encontrar información.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos encontrado el directorio <code class="language-plaintext highlighter-rouge">/assets</code> y <code class="language-plaintext highlighter-rouge">/robots.txt</code>. Vamos a acceder a ambos:</p>
+<div sytle="text-align:left;">
+  <table>
+    <tr>
+      <td>
+        <div>
+          <img src="../assets/images/Rooms/PickleRick/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        </div>
+      </td>
+      <td>
+        <div>
+          <img src="../assets/images/Rooms/PickleRick/b.png" alt="Untitled" onclick="openModal(this.src)" style="width:200%; max-width:800px;" />
+        </div>
+        Contenido del directorio /robots.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>En robots.txt hemos encontrado una cadena de caracteres, no sabemos si puede ser un nuevo usuario o una contraseña.</p>
+
+<p>Si tenemos un username y una supuesta contraseña, podemos escribir <em>ip_maquina/login.php</em> para verificar si hay un login ya que existe un servicio <em>SSH</em> corriendo y podemos iniciar sesión con las credenciales obtenidas.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>En efecto, hemos podido iniciar sesión con las credeciales. Ahora encontramos como una consola donde podemos introducir comandos; tenemos un RCE (Ejecución Remota de Comandos), por ejemplo, vamos a tirar un listado de los archivos del directorio en el que nos encontramos actualmente mediante <code class="language-plaintext highlighter-rouge">ls -l</code>:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Como vemos al listar los archivos encontramos uno llamado <em>Sup3rS3cretPickl3Ingred.txt</em>, por tanto si accedemos a la ruta <code class="language-plaintext highlighter-rouge">&lt;ip_maquina&gt;/nombre_archivo.txt</code> encontramos la primera flag:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/c.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h1 id="task-2-ingrediente-2">Task 2: Ingrediente 2</h1>
+
+<p>El segundo ingrediente no está en este directorio (como es de esperar),por tanto, debemos de navegar por los demás directorios del servidor en busca de ella.</p>
+
+<p>Vamos a ver si nos podemos cambiar de directorios, con <code class="language-plaintext highlighter-rouge">cd ../../../../</code>, listamos otra vez y vemos que encontramos más directorios, por tanto, tenemos un <strong>path traversal</strong> en el servidor.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Hemos encontrado el directorio <code class="language-plaintext highlighter-rouge">/home</code>, <code class="language-plaintext highlighter-rouge">/root</code> entre otros, pero estos dos son los más importantes. Vamos a acceder primeramente al directorio <code class="language-plaintext highlighter-rouge">/home</code> en busca del siguiente ingrediente.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>WOW, hemos encontrado otros dos directorios, <code class="language-plaintext highlighter-rouge">/rick</code> y <code class="language-plaintext highlighter-rouge">/ubuntu</code>. Si accedemos al directorio <code class="language-plaintext highlighter-rouge">/rick</code>, vemos que hay un archivo que se llama <em>second ingredients</em></p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Perfecto, hemos obtenido el segundo ingrediente de la poción de Rick.</p>
+
+<h1 id="task-3-ingrediente-3">Task 3: Ingrediente 3</h1>
+
+<p>Por último, para poder buscar el tercer ingrediente, debemos de buscar en la carpeta ‘root’ que se encuentra en el directorio donde también se encuentra ‘home’, como he comentado antes.</p>
+
+<p>Pero hay un problema, solo puede acceder a ella usuario que tengan permisos de root, por lo que tendremos que buscar una manera de escalar privilegios para poder acceder a dicho directorio. Si hacemos uso del comando <code class="language-plaintext highlighter-rouge">sudo -l</code> podemos ver si el usuario actual puede ejecutar algún comando como sudo:</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Vemos que el usuario actual (www-data) tiene permisos para ejecutar todos los comandos como root → <code class="language-plaintext highlighter-rouge">(ALL) NOPASSWD: ALL</code>.</p>
+
+<p>Una cosa interesante es que haciendo <code class="language-plaintext highlighter-rouge">sudo su</code>no hacemos nada, si no que tenemos que realizar una lectura del archivo con privilegios root.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Rooms/PickleRick/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Finalmente encontramos el archivo que contiene el tercer ingrediente llamado <em>3rd.txt</em>, donde ejecutamos el comando → <code class="language-plaintext highlighter-rouge">sudo less /root/"3rd.txt"</code>, podremos ver su contenido debido a que ese comando se ejecuta con privilegios root.</p>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <!-- <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <!-- <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hi! I'm Jose Luis Venega, a Computer Engineering student at the Universi...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+
+            <!--Link Section
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div> -->
+
+            <!--Blog-post Section-->
+            <!-- <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Chemistry">Chemistry</a>
+                </li>
+                
+            </div>
+        </div> -->
+    </div> -->
+    <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | A Theme made by <a href="https://github.com/Joseeelv" target="_blank" rel="noopener noreferrer">Joseeelv</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div>
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <!-- Prism.js Script -->
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(event) {
+      const button = event.target;
+      const codeContainer = button.closest('.code-container');
+      const codeElement = codeContainer.querySelector('code');
+    
+      if (!codeElement) {
+        console.error('No se encontró el elemento <code> para copiar.');
+        return;
+      }
+
+      const code = codeElement.textContent;
+
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = 'Copied!';
+
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000); // 2000 ms = 2 segundos
+
+      }).catch(err => {
+        console.error('Error al copiar al portapapeles: ', err);
+      });
+    }
+
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', copyToClipboard);
+    });
+
+    function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation();
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

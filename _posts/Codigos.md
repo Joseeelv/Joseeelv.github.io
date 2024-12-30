@@ -33,3 +33,9 @@
     <pre><code class="language-bash" >hydra -l username -P /&lt;path_to_wordlist&gt; &lt;Protocol&gt;::&lt;//target_IP&gt;</code></pre>
   </div>
 </div>
+
+# Imagen
+
+ <div style="text-align: center;">
+          <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;">
+        </div>

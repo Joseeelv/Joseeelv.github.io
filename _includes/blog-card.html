@@ -2,17 +2,34 @@
     <div class="column is-marginless is-paddingless is-one-third-desktop is-one-third-fullhd is-one-third-tablet">
         <div class="image is-16by9" style="background-image: url({{post.post-image}});"></div>
     </div>
-    <a href="{{post.url | absolute_url}}">
-        <div class="column has-text-left-desktop has-text-left-tablet">
-            <h1 class="title is-size-4-touch">{{post.title}}</h1>
-            <div class="content has-text-grey">
-                {{ post.description | truncate: 300 | strip_html | strip_newlines | strip | escape }}
-                <hr class="has-background-grey">
-                <span class="has-text-grey">Published on <span class="has-text-weight-semibold">{{ post.date | date: "%-B %d, %Y" }}</span></span> | <i class="fas fa-clock"></i> 
-            </div>
-            <div class="difficulty is-size-6-touch">
-                <strong>CTF difficulty:</strong> {{ post.difficulty }}
-            </div>
+    <a href="{{ post.url | absolute_url }}" class="column has-text-left-desktop has-text-left-tablet">
+        <!-- Título y descripción -->
+        <h1 class="title is-size-4-touch">{{ post.title }}</h1>
+        <div class="content has-text-grey">
+            {{ post.description | truncate: 300 | strip_html | strip_newlines | strip | escape }}
+            <hr class="has-background-grey">
         </div>
+
+        <!-- Dificultad del CTF -->
+        <div class="difficulty is-size-6-touch">
+            <strong>Difficulty:</strong> 
+            <span class="tag difficulty {{ post.difficulty | downcase }}">
+                {{ post.difficulty }}
+            </span>
+        </div>
+
+        <!-- Sistema Operativo -->
+        {% if post.os %}
+        <div class="os is-size-6-touch">
+            <strong>Operating System:</strong> {{ post.os }}
+        </div>
+        {% endif %}
+
+        <!-- Skills -->
+        {% if post.skills %}
+        <div class="skills is-size-6-touch">
+            <strong>Skills:</strong> {{ post.skills | join: ', ' }}
+        </div>
+        {% endif %}
     </a>
 </div>

@@ -12,7 +12,7 @@ url: 'https://joseeelv.github.io/'
 baseurl: 
 
 # Title of the Site
-title: CyberWiki
+title: Jose's Portfolio
 # Description of the Site
 description: Welcome to my hacking website
 # URL of Image of the Site
@@ -47,10 +47,10 @@ author-name: Jose Luis Venega
 # URL for the Image of the Author
 author-image: "/assets/images/me.png"
 # 60 Words About the Author
-author-about: Hello, I am Jose Luis Venega Sánchez, a student of Computer Science at the University of Cadiz, and I am passionate about the field of Cybersecurity.
-# author-about: Hola, soy Jose Luis Venega Sánchez, estudiante del grado de Ingeniería Informática en la Universidad de Cádiz y soy un apasionado del mundo de la Ciberseguridad.
+author-about: Hi! I'm Jose Luis Venega, a Computer Engineering student at the University of Cádiz. Alongside my studies, I focus on enhancing my skills in ethical hacking, with a particular emphasis on penetration testing. I dedicate my time to solving practical labs and challenges on platforms such as Hack The Box and VulnHub, while also actively participating in CTF competitions, where I apply my expertise in cybersecurity and technical problem-solving.
 
-# URL to the Author's Profile (i.e., Github, Twitter, Stackoverflow, etc)
+
+# URL to the Author's Profile (i.e., Github, Twitter, Stackoverflow, etc)ZZ
 author-url: https://github.com/Joseeelv
 
 # SASS

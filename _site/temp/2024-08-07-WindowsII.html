@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>Jose's Portfolio | Aspectos Básicos de Windows II</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Jose's Portfolio | Aspectos Básicos de Windows II">
+<meta name="og:description" content="Este es el segundo módulo introductorio de Windows que aborda una introducción a las herramientas y configuraciones esenciales del sistema operativo Windows. Se exploran varias utilidades y configuraciones avanzadas que son fundamentales para la administración y optimización del sistema.">
+<meta name="og:image" content="../assets/images/Labs/WindowsII/windows.png">
+<meta name="og:image:alt" content="Jose's Portfolio | Aspectos Básicos de Windows II">
+<meta name="og:url" content="http://localhost:4000/temp/2024-08-07-WindowsII">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="Jose's Portfolio | Aspectos Básicos de Windows II">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Jose's Portfolio | Aspectos Básicos de Windows II">
+<meta name="twitter:description" content="Este es el segundo módulo introductorio de Windows que aborda una introducción a las herramientas y configuraciones esenciales del sistema operativo Windows. Se exploran varias utilidades y configuraciones avanzadas que son fundamentales para la administración y optimización del sistema.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Labs/WindowsII/windows.png">
+<!-- Search Engine -->
+<meta name="description" content="Este es el segundo módulo introductorio de Windows que aborda una introducción a las herramientas y configuraciones esenciales del sistema operativo Windows. Se exploran varias utilidades y configuraciones avanzadas que son fundamentales para la administración y optimización del sistema.">
+<meta name="image" content="../assets/images/Labs/WindowsII/windows.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Jose's Portfolio | Aspectos Básicos de Windows II">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Este es el segundo módulo introductorio de Windows que aborda una introducción a las herramientas y configuraciones esenciales del sistema operativo Windows. Se exploran varias utilidades y configuraciones avanzadas que son fundamentales para la administración y optimización del sistema.">
+<meta itemprop="image" content="../assets/images/Labs/WindowsII/windows.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>Jose's Portfolio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+                href="http://localhost:4000/">
+                    <img src="/assets/images/favicon.png" 
+                        alt="Site Icon" 
+                        style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                    <i class="/assest/images/favicon.png"></i>
+                    <strong>Jose's Portfolio</strong>
+                </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">WHOAMI</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">MACHINES</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/temp/2024-08-07-WindowsII" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Aspectos Básicos de Windows II</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center;">
+              <img src="../assets/images/Labs/WindowsII/windows.png" alt="Aspectos Básicos de Windows II" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Este es el segundo módulo introductorio de Windows que aborda una introducción a las herramientas y configuraciones esenciales del sistema operativo Windows. Se exploran varias utilidades y configuraciones avanzadas que son fundamentales para la administración y optimización del sistema.
+            </p>
+            <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
+              <b><a href="https://tryhackme.com/room/windowsfundamentals2x0x" target="page.enlace">Aspectos Básicos de Windows II</a></b>
+            </p>
+            
+            <!-- Dificultad -->
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Difficulty: 
+              <b>
+                <span class="tag difficulty fácil">
+                  Fácil
+                </span>
+              </b>
+            </p>
+
+            <!-- Sistema Operativo -->
+            
+
+            <!-- Skills -->
+            
+          </div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><blockquote>
+  <p>En esta parte vamos a ver sobre las Configuración del sistema, Configuración de UAC, supervisar recursos, el registro de Windows, etc.</p>
+</blockquote>
+
+<h1 id="configuración-del-sistema">Configuración del sistema</h1>
+<div style="text-align:left">
+  <table>
+    <tr>
+      <td style="width:50%; vertical-align:top;">
+        <code>MSConfig</code> se usa para la solución avanzada de problemas y su objetivo principal es ayudar a diagnosticar problemas de inicio.<br /><br />Para acceder a la configuración del sistema primero pulsamos las teclas <strong>Windows+R</strong> y tecleamos <code>msconfig</code>, así accederemos a la pestaña de configuración del sistema.
+      </td>
+      <td>
+        <div style="text-align:left;">
+          <img src="../assets/images/Labs/WindowsII/image-20230919002044114.png" alt="Untitled" onclick="openModal(this.src)" style="width:50%;" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Después de realizar esto nos aparecerá una ventana que contiene 5 pestañas:</p>
+<ul>
+  <li><strong>General</strong>: Podemos seleccionar el tipo de inicio que tendrá la computadora, seleccionando si queremos que cargar servicios del sistema o elementos de inicio.</li>
+  <div style="text-align:center;">
+    <img src="../assets/images/Labs/WindowsII/image-20230919002324995.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+  <li><strong>Arranque</strong>: Podemos definir varias opciones de arranque para el propio sistema operativo como por ejemplo, que se inicie sin la interfaz de arranque.</li>
+  <div style="text-align:center;">
+    <img src="../assets/images/Labs/WindowsII/image-20230919002621422.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+  <li><strong> Servicios</strong>: Encontramos todos los servicios del sistema ya sean de Windows o de programas de terceros.</li>
+  <div style="text-align:center;">
+    <img src="../assets/images/Labs/WindowsII/image-20230919002642237.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+  <li><strong>Inicio de Windows</strong>: Solo nos muestra una pantalla del administrador de tareas donde se encuentran que procesos se iniciarán cuando se arranque el sistema operativo, pudiendo así seleccionar si queremos que se ejecuten o no.</li>
+  
+  <li><strong>Herramientas</strong>: Encontramos todas las herramientas que podemos ejecutar para seguir configurando aun más el sistema operativo.</li>
+  
+</ul>
+
+<h1 id="cambiar-configuración-de-uac">Cambiar configuración de UAC</h1>
+
+<p>Es una de las herramientas que se encuentran en el apartado de ‘Herramientas’ de la <strong>Configuración del sistema</strong>.</p>
+
+<p>El Control de cuentas de usuario (UAC) se puede cambiar o desactivar por completo (algo no recomendable).
+Para acceder a la configuración del control de cuentas solo basta con escribir UAC en la barra de búsqueda.</p>
+
+<p>Encontramos una barra deslizante que nos permite configurar varios grados de notificaciones.</p>
+
+<h1 id="administración-de-equipos">Administración de equipos</h1>
+
+<p>Es otra herramienta pertenecientes a la <strong>Configuración del sistema</strong>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Compmgmt</code> ó Administración de equipos contiene tres secciones principales:</p>
+<div style="text-align:center">
+  <table>
+    <tr>
+      <td style="text-align:left; vertical-align:top;"><ol>
+        <li>Herramientas del sistema.</li>
+        <li>Alamacenamiento.</li>
+        <li>Servicios y aplicaciones</li>
+      </ol></td>
+      <td>
+        <div style="text-align:center">
+          <img src="../assets/images/Labs/WindowsII/image-20230919004854284.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+      </div></td>
+    </tr>
+  </table>
+</div>
+
+<h2 id="herramientas-del-sistema">Herramientas del sistema</h2>
+
+<p>Encontramos el <strong>Programador de tareas</strong> con el cual podemos crear y gestionar tareas (ejecutar una aplicación, un script, ..) comunes que nuestro ordenador llevará a cabo automáticamente en los momentos que se especifique (al inicio o fin de sesión, en un horario determinado,..) muy parecido a <code class="language-plaintext highlighter-rouge">cron</code> de Linux.</p>
+
+<p>Para crear una tarea cualquiera vamos a <strong>Acciones</strong> que se encuentra en el panel derecho y clicamos en ‘Crear tarea’.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Labs/WindowsII/image-20230919004623102.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Ahora el <strong>Visor de eventos</strong> nos permite visualizar los eventos que se han producido en el equipo, estos registros pueden servir para comprender la actividad del sistema.
+El visor contiene tres paneles:</p>
+
+<ul>
+  <li>El de la izquierda muestra un árbol jerárquico de los proveedores de los registros de evento.</li>
+  <li>En del centro muestra una descripción general y un resumen de los eventos.</li>
+  <li>El de la derecha es el panel de acciones.</li>
+</ul>
+
+<p>En <strong>Carpetas compartidas</strong> encontraremos una lista completa de los recursos y carpetas compartidas donde otros pueden conectarse, en <strong>Sesiones</strong> encontramos una lista de usuarios que están conectados a los recursos compartidos y en <strong>Archivos abiertos</strong> están las carpetas/archivos a los que acceden los usuarios.</p>
+
+<p>En <strong>Usuario y grupos locales</strong> encontramos los usuarios y los grupos del equipo, véase en <a href="https://joseeelv.github.io//blog/WindowsI">Aspectos Básicos de Windows I</a></p>
+
+<p>En <strong>Rendimiento</strong> encontramos el Monitor de rendimiento <code class="language-plaintext highlighter-rouge">perfom</code>, este se utiliza para ver los datos de rendimiento en tiempo real o desde un archivo de registro, es una buena manera de solucionar problemas orientados al rendimiento ya sea en equipos locales o remotos.</p>
+
+<p>El <strong>Administrador de dispositivos</strong> nos permite ver y configurar el hardware del equipo, también podemos deshabilitar, buscar actualizaciones de drivers..</p>
+
+<h2 id="almacenamiento">Almacenamiento</h2>
+
+<p>Aquí están las <strong>Copias de seguridad de Windows Server</strong> y <strong>Administración de discos</strong>.</p>
+
+<p>En la Administración de discos podemos realizar tareas avanzadas de almacenamiento:</p>
+
+<ul>
+  <li>Configurar una nueva unidad de almacenamiento.</li>
+  <li>Extender o reducir una partición.</li>
+  <li>Asignar o cambiar un letra de unidad.</li>
+</ul>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Labs/WindowsII/image-20230919010733469.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h2 id="servicio-y-aplicaciones">Servicio y aplicaciones</h2>
+
+<p>Encontramos todos los <strong>servicios</strong> del sistema (aplicación que se ejecuta en segundo plano).
+Podemos ver las propiedades, habilitar o deshabilitar un servicio.</p>
+
+<p>Por otro lado, se encuentra el <strong>Control WMI</strong> (Instrumental de administración de Windows),actualmente en desuso debido a que la <strong>Powershell</strong> reemplaza esta herramienta.</p>
+
+<h1 id="información-del-sistema">Información del sistema</h1>
+
+<p><code class="language-plaintext highlighter-rouge">Msinfo32</code> recopila información sobre la computadora y muestra una vista completa del hardware, software y componentes del sistema de la misma.</p>
+
+<p>Esta información la podemos dividir en varias secciones:</p>
+
+<div style="text-align:center">
+  <table>
+    <tr>
+      <td style="text-align:left; vertical-align:top;"><ol>
+        <li>Recursos de hardware.</li>
+        <li>Componentes.</li>
+        <li>Entorno de software.</li>
+      </ol></td>
+      <td style="text-align:center; vertical-align:top;">
+        <div style="text-align:center">
+          <img src="../assets/images/Labs/WindowsII/Untitled.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+        </div>
+        En la pestaña por defecto Resumen del sistema encontramos información sobre el equipo.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h2 id="recursos-de-hardware">Recursos de hardware</h2>
+
+<p>Contiene información sobre el hardware del equipo, esta información no es para un usuario casual.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Labs/WindowsII/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
+
+<h2 id="entorno-de-software">Entorno de software</h2>
+
+<p>En esta sección, podemos ver información relacionada con el sistema operativo, además del software instalado.
+También encontramos las <em>variables de entorno</em> (situada en la carpeta Windows\System32 vista en <strong>enlace a pagina</strong>) y <em>conexiones de red</em>.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Labs/WindowsII/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
+
+<h3 id="variables-de-entorno">Variables de entorno</h3>
+
+<p>Almacenan datos que utilizan tanto el sistema operativo como las aplicaciones instaladas en el sistema.</p>
+
+<p>Por ejemplo, la variable <code class="language-plaintext highlighter-rouge">PATH</code> contiene la dirección/ruta del archivo ejecutable.</p>
+
+<p>Otra manera de acceder a las Variables de entorno mediante el panel de control
+<em>Panel de control → Sistema y seguridad → Sistema → Configuración avanzada del sistema → Variables de entorno.</em></p>
+
+<h2 id="componentes">Componentes</h2>
+
+<p>Aquí podemos ver la información específica de los componentes hardware del sistema.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Labs/WindowsII/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+</div>
+
+<h1 id="monitor-de-recursos">Monitor de recursos</h1>
+
+<p><code class="language-plaintext highlighter-rouge">Resmon</code> muestra información sobre la CPU, memoria, discos y red, además proporciona información sobre procesos.</p>
+
+<p>Podemos iniciar, detener, pausar y reanudar servicios y cerrar aplicaciones cuando no respondan en la interfaz de usuario (GUI).
+También podemos ver información sobre procesos estancados y conflictos de bloqueos de archivos.</p>
+
+<h1 id="símbolo-del-sistema">Símbolo del sistema</h1>
+
+<p>El <code class="language-plaintext highlighter-rouge">cmd</code> es la consola de Windows, <strong>NO</strong> hace uso de los mismos comandos de Linux a diferencia de la <em>Powershell</em>, hay algunos comandos que son iguales pero en líneas generales no.</p>
+
+<p>Esta línea de comandos es muy potente a la hora de interactuar con el sistema operativo, ya que podemos obtener información sobre el equipo, de la red y más.</p>
+
+<p>El comando <code class="language-plaintext highlighter-rouge">hostname</code> nos devuelve el nombre del equipo, <code class="language-plaintext highlighter-rouge">whoami</code> nos devuelve el nombre del usuario, el comando <code class="language-plaintext highlighter-rouge">ipconfig</code> muestra la configuración de la dirección de red del equipo.</p>
+
+<p>El manual de ayuda de cualquier comando se realiza: <code class="language-plaintext highlighter-rouge">nombre_comando /?</code>, esto nos mostrará información sobre el comando <code class="language-plaintext highlighter-rouge">ipconfig</code>.</p>
+
+<p>Para borrar lo mostrado por pantalla escribimos el comando <code class="language-plaintext highlighter-rouge">cls</code>.</p>
+
+<p>El comando <code class="language-plaintext highlighter-rouge">netstat</code> muestra estadísticas del protocolo TCP/IP, <code class="language-plaintext highlighter-rouge">net</code> se utiliza para administrar los recursos de la red (permite subcomandos).</p>
+
+<h1 id="editor-de-registro">Editor de registro</h1>
+
+<p><code class="language-plaintext highlighter-rouge">Regedit</code>, según Microsoft, es una base de datos jerárquica central que se utiliza para almacenar información para configurar el sistema para uno o varios usuarios, aplicaciones y dispositivos hardware.</p>
+
+<p>Este registro contiene información sobre perfiles de usuario, aplicaciones instaladas en el sistema, hardware del sistema, puertos que se están utilizando. Windows hace referencia de esta información continuamente.</p>
+
+<p>Realizar cambios en el registro puede afectar a las operaciones normales de la computadora, es decir, el registro está orientado a usuarios avanzados del sistema.</p>
+
+<div style="text-align:center;">
+  <img src="../assets/images/Labs/WindowsII/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px" />
+</div>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <!-- <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <!-- <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hi! I'm Jose Luis Venega, a Computer Engineering student at the Universi...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+
+            <!--Link Section
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div> -->
+
+            <!--Blog-post Section-->
+            <!-- <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Chemistry">Chemistry</a>
+                </li>
+                
+            </div>
+        </div> -->
+    </div> -->
+    <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | A Theme made by <a href="https://github.com/Joseeelv" target="_blank" rel="noopener noreferrer">Joseeelv</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div>
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <!-- Prism.js Script -->
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(event) {
+      const button = event.target;
+      const codeContainer = button.closest('.code-container');
+      const codeElement = codeContainer.querySelector('code');
+    
+      if (!codeElement) {
+        console.error('No se encontró el elemento <code> para copiar.');
+        return;
+      }
+
+      const code = codeElement.textContent;
+
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = 'Copied!';
+
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000); // 2000 ms = 2 segundos
+
+      }).catch(err => {
+        console.error('Error al copiar al portapapeles: ', err);
+      });
+    }
+
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', copyToClipboard);
+    });
+
+    function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation();
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

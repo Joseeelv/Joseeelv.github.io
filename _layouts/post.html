@@ -4,56 +4,52 @@
   {% include head.html %}
 </head>
 
-
-
 <body>
   {% include navbar.html %}
   <section class="hero is-fullheight has-text-centered" id="post">
     <div class="hero-body">
       <div class="container">
-        <a href="{{page.url | relative_url}}" class="has-text-black" id="title">
-          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">{{page.title}}</h1>
+        <a href="{{ page.url | relative_url }}" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">{{ page.title }}</h1>
         </a>
         <hr class="has-background-black">
         <div class="columns is-variable is-5 has-text-centered">
           <div class="column is-6">
-            <div style="text-align: center; ">
-              <img src="{{page.post-image}}" alt="{{page.title}}" id="post-image">
+            <div style="text-align: center;">
+              <img src="{{ page.post-image }}" alt="{{ page.title }}" id="post-image">
             </div>
           </div>
-          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;" ">
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;">
             {% unless page.description.size == 0 %}
             <p id="description" class="content is-small has-text-weight-medium is-uppercase">
-              {{page.description | strip | strip_html | strip_newlines }}
-              <!-- Enlace añadido aquí -->
-              <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
-                <b><a href="{{ page.enlace | escape }}" target="page.enlace">{{page.title}}</a></b>
-              </p>
-                {% endunless %}
-              <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">LAB difficulty: 
-                <b>{{ page.difficulty | escape }}</b>
-              </p>
-            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Published on
-              <b>{{ page.date | date: "%-B %d, %Y" }}</b> by <a href="{% if site.author-url %}{{site.author-url}}{% else %}{{site.url}}{{site.baseurl}}/#about{% endif %}" target="_blank"><b class="has-text-link"><u>{{site.author-name}}</u></b>
-              </a>
+              {{ page.description | strip | strip_html | strip_newlines }}
             </p>
-            {%- assign tags = page.tags -%}
-            {%- unless tags.size == 0 -%}
-            <p class="subtitle is-uppercase">
-              <i class="fas fa-tags"></i>
-              {% assign i = 0 %}
-              {% for tags in page.tags %}
-              <span class="tag is-link">{{page.tags[i]}}</span>
-              {% assign i = i | plus:1 %}
-              {% endfor %}
+            <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
+              <b><a href="{{ page.enlace | escape }}" target="page.enlace">{{ page.title }}</a></b>
             </p>
-            {%- endunless -%}
-            {% assign words = content | number_of_words %}
-            {%- unless content.size == 0 -%}
-            <!-- <p class="subtitle is-uppercase"><i class="fas fa-clock"></i> <b class="has-text-link">
-                {{ words | divided_by:180 }} min
-              </b>READ</p> -->
-            {%- endunless -%}
+            {% endunless %}
+            <!-- Dificultad -->
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Difficulty: 
+              <b>
+                <span class="tag difficulty {{ page.difficulty | downcase }}">
+                  {{ page.difficulty }}
+                </span>
+              </b>
+            </p>
+
+            <!-- Sistema Operativo -->
+            {% if page.os %}
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Operating System: 
+              <b>{{ page.os }}</b>
+            </p>
+            {% endif %}
+
+            <!-- Skills -->
+            {% if page.skills %}
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Skills: 
+              <b>{{ page.skills | join: ', ' }}</b>
+            </p>
+            {% endif %}
           </div>
         </div>
         <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
@@ -72,43 +68,39 @@
     <span class="close" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="img01">
   </div>
- <!-- Prism.js Script -->
+
+  <!-- Prism.js Script -->
   <script src="../prism.js"></script>
   <script>
     function copyToClipboard(event) {
-    // Obtén el botón que fue clickeado
-    const button = event.target;
-
-    // Encuentra el bloque de código asociado al botón
-    const codeContainer = button.closest('.code-container');
-    const codeElement = codeContainer.querySelector('code');
+      const button = event.target;
+      const codeContainer = button.closest('.code-container');
+      const codeElement = codeContainer.querySelector('code');
     
-    if (!codeElement) {
+      if (!codeElement) {
         console.error('No se encontró el elemento <code> para copiar.');
         return;
-    }
+      }
 
-    const code = codeElement.textContent;
+      const code = codeElement.textContent;
 
-    // Usa la API moderna de Clipboard para copiar el texto
-    navigator.clipboard.writeText(code).then(() => {
-        // Cambia el texto del botón a 'Copiado'
+      navigator.clipboard.writeText(code).then(() => {
         button.textContent = 'Copied!';
 
-        // Opcional: Restaura el texto del botón después de un breve período
         setTimeout(() => {
-            button.textContent = 'Copy';
+          button.textContent = 'Copy';
         }, 2000); // 2000 ms = 2 segundos
 
-    }).catch(err => {
-        // Maneja errores (opcional)
+      }).catch(err => {
         console.error('Error al copiar al portapapeles: ', err);
+      });
+    }
+
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', copyToClipboard);
     });
-}
-        document.querySelectorAll('.copy-button').forEach(button => {
-          button.addEventListener('click', copyToClipboard);
-        });
-      function openModal(imgSrc) {
+
+    function openModal(imgSrc) {
       var modal = document.getElementById("myModal");
       var modalImg = document.getElementById("img01");
 
@@ -120,7 +112,7 @@
     }
 
     function closeModal(event) {
-      if (event) event.stopPropagation(); // Prevents closing when clicking the close button
+      if (event) event.stopPropagation();
       var modal = document.getElementById("myModal");
       modal.classList.remove('show');
       setTimeout(function() {
@@ -128,7 +120,6 @@
       }, 300); // Match this duration with the CSS animation duration
     }
 
-    // Close modal when clicking outside the content
     window.onclick = function(event) {
       var modal = document.getElementById("myModal");
       if (event.target == modal) {

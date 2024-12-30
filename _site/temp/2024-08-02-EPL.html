@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>Jose's Portfolio | Linux Privilege Escalation</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Jose's Portfolio | Linux Privilege Escalation">
+<meta name="og:description" content="This Lab covers different ways to escalate privilege on Linux Systems.">
+<meta name="og:image" content="../assets/images/Labs/EPL/p.png">
+<meta name="og:image:alt" content="Jose's Portfolio | Linux Privilege Escalation">
+<meta name="og:url" content="http://localhost:4000/temp/2024-08-02-EPL">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="Jose's Portfolio | Linux Privilege Escalation">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Jose's Portfolio | Linux Privilege Escalation">
+<meta name="twitter:description" content="This Lab covers different ways to escalate privilege on Linux Systems.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="../assets/images/Labs/EPL/p.png">
+<!-- Search Engine -->
+<meta name="description" content="This Lab covers different ways to escalate privilege on Linux Systems.">
+<meta name="image" content="../assets/images/Labs/EPL/p.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Jose's Portfolio | Linux Privilege Escalation">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="This Lab covers different ways to escalate privilege on Linux Systems.">
+<meta itemprop="image" content="../assets/images/Labs/EPL/p.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>Jose's Portfolio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+                href="http://localhost:4000/">
+                    <img src="/assets/images/favicon.png" 
+                        alt="Site Icon" 
+                        style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                    <i class="/assest/images/favicon.png"></i>
+                    <strong>Jose's Portfolio</strong>
+                </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">WHOAMI</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">MACHINES</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/temp/2024-08-02-EPL" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Linux Privilege Escalation</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center;">
+              <img src="../assets/images/Labs/EPL/p.png" alt="Linux Privilege Escalation" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              This Lab covers different ways to escalate privilege on Linux Systems.
+            </p>
+            <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
+              <b><a href="https://tryhackme.com/r/room/linprivesc" target="page.enlace">Linux Privilege Escalation</a></b>
+            </p>
+            
+            <!-- Dificultad -->
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Difficulty: 
+              <b>
+                <span class="tag difficulty medium">
+                  Medium
+                </span>
+              </b>
+            </p>
+
+            <!-- Sistema Operativo -->
+            
+
+            <!-- Skills -->
+            
+          </div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><p>Privilege escalation consists of exploiting a system vulnerability to gain unauthorized access from a low-privilege account to one with higher privileges e.g root account (this one has all the permissions in the system)</p>
+
+<p>Through these processes, we can perform several tasks such as:</p>
+<ul>
+  <li>Resetting passwords.</li>
+  <li>Bypassing protected data access control.</li>
+  <li>Enabling persistence.</li>
+  <li>Modifying system configuration.</li>
+  <li>Changing users privilege.</li>
+</ul>
+
+<h1 id="enumeration">Enumeration</h1>
+
+<p>Enumeration is the first step to gaining access to any system. As we mentioned earlier, by exploring a critical system vulnerability, we can gain access to a high-privilege account or even an superuser account (root). To archive this, we should know about several enumeration methods.</p>
+
+<h2 id="hostname">Hostname</h2>
+
+<p>The <code>hostname</code> command returns the name of out target machine, which can sometimes provides useful information to understand the role of the machine within the network.</p>
+
+<h2 id="uname--a">Uname -a</h2>
+
+<p>With the <code>uname -a</code> command, we can display additional information about the kernel the system is using. This is very useful for finding <em>kernel-level vulnerabilities</em>, in order to escalate privileges.</p>
+
+<h2 id="procversion">/proc/version</h2>
+<p>If we look in the <code>/proc/version</code> directory, we can see the kernel version and additional data, and the filesystem proc (<em>procfs</em>) provides information about the processes on the target system.</p>
+
+<h2 id="etcissue">/etc/issue</h2>
+
+<p>The system can also be identified by consulting the <code>/etc/issue</code> file, which contains information about the O.S but this can easily be customized or changed.</p>
+
+<h2 id="ps--pspy-commands">Ps &amp; pspy commands</h2>
+
+<p>The <code>ps</code> command show us all the processes running on the Linux system, where the following is displayed:</p>
+<ul>
+  <li>PID: Process ID.</li>
+  <li>TTY: Type of terminal used.</li>
+  <li>Time: Amount of CPU usage time.</li>
+  <li>CMD: Command or executable that is running.</li>
+</ul>
+
+<p>This command offers several options such as <code>ps -A</code>, where we see all processes or <code>ps aux</code>, where it shows all processes of all users (a), the command that launches (u), and shows processes that are not linked to the terminal (x).</p>
+
+<p>By seeing the output of the <code>ps</code> command, we can better understand the system and possible vulnerabilities in it.</p>
+
+<p>However, the <code>ps</code> may not show us some of the desired processes, so we will make use of the <code>pspy</code> command.</p>
+<h2 id="env-command">Env command</h2>
+
+<p>The <code>env</code> command displays the environmental variables:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>The variable <code>*PATH*</code> is the path used by the shell to execute commands and executables (without having to specify the path), if we alter in our favour, we will be able to access files without having the necessary privileges to do it in a normal way.</p>
+
+<h2 id="sudo-l-command">Sudo-l command</h2>
+
+<p>With the <code>sudo -l</code> command we can list the commands that the user can use to become the root user, i.e. list of the commands that the user can execute using <em>sudo</em>.</p>
+
+<p>This does not implies that they are always executed as root, but the can give permissions to execute files such as <code>www-data</code>.</p>
+
+<h2 id="ls-command">Ls command</h2>
+
+<p>The <code>ls</code> command allows us to list files and directories, it is one of the most common, but when it comes to privilege escalation it is very useful as it can help us to find hidden files or directories, this can be done with <code>ls -la</code> command.</p>
+
+<p>In this example we see how using <code>ls</code> shows us nothing, but if we use <code>ls -la</code> we find a files called <em>secret.txt</em>.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 1.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<h2 id="id-command">Id command</h2>
+
+<p>With this command, we can obtain information about the privilege level of a group of users or the user.</p>
+
+<h2 id="etcpasswd">/etc/passwd</h2>
+
+<p>In the directory file <code>/etc/passwd</code> we will find all system users.</p>
+
+<p>If we do a <code>cat /etc/passwd</code> we will get as output:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 2.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We can make it more readable and use it as a list for brute force attacks by doing <code>cat /etc/passwd | cut -d ":" -f 1</code>, where we cut from “:” and only keep the first column:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 3.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<h2 id="history-command">History command</h2>
+
+<p>If we type <code>history</code> in the terminal, it will return the inputs that have been previously typed in the terminal, here we can find privilege information.</p>
+
+<h2 id="ifconfig-command">Ifconfig command</h2>
+
+<p>It may be that our target machine is pivoting to another network, so by using <code>ifconfig</code> command, we can see information about the machine`s network interfaces.</p>
+
+<h2 id="netstat-command">Netstat command</h2>
+
+<p>With <code>netstat -a</code> we can check the existing network interfaces and routes of a certain machine, using the <code>netstat -a</code> command we can see all the opening ports and established connections, with <code>netstat -at</code> (TCP connections),<code>netstat -au</code> (UDP connections) and with <code>nestat -l</code> we list the ports that are in listening mode.</p>
+
+<p>With <code>nestat -s</code> we list the network usage statistics for each protocol, and we can specify the protocol using <code>-t</code> (TCP) or <code>-u</code> (UDP).</p>
+
+<h2 id="find-command">Find command</h2>
+<p>This command is very useful for searching binaries with the SUID bit set,
+which can be executed by the user in order to escalate privileges. We can use <code>2&gt;/dev/null</code> to redirect the errors to <em>/dev/null</em> and only displays the result without errors.</p>
+
+<p>To perform a search, it would be → <code>find / -type f -name &lt;filename&gt; 2&gt;/dev/null</code>, with the option <code>-type f</code> we are searching files with a specific name starting from the root directory &lt;/code&gt;/&lt;/code&gt;.</p>
+
+<p>As we mentioned earlier, we can use <code>find</code> to search binaries with the SUID bit set to escalate privileges. For this, we would use  <code>find / -perm -4000 2&gt;/dev/null</code> or <code>find / -perm -4000 -type f -exec ls -ld {} \; 2&gt;/dev/null</code>, where for each file it finds, it will execute the <code>ls -ld</code> command, where <code>{}</code> is replaced by the name of each file and <code>\;</code> marks the end of the <code>-exec</code> command.</p>
+
+<p>This second search is more complete because it can help us find the binary to execute the vulnerability.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 4.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h1 id="privilege-escalation-linux-kernel-exploits">Privilege Escalation: Linux Kernel Exploits</h1>
+
+<p>The Linux kernel manage the communications between various components such as system memory, apps and so on..</p>
+
+<p>Any of these functions must have sufficient permissions to be carried out, so exploiting such a vulnerability will grant root permissions.</p>
+
+<p>The methodology to follow is:</p>
+
+<ol>
+  <li>Identify the kernel version.</li>
+  <li>Search and find an exploit for that kernel version</li>
+  <li>Execute the exploit.</li>
+</ol>
+
+<p>Although this seems very simple, if the kernel fails, a system crash will occur.</p>
+
+<h3 id="practical-example">Practical example:</h3>
+
+<p>To identify the Linux system kernel, we will use the following command → <code>uname -a</code>:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 5.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>After the name <em>wade7363</em>, we find the system kernel version, if we search on Google for any CVE related to that kernel version, we find → <a href="https://www.exploit-db.com/exploits/37292">Exploit-DB</a></p>
+
+<p>Here we find a script which allows us to exploit the system kernel, to do this:</p>
+
+<p>First of all, we navigate to the directory <em>/tmp</em> of our machine → <code>cd /tmp</code> and we create a new file with a “.c” extension → <code>touch exploit.c</code>.</p>
+
+<p>Next, we copy the exploit code and paste it into our file created with <code>touch</code>.</p>
+
+<p>Using the command <code>python3 -m http.server 8080</code>, we create a server, and on the target machine we use the command <code>wget</code>:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 6.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>The connection is made and the file is downloaded to the target machine.</p>
+
+<p>Now, we switch to the directory <em>/tmp</em> on the target machine and use <code>wget</code></p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 7.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Now, we compile the script with <code>gcc filename.c -o filename</code> and we execute it using <code>./filename</code></p>
+
+<p>In this case, it will be:</p>
+
+<p>We proceed to compile the file:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 8.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We can see that we have an executable and the file with the extension “.c”</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 9.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+<p>Now, with <code>./exploit</code> we execute the exploit.</p>
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 10.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We can see, we`ve already scaled privileges as root, and now we are able to do whatever we want in the system.</p>
+
+<h1 id="escalate-privileges-sudo">Escalate Privileges: Sudo</h1>
+
+<p>By default, <code>sudo</code> command allows us to run programs and commands as root level.</p>
+
+<p>As we have seen above, using <code>sudo -l</code> command we can list every command that the user can run as root.</p>
+
+<p>To take advantage of this, we can search on internet <a href="https://gtfobins.github.io/">GTFOBins</a> some exploits of certain commands which we have execution permissions.</p>
+
+<p>In real life, not everything is in GTObins and ExploitDB, so a potential solution could be to look for another ways such as:</p>
+<ol>
+  <li>Verify Sudo settings → Sometimes this configuration "<code>/etc/sudoers</code>" is not correct allowing to unauthorized users to execute commands as root without password. </li>
+  <li>Exploiting Software vulnerabilities → It may be the case that the system have vulnerable software installed, this software can be exploited to escalate privilege. </li>
+</ol>
+
+<h3 id="practical-example-1">Practical Example:</h3>
+
+<p>We have this machine, using <code>sudo -l</code> we can see all the commands that the user can execute as sudo. In this case, the user <em>karen</em> can execute the following commands or binaries.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 11.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We can use any of these 3 commands (<code class="language-plaintext highlighter-rouge">find</code>, <code class="language-plaintext highlighter-rouge">less</code> or <code class="language-plaintext highlighter-rouge">nano</code>). In our example we choose <code>/usr/bin/find</code>.</p>
+
+<p>Now, we look in <a href="https://gtfobins.github.io/gtfobins/find/#sudo">GTFOBins - SUDO</a> for some information about how to exploit this binary.</p>
+
+<p>We found the following command:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">find . -exec /bin/sh \; -quit</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 12.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Finally, we have escalated privileges as root.</p>
+
+<h1 id="privilege-escalation-suid">Privilege Escalation: SUID</h1>
+
+<p>As we have seen above, using <code>find / -perm -4000 -type f -exec ls -ld{} \; 2&gt;/dev/null</code> command, we can find out which binaries have the SUID bit set, this is another way of trying to escalate privileges.</p>
+
+<p>Depending on the binary, we can either become root users or execute commands that require root permissions, but without the current user having them (we can see that in the practical example).</p>
+
+<p>After having carried out the search, we can search in <a href="https://gtfobins.github.io/">GTFOBins</a> exploits depending on the binary to exploit, for example in the <em>practical example</em> we see we have the following binary <code>/usr/bin/base64</code>, so we will look for the base64 SUID bit exploit on that website.</p>
+
+<h3 id="practical-example-2">Practical Example:</h3>
+
+<p>For example, if we find the base64 binary with SUID bit set, we can do use its exploit to access files which require root permissions such as <code>/etc/passwd</code> (system users) or <code>/etc/shadow</code>(system passwords).</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 13.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>In the following website <a href="https://gtfobins.github.io/gtfobins/base64/#suid">GTFOBins</a>, we found base64 SUID bit exploit and if we execute <code>LFILE =file_to_read</code> and then <code>./base64 "$LFILE" | base64 --decode</code> we can open both files (by specifying them in <em>file_to_read</em>) without having root permissions.</p>
+
+<p>Content of <code>/etc/shadow</code> command:</p>
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 14.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Content of <code>/etc/passwd</code> command:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 15.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Through this, in our machine we can create two new files called, for example, <strong>users.txt</strong> (content from <code>/etc/passwd</code>) and 
+<strong>passwords.txt</strong> (content from  <code>/etc/shadow</code>), and we can sent them to a new file to decrypt the passwords:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 16.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Now, we are going to decrypt them using <strong>JohnTheRipper</strong> by making use of a wordlist called (<em>rockyou.txt</em>):</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 17.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>As a result we got the password:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 18.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<h1 id="privilege-escalation-capabilities">Privilege Escalation: Capabilities</h1>
+
+<p>Another method that system administrators can use to escalate privilege of a process or binary is “Capabilities”. These help us to manage specific permissions for applications so they can execute without needing to grant them all permissions.</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">getcap -r / 2&gt;/dev/null</code></pre>
+  </div>
+</div>
+
+<p>If we come across any programming language, we can investigate to escalate privileges. Therefore, if this happens, we go again <a href="https://gtfobins.github.io/">GTFOBins</a> to search for exploits in the <em>Capabilities</em> section.</p>
+
+<p>If we make use of previous command, we are going to list the <em>System Capabilities</em> and, for example we find:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 19.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We found that 6 binaries have the <em>Capabilities</em> set, the most interesting one are <code>/home/karen/vim</code> and <code>/home/ubuntu/view</code>.</p>
+
+<p>As our flag is located in <code>/home/ubuntu</code> and we are not able to access it because the flag needs root permissions, we will have to find a way to access the file.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 20.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>On <a href="https://gtfobins.github.io/gtfobins/view/#capabilities">GTFObins - Capabilities</a> we can search information about the binary to exploit in order to access the flag. But if we use the command <code>/home/ubuntu/view /home/ubuntu/flag4.txt</code>, we gain access to the flag by exploiting the binary <code>/home/ubuntu/view</code> without needing become root users.</p>
+
+<p>We can make use of any binary with the <em>Capabilities</em> set to access to the flag file.</p>
+
+<h6 id="example-with-view-binary">Example with view binary:</h6>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 21.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<h6 id="example-with-vim-binary">Example with vim binary:</h6>
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 22.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<h1 id="privilege-escalation-cron-jobs">Privilege Escalation: Cron Jobs</h1>
+
+<p><em>Cron Jobs</em> are using to execute binaries or scripts at specific times. By default, they run with the privilege of their owners and not the current user.</p>
+
+<p>Thanks to this, if we find a scheduled task with root privileges and we can change the script that will be run, then our script will run with root privileges.</p>
+
+<p>Through the command <code>cat /etc/crontab</code>, we can see all the schedule cron jobs on the system, but there may be tasks that cannot be read through <code>cron</code>. For that, we can make use of the  <code>pspy</code> command.</p>
+
+<p>This escalation of privileges is done through a <strong>reverse shell</strong>, so the file to modify will be a <strong>.sh</strong> file, where we will overwrite its content with the reverse shell code.</p>
+
+<h3 id="practical-example-3">Practical Example:</h3>
+
+<p>We have a target machine. As we have seen above, by using the command <code>cat /etc/crontab</code>, we can see commands and executables that are scheduled.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 23.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>If we look closely, we find a file called <strong>/home/karen/backup.sh</strong>, this one has root permissions. To escalate privileges in this way, we need to modify this file and turn it into a reverse shell.</p>
+
+<p>On <a href="https://www.revshells.com/">RevShells</a> we can generate the reverse shell that we will use, to do this we have to know our public IP → <code>ifconfig</code> → <strong>tun0</strong> and the type of the reverse shell should be <strong>Bash</strong>.</p>
+
+<p>We include in the file [<strong>backup.sh</strong>]the reverse shell using <code>nano</code> .</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 24.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Now, we give it execution permissions:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 25.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Next, we see that the reverse shell has been produced and we are inside as root user.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 26.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<h1 id="privilege-escalation-path-hijacking">Privilege Escalation: PATH Hijacking</h1>
+
+<p>Commands in Linux Systems are executed from left to right, so if we drop a malicious file in that path, it will be execute without any problem.</p>
+
+<p>If we run <code>echo $PATH</code>, we obtain the path that the system follows to search executables or scripts, i.e, the system look for 
+these executables without having to specify the whole path.</p>
+
+<p>For this, we do:</p>
+<ol>
+  <li>We create a new file with C programming language extension ".c" →  <code>touch filename.c</code></li>
+  <li>Next, we introduce the malicious code, setting both <code>suid</code> and <code>sgid</code> to 0. </li>
+</ol>
+
+<div style="text-align:center;">
+  <div class="code-container">
+    <div class="code-header">
+    C
+    <button class="copy-button" data-code="C">Copy</button>
+      </div>
+      <pre><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main(){
+  setuid(0); //Set user ID to 0 (root).
+  setgid(0); //Set group ID to 0 (root).
+  system("/bin/bash"); //Execute a shell.
+  return 0;
+}</code></pre>
+            </div>
+          </div>
+
+<p>Then, after creating the script, we are going to do:</p>
+<ol>
+  <li>Using <code>gcc</code> we will compile the code to convert it into an executable binary → <code>gcc filename.c -o filename</code>.</li>
+  <li>Now, using <code>chmod +s filename</code>, we will assign SUID permission, which will make it execute as root. </li>
+  <li>After that, we export the directory where the binary is located to the PATH → <code>export PATH=&lt;path_to_binary&gt;:$PATH</code>.</li>
+  <li>Next, we include “/bin/bash” inside the binary in the PATH → <code>echo "/bin/bash" &gt; filename</code> (if we have already done this previously, we can skip it) and we give it all permissions → <code>chmod 777 filename</code>.</li>
+  <li>Finally, using <code>./filename</code>, we execute the binary and escalate privileges.</li>
+</ol>
+
+<p>Therefore, we do not need to search for binaries with SUID bit set, we can create a malicious file ourself, setting the SUID bit and using a malicious code (such as launch a reverse shell) to escalate privileges by executing a different command since it will be contained in the PATH environmental variable.</p>
+
+<h3 id="practical-example-4">Practical Example:</h3>
+<p>We are going to proceed to perform a PATH Hijacking, to do this, first we are going to take a look at the PATH variable:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 27.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>In this path, we can either drop a binary with SUID bit set (<code>find / -perm -4000 -ls 2&gt;/dev/null</code>) or we can create a malicious file with SUID bit set (as we discussed earlier) in order to escalate privileges.</p>
+
+<p>If we perform a search for binaries with SUID set, we find these files, but the one we are interested in is the last one which is located in the directory <code>/home</code>, specifically <code>/home/murdoch/test</code>.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 28.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Now, we are going to export this path to the <em>PATH</em> → <code>*export PATH=/home/murdoch:$PATH*</code> and if we run <code>echo $PATH</code>, we can see that it has changed:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 29.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Then, we change to file`s directory with SUID bit set → <code>cd /home/murdoch/test</code> and if we use <code>cat</code> on the file “<strong>tmh.py</strong>” we can display its content.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 30.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Where it says <code>os.system("thm")</code>, we need to replace ‘<em>thm</em>’ with ‘<em>/bin/bash</em>’, to do this, we use the command <code>echo "/bin/bash" &gt;&gt; thm</code>, we change all permissions to ‘all’, and then we execute it:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 31.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Finally, we see we have escalated privileges by doing a PATH Hijacking.</p>
+
+<h1 id="privilege-escalation-nfs">Privilege Escalation: NFS</h1>
+
+<p>Privilege escalation vectors are not only found in internal access, share files and remote management interfaces such as <em>SSH</em> or <em>Telnet</em> can also help us to gain root access on the target system.</p>
+
+<p>The NFS (Network File Sharing) configuration is located in the file <code>/etc/exports</code>, which is created during the installation of the NFS server and can generally be read by system users.</p>
+
+<p>If we run <code>cat /etc/exports</code>, we found information about the NFS configuration:</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 32.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Here, the critical element is the option “<code>no_root_squash</code>” (as seen above).</p>
+
+<p>When a client user accesses a shared directory or exported directory by the NFS server, the client’s permissions are mapped to the server’s permissions.</p>
+
+<p>By default, NFS treats root users specially (for security reasons), where the option “<strong>root_squash</strong>” converts the root user into a normal user on the NFS server.</p>
+
+<p>Therefore, if we find a shared directory without this configuration option, the NFS server allows users with root permissions on the client system to also have those permissions on the NFS server.</p>
+
+<p>So, if this option (“<code>no_root_squash</code>”) is present on a shared resource and is writeable, we can create an executable with SUID bit set and execute it on the target system, giving us full control over the files and directories of the NFS server.</p>
+
+<p>To achieve this, on the target machine we do the following:</p>
+<ol>
+  <li>First of all, we are going to enumerate the mountable shares from out target machine → <code>showmount -e &lt;target_IP&gt;</code> </li>
+  <li>We create a new mount one of the <strong>no_root_squash</strong> → <code>mkdir /tmp/mount_name</code> </li>
+  <li>After that, we mount it → <code>mount -o rw &lt;our_IP&gt;:/backups /tmp/mount_name</code></li>
+  <li>Next, we write the malicious script on the share directory:<br />
+    We create this script in the C programming language, where we write the following:
+    <table>
+      <tr>
+        <td style="vertical-align:top;">
+          <div style="text-align: center; ">
+            <img src="../assets/images/Labs/EPL/Untitled 33.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:300px" />
+          </div>
+        </td>
+        <td style="vertical-align:top;">
+          <ol>
+            <li> <code>setgid(0)</code> → We set the group ID to 0 (root).</li>
+            <li> <code>setuid(0)</code> → We set the user ID to 0 (root).</li>
+            <li> <code>system("/bin/bash")</code> → We launch a Bash shell.</li>
+          </ol>
+        </td>
+      </tr>
+    </table></li>&lt;/li&gt;
+  <li>Finally, we compile the script → <code>gcc nfs.c -o nfs -w</code>, and then we enable the SUID bit <code>chmod +s nfs</code> so that it can be executed as root.</li>
+</ol>
+
+<h3 id="practical-example-5">Practical Example:</h3>
+
+<p>In this example we have a victim machine with the IP <strong>10.10.58.32</strong>, where by using the command <code>cat /etc/exports</code>, we can see which directories are shared and contains the option “<strong>no_root_squash</strong>”.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 34.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>As we can see above, there are several directory with this option enabled, so we can use any of them to gain access to the machine.</p>
+
+<p>Since we want to share directory with the server that contains a malicious script, first we are going to enumerate the target`s machine shared directories.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 35.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Now, we are going to create a new directory (as root) in our directory <code>/tmp</code>, and then we will “share” this directory with one from the victim machine.</p>
+
+<p>In this example, I selected the directory <code>/home/ubuntu/sharedfolder</code> because I can switch to that directory as non-root permission.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 36.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>After sharing the directory, we are going to create a file with the extension <code>.c</code> (a script in the C programming language):</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 37.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>Inside the script, we write the following →</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 38.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>We create this script in C, where we do the following:</p>
+
+<ol>
+  <li><code>setgid(0)</code> → Set the group ID to 0 (root).</li>
+  <li><code>setuid(0)</code> → Set the user ID to 0 (root).</li>
+  <li><code>system("/bin/bash")</code> → Launch a Bash shell.</li>
+
+</ol>
+
+<p>After writing the file with the <code>.c</code> extension, we need to convert into an executable. For this, we use the compiler <code>gcc</code>, which using the option <code>-o file</code>, converts the script into a binary with the same filename.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 39.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>After obtaining the binary, we enable the SUID bit on it.</p>
+
+<div style="text-align: center; ">
+  <img src="../assets/images/Labs/EPL/Untitled 40.png" alt="Untitled" onclick="openModal(this.src)" />
+</div>
+
+<p>If we access the shared directory from the victim machine (in my case it is <code>/home/ubuntu/sharedfolder</code>, as I mentioned earlier) and if we list the contents using <code>ls</code> we can see both the file with 
+<code>.c</code> extension and <strong>binary</strong>.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 41.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Finally, if we run the binary using <code>./eploit</code>, we will see that a root shell is launched, meaning we will escalate privilege and become root user within the NFS server.</p>
+
+<h1 id="capstone-challenge">Capstone Challenge</h1>
+
+<blockquote>
+  <p>The Capstone Challenge consists of a challenge proposed by the Lab, in which we must to obtain two <em>flags</em>. For this, we need to escalate privileges on a machine that we connect remotely via <em>SSH</em>.</p>
+</blockquote>
+
+<p>First of all, we login using the following credentials <em>leonard:Penny123</em> → <code>ssh leonard@<ip_maquina_victima>&lt;/code&gt;</ip_maquina_victima></code></p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 42.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 43.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We are going to look for binaries with SUID bit set, so we will take advantage of this as it allows us in some scenarios to escalate privileges to root or execute commands without having the necessary permissions:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">find / -perm -4000 -ls 2&gt;/dev/null</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 44.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>As we can see above, we found the binary <strong>base64</strong> (which is the least common in this list), so we are going to try to exploit this binary to read some files, such as <code>passwd</code> and <code>shadow</code> (the latter requires root permissions to display its content).</p>
+
+<p>We can look in <a href="https://gtfobins.github.io/gtfobins/base64/#suid">GTFObins - Base64</a> to get information about how to execute the exploit.</p>
+
+<p>Thanks to this, we can read the content of the <code>shadow</code> file without being root users.</p>
+
+<p>Content of <code>/etc/passwd</code> file (system users):</p>
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 45.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Content of the <code>/etc/shadow</code> file (system passwords):</p>
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 46.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We are going to store both in these files respectively <code class="language-plaintext highlighter-rouge">users.txt</code> (for passwd) and <code class="language-plaintext highlighter-rouge">pass.txt</code>(for shadow) by copying their content from the legitimate file to ours.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 47.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Through the command <code>unshadow</code>, we combine both files into a new one called <code>passwords.txt</code>, which we will use to decrypt the hashed passwords.</p>
+
+<p>After that, we use <em>JohnTheRipper</em> to decrypt these passwords by using a wordlist such as <em>rockyou.txt</em>:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 48.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We found a username <em>missy</em> and its password:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 49.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>With these credentials, we are going to try to log into the server, and we will proceed to look for the flags:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 50.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>We are in and we got the first flag, so now let’s figure out a way to escalate privileges to root.</p>
+
+<p>For example, we are going to try running the command <code>sudo -l</code> for the user <em>missy</em>, to find out which commands can execute as root.</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 51.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>Indeed, we have found that we can make use of <code>/usr/bin/find</code>. As the escalation is a SUDO type will be only enough to execute <a href="https://gtfobins.github.io/gtfobins/find/#sudo">this exploit</a> in order to escalate privilege to root:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">sudo find . -exec /bin/sh \; -quit</code></pre>
+  </div>
+</div>
+
+<p>Once we are root users, we perform a search for the second flag:</p>
+
+<div style="text-align: center; ">
+    <img src="../assets/images/Labs/EPL/Untitled 52.png" alt="Untitled" onclick="openModal(this.src)" />
+  </div>
+
+<p>As a result, we obtained the second flag through privilege escalation using a command that the user <em>missy</em> can execute as root.</p>
+
+<hr />
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <!-- <div class="has-background-grey-darker">
+        <div class="container columns">
+            <!--Name Section-->
+            <!-- <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hi! I'm Jose Luis Venega, a Computer Engineering student at the Universi...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+
+            <!--Link Section
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div> -->
+
+            <!--Blog-post Section-->
+            <!-- <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Chemistry">Chemistry</a>
+                </li>
+                
+            </div>
+        </div> -->
+    </div> -->
+    <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | A Theme made by <a href="https://github.com/Joseeelv" target="_blank" rel="noopener noreferrer">Joseeelv</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div>
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <!-- Prism.js Script -->
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(event) {
+      const button = event.target;
+      const codeContainer = button.closest('.code-container');
+      const codeElement = codeContainer.querySelector('code');
+    
+      if (!codeElement) {
+        console.error('No se encontró el elemento <code> para copiar.');
+        return;
+      }
+
+      const code = codeElement.textContent;
+
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = 'Copied!';
+
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000); // 2000 ms = 2 segundos
+
+      }).catch(err => {
+        console.error('Error al copiar al portapapeles: ', err);
+      });
+    }
+
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', copyToClipboard);
+    });
+
+    function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation();
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -12,7 +12,9 @@ layout: compress
       "content" : "{{ post.content | truncate: '300' | strip_html | strip_newlines | strip | escape }}",
       "image" : "{{post.post-image}}",
       "difficulty" : "{{ post.difficulty | escape }}",
-      "enlace" : "{{post.enlace | escape }}"
+      "enlace" : "{{post.enlace | escape }}",
+      "skills"     : "{{ post.tags | join: ', ' }}",
+      "os" : "{{ post.title | escape }}"
     } {% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]

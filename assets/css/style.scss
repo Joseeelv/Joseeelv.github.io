@@ -15,31 +15,31 @@
     border: none;
     right: 0;
     left: auto;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 a.navbar-item:hover, .navbar-link:hover {
     background-color: rgba(255, 255, 255, 0.25) !important;
     color: white !important;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 a.navbar-item.is-active {
     background-color: rgba(255, 255, 255, 0.25) !important;
     color: white !important;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 a.navbar-item.is-active:hover {
     background-color: rgba(255, 255, 255, 0.25) !important;
     color: grey;
-    border-radius: 10px;
+    border-radius: 5px;
   
 }
 
 .navbar-link:not(.is-arrowless)::after {
     border-color: grey;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 #hero {
@@ -605,3 +605,23 @@ a.navbar-item.is-active:hover {
       .copy-button:hover {
         background-color: #8f8f8f;
       }
+
+    .tag {
+        padding: 0.3em 0.6em;
+        border-radius: 0.3em;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .tag.difficulty.easy {
+        background-color: rgb(0, 255, 0); /* Verde */
+    }
+    
+    .tag.difficulty.medium {
+        background-color: rgb(255, 165, 0); /* Amarillo */
+    }
+    
+    .tag.difficulty.hard {
+        background-color: rgb(255, 0, 0); /* Rojo */
+    }
+    
