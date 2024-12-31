@@ -10,6 +10,8 @@
   </div>
 </div>
 
+# Enlaces
+<a href="URL" target="_blank">nombre</a>
 
 # Búsqueda de binarios SUID activado:
 <div style="text-align:center;">
@@ -36,6 +38,6 @@
 
 # Imagen
 
- <div style="text-align: center;">
-          <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;">
-        </div>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/ChillHack/image 1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;">
+</div>
