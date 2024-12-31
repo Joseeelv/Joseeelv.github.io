@@ -8,6 +8,8 @@ skills:
   - Command Injection
   - LFI
   - CIF files vulnerability
+  - Database Analysis and Exploration
+  - Hash cracking
 enlace: https://app.hackthebox.com/machines/631
 os: Linux
 ---

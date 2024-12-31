@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>Jose's Portfolio | Cicada</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Jose's Portfolio | Cicada">
+<meta name="og:description" content="Cicada is an easy Windows machine on Hack The Box. The goal is to exploit weak configurations and vulnerabilities to gain access, escalate privileges, and capture the user.txt and root.txt flags.">
+<meta name="og:image" content="/assets/images/Rooms/HTB/Cicada/Cicada.png">
+<meta name="og:image:alt" content="Jose's Portfolio | Cicada">
+<meta name="og:url" content="http://localhost:4000/blog/Cicada">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="Jose's Portfolio | Cicada">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Jose's Portfolio | Cicada">
+<meta name="twitter:description" content="Cicada is an easy Windows machine on Hack The Box. The goal is to exploit weak configurations and vulnerabilities to gain access, escalate privileges, and capture the user.txt and root.txt flags.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="/assets/images/Rooms/HTB/Cicada/Cicada.png">
+<!-- Search Engine -->
+<meta name="description" content="Cicada is an easy Windows machine on Hack The Box. The goal is to exploit weak configurations and vulnerabilities to gain access, escalate privileges, and capture the user.txt and root.txt flags.">
+<meta name="image" content="/assets/images/Rooms/HTB/Cicada/Cicada.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Jose's Portfolio | Cicada">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="Cicada is an easy Windows machine on Hack The Box. The goal is to exploit weak configurations and vulnerabilities to gain access, escalate privileges, and capture the user.txt and root.txt flags.">
+<meta itemprop="image" content="/assets/images/Rooms/HTB/Cicada/Cicada.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>Jose's Portfolio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+                href="http://localhost:4000/">
+                    <img src="/assets/images/favicon.png" 
+                        alt="Site Icon" 
+                        style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                    <i class="/assest/images/favicon.png"></i>
+                    <strong>Jose's Portfolio</strong>
+                </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">WHOAMI</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">MACHINES</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/Cicada" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Cicada</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center;">
+              <img src="/assets/images/Rooms/HTB/Cicada/Cicada.png" alt="Cicada" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              Cicada is an easy Windows machine on Hack The Box. The goal is to exploit weak configurations and vulnerabilities to gain access, escalate privileges, and capture the user.txt and root.txt flags.
+            </p>
+            <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
+              <b><a href="https://app.hackthebox.com/machines/Cicada" target="page.enlace">Cicada</a></b>
+            </p>
+            
+            <!-- Dificultad -->
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Difficulty: 
+              <b>
+                <span class="tag difficulty easy">
+                  Easy
+                </span>
+              </b>
+            </p>
+
+            <!-- Sistema Operativo -->
+            
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Operating System: 
+              <b>Windows</b>
+            </p>
+            
+
+            <!-- Skills -->
+            
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Skills: 
+              <b>SMB enumeration, brute force, exploitation, Privilege Escalation abusing SeBackupPrivilege, Hash cracking, Powershell exploitation</b>
+            </p>
+            
+          </div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+          <p><p>To begin with, I’m going to check if we have connection with the target machine:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">ping -c 1 &lt;target_IP&gt;</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+</div>
+
+<p>As we can see, the TTL is close to 128, so we will be dealing with a Windows machine.</p>
+
+<table>
+  <tr>
+    <td>
+      Now, I'm going to perform a port scan to identify which ports are open:
+      <div style="text-align:center;">
+        <div class="code-container">
+            <div class="code-header">
+              Bash
+              <button class="copy-button" data-code="bash">Copy</button>
+            </div>
+            <pre><code class="language-bash">sudo nmap -p- -open -sS -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN portDiscovery</code></pre>
+          </div>
+        </div>
+      <div style="text-align: center;">
+        <img src="/assets/images/Rooms/HTB/Cicada/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+      </div>
+    </td>
+    <td>
+      Next, I'm going to perform an exhaustive scan to identify which services are running on these ports:
+        <div class="code-container">
+            <div class="code-header">
+              Bash
+              <button class="copy-button" data-code="bash">Copy</button>
+            </div>
+            <pre><code class="language-bash">sudo nmap -sCV -p135,139,3268,3269,389,445,464,49962,53,593,5985,636,88 10.10.11.35 -oN Targeted</code></pre>
+          </div>
+      <div style="text-align: center;">
+        <img src="/assets/images/Rooms/HTB/Cicada/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p>Let’s begin by enumerating the shared resources on the, i.e. the port 445.</p>
+
+<p>To enumerate the <em>SMB</em> protocol, we can use toos such as <code>Smbclient</code>, <code>Smbmap</code> or <code>Crackmapexec</code>.</p>
+
+<div style="text-align: center;">
+    <img src="/assets/images/Rooms/HTB/Cicada/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+    <p>We can list the shared resources with a <em>NULL</em> session (<code>-N</code> parameter).</p>
+</div>
+
+<p>As you can see above, we have several directories, so let’s try to access them.</p>
+
+<p>We cannot access to <em>DEV</em> directory, so let’s try with the <em>HR</em> directory.</p>
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+</div>
+
+<p>Great! We are able to list the directory and found a text file <code class="language-plaintext highlighter-rouge">.txt</code>. Using the <code>get</code> command, we can download the file to our machine.</p>
+
+<p>By using <code>cat</code> command, we can view the content of the text file that we previously downloaded.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+</div>
+
+<p>Awesome! We got credentials and a domain.</p>
+
+<p>We can use this domain (<strong>cicada.htb</strong>) and <code>Crackmapexec</code> to enumerate system users.</p>
+
+<p>With <code>Crackmapexec</code>, we can perform a brute-force enumeration using the  <code>--rid-brute</code> parameter.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+</div>
+
+<p>To perform this enumeration, it’s crucial to provide a username and its password. In this case, I will use the <em>guest</em> user, which has no password.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+</div>
+
+<p>We find several users, such as <em>john.smoulder</em>, <em>sarah.dantelia</em>, <em>david.orelious</em>, <em>michael.wrightson</em> and <em>emily.oscars</em>. I saved this usernames in a file called <em>users.txt</em>.</p>
+
+<p>After that, we have a list of potential usernames and a password (the one we previously discovered in the text file).</p>
+
+<p>Knowing that, we can perform a brute-force attack against protocol <em>SMB</em> by using <code>Crackmapexec</code>.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:2000px;" />
+</div>
+
+<p>As a result of this attack, we obtained a valid credential for <em>SMB</em> protocol.</p>
+
+<p>Now, by using <code>enum4linux</code> we can continue discovering sensitive information. But now, we are going to use the credentials for the user <strong>michel.wrightson</strong>.</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">enum4linux -a -u 'michael.wrightson' -p 'Cicada$M6Corpb*@Lp#nZp!8' &lt;target_IP&gt;</code></pre>
+  </div>
+</div>
+
+<p>We execute the tool, and by scrolling, we are be able to discover another credential, this time for the username <strong>david.orelious</strong>.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>Now, let’s try to access to the <em>DEV</em> shared directory with this last credentials.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <p>With <code>Crackmapexec</code>, we can check the permissions for this user.</p>
+</div>
+
+<p>Now, we know that the user <strong>david.orelious</strong> has read permissions in that shared directory, we can access it by using <code>smbclient</code>.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>We found a <code class="language-plaintext highlighter-rouge">.ps1</code> file, which is a <strong>powershell</strong> script. We download this file and proceed to view its content.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>Great! We found another credentials, this time for the user <strong>emily.oscars</strong>. Therefore, we are going to do the same as before and check the shared directories of this user.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>As we can see, the user <strong>emily.oscars</strong> has read permission over the <em>Admin<em> shared directory.</em></em></p>
+
+<p>If we remember, port 5985 is open, which means that <em>winrm</em> is enabled, so we can make use of <code>evil-winrm</code> to deplay a <strong>cmd</strong> on the victim machine:</p>
+
+<p>But first, we have to check if the credentials we previously got for the user <strong>emily.oscars</strong> are valid. If they are, a <strong>Pwn3d!</strong> flag will appear.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>Got it! Now, we can use <code>evil-winrm</code> to deploy the interactive <strong>cmd</strong></p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>We are in, so our next step is find the <em>user flag</em>.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <p>After navigating through directories, we found the <em>user flag</em>.</p>
+</div>
+
+<p>Okey. Now, we need to find a privilege escalation vector to access the <em>root flag</em>. Remember that we are dealing with a Windows machine, so we can’t use the <code>sudo -l</code> command or derivates to escalate privileges.</p>
+
+<p>In Windows, we can use <code>whoami /priv</code> to know our privileges on the system.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>We see that we have the <a href="https://github.com/HackTricks-wiki/hacktricks/blob/master/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens/README.md#sebackupprivilege" target="_blank">SeBackupPrivilege</a> set, which allows us to perform backups on the system, enanbling us to read every file or directory on the system, regardless if we have permissions in those files or not.</p>
+
+<p>What we are going to do is create a backup of the <code class="language-plaintext highlighter-rouge">SAM</code> and the <code class="language-plaintext highlighter-rouge">system</code> files. To do this, we go to a directory where we are allowed to write, such as the directory <code>/temp</code>.</p>
+
+<p>After that, we execute the following commands:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Powershell
+      <button class="copy-button" data-code="powershell">Copy</button>
+    </div>
+    <pre><code class="language-bash">reg save hklm\sam C:\tmp\sam
+reg save hklm\system C:\tmp\system</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>As we are making use of <code>evil-winrm</code> we can download this files into our machine as follows:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Powershell
+      <button class="copy-button" data-code="powershell">Copy</button>
+    </div>
+    <pre><code class="language-bash">download &lt;filename&gt; &lt;path_directory&gt;</code></pre>
+  </div>
+</div>
+
+<p>If we list the files of our current directory, we found the backups.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>Now, using <code>impacket-scretdump</code>, we can view the contents of these resources:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">impacket-secretdump -sam &lt;sam_filename&gt; -system &lt;system_filename&gt; LOCAL</code></pre>
+  </div>
+</div>
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>Thanks to that, we got the credentials of the <em>administrator</em> user, so we can login using <code>evil-winrm</code> with these credentials.</p>
+
+<p>We are left with <em>nthash</em> field, that is, the hash <em>2b87e7c93a3e8a0ea4a581937016f341<em>.</em></em></p>
+
+<p>Now, we are going to perform a procedure called <em>Pass the Hash</em>, where we will log in using the <em>administrator</em> user’s hash instead of the password. To do this, we use the <code>-H</code> parameter.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>Now, we are in as <em>administrator</em> user, so we can find and view the <em>root flag</em>:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<hr />
+
+<div style="text-align: center;">
+  <a href="https://www.hackthebox.com/achievement/machine/1157775/627" target="_blank">
+    <img src="/assets/images/Rooms/HTB/Cicada/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;" />
+  </a>
+</div>
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <!-- <div class="has-background-grey-darker">
+        <div class="container columns">
+            Name Section-->
+            <!-- <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hi! I'm Jose Luis Venega, a Computer Engineering student at the Universi...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+
+            <!--Link Section
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div> -->
+
+            <!--Blog-post Section-->
+            <!-- <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Cicada">Cicada</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Chemistry">Chemistry</a>
+                </li>
+                
+            </div>
+        </div> -->
+    </div>
+    <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2024 | A Theme made by <a href="https://github.com/Joseeelv" target="_blank" rel="noopener noreferrer">Joseeelv</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div>
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <!-- Prism.js Script -->
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(event) {
+      const button = event.target;
+      const codeContainer = button.closest('.code-container');
+      const codeElement = codeContainer.querySelector('code');
+    
+      if (!codeElement) {
+        console.error('No se encontró el elemento <code> para copiar.');
+        return;
+      }
+
+      const code = codeElement.textContent;
+
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = 'Copied!';
+
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000); // 2000 ms = 2 segundos
+
+      }).catch(err => {
+        console.error('Error al copiar al portapapeles: ', err);
+      });
+    }
+
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', copyToClipboard);
+    });
+
+    function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation();
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
