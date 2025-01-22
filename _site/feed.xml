@@ -1,4 +1,230 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="enes"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="enes" /><updated>2024-12-31T21:09:55+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Jose’s Portfolio</title><subtitle>Welcome to my hacking website</subtitle><entry><title type="html">Cicada</title><link href="http://localhost:4000/blog/Cicada" rel="alternate" type="text/html" title="Cicada" /><published>2024-12-31T00:00:00+01:00</published><updated>2024-12-31T00:00:00+01:00</updated><id>http://localhost:4000/blog/Cicada</id><content type="html" xml:base="http://localhost:4000/blog/Cicada"><![CDATA[<p>To begin with, I’m going to check if we have connection with the target machine:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="enes"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="enes" /><updated>2025-01-22T18:21:17+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Jose’s Portfolio</title><subtitle>Welcome to my hacking website</subtitle><entry><title type="html">LinkVortex</title><link href="http://localhost:4000/blog/LinkVortex" rel="alternate" type="text/html" title="LinkVortex" /><published>2025-01-16T00:00:00+01:00</published><updated>2025-01-16T00:00:00+01:00</updated><id>http://localhost:4000/blog/LinkVortex</id><content type="html" xml:base="http://localhost:4000/blog/LinkVortex"><![CDATA[<h1 id="port-scanning">Port Scanning</h1>
+
+<p>To begin with, let’s perform a port scan to identify which ports are open:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">sudo nmap -p- -open -sS -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN filename</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>As you can see above, we found two ports → 22 (<em>SSH</em>) and 80 (<em>HTTP</em>).</p>
+
+<p>Now, let’s perform a more exhaustive scan using the most common scripts (<code>-sCV</code>) to identify the versions and services running on these ports:</p>
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">sudo nmap -sCV &lt;target_IP&gt; -oN filename</code></pre>
+  </div>
+</div>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>By using <code>Whatweb</code> (Wappalyzer for terminals), we can check the technologies used by the web application.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:2000px;" />
+</div>
+
+<p>Now, using a fuzzer, in this case, <code>wfuzz</code> we can look for hidden directories on this website.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We found that the <code class="language-plaintext highlighter-rouge">robots.txt</code> file is accessible, and it can provide us information if it’s not properly configured.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>Indeed, we found a hidden directory called <code class="language-plaintext highlighter-rouge">/ghost</code>, and if we access it, we will find a login panel.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+</div>
+
+<p>At the same time, we can perform a subdomain scan, as it could reveal useful information.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We found the subdomain <code class="language-plaintext highlighter-rouge">dev</code>, so if we access it, we will find the following:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>As you can see above, we are facing a website that a first glance doesn’t offer much. Just like at the beginning, we can fuzz the website to look for hidden directories:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>Nice! We found the hidden directorio <code class="language-plaintext highlighter-rouge">.git</code>, which indicates that it is a version control system directory used by Git to manage a project’s source code.</p>
+
+<p>In addition, we can see some of the project’s directories.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>The most notable directory is <code class="language-plaintext highlighter-rouge">/logs</code>, as it might contain system log information. However, we found a potential user: <code class="language-plaintext highlighter-rouge">dev@linkvortex.htb</code>.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We can make use of this <a href="https://github.com/lijiejie/GitHack/tree/master" target="_blank">GitHub repository</a> to reconstruct the source code from the <code class="language-plaintext highlighter-rouge">/.git</code> directory and discover sensitive information.</p>
+
+<p>A good practice is to read the <em>ReadMe</em> file to understand what the code does.</p>
+
+<p>If you run the script, you will see many lines starting with “<em>[File not found]</em>”, so we can exclude them using the following command line:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">python3 GitHack.py http://dev.linkvortex.htb/.git | grep -v '^\[File not found\]'</code></pre>
+  </div>
+</div>
+
+<p>As a result, we have this <em>JavaScript</em> script:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We can check the information of this script:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We found this password <code class="language-plaintext highlighter-rouge">OctopiFociPilfer45</code>, so we can use either <code class="language-plaintext highlighter-rouge">dev@linkvortex.htb:OctopiFociPilfer45</code> or <code class="language-plaintext highlighter-rouge">admin@linkvortex.htb:OctopiFociPilfer45</code> as credentials, since we are located in the <code class="language-plaintext highlighter-rouge">/admin</code> directory, which could be a potential user.</p>
+
+<p>Now, we can try logging in with these credentials:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>If we try with <code class="language-plaintext highlighter-rouge">admin</code>, we can successfully login.</p>
+
+<p>With <code class="language-plaintext highlighter-rouge">Wappalyzer</code>, we can identify the technologies used by the website in order to search for potential vulnerabilities to exploit:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We see that the website is using a <em>Ghost CMS</em> version 5.58, so we can try to search for vulnerabilities related to this CMS version.</p>
+
+<p>On GitHub, we can find this  exploit for the vulnerability CVE-2023-40028, which allows arbitrary file reading: <a href="https://github.com/0xDTC/Ghost-5.58-Arbitrary-File-Read-CVE-2023-40028." target="_blank">EXPLOIT!</a></p>
+
+<p>This exploit allows us to remotely read any file, as long as the file does not have elevated privileges, such as root, for example.</p>
+
+<p>To do this, you need to modify the URL inside the script to point to the path of your CMS:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>Now, we can execute the script with the credentials you obtained earlier to authenticate:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We found the user <code class="language-plaintext highlighter-rouge">node</code> by viewing the content of <code class="language-plaintext highlighter-rouge">/etc/passwd</code> file, but we cannot see the content of the <code class="language-plaintext highlighter-rouge">/etc/shadow</code> file since it has root privileges.</p>
+
+<p>Since we want to find a way to access the machine, let’s gather information from it.</p>
+
+<p>We can look for the Ghost configuration file, which is this case will be located at → <code class="language-plaintext highlighter-rouge">var/lib/ghost/config.production.json</code></p>
+
+<table>
+  <tr>
+    <td>
+      <div style="text-align: center;">
+        <img src="/assets/images/Rooms/HTB/LinkVortex/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+      </div>
+    </td>
+    <td>
+    <div style="text-align: center;">
+      <img src="/assets/images/Rooms/HTB/LinkVortex/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:400px;" />
+    </div>
+    </td>
+  </tr>
+</table>
+
+<p>Great! We found the user <code class="language-plaintext highlighter-rouge">bob@linkvortex.htb:fibber-talented-worth</code>. We can try using these credentials to access the server via <em>SSH</em>:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>Awesome! We are in. We can use the command <code class="language-plaintext highlighter-rouge">export TERM=xterm</code> to be able to use CTRL+L.</p>
+
+<p>Now, our goal is to find the flags, so we begin by looking for the <em>user flag</em>:</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>After that, let’s escalate privileges to access the <em>root flag</em>.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>We observe that the script <code class="language-plaintext highlighter-rouge">clean_symlink.sh</code> runs as root without requiring a password for any file with ‘.png’ extension.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+</div>
+
+<p>This script handles symbolic links pointing to pictures with the ‘.png’ extension. In addition, it quarantines symbolic links that point to directories such as <code class="language-plaintext highlighter-rouge">/root</code> or <code class="language-plaintext highlighter-rouge">/etc</code>.</p>
+
+<p>Therefore, we can create a new symbolic link pointing to any file in those two directories to read its content.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+</div>
+
+<p>This happens because, when they are sent to the <code class="language-plaintext highlighter-rouge">/var/quarentined</code> directory, we have full permissions since we are the owners of that directory.</p>
+
+<p>Therefore, we will create a new ‘.txt’ file that points to the <code class="language-plaintext highlighter-rouge">/root/root.txt</code> file. Then, this new file will be referenced through a symbolic link to one with ‘.png’ extension so that can executes and allows to escalate privileges.</p>
+
+<p>Finally, it will be sent to the previously mentioned directory, where we will retrieve the obtain the contents of the file in question.</p>
+
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/LinkVortex/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:1000px;" />
+</div>
+
+<p>Great! We have obtained the <em>root flag</em> and, therefore, we completed the machine.</p>
+
+<hr />
+
+<div style="text-align: center;">
+  <a href="https://www.hackthebox.com/achievement/machine/1157775/638" target="_blank">
+    <img src="/assets/images/Rooms/HTB/LinkVortex/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;" />
+  </a>
+</div>]]></content><author><name></name></author><category term="" /><summary type="html"><![CDATA[LinkVortex machine from Hack The Box. The process includes port scanning, web technology identification, fuzzing for hidden directories, exploiting vulnerabilities in Ghost CMS (CVE-2023-40028), and privilege escalation through the clean_symlink.sh script. The final goal was to escalate privileges and capture the root flag.]]></summary></entry><entry><title type="html">Cicada</title><link href="http://localhost:4000/blog/Cicada" rel="alternate" type="text/html" title="Cicada" /><published>2024-12-31T00:00:00+01:00</published><updated>2024-12-31T00:00:00+01:00</updated><id>http://localhost:4000/blog/Cicada</id><content type="html" xml:base="http://localhost:4000/blog/Cicada"><![CDATA[<p>To begin with, I’m going to check if we have connection with the target machine:</p>
 
 <div style="text-align:center;">
  <div class="code-container">

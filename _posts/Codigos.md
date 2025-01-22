@@ -1,5 +1,5 @@
 
-# Escaneo de puertos:
+# Código:
 <div style="text-align:center;">
  <div class="code-container">
     <div class="code-header">
@@ -18,3 +18,5 @@
 <div style="text-align: center;">
   <img src="" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;">
 </div>
+
+→
