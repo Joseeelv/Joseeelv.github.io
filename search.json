@@ -5,7 +5,7 @@ layout: compress
   {% for post in site.posts %}
     {
       "title"    : "{{ post.title | escape }}",
-      "tags"     : "{{ post.tags | join: ', ' }}",
+      "tags"     : "{{ post.tags | join: ' | ' }}",
       "url"      : "{{ site.url }}{{ site.baseurl }}{{ post.url }}",
       "date"     : "{{ post.date | date: '%-B %d, %Y' }}",
       "description" : "{{ post.description | strip_newlines | strip_html | strip | escape }}",
@@ -13,7 +13,6 @@ layout: compress
       "image" : "{{post.post-image}}",
       "difficulty" : "{{ post.difficulty | escape }}",
       "enlace" : "{{post.enlace | escape }}",
-      "skills"     : "{{ post.tags | join: ', ' }}",
       "os" : "{{ post.title | escape }}"
     } {% unless forloop.last %},{% endunless %}
   {% endfor %}

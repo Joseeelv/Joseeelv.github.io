@@ -6,8 +6,8 @@ description: "LinkVortex machine from Hack The Box. The process includes port sc
 difficulty: Easy
 enlace: https://app.hackthebox.com/machines/LinkVortex
 os: Linux
-skills:
-  - .git directory enumeration
+tags:
+  - .Git directory enumeration
   - CVE-2023-40028 exploitation
   - Privilege escalation using clean_symlink.sh script
 ---

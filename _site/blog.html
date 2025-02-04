@@ -178,20 +178,20 @@
             
                  <div class="columns has-text-centered" id="blog-card">
     <div class="column is-marginless is-paddingless is-one-third-desktop is-one-third-fullhd is-one-third-tablet">
-        <div class="image is-16by9" style="background-image: url(/assets/images/Rooms/HTB/LinkVortex/LinkVortex.png);"></div>
+        <div class="image is-16by9" style="background-image: url(/assets/images/Rooms/HTB/Alert/Alert.png);"></div>
     </div>
-    <a href="http://localhost:4000/blog/LinkVortex" class="column has-text-left-desktop has-text-left-tablet">
+    <a href="http://localhost:4000/blog/Alert" class="column has-text-left-desktop has-text-left-tablet">
         <!-- Título y descripción -->
-        <h1 class="title is-size-4-touch">LinkVortex</h1>
+        <h1 class="title is-size-4-touch">Alert</h1>
         <div class="content has-text-grey">
-            LinkVortex machine from Hack The Box. The process includes port scanning, web technology identification, fuzzing for hidden directories, exploiting vulnerabilities in Ghost CMS (CVE-2023-40028), and privilege escalation through the clean_symlink.sh script. The final goal was to escalate privilege...
+            Alert machine on Hack The Box explores web vulnerabilities like XSS and brute force for gaining access. We use Hashcat to crack passwords and escalate privileges via chisel and web exploitation.
             <hr class="has-background-grey">
         </div>
 
         <!-- Dificultad del CTF -->
         <div class="difficulty is-size-6-touch">
             <strong>Difficulty:</strong> 
-            <span class="tag difficulty easy">
+            <span class="tag difficulty Easy">
                 Easy
             </span>
         </div>
@@ -206,12 +206,49 @@
         <!-- Skills -->
         
         <div class="skills is-size-6-touch">
-            <strong>Skills:</strong> .git directory enumeration, CVE-2023-40028 exploitation, Privilege escalation using clean_symlink.sh script
+            <strong>Skills:</strong> XSS | LFI | RCE | Port forwarding | Hash cracking
         </div>
         
     </a>
 </div>
+            
+        
+            
+                 <div class="columns has-text-centered" id="blog-card">
+    <div class="column is-marginless is-paddingless is-one-third-desktop is-one-third-fullhd is-one-third-tablet">
+        <div class="image is-16by9" style="background-image: url(/assets/images/Rooms/HTB/LinkVortex/LinkVortex.png);"></div>
+    </div>
+    <a href="http://localhost:4000/blog/LinkVortex" class="column has-text-left-desktop has-text-left-tablet">
+        <!-- Título y descripción -->
+        <h1 class="title is-size-4-touch">LinkVortex</h1>
+        <div class="content has-text-grey">
+            LinkVortex machine from Hack The Box. The process includes port scanning, web technology identification, fuzzing for hidden directories, exploiting vulnerabilities in Ghost CMS (CVE-2023-40028), and privilege escalation through the clean_symlink.sh script. The final goal was to escalate privilege...
+            <hr class="has-background-grey">
+        </div>
 
+        <!-- Dificultad del CTF -->
+        <div class="difficulty is-size-6-touch">
+            <strong>Difficulty:</strong> 
+            <span class="tag difficulty Easy">
+                Easy
+            </span>
+        </div>
+
+        <!-- Sistema Operativo -->
+        
+        <div class="os is-size-6-touch">
+            <strong>Operating System:</strong> Linux
+        </div>
+        
+
+        <!-- Skills -->
+        
+        <div class="skills is-size-6-touch">
+            <strong>Skills:</strong> .Git directory enumeration | CVE-2023-40028 exploitation | Privilege escalation using clean_symlink.sh script
+        </div>
+        
+    </a>
+</div>
             
         
             
@@ -230,7 +267,7 @@
         <!-- Dificultad del CTF -->
         <div class="difficulty is-size-6-touch">
             <strong>Difficulty:</strong> 
-            <span class="tag difficulty easy">
+            <span class="tag difficulty Easy">
                 Easy
             </span>
         </div>
@@ -245,12 +282,11 @@
         <!-- Skills -->
         
         <div class="skills is-size-6-touch">
-            <strong>Skills:</strong> SMB enumeration, brute force, exploitation, Privilege Escalation abusing SeBackupPrivilege, Hash cracking, Powershell exploitation
+            <strong>Skills:</strong> SMB | Privilege Escalation abusing SeBackupPrivilege | Hash cracking | Powershell exploitation
         </div>
         
     </a>
 </div>
-
             
         
             
@@ -269,7 +305,7 @@
         <!-- Dificultad del CTF -->
         <div class="difficulty is-size-6-touch">
             <strong>Difficulty:</strong> 
-            <span class="tag difficulty easy">
+            <span class="tag difficulty Easy">
                 Easy
             </span>
         </div>
@@ -284,12 +320,11 @@
         <!-- Skills -->
         
         <div class="skills is-size-6-touch">
-            <strong>Skills:</strong> Command Injection, LFI, CIF files vulnerability, Database Analysis and Exploration, Hash cracking
+            <strong>Skills:</strong> Command Injection | LFI | CIF files vulnerability | Hash cracking | Database Analysis and Exploration
         </div>
         
     </a>
 </div>
-
             
         
     </section>
@@ -336,15 +371,15 @@
                 <h3>Recent Posts</h3>
                 
                 <li>
+                    <a href="http://localhost:4000/blog/Alert">Alert</a>
+                </li>
+                
+                <li>
                     <a href="http://localhost:4000/blog/LinkVortex">LinkVortex</a>
                 </li>
                 
                 <li>
                     <a href="http://localhost:4000/blog/Cicada">Cicada</a>
-                </li>
-                
-                <li>
-                    <a href="http://localhost:4000/blog/Chemistry">Chemistry</a>
                 </li>
                 
             </div>
@@ -357,91 +392,41 @@
     <script src="http://localhost:4000/assets/js/simple-jekyll-search.js"></script>
 
     <script>
-      SimpleJekyllSearch({
-    searchInput: document.getElementById('search'),
-    resultsContainer: document.getElementById('results-container'),
-    json: 'http://localhost:4000/search.json',
-    searchResultTemplate: `
-        <div style="border: 0.15rem dashed black" class="searchResult columns has-text-centered" id="blog-card">
+        SimpleJekyllSearch({
+      searchInput: document.getElementById("search"),
+      resultsContainer: document.getElementById("results-container"),
+      json: 'http://localhost:4000/search.json',
+      searchResultTemplate: `
+      <div class="columns has-text-centered" id="blog-card">
         <div class="column is-marginless is-paddingless is-one-third-desktop is-one-third-fullhd is-one-third-tablet">
-        <div class="image is-16by9" style="background-image: url({image});"></div>
-        </div>
-        <a href="{url}">
-        <div class="column has-text-left-desktop has-text-left-tablet">
-          <h1 class="title is-size-4-touch">{title}</h1>
-          <div class="content has-text-grey">
-            {description}
-            <hr class="has-background-grey">
-            <span class="has-text-grey date">
-              Published on <span class="has-text-weight-semibold">{date}</span>
-            </span>
-            <br>
-            <span class="has-text-weight-semibold difficulty">{difficulty}</span> 
-              | <a href="{enlace}" class="has-text-weight-semibold">Link</a>
+          <div class="image is-16by9" style="background-image: url({image});">
           </div>
         </div>
+        <a href="{url}" class="column has-text-left-desktop has-text-left-tablet">
+            <h1 class="title is-size-4-touch">{title}</h1>
+            <div class="content has-text-grey">
+              {description}
+              <hr class="has-background-grey">
+            </div>
+          <div class="difficulty is-size-6-touch">
+            <strong>Difficulty:</strong> 
+            <span class="tag difficulty {difficulty}">
+              {difficulty}
+            </span>
+          </div>
+          <div class="os is-size-6-touch">
+            <strong>Operating System:</strong> {os}
+          </div>
+          <div>
+            <strong>Skills: </strong>{tags}
+          </div>
         </a>
-        </div><hr class="has-background-black" style="margin: 0.5rem 5rem 2.5rem 5rem">`,
-        noResultsText: '<div class="subtitle has-text-centered is-uppercase">No Results Found</div><hr class="has-background-black" style="margin: 0.5rem 5rem 2.5rem 5rem">',
-        fuzzy: false,
-});
-
-      // Función para ordenar los resultados
-      // function sortResults(criteria) {
-      //   const container = document.getElementById('results-container');
-      //   const results = Array.from(container.querySelectorAll('.searchResult'));
-
-      //   results.sort((a, b) => {
-      //     let aValue, bValue;
-
-      //     switch (criteria) {
-      //       case 'title':
-      //         aValue = a.querySelector('.title').textContent.trim().toLowerCase();
-      //         bValue = b.querySelector('.title').textContent.trim().toLowerCase();
-      //         return aValue.localeCompare(bValue); // Ordenar alfabéticamente
-
-      //       case 'date':
-      //         aValue = new Date(a.querySelector('.date').textContent.trim().split('on ')[1]);
-      //         bValue = new Date(b.querySelector('.date').textContent.trim().split('on ')[1]);
-      //         return bValue - aValue; // Ordenar por fecha descendente
-
-      //       case 'difficulty':
-      //         const difficulties = ['Easy', 'Intermediate', 'Hard'];
-      //         aValue = difficulties.indexOf(a.querySelector('.difficulty').textContent.trim());
-      //         bValue = difficulties.indexOf(b.querySelector('.difficulty').textContent.trim());
-      //         return aValue - bValue; // Ordenar por dificultad ascendente
-
-      //       default:
-      //         return 0;
-      //     }
-      //   });
-
-      //   results.forEach(result => container.appendChild(result));
-      // }
-
-      // Función para filtrar los resultados
-      // function filterResults() {
-      //   const container = document.getElementById('results-container');
-      //   const results = Array.from(container.querySelectorAll('.searchResult'));
-      //   const selectedFilters = Array.from(document.getElementById('filter-selector').selectedOptions).map(option => option.value);
-
-      //   results.forEach(result => {
-      //     const tags = result.querySelector('.tags').textContent.trim().split(','); // Asume que las etiquetas están en una clase 'tags' y separadas por comas
-      //     const matches = selectedFilters.every(filter => tags.includes(filter));
-      //     result.style.display = matches ? 'block' : 'none';
-      //   });
-      // }
-
-      // Event listener para el selector de ordenación
-      // document.getElementById('sort-selector').addEventListener('change', function() {
-      //   sortResults(this.value);
-      // });
-
-      // Event listener para el multiselect de filtrado
-      // document.getElementById('filter-selector').addEventListener('change', filterResults);
-
-      // Inicializar el filtrado al cargar
-      // document.addEventListener('DOMContentLoaded', filterResults);
-    </script>    
+      </div>
+      `,
+      noResultsText: `<div class="subtitle has-text-centered is-uppercase">No Results Found</div><hr class="has-background-black" style="margin: 0.5rem 5rem 2.5rem 5rem">`,
+      fuzzy: true,
+  });
+  </script>    
+  <hr class="has-background-black" style="margin: 0.5rem 5rem 2.5rem 5rem">
   </body>
 </html>

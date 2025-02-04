@@ -13,7 +13,7 @@
         <!-- Dificultad del CTF -->
         <div class="difficulty is-size-6-touch">
             <strong>Difficulty:</strong> 
-            <span class="tag difficulty {{ post.difficulty | downcase }}">
+            <span class="tag difficulty {{ post.difficulty }}">
                 {{ post.difficulty }}
             </span>
         </div>
@@ -26,9 +26,9 @@
         {% endif %}
 
         <!-- Skills -->
-        {% if post.skills %}
+        {% if post.tags %}
         <div class="skills is-size-6-touch">
-            <strong>Skills:</strong> {{ post.skills | join: ', ' }}
+            <strong>Skills:</strong> {{ post.tags | join: ' | ' }}
         </div>
         {% endif %}
     </a>
