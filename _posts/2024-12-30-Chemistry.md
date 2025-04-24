@@ -25,7 +25,7 @@ First, I'm going to perform a port scanning in order to find out which ports are
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 We have the following ports open → 22, 5000 and 8089. So our next step is to perform a exhaustive scan to find out the versions and additional information about the discovered ports:
 <div style="text-align:center;">
@@ -42,12 +42,12 @@ We have the following ports open → 22, 5000 and 8089. So our next step is to p
   <tr>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
       </div>
     </th>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
       </div>
     </th>
   </tr>
@@ -58,7 +58,7 @@ As you can see above, port 22 is a <em>SSH</em> service, port 5000 scan result g
 As we don't have valid credentials to perform a login via <em>SSH</em>, we are going to check the web application on port 5000:
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 At first glance we are not able to see interesting information. So let's fuzzing the web to find out some hidden directories.
@@ -75,7 +75,7 @@ We can use either <code>Gobuster</code>, <code>Wfuzz</code> or other fuzzer to d
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 Nice! We found a hidden directory called <em>/login</em> and <em>/register</em>:
@@ -84,12 +84,12 @@ Nice! We found a hidden directory called <em>/login</em> and <em>/register</em>:
   <tr>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
       </div>
     </th>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
       </div>
     </th>
   </tr>
@@ -101,14 +101,14 @@ A <strong>CIF</strong> file is a <em>Crystallographic Information File</em>. You
 
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:400px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
   <p>This is the <code>.cif</code> file.</p>
 </div>
 
 Now, we can search on Google for information about any vulnerability related with this kind of file.
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 I found this <a href="https://github.com/9carlo6/CVE-2024-23346" target="_blank">GitHub repository</a>, where you can find a <code>.cif</code> file that contains the exploit.
@@ -131,12 +131,12 @@ We modify the script and upload the file to the system. At the same time, we lis
   <tr>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
       </div>
     </th>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
       </div>
     </th>
   </tr>
@@ -145,7 +145,7 @@ We modify the script and upload the file to the system. At the same time, we lis
 After that, we are inside the server, so the next step is to find out where the <em>user flag<em> is.
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 The <em>user flag<em> is located in the user <strong>rosa</strong> directory, but if we perform a <code>cat</code> to visualize the content, an error will be displayed saying that we don't have the required permissions.
@@ -153,7 +153,7 @@ The <em>user flag<em> is located in the user <strong>rosa</strong> directory, bu
 We can confirm this by using <code>ls -la</code>, and since we are the app user, we belong to the other group for that file, so we cannot open it.
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 As a conclusion, we need to pivot to user <strong>rosa</strong> to visualize the content of the <em>user flag</em>. To achieve this, we need to find information on a privilege escalation vector that allows us to pivot to that user.
@@ -163,13 +163,13 @@ By navigating through directories we find a database, which may can contain cred
   <tr>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
         <p>We convert the file into a base64 string</p>
       </div>
     </td>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
         <p>We decrypt the base64 string into its normal state</p>
       </div>
     </td>
@@ -193,7 +193,7 @@ By using an <em>SQL</em> query, we can list the users from a table:
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 Awesome, we have information about users and their passwords, which are hashed. So, we need to decrypt them for a potential connection via <em>SSH</em>.
 
@@ -213,7 +213,7 @@ Before all of that, we store the hash of the user <strong>rosa</strong> in a '.t
 
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
   <p>We got the rosa's password, and its credentials are → <strong>rosa:unicorniosrosados</strong>.</p>
 </div>
 
@@ -223,13 +223,13 @@ Now, with these credentials, we can perform a connection via <em>SSH</em> as <st
   <th>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:450px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
         <p>We stablish the <em>SSH</em> connection</p>
       </div>
     </td>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+        <img src="/assets/images/Rooms/HTB/Chemistry/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
         <p>The <em>user flag</em> is located on the user' home directory</p>
       </div>
     </td>
@@ -241,13 +241,13 @@ After getting the <em>user flag</em>, we need to obtain the <em>root flag</em>. 
 We can perform a <code>sudo -l</code> to check if the user <strong>rosa</strong> can execute commands as sudo, but no luck.
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 Also, we can check the binaries with the SUID bit set, by using the following command → <code>find / -perm -4000 2>/dev/null | xargs ls -l</code>:
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 We also did not find an unusual binary with the SUID bit set, so we can use <code>linpeas.sh</code> in order to find vulnerabilities on the machine.
@@ -255,13 +255,13 @@ We also did not find an unusual binary with the SUID bit set, so we can use <cod
 We can find this script in rosa's user <em>/home</em> directory:
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 Let's execute the <code>linpeas.sh</code> script:
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 If we use this script, we can find that there are several ports open that are not visible from outside. That is, we can see these ports if we are on the victim machine but not on our own.
@@ -271,7 +271,7 @@ Another way to find this information is by using this command → <code>netstat 
 Knowing this, we see that something is running on port 8080. We can use the <code>curl</code> command to check whether it is a web application or not.
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 After reading the headers of the request, we confirm that we are dealing with a web application.
@@ -281,7 +281,7 @@ Thanks to that, we have the server version and the status of the request headers
 A good practice is to see what the exploit does to understand how it works. So, let's check the exploit using <code>cat</code> command:
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 As you can see, the command executes a <em>path traversal</em> to read an arbitrary file. That is, the website is vulnerable to a <strong>Local File Inclusion</strong> or <strong>LFI</strong> vulnerability.
@@ -301,7 +301,7 @@ So, instead of executing the whole script, we can perform a request using the <c
 Why the <em>/root</em> directory? Because the <em>root flag</em> is located there, so if we can read this file, we can obtain the flag we desire.
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/28.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;">
+  <img src="/assets/images/Rooms/HTB/Chemistry/28.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 Done, we got the <em>root flag</em>.
@@ -310,6 +310,6 @@ Done, we got the <em>root flag</em>.
 
 <div style="text-align: center;">
   <a href="https://www.hackthebox.com/achievement/machine/1157775/631" target="_blank">
-    <img src="/assets/images/Rooms/HTB/Chemistry/29.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;">
+    <img src="/assets/images/Rooms/HTB/Chemistry/29.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;">
   </a>
 </div>
