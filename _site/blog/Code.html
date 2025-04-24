@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+    <!-- Include Meta Tags Here -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1 user-scalable=no, shrink-to-fit=no">
+<meta content='#000000' name='theme-color'/>
+<meta name="keywords" content="Site, Template, Theme">
+<title>Jose's Portfolio | Code</title>
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="Jose's Portfolio | Code">
+<meta name="og:description" content="A detailed walkthrough of the Hack The Box machine "Code," showcasing techniques such as Python code exploitation, database extraction, hash cracking, and privilege escalation to capture both user and root flags.">
+<meta name="og:image" content="/assets/images/Rooms/HTB/Code/1.png">
+<meta name="og:image:alt" content="Jose's Portfolio | Code">
+<meta name="og:url" content="http://localhost:4000/blog/Code">
+<meta name="article:author" content="https://www.facebook.com/">
+<meta name="og:site_name" content="Jose's Portfolio | Code">
+<meta name="og:type" content="website">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Jose's Portfolio | Code">
+<meta name="twitter:description" content="A detailed walkthrough of the Hack The Box machine "Code," showcasing techniques such as Python code exploitation, database extraction, hash cracking, and privilege escalation to capture both user and root flags.">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image:src" content="/assets/images/Rooms/HTB/Code/1.png">
+<!-- Search Engine -->
+<meta name="description" content="A detailed walkthrough of the Hack The Box machine "Code," showcasing techniques such as Python code exploitation, database extraction, hash cracking, and privilege escalation to capture both user and root flags.">
+<meta name="image" content="/assets/images/Rooms/HTB/Code/1.png">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="Jose's Portfolio | Code">
+<meta name="author" content="Jose Luis Venega"/>
+<meta itemprop="description" content="A detailed walkthrough of the Hack The Box machine "Code," showcasing techniques such as Python code exploitation, database extraction, hash cracking, and privilege escalation to capture both user and root flags.">
+<meta itemprop="image" content="/assets/images/Rooms/HTB/Code/1.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '');
+</script>
+    <title>Jose's Portfolio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+      <!-- Incluye el CSS de Prism.js -->
+    <link rel="stylesheet" href="../prism.css">
+    <script src="https://kit.fontawesome.com/6a97161b76.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var titleElement = document.getElementById('page-title');
+            var icon = "/assest/images/favicon.png"; // Puedes usar cualquier emoji o icono aquí
+            titleElement.textContent = icon + " " + titleElement.textContent;
+        });
+    </script>
+</head>
+</head>
+
+<body>
+  <nav class="navbar is-black is-fixed-top" role="navigation" aria-label="main navigation" id="navbar">
+    <div class="container">
+
+        <!-- logo or branding image on left side -->
+       
+        <!-- Logo o imagen de marca en el lado izquierdo -->
+        <div class="navbar-brand">
+            <a class="navbar-item"
+                href="http://localhost:4000/">
+                    <img src="/assets/images/favicon.png" 
+                        alt="Site Icon" 
+                        style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                    <i class="/assest/images/favicon.png"></i>
+                    <strong>Jose's Portfolio</strong>
+                </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+        <div class="navbar-menu has-background-black" id="navbar-menu">
+            <!-- navbar items | left side -->
+            <!-- <div class="navbar-start">
+            </div> -->
+            <!-- navbar items | right side -->
+            <div class="navbar-end">
+                <a class="navbar-item "
+                    href="http://localhost:4000/">HOME</a>
+                <a class="navbar-item" href="http://localhost:4000/#about">WHOAMI</a>
+                <a class="navbar-item" href="http://localhost:4000/#contact">CONTACT</a>
+                <a class="navbar-item "
+                    href="http://localhost:4000/blog">MACHINES</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Bulma Navbar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        /* Get all "navbar-burger" elements */
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        /* Check if there are any navbar burgers */
+        if ($navbarBurgers.length > 0) {
+            /* Add a click event on each of them */
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                    /* Get the target from the "data-target" attribute */
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    /* Toggle the class on both the "navbar-burger" and the "navbar-menu" */
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+  <section class="hero is-fullheight has-text-centered" id="post">
+    <div class="hero-body">
+      <div class="container">
+        <a href="/blog/Code" class="has-text-black" id="title">
+          <h1 class="title has-text-centered is-2 has-text-weight-semibold ">Code</h1>
+        </a>
+        <hr class="has-background-black">
+        <div class="columns is-variable is-5 has-text-centered">
+          <div class="column is-6">
+            <div style="text-align: center;">
+              <img src="/assets/images/Rooms/HTB/Code/1.png" alt="Code" id="post-image">
+            </div>
+          </div>
+          <div class="subtitle column is-5 has-text-left-desktop has-text-left-fullhd has-text-left-tablet has-text-center-mobile" style="text-align: left;">
+            
+            <p id="description" class="content is-small has-text-weight-medium is-uppercase">
+              A detailed walkthrough of the Hack The Box machine "Code," showcasing techniques such as Python code exploitation, database extraction, hash cracking, and privilege escalation to capture both user and root flags.
+            </p>
+            <p class="subtitle is-uppercase is-6 has-text-weight-normal has-text-black-ter">LAB LINK: 
+              <b><a href="https://app.hackthebox.com/machines/653" target="page.enlace">Code</a></b>
+            </p>
+            
+            <!-- Dificultad -->
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Difficulty: 
+              <b>
+                <span class="tag difficulty easy">
+                  Easy
+                </span>
+              </b>
+            </p>
+
+            <!-- Sistema Operativo -->
+            
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Operating System: 
+              <b>Linux</b>
+            </p>
+            
+
+            <!-- Skills -->
+            
+            <p class="subtitle is-6 is-uppercase has-text-weight-normal has-text-black-ter">Skills: 
+              <b>Python code exploitation, Database extraction, Hash cracking, Privilege escalation, Path traversal</b>
+            </p>
+            
+          </div>
+        </div>
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile post-body">
+          <p><p>First, we use <code class="language-plaintext highlighter-rouge">ping</code> to check if we have a connection to the machine and identify the OS.</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Let’s use <em>Nmap</em> to find out the machine’s running services &amp; open ports:</p>
+
+<p><strong>Port Scanning:</strong></p>
+<div style="text-align: center;">
+<img src="../assets/images/Rooms/HTB/Code/3.png" alt="Port Scanning" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+<p><strong>Service Scanning:</strong></p>
+<div style="text-align: center;">
+<img src="../assets/images/Rooms/HTB/Code/4.png" alt="Service Scanning" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Reveals services running on open ports: SSH (22) and HTTP (5000).</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>This is the webpage.</p>
+
+<p>As we can see, this web is a Python code interpreter, so we can try executing code using the <code class="language-plaintext highlighter-rouge">os</code> library:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Certain keywords are blocked, so we need to find an alternative.</p>
+
+<p>Let’s perform fuzzing to discover more:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">wfuzz -c --hc 404 --hl=99 -w [wordlist] http://10.10.11.62:5000/FUZZ</code></pre>
+  </div>
+</div>
+
+<p>Results:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Nothing relevant was found.</p>
+
+<p>The key lies in the Python code interpreter.</p>
+
+<p>We can use <a href="https://docs.python.org/3/library/exceptions.html" target="_blank">Python exceptions</a>  to gather information. By executing <code class="language-plaintext highlighter-rouge">raise Exception(globals())</code>, we find a database in the output:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">&lt;SQLAlchemy sqlite:////home/app-production/app/instance/database.db&gt;</code></pre>
+  </div>
+</div>
+
+<p>Now, we can extract information from the database by running the following script in the Python interpreter to retrieve usernames and passwords:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">users = db.session.query(User).all()
+for user in users:
+    print(user.username, user.password)</code></pre>
+  </div>
+</div>
+
+<p>The passwords are hashed, so we use <code class="language-plaintext highlighter-rouge">hash-identifier</code> to identify the hash type:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>They are <strong>MD5</strong>, which is vulnerable to cracking. Let’s crack them using <code class="language-plaintext highlighter-rouge">hashcat</code>:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">hashcat -a 0 -m 0 [hash] [wordlist]</code></pre>
+  </div>
+</div>
+
+<p>With the obtained credentials, we attempt to log in via SSH, and indeed, we can log in as martin:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Now, let’s find a way to escalate privileges.</p>
+
+<p>First, check what the user can do with <code class="language-plaintext highlighter-rouge">sudo -l</code>:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>We can execute a script <code class="language-plaintext highlighter-rouge">backup.sh</code> as sudo. When executed, it requires a <code class="language-plaintext highlighter-rouge">task.json</code> file:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Content of <code class="language-plaintext highlighter-rouge">task.json</code>:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Our first goal is to find the <code class="language-plaintext highlighter-rouge">user.txt</code> flag. Navigating through directories, we notice that we don’t have access to <code class="language-plaintext highlighter-rouge">/home/app-production/</code> and can’t find the flag. So, we modify</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Incluimos la flag en el .json para ver si hay suerte y la obtenemos a la hora de hacer el backup.</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Tenemos la flag del user, ahora vamos a por la del root.</p>
+
+<p>La flag del root se encuentra en el directorio <strong>/root</strong>, por tanto, vamos a probar a introducir dicho directorio en el task.json:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Vaya.. Nos dice que solamente son válidos los directorios <strong>/home</strong> y <strong>/var</strong>. Una manera de evadirlo sería mediante path traversal donde indicamos uno de los dos directorios permitidos y luego le insertamos el directorio del root. Vamos a intentarlo:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Ha funcionado, y hemos obtenido la flag del root.</p>
+
+<hr />
+
+<div style="text-align: center;">
+  <a href="https://www.hackthebox.com/achievement/machine/1157775/653" target="_blank">
+    <img src="/assets/images/Rooms/HTB/Code/17.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;" />
+  </a>
+</div>
+</p>
+        </div>
+        
+        <div class="disqus-comments" id="disqus_thread"></div>
+        
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <!--Footer Button-->
+    <div class="container has-text-centered has-background-grey-darker" id="backtotop">
+        <a class="has-text-white" onclick="window.scroll(0,0)">BACK TO TOP</a>
+    </div>
+    <!--Footer Main Section-->
+    <!-- <div class="has-background-grey-darker">
+        <div class="container columns">
+            Name Section-->
+            <!-- <div class="column has-text-left-desktop has-text-centered-mobile">
+                <a href="http://localhost:4000/#about">
+                    <div class="columns">
+                        <div class="column is-one-fifth-desktop is-one-fifth-fullhd is-one-quarter-tablet">
+                            <figure class="image is-64x64">
+                                <img class="is-rounded" src="/assets/images/me.png">
+                            </figure>
+                        </div>
+                        <div class="column is-marginless">
+                            <h5 class="has-text-grey-lighter">Jose Luis Venega</h5>
+                            <div class="content has-text-grey">
+                                <p>Hi! I'm Jose Luis Venega, a Computer Engineering student at the Universi...</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+
+            <!--Link Section
+            <div class="column has-text-white">
+                <h3>More Links</h3>
+                
+                <li>
+                    <a target="_blank" href="http://localhost:4000/feed.xml">Subscribe via RSS</a>
+                </li>
+            </div> -->
+
+            <!--Blog-post Section-->
+            <!-- <div class="column has-text-white">
+                <h3>Recent Posts</h3>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Code">Code</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/LinkVortex">LinkVortex</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/blog/Cicada">Cicada</a>
+                </li>
+                
+            </div>
+        </div> -->
+    </div>
+    <div class="has-background-black has-text-centered has-text-white" id="credits">
+        <i class="far fa-copyright"></i> 2025 | A Theme made by <a href="https://github.com/Joseeelv" target="_blank" rel="noopener noreferrer">Joseeelv</a> Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </div>
+</footer>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <!-- Prism.js Script -->
+  <script src="../prism.js"></script>
+  <script>
+    function copyToClipboard(event) {
+      const button = event.target;
+      const codeContainer = button.closest('.code-container');
+      const codeElement = codeContainer.querySelector('code');
+    
+      if (!codeElement) {
+        console.error('No se encontró el elemento <code> para copiar.');
+        return;
+      }
+
+      const code = codeElement.textContent;
+
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = 'Copied!';
+
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000); // 2000 ms = 2 segundos
+
+      }).catch(err => {
+        console.error('Error al copiar al portapapeles: ', err);
+      });
+    }
+
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', copyToClipboard);
+    });
+
+    function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      setTimeout(function() {
+        modal.classList.add('show');
+      }, 10); // Delay to trigger the animation
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal(event) {
+      if (event) event.stopPropagation();
+      var modal = document.getElementById("myModal");
+      modal.classList.remove('show');
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 300); // Match this duration with the CSS animation duration
+    }
+
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

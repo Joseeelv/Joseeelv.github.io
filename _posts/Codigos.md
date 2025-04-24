@@ -16,7 +16,7 @@
 # Imagen
 
 <div style="text-align: center;">
-  <img src="" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;">
+  <img src="" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;">
 </div>
 
 →

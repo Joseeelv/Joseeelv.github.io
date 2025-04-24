@@ -174,7 +174,7 @@
             
           </div>
         </div>
-        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile post-body">
           <p><p>To begin with, let’s perform a port scan to identify which ports are open:</p>
 
 <div style="text-align:center;">
@@ -188,7 +188,7 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As you can see above, we found two ports → 22 (<em>SSH</em>) and 80 (<em>HTTP</em>).</p>
@@ -205,49 +205,49 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>By using <code>Whatweb</code> (Wappalyzer for terminals), we can check the technologies used by the web application.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:2000px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, using a fuzzer, in this case, <code>wfuzz</code> we can look for hidden directories on this website.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found that the <code class="language-plaintext highlighter-rouge">robots.txt</code> file is accessible, and it can provide us information if it’s not properly configured.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Indeed, we found a hidden directory called <code class="language-plaintext highlighter-rouge">/ghost</code>, and if we access it, we will find a login panel.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>At the same time, we can perform a subdomain scan, as it could reveal useful information.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found the subdomain <code class="language-plaintext highlighter-rouge">dev</code>, so if we access it, we will find the following:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As you can see above, we are facing a website that a first glance doesn’t offer much. Just like at the beginning, we can fuzz the website to look for hidden directories:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Nice! We found the hidden directorio <code class="language-plaintext highlighter-rouge">.git</code>, which indicates that it is a version control system directory used by Git to manage a project’s source code.</p>
@@ -255,13 +255,13 @@
 <p>In addition, we can see some of the project’s directories.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>The most notable directory is <code class="language-plaintext highlighter-rouge">/logs</code>, as it might contain system log information. However, we found a potential user: <code class="language-plaintext highlighter-rouge">dev@linkvortex.htb</code>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We can make use of this <a href="https://github.com/lijiejie/GitHack/tree/master" target="_blank">GitHub repository</a> to reconstruct the source code from the <code class="language-plaintext highlighter-rouge">/.git</code> directory and discover sensitive information.</p>
@@ -283,13 +283,13 @@
 <p>As a result, we have this <em>JavaScript</em> script:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We can check the information of this script:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found this password <code class="language-plaintext highlighter-rouge">OctopiFociPilfer45</code>, so we can use either <code class="language-plaintext highlighter-rouge">dev@linkvortex.htb:OctopiFociPilfer45</code> or <code class="language-plaintext highlighter-rouge">admin@linkvortex.htb:OctopiFociPilfer45</code> as credentials, since we are located in the <code class="language-plaintext highlighter-rouge">/admin</code> directory, which could be a potential user.</p>
@@ -297,7 +297,7 @@
 <p>Now, we can try logging in with these credentials:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>If we try with <code class="language-plaintext highlighter-rouge">admin</code>, we can successfully login.</p>
@@ -305,7 +305,7 @@
 <p>With <code class="language-plaintext highlighter-rouge">Wappalyzer</code>, we can identify the technologies used by the website in order to search for potential vulnerabilities to exploit:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We see that the website is using a <em>Ghost CMS</em> version 5.58, so we can try to search for vulnerabilities related to this CMS version.</p>
@@ -317,13 +317,13 @@
 <p>To do this, you need to modify the URL inside the script to point to the path of your CMS:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, we can execute the script with the credentials you obtained earlier to authenticate:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found the user <code class="language-plaintext highlighter-rouge">node</code> by viewing the content of <code class="language-plaintext highlighter-rouge">/etc/passwd</code> file, but we cannot see the content of the <code class="language-plaintext highlighter-rouge">/etc/shadow</code> file since it has root privileges.</p>
@@ -336,7 +336,7 @@
   <tr>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/LinkVortex/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+        <img src="/assets/images/Rooms/HTB/LinkVortex/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </td>
     <td>
@@ -350,7 +350,7 @@
 <p>Great! We found the user <code class="language-plaintext highlighter-rouge">bob@linkvortex.htb:fibber-talented-worth</code>. We can try using these credentials to access the server via <em>SSH</em>:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Awesome! We are in. We can use the command <code class="language-plaintext highlighter-rouge">export TERM=xterm</code> to be able to use CTRL+L.</p>
@@ -358,19 +358,19 @@
 <p>Now, our goal is to find the flags, so we begin by looking for the <em>user flag</em>:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>After that, let’s escalate privileges to access the <em>root flag</em>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We observe that the script <code class="language-plaintext highlighter-rouge">clean_symlink.sh</code> runs as root without requiring a password for any file with ‘.png’ extension.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>This script handles symbolic links pointing to pictures with the ‘.png’ extension. In addition, it quarantines symbolic links that point to directories such as <code class="language-plaintext highlighter-rouge">/root</code> or <code class="language-plaintext highlighter-rouge">/etc</code>.</p>
@@ -378,7 +378,7 @@
 <p>Therefore, we can create a new symbolic link pointing to any file in those two directories to read its content.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>This happens because, when they are sent to the <code class="language-plaintext highlighter-rouge">/var/quarantined</code> directory, we have full permissions since we are the owners of that directory.</p>
@@ -388,7 +388,7 @@
 <p>Finally, it will be sent to the previously mentioned directory, where we will retrieve the obtain the contents of the file in question.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Great! We have obtained the <em>root flag</em> and, therefore, we completed the machine.</p>
@@ -397,7 +397,7 @@
 
 <div style="text-align: center;">
   <a href="https://www.hackthebox.com/achievement/machine/1157775/638" target="_blank">
-    <img src="/assets/images/Rooms/HTB/LinkVortex/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;" />
+    <img src="/assets/images/Rooms/HTB/LinkVortex/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;" />
   </a>
 </div>
 </p>
@@ -449,15 +449,15 @@
                 <h3>Recent Posts</h3>
                 
                 <li>
+                    <a href="http://localhost:4000/blog/Code">Code</a>
+                </li>
+                
+                <li>
                     <a href="http://localhost:4000/blog/LinkVortex">LinkVortex</a>
                 </li>
                 
                 <li>
                     <a href="http://localhost:4000/blog/Cicada">Cicada</a>
-                </li>
-                
-                <li>
-                    <a href="http://localhost:4000/blog/Chemistry">Chemistry</a>
                 </li>
                 
             </div>

@@ -1,4 +1,162 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="enes"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="enes" /><updated>2025-01-22T18:26:43+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Jose’s Portfolio</title><subtitle>Welcome to my hacking website</subtitle><entry><title type="html">LinkVortex</title><link href="http://localhost:4000/blog/LinkVortex" rel="alternate" type="text/html" title="LinkVortex" /><published>2025-01-16T00:00:00+01:00</published><updated>2025-01-16T00:00:00+01:00</updated><id>http://localhost:4000/blog/LinkVortex</id><content type="html" xml:base="http://localhost:4000/blog/LinkVortex"><![CDATA[<p>To begin with, let’s perform a port scan to identify which ports are open:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="enes"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="enes" /><updated>2025-04-24T11:53:59+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Jose’s Portfolio</title><subtitle>Welcome to my hacking website</subtitle><entry><title type="html">Code</title><link href="http://localhost:4000/blog/Code" rel="alternate" type="text/html" title="Code" /><published>2025-04-23T00:00:00+02:00</published><updated>2025-04-23T00:00:00+02:00</updated><id>http://localhost:4000/blog/Code</id><content type="html" xml:base="http://localhost:4000/blog/Code"><![CDATA[<p>First, we use <code class="language-plaintext highlighter-rouge">ping</code> to check if we have a connection to the machine and identify the OS.</p>
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Let’s use <em>Nmap</em> to find out the machine’s running services &amp; open ports:</p>
+
+<p><strong>Port Scanning:</strong></p>
+<div style="text-align: center;">
+<img src="../assets/images/Rooms/HTB/Code/3.png" alt="Port Scanning" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+<p><strong>Service Scanning:</strong></p>
+<div style="text-align: center;">
+<img src="../assets/images/Rooms/HTB/Code/4.png" alt="Service Scanning" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Reveals services running on open ports: SSH (22) and HTTP (5000).</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>This is the webpage.</p>
+
+<p>As we can see, this web is a Python code interpreter, so we can try executing code using the <code class="language-plaintext highlighter-rouge">os</code> library:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Certain keywords are blocked, so we need to find an alternative.</p>
+
+<p>Let’s perform fuzzing to discover more:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">wfuzz -c --hc 404 --hl=99 -w [wordlist] http://10.10.11.62:5000/FUZZ</code></pre>
+  </div>
+</div>
+
+<p>Results:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Nothing relevant was found.</p>
+
+<p>The key lies in the Python code interpreter.</p>
+
+<p>We can use <a href="https://docs.python.org/3/library/exceptions.html" target="_blank">Python exceptions</a>  to gather information. By executing <code class="language-plaintext highlighter-rouge">raise Exception(globals())</code>, we find a database in the output:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">&lt;SQLAlchemy sqlite:////home/app-production/app/instance/database.db&gt;</code></pre>
+  </div>
+</div>
+
+<p>Now, we can extract information from the database by running the following script in the Python interpreter to retrieve usernames and passwords:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">users = db.session.query(User).all()
+for user in users:
+    print(user.username, user.password)</code></pre>
+  </div>
+</div>
+
+<p>The passwords are hashed, so we use <code class="language-plaintext highlighter-rouge">hash-identifier</code> to identify the hash type:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>They are <strong>MD5</strong>, which is vulnerable to cracking. Let’s crack them using <code class="language-plaintext highlighter-rouge">hashcat</code>:</p>
+
+<div style="text-align:center;">
+ <div class="code-container">
+    <div class="code-header">
+      Bash
+      <button class="copy-button" data-code="bash">Copy</button>
+    </div>
+    <pre><code class="language-bash">hashcat -a 0 -m 0 [hash] [wordlist]</code></pre>
+  </div>
+</div>
+
+<p>With the obtained credentials, we attempt to log in via SSH, and indeed, we can log in as martin:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Now, let’s find a way to escalate privileges.</p>
+
+<p>First, check what the user can do with <code class="language-plaintext highlighter-rouge">sudo -l</code>:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>We can execute a script <code class="language-plaintext highlighter-rouge">backup.sh</code> as sudo. When executed, it requires a <code class="language-plaintext highlighter-rouge">task.json</code> file:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Content of <code class="language-plaintext highlighter-rouge">task.json</code>:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Our first goal is to find the <code class="language-plaintext highlighter-rouge">user.txt</code> flag. Navigating through directories, we notice that we don’t have access to <code class="language-plaintext highlighter-rouge">/home/app-production/</code> and can’t find the flag. So, we modify</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Incluimos la flag en el .json para ver si hay suerte y la obtenemos a la hora de hacer el backup.</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Tenemos la flag del user, ahora vamos a por la del root.</p>
+
+<p>La flag del root se encuentra en el directorio <strong>/root</strong>, por tanto, vamos a probar a introducir dicho directorio en el task.json:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Vaya.. Nos dice que solamente son válidos los directorios <strong>/home</strong> y <strong>/var</strong>. Una manera de evadirlo sería mediante path traversal donde indicamos uno de los dos directorios permitidos y luego le insertamos el directorio del root. Vamos a intentarlo:</p>
+
+<div style="text-align: center;">
+  <img src="../assets/images/Rooms/HTB/Code/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+
+<p>Ha funcionado, y hemos obtenido la flag del root.</p>
+
+<hr />
+
+<div style="text-align: center;">
+  <a href="https://www.hackthebox.com/achievement/machine/1157775/653" target="_blank">
+    <img src="/assets/images/Rooms/HTB/Code/17.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;" />
+  </a>
+</div>]]></content><author><name></name></author><category term="" /><summary type="html"><![CDATA[A detailed walkthrough of the Hack The Box machine "Code," showcasing techniques such as Python code exploitation, database extraction, hash cracking, and privilege escalation to capture both user and root flags.]]></summary></entry><entry><title type="html">LinkVortex</title><link href="http://localhost:4000/blog/LinkVortex" rel="alternate" type="text/html" title="LinkVortex" /><published>2025-01-16T00:00:00+01:00</published><updated>2025-01-16T00:00:00+01:00</updated><id>http://localhost:4000/blog/LinkVortex</id><content type="html" xml:base="http://localhost:4000/blog/LinkVortex"><![CDATA[<p>To begin with, let’s perform a port scan to identify which ports are open:</p>
 
 <div style="text-align:center;">
  <div class="code-container">
@@ -11,7 +169,7 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As you can see above, we found two ports → 22 (<em>SSH</em>) and 80 (<em>HTTP</em>).</p>
@@ -28,49 +186,49 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>By using <code>Whatweb</code> (Wappalyzer for terminals), we can check the technologies used by the web application.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:2000px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, using a fuzzer, in this case, <code>wfuzz</code> we can look for hidden directories on this website.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found that the <code class="language-plaintext highlighter-rouge">robots.txt</code> file is accessible, and it can provide us information if it’s not properly configured.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Indeed, we found a hidden directory called <code class="language-plaintext highlighter-rouge">/ghost</code>, and if we access it, we will find a login panel.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>At the same time, we can perform a subdomain scan, as it could reveal useful information.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found the subdomain <code class="language-plaintext highlighter-rouge">dev</code>, so if we access it, we will find the following:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As you can see above, we are facing a website that a first glance doesn’t offer much. Just like at the beginning, we can fuzz the website to look for hidden directories:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Nice! We found the hidden directorio <code class="language-plaintext highlighter-rouge">.git</code>, which indicates that it is a version control system directory used by Git to manage a project’s source code.</p>
@@ -78,13 +236,13 @@
 <p>In addition, we can see some of the project’s directories.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>The most notable directory is <code class="language-plaintext highlighter-rouge">/logs</code>, as it might contain system log information. However, we found a potential user: <code class="language-plaintext highlighter-rouge">dev@linkvortex.htb</code>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We can make use of this <a href="https://github.com/lijiejie/GitHack/tree/master" target="_blank">GitHub repository</a> to reconstruct the source code from the <code class="language-plaintext highlighter-rouge">/.git</code> directory and discover sensitive information.</p>
@@ -106,13 +264,13 @@
 <p>As a result, we have this <em>JavaScript</em> script:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We can check the information of this script:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found this password <code class="language-plaintext highlighter-rouge">OctopiFociPilfer45</code>, so we can use either <code class="language-plaintext highlighter-rouge">dev@linkvortex.htb:OctopiFociPilfer45</code> or <code class="language-plaintext highlighter-rouge">admin@linkvortex.htb:OctopiFociPilfer45</code> as credentials, since we are located in the <code class="language-plaintext highlighter-rouge">/admin</code> directory, which could be a potential user.</p>
@@ -120,7 +278,7 @@
 <p>Now, we can try logging in with these credentials:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>If we try with <code class="language-plaintext highlighter-rouge">admin</code>, we can successfully login.</p>
@@ -128,7 +286,7 @@
 <p>With <code class="language-plaintext highlighter-rouge">Wappalyzer</code>, we can identify the technologies used by the website in order to search for potential vulnerabilities to exploit:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We see that the website is using a <em>Ghost CMS</em> version 5.58, so we can try to search for vulnerabilities related to this CMS version.</p>
@@ -140,13 +298,13 @@
 <p>To do this, you need to modify the URL inside the script to point to the path of your CMS:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, we can execute the script with the credentials you obtained earlier to authenticate:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found the user <code class="language-plaintext highlighter-rouge">node</code> by viewing the content of <code class="language-plaintext highlighter-rouge">/etc/passwd</code> file, but we cannot see the content of the <code class="language-plaintext highlighter-rouge">/etc/shadow</code> file since it has root privileges.</p>
@@ -159,7 +317,7 @@
   <tr>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/LinkVortex/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+        <img src="/assets/images/Rooms/HTB/LinkVortex/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </td>
     <td>
@@ -173,7 +331,7 @@
 <p>Great! We found the user <code class="language-plaintext highlighter-rouge">bob@linkvortex.htb:fibber-talented-worth</code>. We can try using these credentials to access the server via <em>SSH</em>:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Awesome! We are in. We can use the command <code class="language-plaintext highlighter-rouge">export TERM=xterm</code> to be able to use CTRL+L.</p>
@@ -181,19 +339,19 @@
 <p>Now, our goal is to find the flags, so we begin by looking for the <em>user flag</em>:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>After that, let’s escalate privileges to access the <em>root flag</em>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We observe that the script <code class="language-plaintext highlighter-rouge">clean_symlink.sh</code> runs as root without requiring a password for any file with ‘.png’ extension.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>This script handles symbolic links pointing to pictures with the ‘.png’ extension. In addition, it quarantines symbolic links that point to directories such as <code class="language-plaintext highlighter-rouge">/root</code> or <code class="language-plaintext highlighter-rouge">/etc</code>.</p>
@@ -201,7 +359,7 @@
 <p>Therefore, we can create a new symbolic link pointing to any file in those two directories to read its content.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>This happens because, when they are sent to the <code class="language-plaintext highlighter-rouge">/var/quarantined</code> directory, we have full permissions since we are the owners of that directory.</p>
@@ -211,7 +369,7 @@
 <p>Finally, it will be sent to the previously mentioned directory, where we will retrieve the obtain the contents of the file in question.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/LinkVortex/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/LinkVortex/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Great! We have obtained the <em>root flag</em> and, therefore, we completed the machine.</p>
@@ -220,7 +378,7 @@
 
 <div style="text-align: center;">
   <a href="https://www.hackthebox.com/achievement/machine/1157775/638" target="_blank">
-    <img src="/assets/images/Rooms/HTB/LinkVortex/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;" />
+    <img src="/assets/images/Rooms/HTB/LinkVortex/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;" />
   </a>
 </div>]]></content><author><name></name></author><category term="" /><summary type="html"><![CDATA[LinkVortex machine from Hack The Box. The process includes port scanning, web technology identification, fuzzing for hidden directories, exploiting vulnerabilities in Ghost CMS (CVE-2023-40028), and privilege escalation through the clean_symlink.sh script. The final goal was to escalate privileges and capture the root flag.]]></summary></entry><entry><title type="html">Cicada</title><link href="http://localhost:4000/blog/Cicada" rel="alternate" type="text/html" title="Cicada" /><published>2024-12-31T00:00:00+01:00</published><updated>2024-12-31T00:00:00+01:00</updated><id>http://localhost:4000/blog/Cicada</id><content type="html" xml:base="http://localhost:4000/blog/Cicada"><![CDATA[<p>To begin with, I’m going to check if we have connection with the target machine:</p>
 
@@ -235,58 +393,51 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As we can see, the TTL is close to 128, so we will be dealing with a Windows machine.</p>
 
-<table>
-  <tr>
-    <td>
-      Now, I'm going to perform a port scan to identify which ports are open:
-      <div style="text-align:center;">
-        <div class="code-container">
-            <div class="code-header">
-              Bash
-              <button class="copy-button" data-code="bash">Copy</button>
-            </div>
-            <pre><code class="language-bash">sudo nmap -p- -open -sS -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN portDiscovery</code></pre>
-          </div>
-        </div>
-      <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Cicada/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+<p>Now, I’m going to perform a port scan to identify which ports are open:</p>
+<div style="text-align:center;">
+  <div class="code-container">
+      <div class="code-header">
+        Bash
+        <button class="copy-button" data-code="bash">Copy</button>
       </div>
-    </td>
-    <td>
-      Next, I'm going to perform an exhaustive scan to identify which services are running on these ports:
-        <div class="code-container">
-            <div class="code-header">
-              Bash
-              <button class="copy-button" data-code="bash">Copy</button>
-            </div>
-            <pre><code class="language-bash">sudo nmap -sCV -p135,139,3268,3269,389,445,464,49962,53,593,5985,636,88 10.10.11.35 -oN Targeted</code></pre>
-          </div>
-      <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Cicada/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+      <pre><code class="language-bash">sudo nmap -p- -open -sS -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN portDiscovery</code></pre>
+    </div>
+  </div>
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+<p>Next, I’m going to perform an exhaustive scan to identify which services are running on these ports:</p>
+<div class="code-container">
+      <div class="code-header">
+        Bash
+        <button class="copy-button" data-code="bash">Copy</button>
       </div>
-    </td>
-  </tr>
-</table>
+      <pre><code class="language-bash">sudo nmap -sCV -p135,139,3268,3269,389,445,464,49962,53,593,5985,636,88 10.10.11.35 -oN Targeted</code></pre>
+    </div>
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
 
 <p>Let’s begin by enumerating the shared resources on the, i.e. the port 445.</p>
 
 <p>To enumerate the <em>SMB</em> protocol, we can use toos such as <code>Smbclient</code>, <code>Smbmap</code> or <code>Crackmapexec</code>.</p>
 
 <div style="text-align: center;">
-    <img src="/assets/images/Rooms/HTB/Cicada/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+    <img src="/assets/images/Rooms/HTB/Cicada/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
     <p>We can list the shared resources with a <em>NULL</em> session (<code>-N</code> parameter).</p>
 </div>
 
 <p>As you can see above, we have several directories, so let’s try to access them.</p>
 
 <p>We cannot access to <em>DEV</em> directory, so let’s try with the <em>HR</em> directory.</p>
+
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Great! We are able to list the directory and found a text file <code class="language-plaintext highlighter-rouge">.txt</code>. Using the <code>get</code> command, we can download the file to our machine.</p>
@@ -294,23 +445,23 @@
 <p>By using <code>cat</code> command, we can view the content of the text file that we previously downloaded.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Awesome! We got credentials and a domain.</p>
 
 <p>We can use this domain (<strong>cicada.htb</strong>) and <code>Crackmapexec</code> to enumerate system users.</p>
 
-<p>With <code>Crackmapexec</code>, we can perform a brute-force enumeration using the  <code>--rid-brute</code> parameter.</p>
+<p>With <code>Crackmapexec</code>, we can perform a brute-force enumeration using the <code>--rid-brute</code> parameter.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>To perform this enumeration, it’s crucial to provide a username and its password. In this case, I will use the <em>guest</em> user, which has no password.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We find several users, such as <em>john.smoulder</em>, <em>sarah.dantelia</em>, <em>david.orelious</em>, <em>michael.wrightson</em> and <em>emily.oscars</em>. I saved this usernames in a file called <em>users.txt</em>.</p>
@@ -320,7 +471,7 @@
 <p>Knowing that, we can perform a brute-force attack against protocol <em>SMB</em> by using <code>Crackmapexec</code>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:2000px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As a result of this attack, we obtained a valid credential for <em>SMB</em> protocol.</p>
@@ -340,32 +491,32 @@
 <p>We execute the tool, and by scrolling, we are be able to discover another credential, this time for the username <strong>david.orelious</strong>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, let’s try to access to the <em>DEV</em> shared directory with this last credentials.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
   <p>With <code>Crackmapexec</code>, we can check the permissions for this user.</p>
 </div>
 
 <p>Now, we know that the user <strong>david.orelious</strong> has read permissions in that shared directory, we can access it by using <code>smbclient</code>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found a <code class="language-plaintext highlighter-rouge">.ps1</code> file, which is a <strong>powershell</strong> script. We download this file and proceed to view its content.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Great! We found another credentials, this time for the user <strong>emily.oscars</strong>. Therefore, we are going to do the same as before and check the shared directories of this user.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As we can see, the user <strong>emily.oscars</strong> has read permission over the <em>Admin<em> shared directory.</em></em></p>
@@ -375,19 +526,19 @@
 <p>But first, we have to check if the credentials we previously got for the user <strong>emily.oscars</strong> are valid. If they are, a <strong>Pwn3d!</strong> flag will appear.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Got it! Now, we can use <code>evil-winrm</code> to deploy the interactive <strong>cmd</strong></p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We are in, so our next step is find the <em>user flag</em>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
   <p>After navigating through directories, we found the <em>user flag</em>.</p>
 </div>
 
@@ -396,7 +547,7 @@
 <p>In Windows, we can use <code>whoami /priv</code> to know our privileges on the system.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We see that we have the <a href="https://github.com/HackTricks-wiki/hacktricks/blob/master/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens/README.md#sebackupprivilege" target="_blank">SeBackupPrivilege</a> set, which allows us to perform backups on the system, enanbling us to read every file or directory on the system, regardless if we have permissions in those files or not.</p>
@@ -417,7 +568,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As we are making use of <code>evil-winrm</code> we can download this files into our machine as follows:</p>
@@ -435,7 +586,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>If we list the files of our current directory, we found the backups.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, using <code>impacket-scretdump</code>, we can view the contents of these resources:</p>
@@ -450,7 +601,7 @@ reg save hklm\system C:\tmp\system</code></pre>
   </div>
 </div>
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Thanks to that, we got the credentials of the <em>administrator</em> user, so we can login using <code>evil-winrm</code> with these credentials.</p>
@@ -460,20 +611,20 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>Now, we are going to perform a procedure called <em>Pass the Hash</em>, where we will log in using the <em>administrator</em> user’s hash instead of the password. To do this, we use the <code>-H</code> parameter.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, we are in as <em>administrator</em> user, so we can find and view the <em>root flag</em>:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <hr />
 
 <div style="text-align: center;">
   <a href="https://www.hackthebox.com/achievement/machine/1157775/627" target="_blank">
-    <img src="/assets/images/Rooms/HTB/Cicada/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;" />
+    <img src="/assets/images/Rooms/HTB/Cicada/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;" />
   </a>
 </div>]]></content><author><name></name></author><category term="" /><summary type="html"><![CDATA[Cicada is an easy Windows machine on Hack The Box. The goal is to exploit weak configurations and vulnerabilities to gain access, escalate privileges, and capture the user.txt and root.txt flags.]]></summary></entry><entry><title type="html">Chemistry</title><link href="http://localhost:4000/blog/Chemistry" rel="alternate" type="text/html" title="Chemistry" /><published>2024-12-30T00:00:00+01:00</published><updated>2024-12-30T00:00:00+01:00</updated><id>http://localhost:4000/blog/Chemistry</id><content type="html" xml:base="http://localhost:4000/blog/Chemistry"><![CDATA[<p>First, I’m going to perform a port scanning in order to find out which ports are open:</p>
 <div style="text-align:center;">
@@ -487,7 +638,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 <p>We have the following ports open → 22, 5000 and 8089. So our next step is to perform a exhaustive scan to find out the versions and additional information about the discovered ports:</p>
 <div style="text-align:center;">
@@ -504,12 +655,12 @@ reg save hklm\system C:\tmp\system</code></pre>
   <tr>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </th>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </th>
   </tr>
@@ -520,7 +671,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>As we don’t have valid credentials to perform a login via <em>SSH</em>, we are going to check the web application on port 5000:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/5.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>At first glance we are not able to see interesting information. So let’s fuzzing the web to find out some hidden directories.</p>
@@ -537,7 +688,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Nice! We found a hidden directory called <em>/login</em> and <em>/register</em>:</p>
@@ -546,12 +697,12 @@ reg save hklm\system C:\tmp\system</code></pre>
   <tr>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/7.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </th>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </th>
   </tr>
@@ -562,14 +713,14 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>A <strong>CIF</strong> file is a <em>Crystallographic Information File</em>. You can read more about it <a href="https://en.wikipedia.org/wiki/Crystallographic_Information_File" target="_blank">here!</a></p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:400px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/9.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
   <p>This is the <code>.cif</code> file.</p>
 </div>
 
 <p>Now, we can search on Google for information about any vulnerability related with this kind of file.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>I found this <a href="https://github.com/9carlo6/CVE-2024-23346" target="_blank">GitHub repository</a>, where you can find a <code>.cif</code> file that contains the exploit.</p>
@@ -592,12 +743,12 @@ reg save hklm\system C:\tmp\system</code></pre>
   <tr>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </th>
     <th>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
       </div>
     </th>
   </tr>
@@ -606,7 +757,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>After that, we are inside the server, so the next step is to find out where the <em>user flag<em> is.</em></em></p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>The <em>user flag<em> is located in the user <strong>rosa</strong> directory, but if we perform a <code>cat</code> to visualize the content, an error will be displayed saying that we don’t have the required permissions.</em></em></p>
@@ -614,7 +765,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>We can confirm this by using <code>ls -la</code>, and since we are the app user, we belong to the other group for that file, so we cannot open it.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As a conclusion, we need to pivot to user <strong>rosa</strong> to visualize the content of the <em>user flag</em>. To achieve this, we need to find information on a privilege escalation vector that allows us to pivot to that user.</p>
@@ -624,13 +775,13 @@ reg save hklm\system C:\tmp\system</code></pre>
   <tr>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
         <p>We convert the file into a base64 string</p>
       </div>
     </td>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
         <p>We decrypt the base64 string into its normal state</p>
       </div>
     </td>
@@ -654,7 +805,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 <p>Awesome, we have information about users and their passwords, which are hashed. So, we need to decrypt them for a potential connection via <em>SSH</em>.</p>
 
@@ -673,7 +824,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
   <p>We got the rosa's password, and its credentials are → <strong>rosa:unicorniosrosados</strong>.</p>
 </div>
 
@@ -683,13 +834,13 @@ reg save hklm\system C:\tmp\system</code></pre>
   <th>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:450px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
         <p>We stablish the <em>SSH</em> connection</p>
       </div>
     </td>
     <td>
       <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Chemistry/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+        <img src="/assets/images/Rooms/HTB/Chemistry/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
         <p>The <em>user flag</em> is located on the user' home directory</p>
       </div>
     </td>
@@ -701,13 +852,13 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>We can perform a <code>sudo -l</code> to check if the user <strong>rosa</strong> can execute commands as sudo, but no luck.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Also, we can check the binaries with the SUID bit set, by using the following command → <code>find / -perm -4000 2&gt;/dev/null | xargs ls -l</code>:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We also did not find an unusual binary with the SUID bit set, so we can use <code>linpeas.sh</code> in order to find vulnerabilities on the machine.</p>
@@ -715,13 +866,13 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>We can find this script in rosa’s user <em>/home</em> directory:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Let’s execute the <code>linpeas.sh</code> script:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>If we use this script, we can find that there are several ports open that are not visible from outside. That is, we can see these ports if we are on the victim machine but not on our own.</p>
@@ -731,7 +882,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>Knowing this, we see that something is running on port 8080. We can use the <code>curl</code> command to check whether it is a web application or not.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>After reading the headers of the request, we confirm that we are dealing with a web application.</p>
@@ -741,7 +892,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>A good practice is to see what the exploit does to understand how it works. So, let’s check the exploit using <code>cat</code> command:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As you can see, the command executes a <em>path traversal</em> to read an arbitrary file. That is, the website is vulnerable to a <strong>Local File Inclusion</strong> or <strong>LFI</strong> vulnerability.</p>
@@ -761,7 +912,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>Why the <em>/root</em> directory? Because the <em>root flag</em> is located there, so if we can read this file, we can obtain the flag we desire.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Chemistry/28.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+  <img src="/assets/images/Rooms/HTB/Chemistry/28.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Done, we got the <em>root flag</em>.</p>
@@ -770,6 +921,6 @@ reg save hklm\system C:\tmp\system</code></pre>
 
 <div style="text-align: center;">
   <a href="https://www.hackthebox.com/achievement/machine/1157775/631" target="_blank">
-    <img src="/assets/images/Rooms/HTB/Chemistry/29.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;" />
+    <img src="/assets/images/Rooms/HTB/Chemistry/29.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;" />
   </a>
 </div>]]></content><author><name></name></author><category term="" /><summary type="html"><![CDATA[The Chemistry machine on Hack The Box is vulnerable to various techniques, such as command injection, LFI, and vulnerabilities in CIF file handling. Through these vulnerabilities, a reverse shell was executed, privileges were escalated, and the flags user.txt and root.txt were obtained.]]></summary></entry></feed>

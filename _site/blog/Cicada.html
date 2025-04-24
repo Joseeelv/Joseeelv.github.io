@@ -174,7 +174,7 @@
             
           </div>
         </div>
-        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile">
+        <div class="content has-text-justified-desktop has-text-justified-fullhd has-text-justified has-text-justified-tablet has-text-left-mobile post-body">
           <p><p>To begin with, I’m going to check if we have connection with the target machine:</p>
 
 <div style="text-align:center;">
@@ -188,58 +188,51 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/1.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As we can see, the TTL is close to 128, so we will be dealing with a Windows machine.</p>
 
-<table>
-  <tr>
-    <td>
-      Now, I'm going to perform a port scan to identify which ports are open:
-      <div style="text-align:center;">
-        <div class="code-container">
-            <div class="code-header">
-              Bash
-              <button class="copy-button" data-code="bash">Copy</button>
-            </div>
-            <pre><code class="language-bash">sudo nmap -p- -open -sS -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN portDiscovery</code></pre>
-          </div>
-        </div>
-      <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Cicada/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:800px;" />
+<p>Now, I’m going to perform a port scan to identify which ports are open:</p>
+<div style="text-align:center;">
+  <div class="code-container">
+      <div class="code-header">
+        Bash
+        <button class="copy-button" data-code="bash">Copy</button>
       </div>
-    </td>
-    <td>
-      Next, I'm going to perform an exhaustive scan to identify which services are running on these ports:
-        <div class="code-container">
-            <div class="code-header">
-              Bash
-              <button class="copy-button" data-code="bash">Copy</button>
-            </div>
-            <pre><code class="language-bash">sudo nmap -sCV -p135,139,3268,3269,389,445,464,49962,53,593,5985,636,88 10.10.11.35 -oN Targeted</code></pre>
-          </div>
-      <div style="text-align: center;">
-        <img src="/assets/images/Rooms/HTB/Cicada/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:600px;" />
+      <pre><code class="language-bash">sudo nmap -p- -open -sS -n -Pn -vvv --min-rate 5000 &lt;target_IP&gt; -oN portDiscovery</code></pre>
+    </div>
+  </div>
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/2.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
+<p>Next, I’m going to perform an exhaustive scan to identify which services are running on these ports:</p>
+<div class="code-container">
+      <div class="code-header">
+        Bash
+        <button class="copy-button" data-code="bash">Copy</button>
       </div>
-    </td>
-  </tr>
-</table>
+      <pre><code class="language-bash">sudo nmap -sCV -p135,139,3268,3269,389,445,464,49962,53,593,5985,636,88 10.10.11.35 -oN Targeted</code></pre>
+    </div>
+<div style="text-align: center;">
+  <img src="/assets/images/Rooms/HTB/Cicada/3.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
+</div>
 
 <p>Let’s begin by enumerating the shared resources on the, i.e. the port 445.</p>
 
 <p>To enumerate the <em>SMB</em> protocol, we can use toos such as <code>Smbclient</code>, <code>Smbmap</code> or <code>Crackmapexec</code>.</p>
 
 <div style="text-align: center;">
-    <img src="/assets/images/Rooms/HTB/Cicada/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+    <img src="/assets/images/Rooms/HTB/Cicada/4.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
     <p>We can list the shared resources with a <em>NULL</em> session (<code>-N</code> parameter).</p>
 </div>
 
 <p>As you can see above, we have several directories, so let’s try to access them.</p>
 
 <p>We cannot access to <em>DEV</em> directory, so let’s try with the <em>HR</em> directory.</p>
+
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/6.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Great! We are able to list the directory and found a text file <code class="language-plaintext highlighter-rouge">.txt</code>. Using the <code>get</code> command, we can download the file to our machine.</p>
@@ -247,23 +240,23 @@
 <p>By using <code>cat</code> command, we can view the content of the text file that we previously downloaded.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/8.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Awesome! We got credentials and a domain.</p>
 
 <p>We can use this domain (<strong>cicada.htb</strong>) and <code>Crackmapexec</code> to enumerate system users.</p>
 
-<p>With <code>Crackmapexec</code>, we can perform a brute-force enumeration using the  <code>--rid-brute</code> parameter.</p>
+<p>With <code>Crackmapexec</code>, we can perform a brute-force enumeration using the <code>--rid-brute</code> parameter.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:700px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/10.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>To perform this enumeration, it’s crucial to provide a username and its password. In this case, I will use the <em>guest</em> user, which has no password.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:900px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/11.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We find several users, such as <em>john.smoulder</em>, <em>sarah.dantelia</em>, <em>david.orelious</em>, <em>michael.wrightson</em> and <em>emily.oscars</em>. I saved this usernames in a file called <em>users.txt</em>.</p>
@@ -273,7 +266,7 @@
 <p>Knowing that, we can perform a brute-force attack against protocol <em>SMB</em> by using <code>Crackmapexec</code>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:2000px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/12.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As a result of this attack, we obtained a valid credential for <em>SMB</em> protocol.</p>
@@ -293,32 +286,32 @@
 <p>We execute the tool, and by scrolling, we are be able to discover another credential, this time for the username <strong>david.orelious</strong>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/13.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, let’s try to access to the <em>DEV</em> shared directory with this last credentials.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/14.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
   <p>With <code>Crackmapexec</code>, we can check the permissions for this user.</p>
 </div>
 
 <p>Now, we know that the user <strong>david.orelious</strong> has read permissions in that shared directory, we can access it by using <code>smbclient</code>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/15.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We found a <code class="language-plaintext highlighter-rouge">.ps1</code> file, which is a <strong>powershell</strong> script. We download this file and proceed to view its content.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/16.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Great! We found another credentials, this time for the user <strong>emily.oscars</strong>. Therefore, we are going to do the same as before and check the shared directories of this user.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/17.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As we can see, the user <strong>emily.oscars</strong> has read permission over the <em>Admin<em> shared directory.</em></em></p>
@@ -328,19 +321,19 @@
 <p>But first, we have to check if the credentials we previously got for the user <strong>emily.oscars</strong> are valid. If they are, a <strong>Pwn3d!</strong> flag will appear.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/18.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Got it! Now, we can use <code>evil-winrm</code> to deploy the interactive <strong>cmd</strong></p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/19.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We are in, so our next step is find the <em>user flag</em>.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/20.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
   <p>After navigating through directories, we found the <em>user flag</em>.</p>
 </div>
 
@@ -349,7 +342,7 @@
 <p>In Windows, we can use <code>whoami /priv</code> to know our privileges on the system.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/21.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>We see that we have the <a href="https://github.com/HackTricks-wiki/hacktricks/blob/master/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens/README.md#sebackupprivilege" target="_blank">SeBackupPrivilege</a> set, which allows us to perform backups on the system, enanbling us to read every file or directory on the system, regardless if we have permissions in those files or not.</p>
@@ -370,7 +363,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 </div>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/22.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>As we are making use of <code>evil-winrm</code> we can download this files into our machine as follows:</p>
@@ -388,7 +381,7 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>If we list the files of our current directory, we found the backups.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/23.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, using <code>impacket-scretdump</code>, we can view the contents of these resources:</p>
@@ -403,7 +396,7 @@ reg save hklm\system C:\tmp\system</code></pre>
   </div>
 </div>
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/24.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Thanks to that, we got the credentials of the <em>administrator</em> user, so we can login using <code>evil-winrm</code> with these credentials.</p>
@@ -413,20 +406,20 @@ reg save hklm\system C:\tmp\system</code></pre>
 <p>Now, we are going to perform a procedure called <em>Pass the Hash</em>, where we will log in using the <em>administrator</em> user’s hash instead of the password. To do this, we use the <code>-H</code> parameter.</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/25.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <p>Now, we are in as <em>administrator</em> user, so we can find and view the <em>root flag</em>:</p>
 
 <div style="text-align: center;">
-  <img src="/assets/images/Rooms/HTB/Cicada/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:910px;" />
+  <img src="/assets/images/Rooms/HTB/Cicada/26.png" alt="Untitled" onclick="openModal(this.src)" style="width:100%; max-width:inherit;" />
 </div>
 
 <hr />
 
 <div style="text-align: center;">
   <a href="https://www.hackthebox.com/achievement/machine/1157775/627" target="_blank">
-    <img src="/assets/images/Rooms/HTB/Cicada/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:300px;" />
+    <img src="/assets/images/Rooms/HTB/Cicada/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;" />
   </a>
 </div>
 </p>
@@ -478,15 +471,15 @@ reg save hklm\system C:\tmp\system</code></pre>
                 <h3>Recent Posts</h3>
                 
                 <li>
+                    <a href="http://localhost:4000/blog/Code">Code</a>
+                </li>
+                
+                <li>
                     <a href="http://localhost:4000/blog/LinkVortex">LinkVortex</a>
                 </li>
                 
                 <li>
                     <a href="http://localhost:4000/blog/Cicada">Cicada</a>
-                </li>
-                
-                <li>
-                    <a href="http://localhost:4000/blog/Chemistry">Chemistry</a>
                 </li>
                 
             </div>
