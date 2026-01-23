@@ -1,0 +1,16 @@
+export const contactFormData = {
+  title: "Get In Touch",
+  closeButtonLabel: "Close",
+  successTitle: "Message Sent!",
+  successMessage: "Thank you for reaching out. I will get back to you soon via email.",
+  nameLabel: "Name",
+  namePlaceholder: "Your name",
+  emailLabel: "Email",
+  emailPlaceholder: "your@email.com",
+  messageLabel: "Message",
+  messagePlaceholder: "Write your message here...",
+  subjectLabel: "Subject",
+  subjectPlaceholder: "Subject of the message",
+  submitButtonLabel: "Send Message",
+  submitButtonSendingLabel: "Sending...",
+}
