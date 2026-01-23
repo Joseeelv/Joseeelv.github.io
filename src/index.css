@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+body,
+html {
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+}
+
+nav > div a {
+  position: relative;
+  display: inline-block;
+}
+
+nav > div a.active,
+nav > div a:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 224, 255, 1) 0%,
+    rgba(0, 255, 153, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease-out;
+}
+
+nav > div a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 224, 255, 1) 0%,
+    rgba(0, 255, 153, 1) 100%
+  );
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+nav > div a:hover::after,
+nav > div a.active::after {
+  width: 100%;
+  left: 0;
+  opacity: 1;
+}
