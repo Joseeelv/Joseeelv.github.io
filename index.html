@@ -12,6 +12,17 @@
   </noscript>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jose Luis Venega Sánchez - Portfolio</title>
+
+  <!-- Script para manejar redirecciones de GitHub Pages -->
+  <script>
+    (function() {
+      const redirect=sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if(redirect&&redirect!==location.pathname) {
+        history.replaceState(null,null,redirect);
+      }
+    })();
+  </script>
 </head>
 
 <body>
