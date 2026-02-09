@@ -117,9 +117,9 @@ export default function CodeBlogPost() {
     <section className="relative w-full min-h-screen bg-[#020617] text-gray-200 flex flex-col items-center pt-24 pb-20 overflow-hidden">
       {/* Fondos ambientales mejorados */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
-        <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+        <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+        <div className="absolute top-[10%] right-[5%] w-125 h-125 bg-cyan-500/5 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-[10%] left-[5%] w-125 h-125 bg-blue-600/5 rounded-full blur-[100px]"></div>
       </div>
 
       <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
@@ -141,7 +141,7 @@ export default function CodeBlogPost() {
             components={{
               // Títulos
               h1: ({ children }) => (
-                <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mt-12 mb-6 border-b border-gray-800 pb-2">
+                <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-400 mt-12 mb-6 border-b border-gray-800 pb-2">
                   {children}
                 </h1>
               ),
@@ -177,7 +177,7 @@ export default function CodeBlogPost() {
               // Imágenes con efecto hover y click
               img: ({ src, alt, ...props }) => (
                 <figure className="my-8 group relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+                  <div className="absolute -inset-1 bg-linear-to-r from-cyan-500/20 to-blue-600/20 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
                   <img
                     src={src}
                     alt={alt}
@@ -211,7 +211,7 @@ export default function CodeBlogPost() {
       {/* Modal Lightbox */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-in fade-in duration-200"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-7xl max-h-[90vh]">
