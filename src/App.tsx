@@ -4,6 +4,7 @@ import Footer from "./components/footer";
 import Home from "./pages/home";
 import Blog from "./pages/blog/page";
 import CodeBlogPost from "./pages/blog/code/page";
+import LinkVortexBlogPost from "./pages/blog/linkVortex/page";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/code" element={<CodeBlogPost />} />
+        <Route path="/blog/linkVortex" element={<LinkVortexBlogPost />} />
       </Routes>
       <Footer />
     </BrowserRouter>
