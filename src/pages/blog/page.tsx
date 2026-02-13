@@ -116,6 +116,17 @@ export default function Blog() {
                       </span>
                     )}
                   </div>
+                  <div className="mb-4 flex gap-2 flex-wrap">
+                    {blog.skills &&
+                      blog.skills.map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-block bg-purple-500/20 text-purple-300 text-xs px-2 py-1 rounded-full"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                  </div>
                   <a
                     href={"/blog/" + blog.title}
                     rel="noopener noreferrer"
