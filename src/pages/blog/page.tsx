@@ -11,6 +11,7 @@ export default function Blog() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedOS, setSelectedOS] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
   const filteredBlogs = blogData.blogs.filter((blog) => {
     const searchMatch =
@@ -27,7 +28,13 @@ export default function Blog() {
 
     const osMatch = selectedOS.length === 0 || selectedOS.includes(blog.os);
 
-    return searchMatch && difficultyMatch && categoryMatch && osMatch;
+    const skillsMatch =
+      selectedSkills.length === 0 ||
+      selectedSkills.some((skill) => blog.skills.includes(skill));
+
+    return (
+      searchMatch && difficultyMatch && categoryMatch && osMatch && skillsMatch
+    );
   });
 
   return (
@@ -66,6 +73,8 @@ export default function Blog() {
             onOSChange={setSelectedOS}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            selectedSkills={selectedSkills}
+            onSkillsChange={setSelectedSkills}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -127,13 +136,23 @@ export default function Blog() {
                         </span>
                       ))}
                   </div>
-                  <a
-                    href={"/blog/" + blog.title}
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm font-semibold"
-                  >
-                    Read more &rarr;
-                  </a>
+                  <div className="flex-2 gap-4 items-center">
+                    <a
+                      href={"/blog/" + blog.title}
+                      rel="noopener noreferrer"
+                      className="text-cyan-400 hover:text-cyan-300 text-sm font-semibold"
+                    >
+                      Read more
+                    </a>
+                    <a
+                      href={blog.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-cyan-300 text-sm font-semibold pl-22"
+                    >
+                      View on {blog.platform}
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}

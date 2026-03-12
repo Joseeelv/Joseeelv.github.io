@@ -10,6 +10,8 @@ interface LabFiltersProps {
   onOSChange: (os: string[]) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  selectedSkills: string[];
+  onSkillsChange: (skills: string[]) => void;
 }
 
 const difficulties = Array.from(
@@ -30,6 +32,8 @@ export function LabFilters({
   onOSChange,
   searchQuery,
   onSearchChange,
+  selectedSkills,
+  onSkillsChange,
 }: LabFiltersProps) {
   const toggleDifficulty = (difficulty: string) => {
     if (selectedDifficulties.includes(difficulty)) {
@@ -60,13 +64,15 @@ export function LabFilters({
     onCategoryChange([]);
     onOSChange([]);
     onSearchChange("");
+    onSkillsChange([]);
   };
 
   const hasActiveFilters =
     selectedDifficulties.length > 0 ||
     selectedCategories.length > 0 ||
     selectedOS.length > 0 ||
-    searchQuery;
+    searchQuery ||
+    selectedSkills.length > 0;
   return (
     <div className="mb-8 space-y-6">
       {/* Search Bar */}
@@ -165,6 +171,35 @@ export function LabFilters({
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+        <div className="mt-4">
+          <label className="text-sm text-gray-400 mb-3">Skills</label>
+          <div className="flex flex-wrap gap-2">
+            {Array.from(
+              new Set(blogData.blogs.flatMap((blog) => blog.skills || [])),
+            ).map((skill) => (
+              <button
+                key={skill}
+                onClick={() =>
+                  onSkillsChange(
+                    selectedSkills.includes(skill)
+                      ? selectedSkills.filter((s) => s !== skill)
+                      : [...selectedSkills, skill],
+                  )
+                }
+                className={` cursor-pointer
+                      px-4 py-2 rounded-lg border text-sm transition-all
+                      ${
+                        selectedSkills.includes(skill)
+                          ? "bg-purple-500/20 border-purple-500 text-purple-300"
+                          : "bg-gray-800/50 border-gray-700 text-gray-400 hover:border-gray-600"
+                      }
+                    `}
+              >
+                {skill}
+              </button>
+            ))}
           </div>
         </div>
       </div>
