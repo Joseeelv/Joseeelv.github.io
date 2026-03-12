@@ -7,16 +7,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Detectar si estamos en una ruta de blog o actualizar según scroll
   useEffect(() => {
-    if (location.pathname.startsWith("/blog")) {
-      setActiveSection("blog");
-      return;
-    }
-
-    // Solo procesar scroll si estamos en la página principal
-    if (location.pathname !== "/") return;
-
     const handleScroll = () => {
       const sections = [
         "hero",
@@ -41,7 +32,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
