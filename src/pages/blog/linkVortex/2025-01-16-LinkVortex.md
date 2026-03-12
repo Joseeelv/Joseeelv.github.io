@@ -195,7 +195,5 @@ Great! We have obtained the <em>root flag</em> and, therefore, we completed the 
 ---
 
 <div style="text-align: center;">
-  <a href="https://www.hackthebox.com/achievement/machine/1157775/638" target="_blank">
-    <img src="/images/Rooms/HTB/LinkVortex/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;">
-  </a>
+  <img src="/images/Rooms/HTB/LinkVortex/27.png" alt="Hack The Box Achievement" style="width:100%; max-width:inherit;">
 </div>
