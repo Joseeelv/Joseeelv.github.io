@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-The project maintains security fixes for the current `main` and `testing` branches.
+The project maintains security fixes for the current `main` and `develop` branches.
 
 ## Reporting a Vulnerability
 
