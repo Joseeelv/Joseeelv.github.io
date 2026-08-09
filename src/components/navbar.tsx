@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Terminal, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -10,11 +10,11 @@ export default function Navbar() {
 
   useEffect(() => {
     if (location.pathname.startsWith("/blog")) {
-      setActiveSection("blog");
+      setActiveSection("blog"); // eslint-disable-line react-hooks/set-state-in-effect
       return;
     }
 
-    setActiveSection("hero");
+    setActiveSection("hero"); // eslint-disable-line react-hooks/set-state-in-effect
 
     const handleScroll = () => {
       const sections = [

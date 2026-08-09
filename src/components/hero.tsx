@@ -144,7 +144,7 @@ export default function Hero() {
                       className="w-5 h-5"
                     />
                   ) : (
-                    getIcon(socialLink.icon)
+                    socialLink.icon && getIcon(socialLink.icon)
                   )}
                 </a>
               ))}
