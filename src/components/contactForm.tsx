@@ -1,5 +1,7 @@
 import { useForm, ValidationError } from "@formspree/react";
 import { contactFormData } from "../data/contactFormData";
+import { X, Check } from "lucide-react";
+
 interface ContactFormProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,42 +15,25 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
   if (state.succeeded) {
     return (
       <>
-        {/* Modal backdrop */}
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/80 z-40 transition-opacity duration-300"
           onClick={onClose}
         ></div>
-
-        {/* Success Message */}
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 rounded-lg shadow-2xl max-w-md w-full border border-green-500 border-opacity-50">
+          <div className="bg-[#0a0a0a] border border-[#00ff41]/30 max-w-md w-full">
             <div className="flex flex-col items-center justify-center p-8 text-center">
-              <div className="w-16 h-16 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-                <svg
-                  className="w-8 h-8 text-green-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+              <div className="w-16 h-16 bg-[#00ff41]/10 border border-[#00ff41]/20 flex items-center justify-center mb-4">
+                <Check className="w-8 h-8 text-[#00ff41]" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">
+              <h2 className="text-2xl font-bold text-white font-mono mb-2">
                 {contactFormData.successTitle}
               </h2>
-              <p className="text-gray-300 mb-6">
+              <p className="text-gray-400 font-sans mb-6">
                 {contactFormData.successMessage}
               </p>
               <button
-                onClick={() => {
-                  onClose();
-                }}
-                className="px-6 py-2 bg-cyan-400 text-slate-950 font-semibold rounded-lg hover:bg-cyan-300 transition-colors"
+                onClick={onClose}
+                className="px-6 py-2 bg-[#00ff41]/10 border border-[#00ff41]/30 text-[#00ff41] font-mono text-sm uppercase tracking-widest hover:bg-[#00ff41]/20 transition-colors cursor-pointer"
               >
                 {contactFormData.closeButtonLabel}
               </button>
@@ -61,47 +46,33 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
 
   return (
     <>
-      {/* Modal backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
+        className="fixed inset-0 bg-black/80 z-40 transition-opacity duration-300"
         onClick={onClose}
       ></div>
 
-      {/* Modal content */}
+      <div className="binary-diagonal absolute inset-0 z-0 pointer-events-none"></div>
+
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="bg-slate-900 rounded-lg shadow-2xl max-w-md w-full border border-cyan-400 border-opacity-30">
+        <div className="bg-[#0a0a0a] border border-[#00ff41]/20 max-w-md w-full rounded-lg">
           {/* Header */}
-          <div className="flex justify-between items-center p-6 border-b border-cyan-400 border-opacity-30">
-            <h2 className="text-2xl font-bold text-white">
+          <div className="flex justify-between items-center p-6 border-b border-[#1a1a1a]">
+            <h2 className="text-lg font-bold text-white font-mono tracking-wide">
               {contactFormData.title}
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-white transition-colors cursor-pointer"
+              className="text-gray-400 hover:text-[#00ff41] transition-colors cursor-pointer"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-4">
-            {/* Name */}
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-xs font-mono text-gray-400 mb-2 uppercase tracking-wider"
               >
                 {contactFormData.nameLabel}
               </label>
@@ -110,16 +81,15 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                 type="text"
                 name="name"
                 required
-                className="w-full px-4 py-2 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                placeholder={`${contactFormData.namePlaceholder}`}
+                className="w-full px-4 py-2 bg-black border border-[#1a1a1a] text-white placeholder-gray-600 font-mono text-sm focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-colors rounded-lg"
+                placeholder={contactFormData.namePlaceholder}
               />
             </div>
 
-            {/* Email */}
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-xs font-mono text-gray-400 mb-2 uppercase tracking-wider"
               >
                 {contactFormData.emailLabel}
               </label>
@@ -128,8 +98,8 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                 type="email"
                 name="email"
                 required
-                className="w-full px-4 py-2 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                placeholder={`${contactFormData.emailPlaceholder}`}
+                className="w-full px-4 py-2 bg-black border border-[#1a1a1a] text-white placeholder-gray-600 font-mono text-sm focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-colors rounded-lg"
+                placeholder={contactFormData.emailPlaceholder}
               />
               <ValidationError
                 prefix="Email"
@@ -138,11 +108,10 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
               />
             </div>
 
-            {/* Subject */}
             <div>
               <label
                 htmlFor="subject"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-xs font-mono text-gray-400 mb-2 uppercase tracking-wider"
               >
                 {contactFormData.subjectLabel}
               </label>
@@ -151,16 +120,15 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                 type="text"
                 name="subject"
                 required
-                className="w-full px-4 py-2 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                placeholder={`${contactFormData.subjectPlaceholder}`}
+                className="w-full px-4 py-2 bg-black border border-[#1a1a1a] text-white placeholder-gray-600 font-mono text-sm focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-colors rounded-lg"
+                placeholder={contactFormData.subjectPlaceholder}
               />
             </div>
 
-            {/* Message */}
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-xs font-mono text-gray-400 mb-2 uppercase tracking-wider"
               >
                 {contactFormData.messageLabel}
               </label>
@@ -169,8 +137,8 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                 name="message"
                 required
                 rows={4}
-                className="w-full px-4 py-2 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none"
-                placeholder={`${contactFormData.messagePlaceholder}`}
+                className="w-full px-4 py-2 bg-black border border-[#1a1a1a] text-white placeholder-gray-600 font-mono text-sm focus:outline-none focus:border-[#00ff41]/50 focus:ring-1 focus:ring-[#00ff41]/20 transition-colors resize-none rounded-lg"
+                placeholder={contactFormData.messagePlaceholder}
               ></textarea>
               <ValidationError
                 prefix="Message"
@@ -179,11 +147,10 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
               />
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={state.submitting}
-              className="w-full px-6 py-3 bg-cyan-400 text-slate-950 font-semibold uppercase tracking-widest rounded-lg transition-all duration-300 hover:bg-cyan-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 cursor-pointer"
+              className="w-full px-6 py-3 bg-[#00ff41]/10 border border-[#00ff41]/30 text-[#00ff41] font-mono text-sm uppercase tracking-widest hover:bg-[#00ff41]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer rounded-lg"
             >
               {state.submitting
                 ? contactFormData.submitButtonSendingLabel
