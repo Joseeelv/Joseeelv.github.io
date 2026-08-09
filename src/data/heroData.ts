@@ -36,12 +36,12 @@ export const heroData = {
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/jose-luis-venega-sánchez-817a65285",
-      icon: "Linkedin",
+      icon: "/images/In.svg",
     },
     {
       label: "GitHub",
       href: "https://www.github.com/Joseeelv",
-      icon: "Github",
+      icon: "/images/github.svg",
     },
     {
       label: "TryHackMe",
