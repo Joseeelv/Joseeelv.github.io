@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Terminal, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -8,15 +9,21 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
+    if (location.pathname.startsWith("/blog")) {
+      setActiveSection("blog");
+      return;
+    }
+
+    setActiveSection("hero");
+
     const handleScroll = () => {
       const sections = [
         "hero",
         "projects",
         "whoami",
-        "experience-education",
+        "experience",
         "skills",
         "articles",
-        "blog",
       ];
 
       for (const section of sections) {
@@ -32,7 +39,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -41,10 +48,8 @@ export default function Navbar() {
     if (href?.startsWith("#")) {
       const targetId = href.substring(1);
 
-      // Si no estamos en la página principal, navega a "/" primero
       if (location.pathname !== "/") {
         navigate("/");
-        // Espera a que la página cargue antes de hacer scroll
         setTimeout(() => {
           const element = document.getElementById(targetId);
           if (element) {
@@ -59,7 +64,6 @@ export default function Navbar() {
           }
         }, 300);
       } else {
-        // Si ya estamos en la página principal, solo hace scroll
         const element = document.getElementById(targetId);
         if (element) {
           const navbarHeight = 64;
@@ -73,10 +77,8 @@ export default function Navbar() {
         }
       }
 
-      // Cerrar menú en móviles después de hacer clic
       setIsMenuOpen(false);
     } else if (href?.startsWith("/")) {
-      // Navegación a rutas
       navigate(href);
       setIsMenuOpen(false);
     }
@@ -86,22 +88,22 @@ export default function Navbar() {
     { label: "Home", href: "#hero" },
     { label: "Projects", href: "#projects" },
     { label: "Whoami", href: "#whoami" },
-    { label: "Experience & Education", href: "#experience-education" },
+    { label: "Experience", href: "#experience" },
     { label: "Skills", href: "#skills" },
     { label: "Articles", href: "#articles" },
     { label: "Labs", href: "/blog" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-gray-700 shadow-lg font-display px-8 h-16">
+    <nav className="fixed top-0 left-0 w-full z-100 backdrop-blur-md bg-black/50 rounded-lg border-b border-green-900 font-mono px-8 h-16">
       <div className="max-w mx-auto w-full flex items-center justify-center h-full gap-12">
         {/* Brand */}
         <div className="flex items-center absolute left-8">
           <a className="flex items-center" href="/">
             <img
-              src="/images/favicon.png"
-              alt="Site Icon"
-              className="w-10 h-10 rounded-xl"
+              className="w-12 h-10 text-[#00ff41] transition-all duration-300 hover:scale-110 cursor-pointer "
+              src="/images/logo.png"
+              alt="Logo"
             />
           </a>
         </div>
@@ -109,34 +111,24 @@ export default function Navbar() {
         {/* Burger Menu */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden flex flex-col gap-1.5 p-2 hover:bg-gray-800 rounded-lg transition-colors absolute right-8 cursor-pointer"
+          className="lg:hidden flex flex-col gap-1.5 p-2 rounded transition-colors absolute right-8 cursor-pointer"
         >
-          <span
-            className={`w-6 h-0.5 bg-white block transition-all duration-300 cursor-pointer ${
-              isMenuOpen ? "rotate-45 translate-y-2" : ""
-            }`}
-          ></span>
-          <span
-            className={`w-6 h-0.5 bg-white block transition-all duration-300 cursor-pointer ${
-              isMenuOpen ? "opacity-0" : ""
-            }`}
-          ></span>
-          <span
-            className={`w-6 h-0.5 bg-white block transition-all duration-300 cursor-pointer ${
-              isMenuOpen ? "-rotate-45 -translate-y-2" : ""
-            }`}
-          ></span>
+          {isMenuOpen ? (
+            <X className="w-6 h-6 text-white" />
+          ) : (
+            <Menu className="w-6 h-6 text-white" />
+          )}
         </button>
 
-        {/* Menu */}
-        <div className="hidden lg:flex items-center gap-6 font-bold">
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex items-center gap-8 font-mono text-sm tracking-wider">
           {navLinks.map((link) => (
             <a
               key={link.label}
-              className={`tracking-wide text-base transition-colors cursor-pointer ${
+              className={`transition-colors cursor-pointer ${
                 activeSection === link.href.substring(1)
-                  ? "shadow-md active cursor-default"
-                  : "text-gray-200 hover:shadow-md"
+                  ? "active cursor-default"
+                  : "text-gray-300 hover:text-[#00ff41]"
               }`}
               href={link.href}
               onClick={handleNavClick}
@@ -147,17 +139,17 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Dropdown */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed left-0 right-0 top-16 bg-slate-900 border-t border-gray-700 shadow-2xl">
+        <div className="lg:hidden fixed left-0 right-0 top-16 z-40 bg-black/95 backdrop-blur-xl border-t border-[#1a1a1a]">
           <div className="flex flex-col">
             {navLinks.map((link) => (
               <a
                 key={link.label}
-                className={`px-6 py-3 border-b border-gray-800 tracking-wide text-base font-semibold transition-all duration-300 ${
+                className={`px-6 py-3 border-b border-[#1a1a1a] tracking-wider text-sm font-mono font-semibold transition-all ${
                   activeSection === link.href.substring(1)
-                    ? "bg-cyan-400/10 text-cyan-400"
-                    : "text-gray-300 hover:bg-gray-800/50"
+                    ? "bg-[#00ff41]/10 text-[#00ff41]"
+                    : "text-gray-300 hover:bg-[#0a0a0a]"
                 }`}
                 href={link.href}
                 onClick={handleNavClick}

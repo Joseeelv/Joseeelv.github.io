@@ -1,48 +1,187 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap");
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
 
 body,
 html {
   overscroll-behavior: none;
   scroll-behavior: smooth;
+  background: #000000;
+  color: #e0e0e0;
+  font-family: "Inter", sans-serif;
 }
 
-nav > div a {
+/* Scanline overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* Matrix binary diagonal background */
+.binary-diagonal {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ctext x='0' y='12' font-family='monospace' font-size='10' fill='%2300ff41' opacity='0.15'%3E01%3C/text%3E%3Ctext x='30' y='28' font-family='monospace' font-size='10' fill='%2300ff41' opacity='0.10'%3E10%3C/text%3E%3Ctext x='55' y='44' font-family='monospace' font-size='10' fill='%2300ff41' opacity='0.12'%3E11%3C/text%3E%3Ctext x='10' y='60' font-family='monospace' font-size='10' fill='%2300ff41' opacity='0.08'%3E00%3C/text%3E%3Ctext x='50' y='76' font-family='monospace' font-size='10' fill='%2300ff41' opacity='0.10'%3E01%3C/text%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* Navbar link styling */
+nav a {
+  font-family: "JetBrains Mono", monospace;
   position: relative;
   display: inline-block;
 }
 
-nav > div a.active,
-nav > div a:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 224, 255, 1) 0%,
-    rgba(0, 255, 153, 1) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: all 0.3s ease-out;
+nav a.active,
+nav a:hover {
+  color: #00ff41;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+  transition: all 0.2s ease-out;
 }
 
-nav > div a.active::after {
+nav a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #00ff41;
+  box-shadow: 0 0 6px rgba(0, 255, 65, 0.6);
+  opacity: 1;
+}
+
+nav a::after {
   content: "";
   position: absolute;
   bottom: -4px;
   left: 50%;
   width: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 224, 255, 1) 0%,
-    rgba(0, 255, 153, 1) 100%
-  );
+  height: 1px;
+  background: #00ff41;
   opacity: 0;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 
-nav > div a:hover::after,
-nav > div a.active::after {
+nav a:hover::after {
   width: 100%;
   left: 0;
   opacity: 1;
+}
+
+/* Typewriter cursor animation */
+@keyframes blink-cursor {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.typewriter-cursor::after {
+  content: "|";
+  animation: blink-cursor 1s step-end infinite;
+  color: #00ff41;
+  margin-left: 2px;
+}
+
+/* Pulse halo animation */
+@keyframes pulse-halo {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Terminal box decoration */
+.terminal-box {
+  position: relative;
+  border: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+.terminal-box::before {
+  content: "┌───┐";
+  position: absolute;
+  top: -0.75rem;
+  left: 1rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  color: #00ff41;
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+.terminal-box::after {
+  content: "└───┘";
+  position: absolute;
+  bottom: -0.75rem;
+  right: 1rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  color: #00ff41;
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+/* Green glow divider */
+.matrix-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff41, transparent);
+  box-shadow:
+    0 0 8px rgba(0, 255, 65, 0.5),
+    0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+/* Section title glow */
+.matrix-title {
+  text-shadow:
+    0 0 8px rgba(0, 255, 65, 0.6),
+    0 0 16px rgba(0, 255, 65, 0.2);
+}
+
+/* Card hover transition */
+.matrix-card {
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.matrix-card:hover {
+  border-color: rgba(0, 255, 65, 0.4);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #00ff41;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00cc33;
 }

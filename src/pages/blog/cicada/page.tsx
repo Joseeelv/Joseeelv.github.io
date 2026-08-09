@@ -129,7 +129,7 @@ export default function CicadaBlogPost() {
             Cicada Walkthrough
           </h1>
           <div className="flex justify-center">
-            <div className="w-32">
+            <div className="w-32  pb-5">
               <Divider />
             </div>
           </div>

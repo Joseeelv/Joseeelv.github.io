@@ -2,6 +2,7 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "main"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -25,12 +26,11 @@ updates:
         patterns:
           - "*"
 
-  # Security-only updates: Dependabot opens PRs only for vulnerability fixes
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "develop"
     schedule:
       interval: "weekly"
-      security-updates: true
     open-pull-requests-limit: 10
     labels:
       - "security"
