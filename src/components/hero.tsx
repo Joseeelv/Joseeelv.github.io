@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Download, Linkedin, Github } from "lucide-react";
+import { Mail, Download, LinkedinIcon, GithubIcon } from "lucide-react";
 import Divider from "./divider";
 import ContactForm from "./contactForm";
 import { heroData } from "../data/heroData";
@@ -7,8 +7,8 @@ import { heroData } from "../data/heroData";
 const iconMap: Record<string, React.ReactNode> = {
   Mail: <Mail className="w-4 h-4" />,
   Download: <Download className="w-4 h-4" />,
-  Linkedin: <Linkedin className="w-5 h-5" />,
-  Github: <Github className="w-5 h-5" />,
+  Linkedin: <LinkedinIcon className="w-5 h-5" />,
+  Github: <GithubIcon className="w-5 h-5" />,
 };
 
 export default function Hero() {
