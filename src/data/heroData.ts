@@ -1,15 +1,14 @@
 export const heroData = {
   title: "Hey, I'm Jose Luis",
-  subtitle: "Computer Engineering Student",
+  subtitle: "Junior Software Engineer & Cybersecurity Researcher",
   description:"Experienced in <em>web application development</em> and <em>cybersecurity</em>, focussing on creating secure and efficient software solutions.",
-  
-  // Cambia este valor a true cuando estés ocupado
-  isAvailable: true,
-  
+
+  isAvailable: true, // Change this to false if you want to show the "Busy" status instead of "Open to Work"
+
   status: {
     available: {
       label: "Open to Work",
-      icon: "fab fa-linkedin",
+      icon: "Linkedin",
       href: "https://www.linkedin.com/in/jose-luis-venega-sánchez-817a65285",
       borderColor: "green-900",
       textColor: "text-green-400",
@@ -25,24 +24,24 @@ export const heroData = {
   buttons: [
     {
       label: "Get In Touch!",
-      icon: "fas fa-envelope",
+      icon: "Mail",
     },
     {
       label: "CV",
-      href: "/files/JoseLuisVenegaSánchez.pdf",
-      icon: "fas fa-download",
+      href: "/files/Jose Luis Venega Sánchez.pdf",
+      icon: "Download",
     },
   ],
   socialLinks: [
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/jose-luis-venega-sánchez-817a65285",
-      icon: "fab fa-linkedin",
+      icon: "Linkedin",
     },
     {
       label: "GitHub",
       href: "https://www.github.com/Joseeelv",
-      icon: "fab fa-github",
+      icon: "Github",
     },
     {
       label: "TryHackMe",
