@@ -1,0 +1,16 @@
+services:
+  dev:
+    build: .
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./index.html:/app/index.html
+      - ./vite.config.ts:/app/vite.config.ts
+      - pnpm-store:/app/node_modules
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  pnpm-store:

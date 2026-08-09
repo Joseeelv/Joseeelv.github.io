@@ -8,6 +8,11 @@ export const skillsData = {
       fieldIcon: "/images/skillsIcons/programming-svgrepo-com.webp"
     },
     {
+      field: "Cybersecurity",
+      items: ["Penetration Testing", "Vulnerability Assessment", "Network Security", "Burp Suite", "OWASP", "Metasploit", "Nmap", "CEP security", "CVSS v4.0"],
+      fieldIcon: "/images/skillsIcons/cybersecurity-two-tone-svgrepo-com.svg"
+    },
+    {
       field: "Web Development",
       items: ["React", "Astro", "Next.js", "Node.js", "NestJS", "Tailwind CSS", "Laravel"],
       fieldIcon: "/images/skillsIcons/application-coding-web-code-write-svgrepo-com.svg"
@@ -21,11 +26,6 @@ export const skillsData = {
       field: "DevOps & Tools",
       items: ["Docker", "Kubernetes", "Git", "Azure"],
       fieldIcon: "/images/skillsIcons/dev-ops-solid-svgrepo-com.svg"
-    },
-    {
-      field: "Cybersecurity",
-      items: ["Penetration Testing", "Vulnerability Assessment", "Network Security", "Burp Suite", "OWASP", "Metasploit", "Nmap"],
-      fieldIcon: "/images/skillsIcons/cybersecurity-two-tone-svgrepo-com.svg"
     }
   ],
 }
