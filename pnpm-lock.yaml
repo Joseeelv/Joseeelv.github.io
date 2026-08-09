@@ -50,7 +50,7 @@ importers:
         version: 5.1.2(vite@7.3.5(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.49.2))
       autoprefixer:
         specifier: ^10.4.23
-        version: 10.4.23(postcss@8.5.23)
+        version: 10.4.23(postcss@8.5.26)
       eslint:
         specifier: ^9.39.1
         version: 9.39.2(jiti@2.6.1)
@@ -67,11 +67,11 @@ importers:
         specifier: ^16.5.0
         version: 16.5.0
       postcss:
-        specifier: ^8.5.23
-        version: 8.5.23
+        specifier: ^8.5.26
+        version: 8.5.26
       raw-loader:
         specifier: ^4.0.2
-        version: 4.0.2(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.23))
+        version: 4.0.2(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.26))
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
@@ -1737,8 +1737,8 @@ packages:
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
-  postcss@8.5.23:
-    resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
+  postcss@8.5.26:
+    resolution: {integrity: sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -2597,7 +2597,7 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.1.18
       '@tailwindcss/oxide': 4.1.18
-      postcss: 8.5.23
+      postcss: 8.5.26
       tailwindcss: 4.1.18
 
   '@types/babel__core@7.20.5':
@@ -2909,13 +2909,13 @@ snapshots:
 
   async@3.2.6: {}
 
-  autoprefixer@10.4.23(postcss@8.5.23):
+  autoprefixer@10.4.23(postcss@8.5.26):
     dependencies:
       browserslist: 4.28.1
       caniuse-lite: 1.0.30001763
       fraction.js: 5.3.4
       picocolors: 1.1.1
-      postcss: 8.5.23
+      postcss: 8.5.26
       postcss-value-parser: 4.2.0
 
   bail@2.0.2: {}
@@ -3871,7 +3871,7 @@ snapshots:
 
   postcss-value-parser@4.2.0: {}
 
-  postcss@8.5.23:
+  postcss@8.5.26:
     dependencies:
       nanoid: 3.3.18
       picocolors: 1.1.1
@@ -3891,11 +3891,11 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  raw-loader@4.0.2(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.23)):
+  raw-loader@4.0.2(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.26)):
     dependencies:
       loader-utils: 2.0.4
       schema-utils: 3.3.0
-      webpack: 5.104.1(lightningcss@1.30.2)(postcss@8.5.23)
+      webpack: 5.104.1(lightningcss@1.30.2)(postcss@8.5.26)
 
   react-dom@19.2.3(react@19.2.3):
     dependencies:
@@ -4077,16 +4077,16 @@ snapshots:
 
   tapable@2.3.3: {}
 
-  terser-webpack-plugin@5.6.1(lightningcss@1.30.2)(postcss@8.5.23)(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.23)):
+  terser-webpack-plugin@5.6.1(lightningcss@1.30.2)(postcss@8.5.26)(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.26)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.49.2
-      webpack: 5.104.1(lightningcss@1.30.2)(postcss@8.5.23)
+      webpack: 5.104.1(lightningcss@1.30.2)(postcss@8.5.26)
     optionalDependencies:
       lightningcss: 1.30.2
-      postcss: 8.5.23
+      postcss: 8.5.26
 
   terser@5.49.2:
     dependencies:
@@ -4208,7 +4208,7 @@ snapshots:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
-      postcss: 8.5.23
+      postcss: 8.5.26
       rollup: 4.62.2
       tinyglobby: 0.2.17
     optionalDependencies:
@@ -4226,7 +4226,7 @@ snapshots:
 
   webpack-sources@3.5.1: {}
 
-  webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.23):
+  webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.26):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.9
@@ -4250,7 +4250,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.3
-      terser-webpack-plugin: 5.6.1(lightningcss@1.30.2)(postcss@8.5.23)(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.23))
+      terser-webpack-plugin: 5.6.1(lightningcss@1.30.2)(postcss@8.5.26)(webpack@5.104.1(lightningcss@1.30.2)(postcss@8.5.26))
       watchpack: 2.5.2
       webpack-sources: 3.5.1
     transitivePeerDependencies:
